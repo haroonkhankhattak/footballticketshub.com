@@ -2,6 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, ChevronDown, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { GetServerSideProps } from "next";
+import { client } from "@/lib/graphql/apollo-client";
+
+import { GET_UPCOMING_POPULAR_MATCHES } from "../../lib/graphql/queries/PopularUpcomingMatches";
 
 import {
   Popover,
@@ -9,6 +13,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const { data } = await client.query({
+      query: GET_UPCOMING_POPULAR_MATCHES,
+    });
+
+    return {
+      props: {
+        posts: data.posts,
+      },
+    };
+  } catch (error) {
+    console.error("Apollo SSR error:", error);
+    return { props: { posts: [] } };
+  }
+};
 
 const Header = ({
   isScrolledPastHero,
@@ -53,7 +73,6 @@ const Header = ({
     const savedLanguage = localStorage.getItem("selectedLanguage");
     setSelectedLanguage(savedLanguage ?? "en");
 
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
@@ -85,8 +104,9 @@ const Header = ({
 
   return (
     <header
-      className={`w-full top-0 left-0 z-50 bg-white shadow-md ${fixed ? "fixed" : ""
-        }`}>
+      className={`w-full top-0 left-0 z-50 bg-white shadow-md ${
+        fixed ? "fixed" : ""
+      }`}>
       {/* Top Info Bar */}
       {!isScrolledPastHero && (
         <div className="w-full bg-white text-gray-700 py-2 text-sm border-b">
@@ -178,7 +198,6 @@ const Header = ({
               </PopoverContent>
             </Popover>
 
-
             <Popover
               open={showLanguageSelector}
               onOpenChange={setShowLanguageSelector}>
@@ -226,8 +245,6 @@ const Header = ({
                 </div>
               </PopoverContent>
             </Popover>
-
-
           </div>
         </div>
       </div>

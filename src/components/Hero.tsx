@@ -1,44 +1,44 @@
 import React, { useState } from "react";
-import { Calendar, MapPin, Search, Check } from "lucide-react";
-import TrustPilotRow from "../components/TrustpilotRow";
-import { Link } from "react-router-dom";
+import { Calendar, Search } from "lucide-react";
+import { GET_UPCOMING_POPULAR_MATCHES } from "../lib/graphql/queries/PopularUpcomingMatches";
+import { GetServerSideProps } from "next";
+import { client } from "@/lib/graphql/apollo-client";
+import Link from "next/link";
 
-const Hero = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+type Match = {
+  id: string;
+  name: string;
+  date: string;
+  league: string;
+};
+
+type HeroProps = {
+  posts: Match[];
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const { data } = await client.query({
+      query: GET_UPCOMING_POPULAR_MATCHES,
+    });
+
+    return {
+      props: {
+        posts: data.posts,
+      },
+    };
+  } catch (error) {
+    console.error("Apollo SSR error:", error);
+    return { props: { posts: [] } };
+  }
+};
+
+const Hero = ({ posts }: HeroProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-
-  const featuredMatches = [
-    {
-      id: 1,
-      name: "Man United vs Liverpool",
-      date: "October 20, 2025",
-      league: "Premier League",
-    },
-    {
-      id: 2,
-      name: "Real Madrid vs Barcelona",
-      date: "October 28, 2025",
-      league: "La Liga",
-    },
-    {
-      id: 3,
-      name: "PSG vs Bayern Munich",
-      date: "November 7, 2025",
-      league: "Champions League",
-    },
-    {
-      id: 4,
-      name: "Arsenal vs Tottenham",
-      date: "November 15, 2025",
-      league: "Premier League",
-    },
-  ];
 
   return (
     <main>
-      {/* <TrustPilotRow /> */}
       <div className="w-full relative">
-        {/* Hero Background Image */}
         <div
           className="w-full h-[60vh] min-h-[300px] bg-cover bg-center relative"
           style={{
@@ -81,7 +81,7 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* Quick Picks */}
+              {/* Dynamic Upcoming Matches */}
               <div className="px-6 py-4">
                 <div className="flex items-center mb-2">
                   <Calendar size={16} className="text-ticket-lightcolor mr-2" />
@@ -90,18 +90,16 @@ const Hero = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                  {featuredMatches.map((match) => (
+                  {posts.map((match) => (
                     <Link
                       key={match.id}
-                      to={`/match/${match.id}`}
+                      href={`/match/${match.id}`}
                       className="bg-white p-3 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group">
-                      {/* Match name wrapper */}
                       <div className="font-medium overflow-hidden ">
                         <div className="inline-block whitespace-nowrap transition-transform duration-500 group-hover:translate-x-[-30%]">
                           {match.name}
                         </div>
                       </div>
-
                       <div className="text-xs text-gray-500 flex items-center group-hover:text-ticket-darkcolor mt-1">
                         <Calendar size={12} className="mr-1" />
                         {match.date}
@@ -111,92 +109,8 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-
-            {/* <h1 className="font-dosis text-4xl font-bold mb-6">
-              Be part of the live action!
-            </h1>
-            <p className="text-xl md:text-xl font-bold mb-8">
-              Score tickets fast & safe on the most trusted platform
-            </p> */}
-
-            {/* Search Bar */}
-            {/* <div className="w-full max-w-2xl relative">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search for team, match, stadium or city"
-                className="w-full py-2 px-5 pr-12 rounded-md text-black text-lg focus:outline-none"
-              />
-              <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
-                <Search size={24} />
-              </button>
-            </div> */}
           </div>
         </div>
-
-        {/* Guarantee Banner */}
-        {/* <div className="bg-white py-4 text-center">
-          <div className="flex justify-center items-center text-green-600">
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2"
-            >
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <span className="font-medium">
-              All our orders are 150% guaranteed
-            </span>
-            <svg
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="ml-1"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-          </div>
-        </div> */}
-
-        {/* <div className="max-w-screen-xl mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-16 py-8 mb-4">
-
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">100%</div>
-            <div className="text-sm font-medium text-black">Ticket Guarantee</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">24/7</div>
-            <div className="text-sm font-medium text-black">Customer Support</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">Global</div>
-            <div className="text-sm font-medium text-black">Worldwide Coverage</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">Fast</div>
-            <div className="text-sm font-medium text-black">E-Ticket Delivery</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">Secure</div>
-            <div className="text-sm font-medium text-black">Checkout Process</div>
-          </div>
-
-        </div> */}
       </div>
     </main>
   );
