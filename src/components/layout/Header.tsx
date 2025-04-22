@@ -8,14 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { language } from "i18next";
+
 
 const Header = ({
   isScrolledPastHero,
@@ -55,14 +48,11 @@ const Header = ({
 
   useEffect(() => {
     const savedCurrency = localStorage.getItem("selectedCurrency");
-    if (savedCurrency) {
-      setSelectedCurrency(savedCurrency);
-    }
+    setSelectedCurrency(savedCurrency ?? "GBP");
 
     const savedLanguage = localStorage.getItem("selectedLanguage");
-    if (savedLanguage) {
-      setSelectedLanguage(savedLanguage);
-    }
+    setSelectedLanguage(savedLanguage ?? "en");
+
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -95,9 +85,8 @@ const Header = ({
 
   return (
     <header
-      className={`w-full top-0 left-0 z-50 bg-white shadow-md ${
-        fixed ? "fixed" : ""
-      }`}>
+      className={`w-full top-0 left-0 z-50 bg-white shadow-md ${fixed ? "fixed" : ""
+        }`}>
       {/* Top Info Bar */}
       {!isScrolledPastHero && (
         <div className="w-full bg-white text-gray-700 py-2 text-sm border-b">
@@ -188,174 +177,13 @@ const Header = ({
                 </div>
               </PopoverContent>
             </Popover>
-            {/* <Popover
-              open={showCurrencySelector}
-              onOpenChange={setShowCurrencySelector}>
-              <PopoverTrigger asChild>
-                <button className="flex items-center px-4 py-2 rounded-l-full border border-gray-300 focus:outline-none">
-                  <span className="mr-2">£</span>
-                  <span>GBP</span>
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-100 p-4" align="end">
-                <div className="bg-ltg-white relative grid p-2 pb-2">
-                  <h3 className="font-dosis border-b-ltg-grey-4 border-b pb-2 text-l font-medium">
-                    Select your preferred currency
-                  </h3>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-gbp"
-                    type="button"
-                    data-headlessui-state="open"
-                    onClick={() => i18n.changeLanguage("en")}>
-                    <div className="items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 16"
-                        className="text-ltg-grey-2 h-5 w-8"
-                        aria-hidden="true">
-                        <text
-                          x="50%"
-                          y="50%"
-                          font-size="1rem"
-                          text-anchor="middle"
-                          dominant-baseline="central"
-                          fill="currentColor">
-                          £
-                        </text>
-                      </svg>
-                    </div>
-                    <div>British Pound</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-usd"
-                    type="button"
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 16"
-                        className="text-ltg-grey-2 h-5 w-8"
-                        aria-hidden="true">
-                        <text
-                          x="50%"
-                          y="50%"
-                          font-size="1rem"
-                          text-anchor="middle"
-                          dominant-baseline="central"
-                          fill="currentColor">
-                          $
-                        </text>
-                      </svg>
-                    </div>
-                    <div>US Dollar</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-eur"
-                    type="button"
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 16"
-                        className="text-ltg-grey-2 h-5 w-8"
-                        aria-hidden="true">
-                        <text
-                          x="50%"
-                          y="50%"
-                          font-size="1rem"
-                          text-anchor="middle"
-                          dominant-baseline="central"
-                          fill="currentColor">
-                          €
-                        </text>
-                      </svg>
-                    </div>
-                    <div>Euro</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-aud"
-                    type="button"
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 16"
-                        className="text-ltg-grey-2 h-5 w-8"
-                        aria-hidden="true">
-                        <text
-                          x="50%"
-                          y="50%"
-                          font-size="1rem"
-                          text-anchor="middle"
-                          dominant-baseline="central"
-                          fill="currentColor">
-                          $
-                        </text>
-                      </svg>
-                    </div>
-                    <div>Australian Dollar</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-cad"
-                    type="button"
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 16"
-                        className="text-ltg-grey-2 h-5 w-8"
-                        aria-hidden="true">
-                        <text
-                          x="50%"
-                          y="50%"
-                          font-size="1rem"
-                          text-anchor="middle"
-                          dominant-baseline="central"
-                          fill="currentColor">
-                          $
-                        </text>
-                      </svg>
-                    </div>
-                    <div>Canadian Dollar</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-chf"
-                    type="button"
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 16"
-                        className="text-ltg-grey-2 h-5 w-8"
-                        aria-hidden="true">
-                        <text
-                          x="50%"
-                          y="50%"
-                          font-size="1rem"
-                          text-anchor="middle"
-                          dominant-baseline="central"
-                          fill="currentColor">
-                          ₣
-                        </text>
-                      </svg>
-                    </div>
-                    <div>Swiss Franc</div>
-                  </button>
-                </div>
-              </PopoverContent>
-            </Popover> */}
+
 
             <Popover
               open={showLanguageSelector}
               onOpenChange={setShowLanguageSelector}>
               <PopoverTrigger asChild>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-r-full border border-gray-300 border-l-0 focus:outline-none">
+                <button className="flex items-center gap-4 px-4 py-2 rounded-r-full border border-gray-300 border-l-0 focus:outline-none">
                   {selectedLanguageData ? (
                     <>
                       <span className="w-6 h-6 flex items-center justify-center">
@@ -399,252 +227,7 @@ const Header = ({
               </PopoverContent>
             </Popover>
 
-            {/* <Popover
-              open={showLanguageSelector}
-              onOpenChange={setShowLanguageSelector}>
-              <PopoverTrigger asChild>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-r-full border border-gray-300 border-l-0 focus:outline-none">
-                  <span className="flex items-center">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_0_12494)">
-                        <circle
-                          cx="8"
-                          cy="8"
-                          r="8"
-                          fill="white"
-                          fill-opacity="0.1"></circle>
-                        <circle cx="12" cy="12" r="12" fill="#227FBB"></circle>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M2.21863 18.9531L9.1717 12L2.21863 5.04693C2.997 3.95389 3.95401 2.99688 5.04706 2.21851L12.0001 9.17157L18.9532 2.21851C20.0462 2.99688 21.0032 3.95389 21.7816 5.04693L14.8286 12L21.7816 18.9531C21.0032 20.0461 20.0462 21.0031 18.9532 21.7815L12.0001 14.8284L5.04706 21.7815C3.95401 21.0031 2.99701 20.0461 2.21863 18.9531Z"
-                          fill="white"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M2.52008 4.64134L10.2321 12.3534L11.2928 11.2927L3.51459 3.51452C3.16029 3.86882 2.82804 4.24517 2.52008 4.64134ZM19.3583 2.52002L11.6463 10.232L12.707 11.2927L20.4851 3.51452C20.1309 3.16023 19.7545 2.82798 19.3583 2.52002ZM21.4797 19.3583L13.7676 11.6463L12.707 12.7069L20.4851 20.4851C20.8394 20.1308 21.1717 19.7544 21.4797 19.3583ZM4.6414 21.4796L12.3534 13.7676L11.2928 12.7069L3.51459 20.4851C3.86888 20.8394 4.24523 21.1716 4.6414 21.4796Z"
-                          fill="#E94B35"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M15 0.378052C14.0411 0.131259 13.0359 0 12 0C10.9641 0 9.95886 0.131259 9 0.378052V9H0.378052C0.131259 9.95886 0 10.9641 0 12C0 13.0359 0.131259 14.0411 0.378052 15H9V23.6219C9.95886 23.8687 10.9641 24 12 24C13.0359 24 14.0411 23.8687 15 23.6219V15H23.6219C23.8687 14.0411 24 13.0359 24 12C24 10.9641 23.8687 9.95886 23.6219 9H15V0.378052Z"
-                          fill="white"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M14 0.165917C13.3496 0.0567976 12.6814 0 12 0C11.3186 0 10.6504 0.0567976 10 0.165917V10H0.165917C0.0567976 10.6504 0 11.3186 0 12C0 12.6814 0.0567976 13.3496 0.165917 14H10V23.8341C10.6504 23.9432 11.3186 24 12 24C12.6814 24 13.3496 23.9432 14 23.8341V14H23.8341C23.9432 13.3496 24 12.6814 24 12C24 11.3186 23.9432 10.6504 23.8341 10H14V0.165917Z"
-                          fill="#E94B35"></path>
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_0_12494">
-                          <rect width="24" height="24" fill="white"></rect>
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </span>
-                  <div>EN-GB</div>
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-100 p-0" align="end">
-                <div className="bg-ltg-white relative grid p-4 pb-4">
-                  <h3 className="font-dosis border-b-ltg-grey-4 border-b pb-4 text-l font-medium">
-                    Select your preferred language
-                  </h3>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-en-GB"
-                    type="button"
-                    onClick={() => i18n.changeLanguage("en")}
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_0_12494)">
-                          <circle
-                            cx="8"
-                            cy="8"
-                            r="8"
-                            fill="white"
-                            fill-opacity="0.1"></circle>
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="12"
-                            fill="#227FBB"></circle>
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M2.21863 18.9531L9.1717 12L2.21863 5.04693C2.997 3.95389 3.95401 2.99688 5.04706 2.21851L12.0001 9.17157L18.9532 2.21851C20.0462 2.99688 21.0032 3.95389 21.7816 5.04693L14.8286 12L21.7816 18.9531C21.0032 20.0461 20.0462 21.0031 18.9532 21.7815L12.0001 14.8284L5.04706 21.7815C3.95401 21.0031 2.99701 20.0461 2.21863 18.9531Z"
-                            fill="white"></path>
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M2.52008 4.64134L10.2321 12.3534L11.2928 11.2927L3.51459 3.51452C3.16029 3.86882 2.82804 4.24517 2.52008 4.64134ZM19.3583 2.52002L11.6463 10.232L12.707 11.2927L20.4851 3.51452C20.1309 3.16023 19.7545 2.82798 19.3583 2.52002ZM21.4797 19.3583L13.7676 11.6463L12.707 12.7069L20.4851 20.4851C20.8394 20.1308 21.1717 19.7544 21.4797 19.3583ZM4.6414 21.4796L12.3534 13.7676L11.2928 12.7069L3.51459 20.4851C3.86888 20.8394 4.24523 21.1716 4.6414 21.4796Z"
-                            fill="#E94B35"></path>
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M15 0.378052C14.0411 0.131259 13.0359 0 12 0C10.9641 0 9.95886 0.131259 9 0.378052V9H0.378052C0.131259 9.95886 0 10.9641 0 12C0 13.0359 0.131259 14.0411 0.378052 15H9V23.6219C9.95886 23.8687 10.9641 24 12 24C13.0359 24 14.0411 23.8687 15 23.6219V15H23.6219C23.8687 14.0411 24 13.0359 24 12C24 10.9641 23.8687 9.95886 23.6219 9H15V0.378052Z"
-                            fill="white"></path>
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M14 0.165917C13.3496 0.0567976 12.6814 0 12 0C11.3186 0 10.6504 0.0567976 10 0.165917V10H0.165917C0.0567976 10.6504 0 11.3186 0 12C0 12.6814 0.0567976 13.3496 0.165917 14H10V23.8341C10.6504 23.9432 11.3186 24 12 24C12.6814 24 13.3496 23.9432 14 23.8341V14H23.8341C23.9432 13.3496 24 12.6814 24 12C24 11.3186 23.9432 10.6504 23.8341 10H14V0.165917Z"
-                            fill="#E94B35"></path>
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_0_12494">
-                            <rect width="24" height="24" fill="white"></rect>
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div>English</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-nl"
-                    type="button"
-                    onClick={() => i18n.changeLanguage("nl")}
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M23.3173 15.9995C23.7594 14.7485 24 13.4022 24 11.9998C24 10.5971 23.7593 9.25071 23.3171 7.99951H0.68292C0.240652 9.25071 0 10.5971 0 11.9998C0 13.4022 0.240582 14.7485 0.682725 15.9995H23.3173Z"
-                          fill="#F4F4F4"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M23.3172 16C21.6698 20.6607 17.2249 23.9999 12 23.9999C6.7752 23.9999 2.33027 20.6607 0.682892 16H23.3172Z"
-                          fill="#227FBB"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M12 0C6.7751 0 2.33015 3.33923 0.6828 8H23.3172C21.6698 3.33923 17.2249 0 12 0Z"
-                          fill="#E94B35"></path>
-                      </svg>
-                    </div>
-                    <div>Dutch</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-es"
-                    type="button"
-                    onClick={() => i18n.changeLanguage("es")}
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 8H24C22.3526 3.33923 17.9076 0 12.6827 0C7.45785 0 3.0129 3.33923 1.36554 8Z"
-                          fill="#C60B1E"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 16H24C22.3526 20.6608 17.9076 24 12.6827 24C7.45785 24 3.0129 20.6608 1.36554 16Z"
-                          fill="#FFC400"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 8H24V16H0V8Z"
-                          fill="#C60B1E"
-                        />
-                      </svg>
-                    </div>
-                    <div>Spanish</div>
-                  </button>
 
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-de"
-                    type="button"
-                    onClick={() => i18n.changeLanguage("de")}
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M23.3172 8H0.6828C2.33015 3.33923 6.7751 0 12 0C17.2249 0 21.6698 3.33923 23.3172 8Z"
-                          fill="black"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M23.3173 15.9995C23.7594 14.7485 24 13.4022 24 11.9998C24 10.5971 23.7593 9.25071 23.3171 7.99951H0.68292C0.240652 9.25071 0 10.5971 0 11.9998C0 13.4022 0.240582 14.7485 0.682725 15.9995H23.3173Z"
-                          fill="#E94B35"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M23.3172 16C21.6698 20.6607 17.2249 23.9999 12 23.9999C6.7752 23.9999 2.33027 20.6607 0.682892 16H23.3172Z"
-                          fill="#F2C500"></path>
-                      </svg>
-                    </div>
-                    <div>German</div>
-                  </button>
-                  <button
-                    className="border-b-ltg-grey-4 hover:bg-ltg-grey-4 flex items-center gap-5 border-b px-2 py-4 transition duration-150 ease-in-out hover:bg-opacity-10 hover:text-opacity-100"
-                    data-testid="menu-item-fr"
-                    type="button"
-                    onClick={() => i18n.changeLanguage("fr")}
-                    data-headlessui-state="open">
-                    <div className="items-center justify-center">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M8 23.317C3.33923 21.6696 0 17.2247 0 11.9998C0 6.77492 3.33923 2.32996 8 0.682617V23.317Z"
-                          fill="#227FBB"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M15.9997 0.68279V23.3172C14.7486 23.7594 13.4023 24 11.9998 24C10.5972 24 9.25084 23.7594 7.99969 23.3171V0.682856C9.25084 0.240629 10.5972 0 11.9998 0C13.4023 0 14.7486 0.240605 15.9997 0.68279Z"
-                          fill="white"></path>
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M24 11.9805V12.0191C23.9918 17.2356 20.655 21.6717 16 23.317V0.682617C20.655 2.32793 23.9918 6.76395 24 11.9805Z"
-                          fill="#E94B35"></path>
-                      </svg>
-                    </div>
-                    <div>French</div>
-                  </button>
-                </div>
-              </PopoverContent>
-            </Popover> */}
           </div>
         </div>
       </div>
