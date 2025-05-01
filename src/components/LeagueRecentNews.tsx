@@ -78,32 +78,32 @@ const LeagueRecentNews = ({ league }: { league: string }) => {
 
   const recentTickets = [
     {
-      date: "21 Mar 2025",
-      name: "Christophe M obtained 1 ticket for",
-      match: "Spain vs Netherlands.",
+      date: "25 Apr 2025",
+      name: "Christophe M obtained 2 tickets for",
+      match: "Liverpool vs Tottenham Hotspur.",
     },
     {
-      date: "21 Mar 2025",
+      date: "25 Apr 2025",
       name: "Simon M grabbed 1 ticket for",
-      match: "Aston Villa vs Paris Saint-Germain.",
+      match: "Arsenal vs Paris Saint-Germain.",
     },
     {
-      date: "21 Mar 2025",
+      date: "25 Apr 2025",
       name: "Michael M bought 3 tickets for",
       match: "Fulham vs Everton.",
     },
     {
-      date: "21 Mar 2025",
+      date: "25 Apr 2025",
       name: "Precious A got 2 tickets for",
       match: "Manchester United vs Wolverhampton.",
     },
     {
-      date: "21 Mar 2025",
+      date: "25 Apr 2025",
       name: "Michael M bought 3 tickets for",
       match: "Fulham vs Everton.",
     },
     {
-      date: "21 Mar 2025",
+      date: "25 Apr 2025",
       name: "Precious A got 2 tickets for",
       match: "Manchester United vs Wolverhampton.",
     },

@@ -4,139 +4,139 @@ import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 
 interface Hero2Props {
-  matchTitle?: string;
-  league?: string;
-  date?: string;
-  time?: string;
-  venue?: string;
-  minPrice?: number;
+    matchTitle?: string;
+    league?: string;
+    date?: string;
+    time?: string;
+    venue?: string;
+    minPrice?: number;
 }
 
 const HeroSection: React.FC<Hero2Props> = ({
-  matchTitle = "Liverpool vs West Ham United Tickets",
-  league = "ENGLISH PREMIER LEAGUE",
-  date = "Sunday, 13th April 2025",
-  time = "14:00",
-  venue = "Anfield Road, Liverpool, United Kingdom",
-  minPrice = 199.0,
+    matchTitle = "Liverpool vs Arsenal Tickets",
+    league = "ENGLISH PREMIER LEAGUE",
+    date = "Sunday, 11th May 2025",
+    time = "16:30",
+    venue = "Anfield Road, Liverpool, United Kingdom",
+    minPrice = 350.0,
 }) => {
-  const [ticketQuantity, setTicketQuantity] = useState<string>("1");
-  const [priceRange, setPriceRange] = useState<string>("£199 - £1,000");
-  const [location, setLocation] = useState<string>("All");
-  const [seatedTogether, setSeatedTogether] = useState<boolean>(true);
+    const [ticketQuantity, setTicketQuantity] = useState<string>("1");
+    const [priceRange, setPriceRange] = useState<string>("£199 - £1,000");
+    const [location, setLocation] = useState<string>("All");
+    const [seatedTogether, setSeatedTogether] = useState<boolean>(true);
 
-  return (
-    <section className="w-full bg-white ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="rounded-md shadow-md border-b overflow-hidden">
-          {/* Image at the top */}
+    return (
+        <section className="w-full bg-white ">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="rounded-md shadow-md border-b overflow-hidden">
+                    {/* Image at the top */}
 
-          <div className="h-[200px] relative ">
-            <img
-              src="/uploads/teamfans/Liverpool.webp"
-              alt="Liverpool fans"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/50"></div>
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-              {/* <h1 className="text-4xl md:text-5xl font-bold mb-4">Liverpool FC Tickets</h1> */}
-              {/* <p className="text-xl max-w-3xl text-center">
+                    <div className="h-[200px] relative ">
+                        <img
+                            src="/uploads/teamfans/Liverpool.webp"
+                            alt="Liverpool fans"
+                            className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/50"></div>
+                        <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+                            {/* <h1 className="text-4xl md:text-5xl font-bold mb-4">Liverpool FC Tickets</h1> */}
+                            {/* <p className="text-xl max-w-3xl text-center">
                                 Experience the thrill of watching Liverpool at Anfield - secure your seats Now!
                             </p> */}
-            </div>
-          </div>
+                        </div>
+                    </div>
 
-          {/* Content below image */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 p-4 gap-8">
-            {/* Match info - Left side */}
-            <div className="lg:col-span-3 space-y-6">
-              <div>
-                <h1 className="text-2xl font-semibold mt-1">{matchTitle}</h1>
-                <p className="text-sky-500 text-sm uppercase tracking-wider mt-2">
-                  {league}
-                </p>
+                    {/* Content below image */}
+                    <div className="grid grid-cols-1 lg:grid-cols-5 p-4 gap-8">
+                        {/* Match info - Left side */}
+                        <div className="lg:col-span-3 space-y-6">
+                            <div>
+                                <h1 className="text-2xl font-semibold mt-1">{matchTitle}</h1>
+                                <p className="text-sky-500 text-sm uppercase tracking-wider mt-2">
+                                    {league}
+                                </p>
 
-                <div className="flex flex-col gap-2 mt-4">
-                  <div className="flex items-center text-gray-600">
-                    <Calendar
-                      size={18}
-                      className="mr-2 flex-shrink-0 text-gray-600"
-                    />
-                    <span className="text-sm text-gray-600">
-                      {date} {time}
-                    </span>
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <MapPin
-                      size={18}
-                      className="mr-2 flex-shrink-0 text-gray-600"
-                    />
-                    <span className="text-sm text-gray-600">{venue}</span>
-                  </div>
+                                <div className="flex flex-col gap-2 mt-4">
+                                    <div className="flex items-center text-gray-600">
+                                        <Calendar
+                                            size={18}
+                                            className="mr-2 flex-shrink-0 text-gray-600"
+                                        />
+                                        <span className="text-sm text-gray-600">
+                                            {date} {time}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center text-gray-600">
+                                        <MapPin
+                                            size={18}
+                                            className="mr-2 flex-shrink-0 text-gray-600"
+                                        />
+                                        <span className="text-sm text-gray-600">{venue}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p className="text-m font-light">
+                                <span className="font-bold">Tickets</span> available from{" "}
+                                <span className="font-bold">£{minPrice.toFixed(2)}</span>
+                            </p>
+                        </div>
+
+                        {/* Trust indicators - Right side */}
+                        <div className="lg:col-span-2 flex flex-col justify-center space-y-4">
+                            <div className="flex items-start">
+                                <CheckCircle
+                                    className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
+                                    size={20}
+                                />
+                                <p className="text-gray-700 text-sm">
+                                    Tickets provided by our Trusted partners
+                                </p>
+                            </div>
+                            <div className="flex items-start">
+                                <CheckCircle
+                                    className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
+                                    size={20}
+                                />
+                                <p className="text-gray-700 text-sm">
+                                    All our orders are 150% guaranteed{" "}
+                                    {/* <Info size={16} className="inline ml-1 text-gray-400" /> */}
+                                </p>
+                            </div>
+                            <div className="flex items-start">
+                                <CheckCircle
+                                    className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
+                                    size={20}
+                                />
+                                <p className="text-gray-700 text-sm">
+                                    Seated together, unless stated otherwise
+                                </p>
+                            </div>
+                            <div className="flex items-start">
+                                <CheckCircle
+                                    className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
+                                    size={20}
+                                />
+                                <p className="text-gray-700 text-sm">
+                                    Seated together, unless stated otherwise
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
 
-              <p className="text-m font-light">
-                <span className="font-bold">Tickets</span> available from{" "}
-                <span className="font-bold">£{minPrice.toFixed(2)}</span>
-              </p>
-            </div>
+                {/* <Separator className="my-4 bg-transparent" /> */}
 
-            {/* Trust indicators - Right side */}
-            <div className="lg:col-span-2 flex flex-col justify-center space-y-4">
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
-                  size={20}
-                />
-                <p className="text-gray-700 text-sm">
-                  Tickets provided by our Trusted partners
-                </p>
-              </div>
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
-                  size={20}
-                />
-                <p className="text-gray-700 text-sm">
-                  All our orders are 150% guaranteed{" "}
-                  {/* <Info size={16} className="inline ml-1 text-gray-400" /> */}
-                </p>
-              </div>
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
-                  size={20}
-                />
-                <p className="text-gray-700 text-sm">
-                  Seated together, unless stated otherwise
-                </p>
-              </div>
-              <div className="flex items-start">
-                <CheckCircle
-                  className="text-sky-500 mt-0.5 mr-3 flex-shrink-0"
-                  size={20}
-                />
-                <p className="text-gray-700 text-sm">
-                  Seated together, unless stated otherwise
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* <Separator className="my-4 bg-transparent" /> */}
-
-        {/* Ticket filters */}
-        {/* <Card className="bg-gray-100 p-2 rounded-sm">
+                {/* Ticket filters */}
+                {/* <Card className="bg-gray-100 p-2 rounded-sm">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
                         <div>
                             <h3 className="text-base  font-semibold mb-3">How many tickets are you booking?</h3>
@@ -237,7 +237,7 @@ const HeroSection: React.FC<Hero2Props> = ({
 
                 </Card> */}
 
-        {/* <div className="flex justify-between items-center mt-4">
+                {/* <div className="flex justify-between items-center mt-4">
                     <div className="text-gray-600 text-sm">
                         <span className="text-gray-800"><strong>166 results</strong></span> based on your search
                     </div>
@@ -247,17 +247,17 @@ const HeroSection: React.FC<Hero2Props> = ({
                     </Button>
                 </div> */}
 
-        {/* Available tickets section */}
-        {/* <div className="mt-8 border-b pb-4">
+                {/* Available tickets section */}
+                {/* <div className="mt-8 border-b pb-4">
                     <h2 className="text-xl font-semibold">Available Tickets</h2>
                     <p className="text-gray-600 text-sm mt-2">
                         Tickets are listed and priced by our trusted ticket partners competing with each other to deliver you the best seats and lowest prices.
                         Find your seats, select the number of tickets, then click 'Get Now' to proceed.
                     </p>
                 </div> */}
-      </div>
-    </section>
-  );
+            </div>
+        </section>
+    );
 };
 
 export default HeroSection;

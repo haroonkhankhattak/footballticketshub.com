@@ -3,38 +3,38 @@ import { Calendar, MapPin, Search, Check } from "lucide-react";
 import TrustPilotRow from "../components/TrustpilotRow";
 import { Link } from "react-router-dom";
 // import type { HomePageProps } from "../pages/Index";
-import type { HomePageProps } from "../pages/Index";
+// import type { HomePageProps } from "../pages/Index";
 
-const Hero = ({ featuredMatches }: HomePageProps) => {
+const Hero = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const featuredMatches = [
-  //   {
-  //     id: 1,
-  //     name: "Man United vs Liverpool",
-  //     date: "October 20, 2025",
-  //     league: "Premier League",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Real Madrid vs Barcelona",
-  //     date: "October 28, 2025",
-  //     league: "La Liga",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "PSG vs Bayern Munich",
-  //     date: "November 7, 2025",
-  //     league: "Champions League",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Arsenal vs Tottenham",
-  //     date: "November 15, 2025",
-  //     league: "Premier League",
-  //   },
-  // ];
+  const featuredMatches = [
+    {
+      id: 1,
+      name: "Asenal vs Bournemouth",
+      date: "May 03, 2025",
+      league: "Premier League",
+    },
+    {
+      id: 3,
+      name: "Newcastle vs Chelsea",
+      date: "May 11, 2025",
+      league: "English Premier League",
+    },
+    {
+      id: 3,
+      name: "Chelsea vs Liverpool",
+      date: "May 04, 2025",
+      league: "English Premier League",
+    },
+    {
+      id: 4,
+      name: "Arsenal vs Paris Saint-Germain",
+      date: "April 29, 2025",
+      league: "Champions League",
+    },
+  ];
 
   return (
     <main>
@@ -95,12 +95,12 @@ const Hero = ({ featuredMatches }: HomePageProps) => {
                   {featuredMatches.map((match) => (
                     <Link
                       key={match.id}
-                      to={`/match/${match.id}`}
+                      to={`/tickets/${match.id}`}
                       className="bg-white p-3 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group">
                       {/* Match name wrapper */}
                       <div className="font-medium overflow-hidden ">
                         <div className="inline-block whitespace-nowrap transition-transform duration-500 group-hover:translate-x-[-30%]">
-                          {match.title}
+                          {match.name}
                         </div>
                       </div>
 

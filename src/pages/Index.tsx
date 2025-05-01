@@ -11,46 +11,18 @@ import Testimonials from "@/components/Testimonials";
 import RecentNews from "@/components/RecentNews";
 import FootballTickets from "@/components/FootballTickets";
 import Footer from "@/components/layout/Footer";
-import FeaturedMatches from "@/components/FeaturedMatches";
-
 import { useTranslation } from "react-i18next";
-import { client } from "@/lib/graphql/apollo-client";
-import { GET_UPCOMING_POPULAR_MATCHES } from "@/lib/graphql/queries/PopularUpcomingMatches";
+import { getHomePageProps } from "@/lib/graphql/queries/getHomePageProps";
+import { HomePageProps } from "@/lib/graphql/queries/getHomePageProps";
 
 console.log("💥 This file is being evaluated");
 
-export type Match = {
-  id: string;
-  title: string;
-  date: string;
-  slug: string;
-};
 
-export type HomePageProps = {
-  featuredMatches: Match[];
-};
 
-// ✅ SSR Function
-export const getServerSideProps: GetServerSideProps<
-  HomePageProps
-> = async () => {
-  try {
-    const { data } = await client.query({
-      query: GET_UPCOMING_POPULAR_MATCHES,
-    });
 
-    console.log("Fetched matches from Apollo:", data);
+export const getServerSideProps = getHomePageProps;
 
-    return {
-      props: {
-        featuredMatches: data?.posts ?? [],
-      },
-    };
-  } catch (error) {
-    console.error("Apollo SSR error:", error);
-    return { props: { featuredMatches: [] } };
-  }
-};
+
 
 // ✅ Page Component
 const Index = ({ featuredMatches }: HomePageProps) => {
@@ -88,7 +60,7 @@ const Index = ({ featuredMatches }: HomePageProps) => {
         <TrustPilotRow />
         <main className="flex-grow pt-[120px]">
           <div ref={heroRef}>
-            {/* <Hero featuredMatches={featuredMatches} /> */}
+            <Hero />
           </div>
           <PopularTeams />
           <PopularMatchesList />

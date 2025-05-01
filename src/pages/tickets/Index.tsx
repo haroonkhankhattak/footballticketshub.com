@@ -25,7 +25,7 @@ const Tickets = () => {
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [selectedSeat, setSelectedSeat] = useState<string | null>(null);
-  const titles = ["Home", "Premier League", "Liverpool vs West Ham United"];
+  const titles = ["Home", "Premier League", "Liverpool vs Arsenal"];
   const links = [
     "/",
     "/league?league=Premier League",
@@ -37,6 +37,7 @@ const Tickets = () => {
   const [location, setLocation] = useState<string>("All");
   const [seatedTogether, setSeatedTogether] = useState<boolean>(false);
   const tickets = [
+
     {
       id: 1,
       match: "Liverpool vs West Ham United",
@@ -44,10 +45,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "main-stand",
+      area: "main-stand-lower-tier",
       section: "L10",
       row: "22",
-      price: 195,
+      price: 350,
       availability: 8,
     },
     {
@@ -57,10 +58,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "kop",
+      area: "the-kop",
       section: "204",
       row: "15",
-      price: 220,
+      price: 550,
       availability: 4,
     },
     {
@@ -70,10 +71,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "sir-kenny-dalglish",
+      area: "kenny-dalglish-stand-lower-tier",
       section: "KJ",
       row: "10",
-      price: 185,
+      price: 675,
       availability: 12,
     },
     {
@@ -83,10 +84,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "anfield-road",
+      area: "anfield-road-upper",
       section: "AU4",
       row: "18",
-      price: 165,
+      price: 725,
       availability: 6,
     },
     {
@@ -96,10 +97,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "main-stand",
+      area: "main-stand-lower-tier",
       section: "M3",
       row: "5",
-      price: 225,
+      price: 800,
       availability: 3,
     },
     {
@@ -109,10 +110,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "kop",
+      area: "the-kop",
       section: "305",
       row: "7",
-      price: 210,
+      price: 950,
       availability: 2,
     },
     {
@@ -122,10 +123,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "sir-kenny-dalglish",
+      area: "kenny-dalglish-stand-lower-tier",
       section: "KJ",
       row: "10",
-      price: 185,
+      price: 375,
       availability: 12,
     },
     {
@@ -135,10 +136,10 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "sir-kenny-dalglish",
+      area: "kenny-dalglish-stand-lower-tier",
       section: "KJ",
       row: "10",
-      price: 185,
+      price: 1125,
       availability: 12,
     },
     {
@@ -148,13 +149,12 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "sir-kenny-dalglish",
+      area: "anfield-road-upper",
       section: "AU3",
       row: "10",
-      price: 185,
+      price: 500,
       availability: 12,
     },
-
     {
       id: 10,
       match: "Liverpool vs West Ham United",
@@ -162,13 +162,79 @@ const Tickets = () => {
       time: "15:00",
       competition: "Premier League",
       venue: "Anfield, Liverpool",
-      area: "sir-kenny-dalglish",
+      area: "anfield-road-upper",
       section: "AU3",
       row: "10",
-      price: 185,
+      price: 725,
       availability: 12,
     },
+    {
+      id: 11,
+      match: "Liverpool vs West Ham United",
+      date: "14 April 2025",
+      time: "15:00",
+      competition: "Premier League",
+      venue: "Anfield, Liverpool",
+      area: "main-stand-lower-tier",
+      section: "L9",
+      row: "22",
+      price: 350,
+      availability: 8,
+    },
+    {
+      id: 12,
+      match: "Liverpool vs West Ham United",
+      date: "14 April 2025",
+      time: "15:00",
+      competition: "Premier League",
+      venue: "Anfield, Liverpool",
+      area: "the-kop",
+      section: "202",
+      row: "15",
+      price: 550,
+      availability: 4,
+    },
+    {
+      id: 13,
+      match: "Liverpool vs West Ham United",
+      date: "14 April 2025",
+      time: "15:00",
+      competition: "Premier League",
+      venue: "Anfield, Liverpool",
+      area: "kenny-dalglish-stand-lower-tier",
+      section: "KL",
+      row: "10",
+      price: 675,
+      availability: 12,
+    },
+    {
+      id: 14,
+      match: "Liverpool vs West Ham United",
+      date: "14 April 2025",
+      time: "15:00",
+      competition: "Premier League",
+      venue: "Anfield, Liverpool",
+      area: "anfield-road-upper",
+      section: "AL5",
+      row: "18",
+      price: 725,
+      availability: 6,
+    },
+    {
+      id: 15,
+      match: "Liverpool vs West Ham United",
+      date: "14 April 2025",
+      time: "15:00",
+      competition: "Premier League",
+      venue: "Anfield, Liverpool",
+      area: "main-stand-lower-tier",
+      section: "M3",
+      row: "5",
+      price: 800,
+      availability: 3,
+    },
   ];
+
   const areaNames = {
     "anfield-road-upper": "ANFIELD ROAD UPPER",
     "anfield-road-lower": "ANFIELD ROAD LOWER",
@@ -311,11 +377,11 @@ const Tickets = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="£199 - £1,000">
-                        £199 - £1,000
+                        £350 - £500
                       </SelectItem>
-                      <SelectItem value="£199 - £500">£199 - £500</SelectItem>
+                      <SelectItem value="£199 - £500">£500 - £800</SelectItem>
                       <SelectItem value="£500 - £1,000">
-                        £500 - £1,000
+                        £800 - £1,000
                       </SelectItem>
                       <SelectItem value="£1,000+">£1,000+</SelectItem>
                     </SelectContent>

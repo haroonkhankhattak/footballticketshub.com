@@ -104,9 +104,8 @@ const Header = ({
 
   return (
     <header
-      className={`w-full top-0 left-0 z-50 bg-white shadow-md ${
-        fixed ? "fixed" : ""
-      }`}>
+      className={`w-full top-0 left-0 z-50 bg-white shadow-md ${fixed ? "fixed" : ""
+        }`}>
       {/* Top Info Bar */}
       {!isScrolledPastHero && (
         <div className="w-full bg-white text-gray-700 py-2 text-sm border-b">
@@ -254,8 +253,13 @@ const Header = ({
         <div className="ticket-container">
           <nav className="flex justify-between">
             <div className="flex">
-              <Link
+              {/* <Link
                 to="/"
+                className="navbar-link px-0 font-bold py-4 whitespace-nowrap hover:text-ticket-red">
+                HOME
+              </Link> */}
+              <Link
+                to="/test"
                 className="navbar-link px-0 font-bold py-4 whitespace-nowrap hover:text-ticket-red">
                 HOME
               </Link>
@@ -293,7 +297,7 @@ const Header = ({
                           className="w-6 h-6 object-contain mr-2" // Adjust size and margin
                         /> */}
                         <a
-                          href="/matches?team=Liverpool&league=Premier League"
+                          href="/matches?team=Arsenal&league=Premier League"
                           className="text-l text-white hover:text-ticket-red transition-colors">
                           Arsenal
                         </a>

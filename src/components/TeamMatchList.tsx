@@ -17,6 +17,7 @@ interface MatchProps {
   venue: string;
   country: string;
   priceRange: string;
+  league: string;
 }
 
 interface Team {
@@ -135,6 +136,7 @@ const MatchRow: React.FC<MatchProps> = ({
   venue,
   country,
   priceRange,
+  league,
 }) => {
   return (
     <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
@@ -150,7 +152,7 @@ const MatchRow: React.FC<MatchProps> = ({
 
       <div className="col-span-8 pl-4">
         <div className="text-xs text-gray-500 uppercase mb-1 group-hover:text-black transition">
-          {competition}
+          {league}
         </div>
         <div className="text-lg font-medium mb-1 group-hover:text-ticket-red transition">
           {teams}
@@ -182,92 +184,179 @@ const TeamMatchList = () => {
   const league = searchParams.get("league");
   const team = searchParams.get("team");
 
-  const matches = [
+  type Match = {
+    id: number;
+    date: string;         // e.g., "27"
+    month: string;        // e.g., "APR"
+    year: string;         // e.g., "2025"
+    competition: string;  // league name
+    teams: string;        // "Liverpool vs Tottenham Hotspur"
+    time: string;         // e.g., "16:30"
+    venue: string;        // e.g., "Anfield Road, Liverpool"
+    country: string;      // e.g., "United Kingdom"
+    priceRange: string;   // e.g., "350"
+    league: string
+  };
+
+
+  const liverpoolMatches: Match[] = [
     {
       id: 1,
-      date: "21",
-      month: "MAR",
-      year: "2025",
-      competition: league,
-      teams: team + " vs Fulham",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-      priceRange: "230",
-    },
-    {
-      id: 2,
-      date: "24",
-      month: "MAR",
-      year: "2025",
-      competition: league,
-      teams: team + " vs Chelsea",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-      priceRange: "150",
-    },
-    {
-      id: 3,
-      date: "28",
-      month: "MAR",
-      year: "2025",
-      competition: league,
-      teams: team + " vs Fulham",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-      priceRange: "110",
-    },
-    {
-      id: 4,
-      date: "01",
+      date: "27",
       month: "APR",
       year: "2025",
       competition: league,
-      teams: team + " vs Manchester United",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
+      teams: team + " vs Tottenham Hotspur",
+      time: "16:30",
+      venue: "Andfield Road, Liverpool",
       country: "United Kingdom",
-      priceRange: "320",
-    },
-    {
-      id: 5,
-      date: "24",
-      month: "MAR",
-      year: "2025",
-      competition: league,
-      teams: team + " vs Auston Villa",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-      priceRange: "250",
-    },
-    {
-      id: 1,
-      date: "21",
-      month: "MAR",
-      year: "2025",
-      competition: league,
-      teams: team + " vs Fulham",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-      priceRange: "230",
+      priceRange: "350",
+      league: "English premier league"
     },
     {
       id: 2,
-      date: "24",
-      month: "MAR",
+      date: "04",
+      month: "MAY",
       year: "2025",
       competition: league,
-      teams: team + " vs Chelsea",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
+      teams: "Chelsea vs " + team,
+      time: "16:30",
+      venue: "Stamford Bridge, London",
       country: "United Kingdom",
-      priceRange: "150",
+      priceRange: "250",
+      league: "English premier league"
+    },
+    {
+      id: 3,
+      date: "11",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: team + " vs Arsenal",
+      time: "16:30",
+      venue: "Andfield Road, Liverpool",
+      country: "United Kingdom",
+      priceRange: "299",
+      league: "English premier league"
+    },
+    {
+      id: 4,
+      date: "19",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: "Brighton & Hove Albion vs " + team,
+      time: "20:00",
+      venue: "Falmer Stadium, Brighton",
+      country: "United Kingdom",
+      priceRange: "450",
+      league: "English premier league"
+    },
+    {
+      id: 5,
+      date: "25",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: team + " vs Auston Villa",
+      time: "16:00",
+      venue: "Anfield Road, Liverpool",
+      country: "United Kingdom",
+      priceRange: "399",
+      league: "English premier league"
     },
   ];
+
+  const arsenalMatches: Match[] = [
+    {
+      id: 1,
+      date: "29",
+      month: "APR",
+      year: "2025",
+      competition: league,
+      teams: team + " vs Paris Saint-Germain",
+      time: "20:00",
+      venue: "Emirates Stadium, London",
+      country: "United Kingdom",
+      priceRange: "320",
+      league: "Champions League"
+    },
+    {
+      id: 2,
+      date: "03",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: team + " vs Bournemouth",
+      time: "17:30",
+      venue: "Stamford Bridge, London",
+      country: "United Kingdom",
+      priceRange: "200",
+      league: "English premier league"
+    },
+    {
+      id: 3,
+      date: "07",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: "Paris Saint-Germain vs " + team,
+      time: "21:00",
+      venue: "Parc de Princes, Paris",
+      country: "France",
+      priceRange: "300",
+      league: "Champions League"
+    },
+    {
+      id: 4,
+      date: "11",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: "Liverpool vs " + team,
+      time: "20:00",
+      venue: "Anfield Road, Liverpool",
+      country: "United Kingdom",
+      priceRange: "450",
+      league: "English premier league"
+    },
+    {
+      id: 5,
+      date: "18",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: team + " vs Newcastle United",
+      time: "16:00",
+      venue: "Emirates Stadium, London",
+      country: "United Kingdom",
+      priceRange: "299",
+      league: "English premier league"
+    },
+    {
+      id: 6,
+      date: "25",
+      month: "MAY",
+      year: "2025",
+      competition: league,
+      teams: "Southampton vs " + team,
+      time: "16:00",
+      venue: "St Mary Stadium, Southampton",
+      country: "United Kingdom",
+      priceRange: "150",
+      league: "English premier league"
+    },
+  ];
+
+
+  const matches: Match[] =
+    team === "Liverpool"
+      ? liverpoolMatches
+      : team === "Arsenal"
+        ? arsenalMatches
+        : [];
+
+
 
   return (
     <section className=" bg-white">
@@ -317,7 +406,7 @@ const TeamMatchList = () => {
 
             <div className="lg:col-span-7 py-6">
               <div className="text-xl font-medium py-2 ">
-                Upcoming English Premier League Fixtures
+                Upcoming {team} Fixtures
               </div>
               <FilterButton />
               <div className="max-h-[600px] overflow-y-auto space-y-2">

@@ -14,8 +14,11 @@ export interface CheckoutFormData {
   acceptUpdates: boolean;
 
   // Step 2: Visitor Details
-  visitorFirstName: string;
-  visitorLastName: string;
+  visitor1FirstName: string;
+  visitor1LastName: string;
+
+  visitor2FirstName: string;
+  visitor2LastName: string;
 
   // Step 3: Payment Details
   cardNumber: string;
