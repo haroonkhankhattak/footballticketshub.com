@@ -1,22 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { MapPin, Clock } from "lucide-react";
 import LeagueCard from "./LeagueCard";
 import { useSearchParams } from "react-router-dom";
 import FilterButton from "@/components/FilterButton";
+import { leagues } from "../lib/constants/leagues";
+import { EventProps, Props } from "../types/event";
+import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
+import { Match } from "../types/match";
+import { convertSlugToTeamName } from "../lib/teamUtils";
 
-interface MatchProps {
-  id: number;
-  date: string;
-  month: string;
-  year: string;
-  competition: string;
-  teams: string;
-  time: string;
-  venue: string;
-  country: string;
-  priceRange: string;
-}
 
 interface Team {
   name: string;
@@ -27,6 +20,8 @@ interface LeagueSectionProps {
   title: string;
   teams: Team[];
 }
+
+let HomeTeam: string;
 
 const LeagueSection: React.FC<LeagueSectionProps> = ({ title, teams }) => {
   return (
@@ -49,253 +44,226 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({ title, teams }) => {
   );
 };
 
-const leagues = [
-  {
-    title: "English Premier League Teams",
-    viewAllLink: "/english-premiership-tickets.html",
-    teams: [
-      { name: "Arsenal", link: "/matches?team=Arsenal&league=Premier League" },
-      {
-        name: "Aston Villa",
-        link: "/matches?team=Aston Villa&league=Premier League",
-      },
-      {
-        name: "Bournemouth",
-        link: "/matches?team=Bournemouth&league=Premier League",
-      },
-      {
-        name: "Brentford",
-        link: "/matches?team=Brentford&league=Premier League",
-      },
-      {
-        name: "Brighton",
-        link: "/matches?team=Brighton&league=Premier League",
-      },
-      { name: "Burnley", link: "/matches?team=Burnley&league=Premier League" },
-      { name: "Chelsea", link: "/matches?team=Chelsea&league=Premier League" },
-      {
-        name: "Crystal Palace",
-        link: "/matches?team=Crystal Palace&league=Premier League",
-      },
-      { name: "Everton", link: "/matches?team=Everton&league=Premier League" },
-      { name: "Fulham", link: "/matches?team=Fulham&league=Premier League" },
-      {
-        name: "Liverpool",
-        link: "/matches?team=Liverpool&league=Premier League",
-      },
-      {
-        name: "Luton Town",
-        link: "/matches?team=Luton Town&league=Premier League",
-      },
-      {
-        name: "Manchester City",
-        link: "/matches?team=Manchester City&league=Premier League",
-      },
-      {
-        name: "Manchester United",
-        link: "/matches?team=Manchester United&league=Premier League",
-      },
-      {
-        name: "Newcastle United",
-        link: "/matches?team=Newcastle United&league=Premier League",
-      },
-      {
-        name: "Nottingham Forest",
-        link: "/matches?team=Nottingham Forest&league=Premier League",
-      },
-      {
-        name: "Sheffield United",
-        link: "/matches?team=Sheffield United&league=Premier League",
-      },
-      {
-        name: "Tottenham Hotspur",
-        link: "/matches?team=Tottenham Hotspur&league=Premier League",
-      },
-      {
-        name: "West Ham United",
-        link: "/matches?team=West Ham United&league=Premier League",
-      },
-      {
-        name: "Wolverhampton Wanderers",
-        link: "/matches?team=Wolverhampton Wanderers&league=Premier League",
-      },
-    ],
-  },
-];
 
-const MatchRow: React.FC<MatchProps> = ({
+const MatchRow: React.FC<Match> = ({
   id,
   date,
-  month,
-  year,
-  competition,
-  teams,
-  time,
+  league,
+  title,
+  home_team,
+  away_team,
+  home_team_slug,
+  away_team_slug,
+  slug,
   venue,
+  city,
   country,
-  priceRange,
+  price_starts_from,
+
 }) => {
+  // const match = urlToEvent.match(/\/fixtures\/(.*?)-tickets-(.*)\.html/);
+
+
+  const newDate = new Date(Number(date));
+
+  const day = String(newDate.getUTCDate()).padStart(2, '0'); // "04"
+
+  const month = newDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(); // AUG
+  const year = newDate.getUTCFullYear(); // 2025
+  const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
+
+
+  const { selectedCurrency } = useCurrencyLanguage();
+
+  const currencySymbols: Record<string, string> = {
+    gbp: "£",
+    usd: "$",
+    eur: "€",
+    chf: "Fr",
+    sek: "kr",
+    nok: "kr",
+    dkk: "kr",
+  };
+
+  const currencyKey = selectedCurrency.toLowerCase();
+  const symbol = currencySymbols[selectedCurrency] || "";
+  // const price = minPrice[currencyKey] ?? "N/A";
+
+  const price = price_starts_from;
+
+  const eventCode = ""; // your logic here
+  const eventTypeCode = ""; // your logic here
+
   return (
-    <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
-      <div className="col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
-        <div className="py-5">
-          <div className="uppercase text-xs text-gray-800">{month}</div>
-          <div className="text-3xl font-bold">{date}</div>
-          <div className="text-sm text-gray-400">{year}</div>
-        </div>
-      </div>
+    <Link
+      to={`/tickets/${slug}`}
+      state={{
+        homeTeam: home_team,
+        eventId: id,
+        eventCode: eventCode,
+        eventTypeCode: eventTypeCode,
+        pageNumber: 1,
+        eventName: title,
+        categoryName: league,
+        day: day,
+        month: month,
+        year: year,
+        time: time,
+        venue: venue,
+        city: city,
+        country: country,
+        minPrice: price_starts_from,
+      }}
+    >
+      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
+        {/* Date */}
+        <div className="col-span-3 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
+          <div className="py-5">
+            <div className="uppercase text-[10px] sm:text-xs text-gray-800">{month}</div>
+            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
+            <div className="text-xs sm:text-sm text-gray-400">{year}</div>
 
-      <div className="col-span-8 pl-4">
-        <div className="text-xs text-gray-500 uppercase mb-1 group-hover:text-black transition">
-          {competition}
+            {/* Show time below year only on mobile */}
+            <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
+              <Clock size={12} />
+              <span>{time}</span>
+            </div>
+          </div>
         </div>
-        <div className="text-lg font-medium mb-1 group-hover:text-ticket-red transition">
-          {teams}
-        </div>
-        <div className="flex items-center font-light text-sm  text-gray-600 group-hover:text-gray-800 transition">
-          <Clock size={14} className="mr-1" />
-          {time}
-          <span className="mx-2">•</span>
-          <MapPin size={14} className="mr-1" />
-          {venue}, {country}
-        </div>
-      </div>
 
-      <div className="col-span-3 px-0 text-center">
-        <Link
-          to={`/match/${id}`}
-          className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
-          View Tickets
-        </Link>
-        <span className="inline-block text-sm">From £{priceRange}</span>
+
+        <div className="col-span-9 sm:col-span-8 pl-4">
+          <div className="text-[10px] sm:text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
+            {league}
+          </div>
+
+          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
+            {title}
+          </div>
+
+          {/* Desktop view: time + location */}
+          <div className="hidden sm:flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800 transition">
+            <Clock size={14} className="mr-1" />
+            {time}
+            <span className="mx-2">•</span>
+            <MapPin size={14} className="mr-1" />
+            {venue}, {city}, {country}
+          </div>
+
+          {/* Mobile view: show only location */}
+          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-1">
+            <MapPin size={12} className="mr-1" />
+            {venue}, {city}, {country}
+          </div>
+        </div>
+
+
+        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
+          <Link
+            to={`/tickets/${slug}`}
+            state={{
+              homeTeam: home_team,
+              eventId: id,
+              eventCode: eventCode,
+              eventTypeCode: eventTypeCode,
+              pageNumber: 1,
+              eventName: title,
+              categoryName: league,
+              day: day,
+              month: month,
+              year: year,
+              time: time,
+              venue: venue,
+              city: city,
+              country: country,
+              minPrice: price,
+            }}
+            className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+            View Tickets
+          </Link>
+
+          <span className="inline-block text-sm">From {symbol}{price}</span>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
-const LeagueMatchList = () => {
-  const [searchParams] = useSearchParams();
-  const league = searchParams.get("league");
+const LeagueMatchList: React.FC<Props> = ({ matches, loading, error }) => {
+  const { league } = useParams();
 
-  const matches = [
-    {
-      id: 1,
-      date: "27",
-      month: "APR",
-      year: "2025",
-      competition: league,
-      teams: "Liverpol vs Tottenham Hotspur",
-      time: "16:30",
-      venue: "Andfield Road, Liverpool",
-      country: "United Kingdom",
-      priceRange: "350",
-      league: "English premier league"
-    },
-    {
-      id: 2,
-      date: "04",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Chelsea vs Liverpool",
-      time: "16:30",
-      venue: "Stamford Bridge, London",
-      country: "United Kingdom",
-      priceRange: "250",
-      league: "English premier league"
-    },
-    {
-      id: 3,
-      date: "11",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Liverpool vs Arsenal",
-      time: "16:30",
-      venue: "Andfield Road, Liverpool",
-      country: "United Kingdom",
-      priceRange: "299",
-      league: "English premier league"
-    },
-    {
-      id: 4,
-      date: "19",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Brighton & Hove Albion vs Liverpool",
-      time: "20:00",
-      venue: "Falmer Stadium, Brighton",
-      country: "United Kingdom",
-      priceRange: "450",
-      league: "English premier league"
-    },
-    {
-      id: 5,
-      date: "25",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Liverpool vs Auston Villa",
-      time: "16:00",
-      venue: "Anfield Road, Liverpool",
-      country: "United Kingdom",
-      priceRange: "399",
-      league: "English premier league"
-    },
-    {
-      id: 2,
-      date: "03",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Arsenal vs Bournemouth",
-      time: "17:30",
-      venue: "Stamford Bridge, London",
-      country: "United Kingdom",
-      priceRange: "200",
-      league: "English premier league"
-    },
-    {
-      id: 4,
-      date: "11",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Liverpool vs Arsenal",
-      time: "20:00",
-      venue: "Anfield Road, Liverpool",
-      country: "United Kingdom",
-      priceRange: "450",
-      league: "English premier league"
-    },
-    {
-      id: 5,
-      date: "18",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Arsenal vs Newcastle United",
-      time: "16:00",
-      venue: "Emirates Stadium, London",
-      country: "United Kingdom",
-      priceRange: "299",
-      league: "English premier league"
-    },
-    {
-      id: 6,
-      date: "25",
-      month: "MAY",
-      year: "2025",
-      competition: league,
-      teams: "Southampton vs Arsenal",
-      time: "16:00",
-      venue: "St Mary Stadium, Southampton",
-      country: "United Kingdom",
-      priceRange: "150",
-      league: "English premier league"
-    },
-  ];
+  const leagueName = convertSlugToTeamName(league);
+
+  const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
+
+  // const team = searchParams.get("team");
+  HomeTeam = "team";
+
+  // Function to be passed to FilterButton to update the date filter state
+  const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
+    console.log("Filter changed to:", filterType);
+    setCurrentDateFilter(filterType);
+  };
+
+  // Apply both filters using the local state for date and search param for team
+  const filteredMatches = getFilteredMatches(
+    matches,
+    currentDateFilter
+  );
+
+
+  function getFilteredMatches(events, dateFilter) {
+    console.log("Filtering matches with date filter:", dateFilter);
+    if (dateFilter === "all") {
+      return events;
+    }
+
+    // Reference current date based on the provided context (June 5, 2025).
+    // Set to midnight local time for consistent date comparison.
+    const currentDate = new Date(2025, 5, 5); // Month is 0-indexed (June is 5)
+    currentDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+
+    let filterDays;
+    if (dateFilter === "30 days") {
+      filterDays = 30;
+    } else if (dateFilter === "7 days") {
+      filterDays = 7;
+    } else if (dateFilter === "3 days") {
+      filterDays = 3;
+    } else {
+      // If an invalid filter is provided, return all events or handle as an error.
+      // For this case, we'll default to returning all events.
+      console.warn(`Invalid date filter: ${dateFilter}. Returning all matches.`);
+      return events;
+    }
+
+    // Calculate the end date for the filter period
+    const endDate = new Date(currentDate);
+    endDate.setDate(currentDate.getDate() + filterDays);
+    endDate.setHours(23, 59, 59, 999); // Set to end of the day to include matches on the last day
+
+    // Helper map for month names to 0-indexed numbers
+    const monthNameToNumber = {
+      "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
+      "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
+    };
+
+    return events.filter(event => {
+      // Construct the event date from its properties (year, month, day)
+      // Set to midnight local time for consistent date comparison
+      const eventDate = new Date(event.year, monthNameToNumber[event.month], event.day);
+      eventDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+
+      // Filter criteria: event must be on or after the current date,
+      // and on or before the calculated end date.
+      return eventDate >= currentDate && eventDate <= endDate;
+    });
+  }
+
+
+
+  // if (loading) return <div>Loading matches...</div>;
+  // if (error) return <div>{error}</div>;
 
   return (
     <section className=" bg-white">
@@ -315,10 +283,12 @@ const LeagueMatchList = () => {
             </li>
             <li>
               <a
-                href="/league?league=Premier League"
+                href={`/league/${encodeURIComponent(
+                  league
+                )}`}
                 data-testid="breadcrumb"
                 className="whitespace-nowrap hover:underline">
-                {league}
+                {leagueName}
               </a>
               <span className="pl-3 text-xl lg:text-2xl font-bold"></span>
             </li>
@@ -327,18 +297,32 @@ const LeagueMatchList = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-7 py-4">
-            <LeagueCard leagueName={league} />
+            <LeagueCard leagueName={leagueName} />
 
             <div className="lg:col-span-7 py-6">
-              <div className="text-xl font-medium py-2 ">
+              <div className="text-xl font-medium  py-2 ">
                 Upcoming English Premier League Fixtures
               </div>
-              <FilterButton />
+              <div className="text-sm text-black py-2 ">
+                {filteredMatches.length} results found.
+              </div>
+              <FilterButton
+                onFilterChange={handleDateFilterChange}
+                selectedFilter={currentDateFilter}
+              />
 
               <div className="max-h-[600px] overflow-y-auto space-y-2">
-                {matches.map((match) => (
-                  <MatchRow key={match.id} {...match} />
-                ))}
+                {loading ? (
+                  <div className="w-full py-6 flex items-center justify-center bg-white/60">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
+                  </div>
+                ) : filteredMatches.length === 0 ? (
+                  <div className="text-center text-gray-500 py-8">No matches found.</div>
+                ) : (
+                  filteredMatches.map((match) => (
+                    <MatchRow key={match.id} {...match} />
+                  ))
+                )}
               </div>
             </div>
           </div>

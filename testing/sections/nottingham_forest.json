@@ -1,0 +1,325 @@
+[
+  {
+    "categoryId": 541,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 542,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 544,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 545,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 547,
+    "name": "TRENT END UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2568,
+        "name": "T1"
+      },
+      {
+        "sectionId": 2569,
+        "name": "T2"
+      },
+      {
+        "sectionId": 2570,
+        "name": "T3"
+      },
+      {
+        "sectionId": 2571,
+        "name": "T4"
+      },
+      {
+        "sectionId": 2572,
+        "name": "T5"
+      }
+    ]
+  },
+  {
+    "categoryId": 548,
+    "name": "TRENT END LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2573,
+        "name": "T6"
+      },
+      {
+        "sectionId": 2574,
+        "name": "T7"
+      },
+      {
+        "sectionId": 2575,
+        "name": "T8"
+      },
+      {
+        "sectionId": 2576,
+        "name": "T9"
+      },
+      {
+        "sectionId": 2577,
+        "name": "T10"
+      }
+    ]
+  },
+  {
+    "categoryId": 550,
+    "name": "BRIDGFORD STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2578,
+        "name": "U1"
+      },
+      {
+        "sectionId": 2579,
+        "name": "U2"
+      },
+      {
+        "sectionId": 2580,
+        "name": "V1"
+      },
+      {
+        "sectionId": 2581,
+        "name": "V2"
+      }
+    ]
+  },
+  {
+    "categoryId": 551,
+    "name": "BRIDGFORD STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2582,
+        "name": "Y1"
+      },
+      {
+        "sectionId": 2583,
+        "name": "Y2"
+      },
+      {
+        "sectionId": 2584,
+        "name": "Z"
+      }
+    ]
+  },
+  {
+    "categoryId": 553,
+    "name": "PETE TAYLOR MAIN STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2585,
+        "name": "A3"
+      },
+      {
+        "sectionId": 2586,
+        "name": "A4"
+      },
+      {
+        "sectionId": 2587,
+        "name": "B3"
+      },
+      {
+        "sectionId": 2588,
+        "name": "B4"
+      },
+      {
+        "sectionId": 2589,
+        "name": "C3"
+      },
+      {
+        "sectionId": 2590,
+        "name": "C4"
+      },
+      {
+        "sectionId": 2591,
+        "name": "D3"
+      },
+      {
+        "sectionId": 2592,
+        "name": "D4"
+      },
+      {
+        "sectionId": 2593,
+        "name": "E1"
+      },
+      {
+        "sectionId": 2594,
+        "name": "E2"
+      },
+      {
+        "sectionId": 2595,
+        "name": "F2"
+      },
+      {
+        "sectionId": 2596,
+        "name": "F3"
+      }
+    ]
+  },
+  {
+    "categoryId": 554,
+    "name": "PETE TAYLOR MAIN STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2597,
+        "name": "A1"
+      },
+      {
+        "sectionId": 2598,
+        "name": "A2"
+      },
+      {
+        "sectionId": 2599,
+        "name": "B1"
+      },
+      {
+        "sectionId": 2600,
+        "name": "B2"
+      },
+      {
+        "sectionId": 2601,
+        "name": "C1"
+      },
+      {
+        "sectionId": 2602,
+        "name": "C2"
+      },
+      {
+        "sectionId": 2603,
+        "name": "D1"
+      },
+      {
+        "sectionId": 2604,
+        "name": "D2"
+      },
+      {
+        "sectionId": 2605,
+        "name": "RR1"
+      },
+      {
+        "sectionId": 2606,
+        "name": "RR2"
+      },
+      {
+        "sectionId": 2607,
+        "name": "RR3"
+      },
+      {
+        "sectionId": 2608,
+        "name": "F1"
+      }
+    ]
+  },
+  {
+    "categoryId": 556,
+    "name": "THE BRIAN CLOUGH STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2609,
+        "name": "G"
+      },
+      {
+        "sectionId": 2610,
+        "name": "H"
+      },
+      {
+        "sectionId": 2611,
+        "name": "J"
+      },
+      {
+        "sectionId": 2612,
+        "name": "K"
+      },
+      {
+        "sectionId": 2613,
+        "name": "L"
+      },
+      {
+        "sectionId": 2614,
+        "name": "M"
+      },
+      {
+        "sectionId": 2615,
+        "name": "N"
+      },
+      {
+        "sectionId": 2616,
+        "name": "P"
+      }
+    ]
+  },
+  {
+    "categoryId": 557,
+    "name": "THE BRIAN CLOUGH STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2617,
+        "name": "Q"
+      },
+      {
+        "sectionId": 2618,
+        "name": "R"
+      },
+      {
+        "sectionId": 2619,
+        "name": "S"
+      },
+      {
+        "sectionId": 2620,
+        "name": "T"
+      }
+    ]
+  },
+  {
+    "categoryId": 558,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2621,
+        "name": "W"
+      },
+      {
+        "sectionId": 2622,
+        "name": "X1"
+      },
+      {
+        "sectionId": 2623,
+        "name": "X2"
+      }
+    ]
+  },
+  {
+    "categoryId": 560,
+    "name": "VIP - HOSPITALITY SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 561,
+    "name": "VIP - HOSPITALITY LONGSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

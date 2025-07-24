@@ -1,0 +1,107 @@
+[
+  {
+    "categoryId": 485,
+    "name": "SOUTH UPPER PREMIUM SEATS",
+    "sectionMandatory": false,
+    "sections": [
+      { "sectionId": 2308, "name": "S301", "tier": "Upper" },
+      { "sectionId": 2309, "name": "S302", "tier": "Upper" },
+      { "sectionId": 2310, "name": "S303", "tier": "Upper" },
+      { "sectionId": 2311, "name": "S304", "tier": "Upper" },
+      { "sectionId": 2312, "name": "S305", "tier": "Upper" },
+      { "sectionId": 2313, "name": "S306", "tier": "Upper" },
+      { "sectionId": 2314, "name": "S307", "tier": "Upper" },
+      { "sectionId": 2315, "name": "S308", "tier": "Upper" }
+    ]
+  },
+  {
+    "categoryId": 486,
+    "name": "SOUTH MIDDLE STANDARD",
+    "sectionMandatory": false,
+    "sections": [
+      { "sectionId": 2316, "name": "S201", "tier": "Middle" },
+      { "sectionId": 2317, "name": "S202", "tier": "Middle" },
+      { "sectionId": 2318, "name": "S203", "tier": "Middle" },
+      { "sectionId": 2319, "name": "S204", "tier": "Middle" },
+      { "sectionId": 2320, "name": "S205", "tier": "Middle" },
+      { "sectionId": 2321, "name": "S206", "tier": "Middle" },
+      { "sectionId": 2322, "name": "S207", "tier": "Middle" },
+      { "sectionId": 2323, "name": "S208", "tier": "Middle" }
+    ]
+  },
+  {
+    "categoryId": 487,
+    "name": "SOUTH LOWER STANDARD",
+    "sectionMandatory": false,
+    "sections": [
+      { "sectionId": 2324, "name": "S100", "tier": "Lower" },
+      { "sectionId": 2325, "name": "S101", "tier": "Lower" },
+      { "sectionId": 2326, "name": "S102", "tier": "Lower" },
+      { "sectionId": 2327, "name": "S103", "tier": "Lower" },
+      { "sectionId": 2328, "name": "S104", "tier": "Lower" },
+      { "sectionId": 2329, "name": "S105", "tier": "Lower" },
+      { "sectionId": 2330, "name": "S106", "tier": "Lower" },
+      { "sectionId": 2331, "name": "S107", "tier": "Lower" },
+      { "sectionId": 2332, "name": "S108", "tier": "Lower" },
+      { "sectionId": 2333, "name": "S109", "tier": "Lower" }
+    ]
+  },
+  {
+    "categoryId": 488,
+    "name": "NORTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      { "sectionId": 2334, "name": "N120", "tier": "Single" },
+      { "sectionId": 2335, "name": "N121", "tier": "Single" },
+      { "sectionId": 2336, "name": "N122", "tier": "Single" },
+      { "sectionId": 2337, "name": "N123", "tier": "Single" },
+      { "sectionId": 2338, "name": "N124", "tier": "Single" },
+      { "sectionId": 2339, "name": "N125", "tier": "Single" },
+      { "sectionId": 2340, "name": "N126", "tier": "Single" },
+      { "sectionId": 2341, "name": "N127", "tier": "Single" }
+    ]
+  },
+  {
+    "categoryId": 489,
+    "name": "EAST STAND",
+    "sectionMandatory": false,
+    "sections": [
+      { "sectionId": 2342, "name": "E110", "tier": "Lower" },
+      { "sectionId": 2343, "name": "E111", "tier": "Lower" },
+      { "sectionId": 2344, "name": "E112", "tier": "Lower" },
+      { "sectionId": 2345, "name": "E113", "tier": "Lower" },
+      { "sectionId": 2346, "name": "E114", "tier": "Lower" },
+      { "sectionId": 2347, "name": "E115", "tier": "Lower" },
+      { "sectionId": 2348, "name": "E116", "tier": "Lower" },
+      { "sectionId": 2349, "name": "E117", "tier": "Lower" },
+      { "sectionId": 2350, "name": "E212", "tier": "Upper" },
+      { "sectionId": 2351, "name": "E213", "tier": "Upper" },
+      { "sectionId": 2352, "name": "E214", "tier": "Upper" },
+      { "sectionId": 2353, "name": "E215", "tier": "Upper" },
+      { "sectionId": 2354, "name": "E216", "tier": "Upper" },
+      { "sectionId": 2355, "name": "E217", "tier": "Upper" },
+      { "sectionId": 2356, "name": "E218", "tier": "Upper" }
+    ]
+  },
+  {
+    "categoryId": 490,
+    "name": "WEST STAND",
+    "sectionMandatory": false,
+    "sections": [
+      { "sectionId": 2357, "name": "W131", "tier": "Lower" },
+      { "sectionId": 2358, "name": "W132", "tier": "Lower" },
+      { "sectionId": 2359, "name": "W133", "tier": "Lower" },
+      { "sectionId": 2360, "name": "W134", "tier": "Lower" },
+      { "sectionId": 2361, "name": "W135", "tier": "Lower" },
+      { "sectionId": 2362, "name": "W136", "tier": "Lower" },
+      { "sectionId": 2363, "name": "W137", "tier": "Lower" },
+      { "sectionId": 2364, "name": "W230", "tier": "Upper" },
+      { "sectionId": 2365, "name": "W231", "tier": "Upper" },
+      { "sectionId": 2366, "name": "W232", "tier": "Upper" },
+      { "sectionId": 2367, "name": "W233", "tier": "Upper" },
+      { "sectionId": 2368, "name": "W234", "tier": "Upper" },
+      { "sectionId": 2369, "name": "W235", "tier": "Upper" },
+      { "sectionId": 2370, "name": "W236", "tier": "Upper" }
+    ]
+  }
+]

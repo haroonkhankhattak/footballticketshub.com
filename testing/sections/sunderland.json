@@ -1,0 +1,588 @@
+[
+  {
+    "categoryId": 518,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 519,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 521,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 522,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 523,
+    "name": "SOUTH STAND",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 524,
+    "name": "SOUTH STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2456,
+        "name": "U10"
+      },
+      {
+        "sectionId": 2457,
+        "name": "U11"
+      },
+      {
+        "sectionId": 2458,
+        "name": "U12"
+      },
+      {
+        "sectionId": 2459,
+        "name": "U13"
+      },
+      {
+        "sectionId": 2460,
+        "name": "U14"
+      },
+      {
+        "sectionId": 2461,
+        "name": "U15"
+      },
+      {
+        "sectionId": 2462,
+        "name": "U16"
+      },
+      {
+        "sectionId": 2463,
+        "name": "U17"
+      }
+    ]
+  },
+  {
+    "categoryId": 525,
+    "name": "SOUTH STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2464,
+        "name": "L10"
+      },
+      {
+        "sectionId": 2465,
+        "name": "L11"
+      },
+      {
+        "sectionId": 2466,
+        "name": "L32"
+      },
+      {
+        "sectionId": 2467,
+        "name": "L33"
+      },
+      {
+        "sectionId": 2468,
+        "name": "L34"
+      },
+      {
+        "sectionId": 2469,
+        "name": "L35"
+      },
+      {
+        "sectionId": 2470,
+        "name": "L36"
+      },
+      {
+        "sectionId": 2471,
+        "name": "L13"
+      },
+      {
+        "sectionId": 2472,
+        "name": "L14"
+      }
+    ]
+  },
+  {
+    "categoryId": 526,
+    "name": "NORTH STAND",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 527,
+    "name": "NORTH STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2473,
+        "name": "U24"
+      },
+      {
+        "sectionId": 2474,
+        "name": "U25"
+      },
+      {
+        "sectionId": 2475,
+        "name": "U26"
+      },
+      {
+        "sectionId": 2476,
+        "name": "U27"
+      },
+      {
+        "sectionId": 2477,
+        "name": "U28"
+      },
+      {
+        "sectionId": 2478,
+        "name": "U29"
+      },
+      {
+        "sectionId": 2479,
+        "name": "U30"
+      },
+      {
+        "sectionId": 2480,
+        "name": "U31"
+      },
+      {
+        "sectionId": 2481,
+        "name": "U32"
+      },
+      {
+        "sectionId": 2482,
+        "name": "U33"
+      },
+      {
+        "sectionId": 2483,
+        "name": "U34"
+      },
+      {
+        "sectionId": 2484,
+        "name": "U35"
+      },
+      {
+        "sectionId": 2485,
+        "name": "U36"
+      }
+    ]
+  },
+  {
+    "categoryId": 528,
+    "name": "NORTH STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2486,
+        "name": "L23"
+      },
+      {
+        "sectionId": 2487,
+        "name": "L24"
+      },
+      {
+        "sectionId": 2488,
+        "name": "L25"
+      },
+      {
+        "sectionId": 2489,
+        "name": "L26"
+      },
+      {
+        "sectionId": 2490,
+        "name": "L27"
+      },
+      {
+        "sectionId": 2491,
+        "name": "L28"
+      },
+      {
+        "sectionId": 2492,
+        "name": "L29"
+      },
+      {
+        "sectionId": 2493,
+        "name": "L30"
+      },
+      {
+        "sectionId": 2494,
+        "name": "L31"
+      }
+    ]
+  },
+  {
+    "categoryId": 529,
+    "name": "BLACK CATS BAR",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2495,
+        "name": "U29B"
+      },
+      {
+        "sectionId": 2496,
+        "name": "U30B"
+      },
+      {
+        "sectionId": 2497,
+        "name": "U31B"
+      }
+    ]
+  },
+  {
+    "categoryId": 530,
+    "name": "EAST STAND",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 531,
+    "name": "EAST STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2498,
+        "name": "U1"
+      },
+      {
+        "sectionId": 2499,
+        "name": "U2"
+      },
+      {
+        "sectionId": 2500,
+        "name": "U3"
+      },
+      {
+        "sectionId": 2501,
+        "name": "U4"
+      },
+      {
+        "sectionId": 2502,
+        "name": "U5"
+      },
+      {
+        "sectionId": 2503,
+        "name": "U6"
+      },
+      {
+        "sectionId": 2504,
+        "name": "U7"
+      },
+      {
+        "sectionId": 2505,
+        "name": "U8"
+      },
+      {
+        "sectionId": 2506,
+        "name": "U9"
+      }
+    ]
+  },
+  {
+    "categoryId": 532,
+    "name": "EAST STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2507,
+        "name": "L1"
+      },
+      {
+        "sectionId": 2508,
+        "name": "L2"
+      },
+      {
+        "sectionId": 2509,
+        "name": "L3"
+      },
+      {
+        "sectionId": 2510,
+        "name": "L4"
+      },
+      {
+        "sectionId": 2511,
+        "name": "L5"
+      },
+      {
+        "sectionId": 2512,
+        "name": "L6"
+      },
+      {
+        "sectionId": 2513,
+        "name": "L7"
+      },
+      {
+        "sectionId": 2514,
+        "name": "L8"
+      },
+      {
+        "sectionId": 2515,
+        "name": "L9"
+      }
+    ]
+  },
+  {
+    "categoryId": 533,
+    "name": "WEST STAND",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 534,
+    "name": "WEST STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2516,
+        "name": "U18"
+      },
+      {
+        "sectionId": 2517,
+        "name": "U19"
+      },
+      {
+        "sectionId": 2518,
+        "name": "U20"
+      },
+      {
+        "sectionId": 2519,
+        "name": "U21"
+      },
+      {
+        "sectionId": 2520,
+        "name": "U22"
+      },
+      {
+        "sectionId": 2521,
+        "name": "U23"
+      }
+    ]
+  },
+  {
+    "categoryId": 535,
+    "name": "WEST STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2522,
+        "name": "L15"
+      },
+      {
+        "sectionId": 2523,
+        "name": "L16"
+      },
+      {
+        "sectionId": 2524,
+        "name": "L17"
+      },
+      {
+        "sectionId": 2525,
+        "name": "L18"
+      },
+      {
+        "sectionId": 2526,
+        "name": "L19"
+      },
+      {
+        "sectionId": 2527,
+        "name": "L20"
+      },
+      {
+        "sectionId": 2528,
+        "name": "L21"
+      },
+      {
+        "sectionId": 2529,
+        "name": "L22"
+      }
+    ]
+  },
+  {
+    "categoryId": 536,
+    "name": "PREMIER CONCOURSE WEST STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2530,
+        "name": "P1"
+      },
+      {
+        "sectionId": 2531,
+        "name": "P2"
+      },
+      {
+        "sectionId": 2532,
+        "name": "P3"
+      },
+      {
+        "sectionId": 2533,
+        "name": "P4"
+      },
+      {
+        "sectionId": 2534,
+        "name": "P5"
+      },
+      {
+        "sectionId": 2535,
+        "name": "P6"
+      },
+      {
+        "sectionId": 2536,
+        "name": "P7"
+      },
+      {
+        "sectionId": 2537,
+        "name": "P8"
+      },
+      {
+        "sectionId": 2538,
+        "name": "P9"
+      },
+      {
+        "sectionId": 2539,
+        "name": "P10"
+      },
+      {
+        "sectionId": 2540,
+        "name": "P11"
+      },
+      {
+        "sectionId": 2541,
+        "name": "P12"
+      },
+      {
+        "sectionId": 2542,
+        "name": "P13"
+      }
+    ]
+  },
+  {
+    "categoryId": 537,
+    "name": "NORTH WEST UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2543,
+        "name": "P14"
+      },
+      {
+        "sectionId": 2544,
+        "name": "P15"
+      },
+      {
+        "sectionId": 2545,
+        "name": "P16"
+      },
+      {
+        "sectionId": 2546,
+        "name": "P17"
+      },
+      {
+        "sectionId": 2547,
+        "name": "P18"
+      },
+      {
+        "sectionId": 2548,
+        "name": "P19"
+      },
+      {
+        "sectionId": 2549,
+        "name": "P20"
+      },
+      {
+        "sectionId": 2550,
+        "name": "P21"
+      },
+      {
+        "sectionId": 2551,
+        "name": "P22"
+      },
+      {
+        "sectionId": 2552,
+        "name": "P23"
+      }
+    ]
+  },
+  {
+    "categoryId": 538,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 2553,
+        "name": "P24"
+      },
+      {
+        "sectionId": 2554,
+        "name": "P25"
+      },
+      {
+        "sectionId": 2555,
+        "name": "P26"
+      },
+      {
+        "sectionId": 2556,
+        "name": "P27"
+      },
+      {
+        "sectionId": 2557,
+        "name": "P28"
+      },
+      {
+        "sectionId": 2558,
+        "name": "P29"
+      },
+      {
+        "sectionId": 2559,
+        "name": "P30"
+      },
+      {
+        "sectionId": 2560,
+        "name": "P31"
+      },
+      {
+        "sectionId": 2561,
+        "name": "P32"
+      },
+      {
+        "sectionId": 2562,
+        "name": "P33"
+      },
+      {
+        "sectionId": 2563,
+        "name": "P34"
+      },
+      {
+        "sectionId": 2564,
+        "name": "P35"
+      },
+      {
+        "sectionId": 2565,
+        "name": "P36"
+      },
+      {
+        "sectionId": 2566,
+        "name": "P37"
+      },
+      {
+        "sectionId": 2567,
+        "name": "P38"
+      }
+    ]
+  },
+  {
+    "categoryId": 539,
+    "name": "VIP - HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

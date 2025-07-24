@@ -10,10 +10,9 @@ interface ApiClientOptions {
   headers?: HeadersInit;
   body?: unknown;
   cache?: RequestCache;
-  next?: { revalidate?: number }; // for Next.js specific revalidation
+  next?: { revalidate?: number };
 }
 
-// Instead of <T = any>, we make <T = unknown>
 export async function ApiClient<T = unknown>(
   url: string,
   options: ApiClientOptions = {}

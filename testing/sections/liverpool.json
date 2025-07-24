@@ -1,0 +1,711 @@
+ [
+  {
+    "categoryId": 48,
+    "name": "ANFIELD ROAD UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 330,
+        "name": "BLOCK AU8"
+      },
+      {
+        "sectionId": 331,
+        "name": "BLOCK AU7"
+      },
+      {
+        "sectionId": 332,
+        "name": "BLOCK AU6"
+      },
+      {
+        "sectionId": 333,
+        "name": "BLOCK AU5"
+      },
+      {
+        "sectionId": 334,
+        "name": "BLOCK AU4"
+      },
+      {
+        "sectionId": 335,
+        "name": "BLOCK AU3"
+      },
+      {
+        "sectionId": 336,
+        "name": "BLOCK AU2"
+      },
+      {
+        "sectionId": 337,
+        "name": "BLOCK AU1"
+      }
+    ]
+  },
+  {
+    "categoryId": 49,
+    "name": "ANFIELD ROAD LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 338,
+        "name": "BLOCK AL1"
+      },
+      {
+        "sectionId": 339,
+        "name": "BLOCK AL2"
+      },
+      {
+        "sectionId": 340,
+        "name": "BLOCK AL3"
+      },
+      {
+        "sectionId": 341,
+        "name": "BLOCK AL4"
+      },
+      {
+        "sectionId": 342,
+        "name": "BLOCK AL5"
+      },
+      {
+        "sectionId": 343,
+        "name": "BLOCK AL6"
+      }
+    ]
+  },
+  {
+    "categoryId": 50,
+    "name": "KOP GRANDSTAND",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 51,
+    "name": "THE KOP",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 344,
+        "name": "102"
+      },
+      {
+        "sectionId": 345,
+        "name": "103"
+      },
+      {
+        "sectionId": 346,
+        "name": "104"
+      },
+      {
+        "sectionId": 347,
+        "name": "105"
+      },
+      {
+        "sectionId": 348,
+        "name": "106"
+      },
+      {
+        "sectionId": 349,
+        "name": "107"
+      },
+      {
+        "sectionId": 350,
+        "name": "108"
+      },
+      {
+        "sectionId": 351,
+        "name": "109"
+      },
+      {
+        "sectionId": 352,
+        "name": "202"
+      },
+      {
+        "sectionId": 353,
+        "name": "203"
+      },
+      {
+        "sectionId": 354,
+        "name": "204"
+      },
+      {
+        "sectionId": 355,
+        "name": "205"
+      },
+      {
+        "sectionId": 356,
+        "name": "206"
+      },
+      {
+        "sectionId": 357,
+        "name": "207"
+      },
+      {
+        "sectionId": 358,
+        "name": "208"
+      },
+      {
+        "sectionId": 359,
+        "name": "306"
+      },
+      {
+        "sectionId": 360,
+        "name": "305"
+      },
+      {
+        "sectionId": 361,
+        "name": "304"
+      }
+    ]
+  },
+  {
+    "categoryId": 56,
+    "name": "LONGSIDE UPPER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 57,
+    "name": "LONGSIDE LOWER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 59,
+    "name": "MAIN STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 362,
+        "name": "L1"
+      },
+      {
+        "sectionId": 363,
+        "name": "L2"
+      },
+      {
+        "sectionId": 364,
+        "name": "L3"
+      },
+      {
+        "sectionId": 365,
+        "name": "L4"
+      },
+      {
+        "sectionId": 366,
+        "name": "L5"
+      },
+      {
+        "sectionId": 367,
+        "name": "L6"
+      },
+      {
+        "sectionId": 368,
+        "name": "L7"
+      },
+      {
+        "sectionId": 369,
+        "name": "L8"
+      },
+      {
+        "sectionId": 370,
+        "name": "L9"
+      },
+      {
+        "sectionId": 371,
+        "name": "L10"
+      },
+      {
+        "sectionId": 372,
+        "name": "L11"
+      },
+      {
+        "sectionId": 373,
+        "name": "L12"
+      },
+      {
+        "sectionId": 374,
+        "name": "L13"
+      },
+      {
+        "sectionId": 375,
+        "name": "L14"
+      },
+      {
+        "sectionId": 376,
+        "name": "L15"
+      },
+      {
+        "sectionId": 377,
+        "name": "L16"
+      }
+    ]
+  },
+  {
+    "categoryId": 60,
+    "name": "MAIN STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 378,
+        "name": "U1"
+      },
+      {
+        "sectionId": 379,
+        "name": "U2"
+      },
+      {
+        "sectionId": 380,
+        "name": "U3"
+      },
+      {
+        "sectionId": 381,
+        "name": "U4"
+      },
+      {
+        "sectionId": 382,
+        "name": "U5"
+      },
+      {
+        "sectionId": 383,
+        "name": "U6"
+      },
+      {
+        "sectionId": 384,
+        "name": "U7"
+      },
+      {
+        "sectionId": 385,
+        "name": "U8"
+      },
+      {
+        "sectionId": 386,
+        "name": "U9"
+      }
+    ]
+  },
+  {
+    "categoryId": 62,
+    "name": "KENNY DALGLISH STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 387,
+        "name": "KG"
+      },
+      {
+        "sectionId": 388,
+        "name": "KH"
+      },
+      {
+        "sectionId": 389,
+        "name": "KI"
+      },
+      {
+        "sectionId": 390,
+        "name": "KJ"
+      },
+      {
+        "sectionId": 391,
+        "name": "KK"
+      },
+      {
+        "sectionId": 392,
+        "name": "KL"
+      },
+      {
+        "sectionId": 393,
+        "name": "KM"
+      },
+      {
+        "sectionId": 394,
+        "name": "KN"
+      },
+      {
+        "sectionId": 395,
+        "name": "KP"
+      }
+    ]
+  },
+  {
+    "categoryId": 63,
+    "name": "KENNY DALGLISH  UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 396,
+        "name": "CE1"
+      },
+      {
+        "sectionId": 397,
+        "name": "CE2"
+      },
+      {
+        "sectionId": 398,
+        "name": "CE3"
+      },
+      {
+        "sectionId": 399,
+        "name": "CE4"
+      },
+      {
+        "sectionId": 400,
+        "name": "CE5"
+      },
+      {
+        "sectionId": 401,
+        "name": "CE6"
+      },
+      {
+        "sectionId": 402,
+        "name": "CE7"
+      },
+      {
+        "sectionId": 403,
+        "name": "CE8"
+      },
+      {
+        "sectionId": 404,
+        "name": "CE9"
+      }
+    ]
+  },
+  {
+    "categoryId": 64,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 405,
+        "name": "BLOCK AL9"
+      },
+      {
+        "sectionId": 406,
+        "name": "BLOCK AL8"
+      },
+      {
+        "sectionId": 9675,
+        "name": "BLOCK AL6"
+      },
+      {
+        "sectionId": 9676,
+        "name": "BLOCK AL7"
+      }
+    ]
+  },
+  {
+    "categoryId": 65,
+    "name": "LONGSIDE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 66,
+    "name": "PREMIER CLUB EXECUTIVE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 407,
+        "name": "VIP CE3"
+      },
+      {
+        "sectionId": 408,
+        "name": "VIP CE4"
+      },
+      {
+        "sectionId": 409,
+        "name": "VIP CE5"
+      },
+      {
+        "sectionId": 410,
+        "name": "VIP CE6"
+      },
+      {
+        "sectionId": 411,
+        "name": "VIP CE7"
+      }
+    ]
+  },
+  {
+    "categoryId": 67,
+    "name": "MAIN STAND EXECUTIVE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 412,
+        "name": "M1"
+      },
+      {
+        "sectionId": 413,
+        "name": "M2"
+      },
+      {
+        "sectionId": 414,
+        "name": "M3"
+      },
+      {
+        "sectionId": 415,
+        "name": "M4"
+      },
+      {
+        "sectionId": 416,
+        "name": "M5"
+      },
+      {
+        "sectionId": 417,
+        "name": "M6"
+      },
+      {
+        "sectionId": 418,
+        "name": "M7"
+      },
+      {
+        "sectionId": 419,
+        "name": "M8"
+      },
+      {
+        "sectionId": 420,
+        "name": "M9"
+      },
+      {
+        "sectionId": 421,
+        "name": "VIP L11"
+      },
+      {
+        "sectionId": 422,
+        "name": "VIP L12"
+      },
+      {
+        "sectionId": 3736,
+        "name": "VIP L15"
+      },
+      {
+        "sectionId": 3737,
+        "name": "VIP L16"
+      },
+      {
+        "sectionId": 3738,
+        "name": "VIP L13"
+      },
+      {
+        "sectionId": 3739,
+        "name": "VIP L14"
+      }
+    ]
+  },
+  {
+    "categoryId": 69,
+    "name": "ANFIELD ROAD MIDDLE TIER HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 9168,
+        "name": "BLOCK AM8"
+      },
+      {
+        "sectionId": 423,
+        "name": "BLOCK AM5"
+      },
+      {
+        "sectionId": 424,
+        "name": "BLOCK AM6"
+      },
+      {
+        "sectionId": 425,
+        "name": "BLOCK AM7"
+      },
+      {
+        "sectionId": 426,
+        "name": "BLOCK AM1"
+      },
+      {
+        "sectionId": 427,
+        "name": "BLOCK AM2"
+      },
+      {
+        "sectionId": 428,
+        "name": "BLOCK AM3"
+      },
+      {
+        "sectionId": 429,
+        "name": "BLOCK AM4"
+      }
+    ]
+  },
+  {
+    "categoryId": 952,
+    "name": "VILLAGE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 3740,
+        "name": "VIP CE2"
+      },
+      {
+        "sectionId": 3741,
+        "name": "VIP CE8"
+      }
+    ]
+  },
+  {
+    "categoryId": 1159,
+    "name": "EXECUTIVE BOX",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 1974,
+    "name": "CENTENARY CLUB HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 9579,
+        "name": "VIP - BLOCK CE3"
+      },
+      {
+        "sectionId": 9580,
+        "name": "VIP - BLOCK CE4"
+      },
+      {
+        "sectionId": 9689,
+        "name": "VIP - BLOCK CE5"
+      },
+      {
+        "sectionId": 9690,
+        "name": "VIP - BLOCK CE6"
+      }
+    ]
+  },
+  {
+    "categoryId": 2152,
+    "name": "THE BOOTROOM SHORTSIDE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 12947,
+        "name": "AU4"
+      }
+    ]
+  },
+  {
+    "categoryId": 2153,
+    "name": "ANFIELD ROAD UPPER OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2154,
+    "name": "THE SANDON - SHORTSIDE OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2155,
+    "name": "THE VENUE - SHORTSIDE UPPER OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2156,
+    "name": "AINTREE RACECOURSE - SHORTSIDE OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2157,
+    "name": "CROWNE PLAZA - SHORTSIDE UPPER OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2158,
+    "name": "HILTON HOTEL - SHORTSIDE UPPER OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2159,
+    "name": "ISLA GLADSTONE - SHORTSIDE OFFSITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2672,
+    "name": "THE DUGOUT HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 17531,
+        "name": "BLOCK M1"
+      },
+      {
+        "sectionId": 17532,
+        "name": "BLOCK M2"
+      },
+      {
+        "sectionId": 17533,
+        "name": "BLOCK M3"
+      },
+      {
+        "sectionId": 17534,
+        "name": "BLOCK M7"
+      },
+      {
+        "sectionId": 17535,
+        "name": "BLOCK M8"
+      },
+      {
+        "sectionId": 17536,
+        "name": "BLOCK M9"
+      }
+    ]
+  },
+  {
+    "categoryId": 2673,
+    "name": "BEAUTIFUL GAME HOSPITALITY",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 17537,
+        "name": "BLOCK M4"
+      }
+    ]
+  },
+  {
+    "categoryId": 2674,
+    "name": "CHEMISTRY LOUNGE HOSPITALITY",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 17538,
+        "name": "BLOCK M6"
+      }
+    ]
+  },
+  {
+    "categoryId": 2675,
+    "name": "CODE LOUNGE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 17539,
+        "name": "BLOCK L11"
+      },
+      {
+        "sectionId": 17540,
+        "name": "BLOCK L12"
+      }
+    ]
+  },
+  {
+    "categoryId": 2676,
+    "name": "BEAT LOUNGE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 17541,
+        "name": "BLOCK L15"
+      },
+      {
+        "sectionId": 17542,
+        "name": "BLOCK L16"
+      }
+    ]
+  }
+]

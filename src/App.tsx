@@ -10,31 +10,56 @@ import Matches from "./pages/matches/Index";
 import Tickets from "./pages/tickets/Index";
 import League from "./pages/league/Index";
 import CheckoutPage from "./pages/checkout/index";
+import Track from "./pages/track/Index";
+import { CurrencyLanguageProvider } from "./lib/CurrencyLanguageContext";
+import { ApolloProvider } from '@apollo/client';
+import { client } from './lib/graphql/apollo-client'; // make sure the path is correct
+import AboutUs from "./pages/about-us/Index";
+import FAQ from "./pages/faqs/Index";
+import TermsConditions from "./pages/terms-and-conditions/Index";
+import PrivacyPolicy from "./pages/privacy-policy/Index";
+import ContactUs from "./pages/contact-us/Index";
+
+
 
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/matches" element={<Matches />} />
-          <Route path="/league" element={<League />} />
-          <Route path="/team/:teamName" element={<Index />} />
-          <Route path="/competition/:competitionName" element={<Index />} />
-          <Route path="/tickets/:matchId" element={<Tickets />} />
-          <Route path="/track" element={<Index />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
+      <CurrencyLanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/test" element={<Test />} />
+              {/* <Route path="/matches" element={<Matches />} /> */}
+              <Route path="/matches/:league/:team" element={<Matches />} />
+              <Route path="/league/:league" element={<League />} />
+              {/* <Route path="/team/:teamName" element={<Index />} /> */}
+              <Route path="/competition/:competitionName" element={<Index />} />
+              <Route path="/tickets/:match" element={<Tickets />} />
+              <Route path="/track" element={<Track />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/contact" element={<ContactUs />} />
+
+              <Route path="*" element={<NotFound />} />
+
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </CurrencyLanguageProvider>
+    </QueryClientProvider>
+  </ApolloProvider>
+
 );
 
 export default App;

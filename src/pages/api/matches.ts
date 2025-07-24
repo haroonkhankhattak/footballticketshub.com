@@ -1,31 +1,30 @@
-// pages/api/livefootballtickets.ts
-
+// src/pages/api/matches.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    // Make the server-side request to the external API
-    const response = await fetch("https://www.livefootballtickets.com", {
+    const response = await fetch("https://www.livefootballtickets.com/", {
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+        Accept: "text/html",
+        "Accept-Language": "en-US,en;q=0.9",
+        Referer: "https://www.google.com/",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        DNT: "1",
+        Connection: "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
       },
     });
 
-    // Check if the response is successful
-    if (!response.ok) {
-      throw new Error("Failed to fetch data from livefootballtickets.com");
-    }
-
-    // Get the response data
-    const data = await response.text(); // or response.json() if it returns JSON
-
-    // Send the data as a JSON response to the client
-    res.status(200).json({ data });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch data" });
+    const html = await response.text();
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.status(200).send(html);
+  } catch (err: unknown) {
+    res.status(500).json({ error: "Failed to fetch", message: "---" });
   }
-};
-
-export default handler;
+}

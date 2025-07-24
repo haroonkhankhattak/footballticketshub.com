@@ -1,0 +1,612 @@
+[
+  {
+    "categoryId": 114,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 682,
+        "name": "011"
+      },
+      {
+        "sectionId": 683,
+        "name": "016"
+      },
+      {
+        "sectionId": 684,
+        "name": "017"
+      },
+      {
+        "sectionId": 685,
+        "name": "018"
+      },
+      {
+        "sectionId": 686,
+        "name": "019"
+      },
+      {
+        "sectionId": 687,
+        "name": "032"
+      },
+      {
+        "sectionId": 688,
+        "name": "034"
+      },
+      {
+        "sectionId": 689,
+        "name": "035"
+      },
+      {
+        "sectionId": 690,
+        "name": "036"
+      },
+      {
+        "sectionId": 691,
+        "name": "037"
+      },
+      {
+        "sectionId": 692,
+        "name": "038"
+      },
+      {
+        "sectionId": 693,
+        "name": "039"
+      },
+      {
+        "sectionId": 694,
+        "name": "040"
+      }
+    ]
+  },
+  {
+    "categoryId": 115,
+    "name": "SHORTSIDE MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 695,
+        "name": "111"
+      },
+      {
+        "sectionId": 696,
+        "name": "112"
+      },
+      {
+        "sectionId": 697,
+        "name": "116"
+      },
+      {
+        "sectionId": 698,
+        "name": "117"
+      },
+      {
+        "sectionId": 699,
+        "name": "118"
+      },
+      {
+        "sectionId": 700,
+        "name": "119"
+      },
+      {
+        "sectionId": 701,
+        "name": "120"
+      },
+      {
+        "sectionId": 702,
+        "name": "132"
+      },
+      {
+        "sectionId": 703,
+        "name": "133"
+      },
+      {
+        "sectionId": 704,
+        "name": "134"
+      },
+      {
+        "sectionId": 705,
+        "name": "135"
+      },
+      {
+        "sectionId": 706,
+        "name": "136"
+      },
+      {
+        "sectionId": 707,
+        "name": "137"
+      },
+      {
+        "sectionId": 708,
+        "name": "138"
+      },
+      {
+        "sectionId": 709,
+        "name": "139"
+      },
+      {
+        "sectionId": 710,
+        "name": "140"
+      },
+      {
+        "sectionId": 711,
+        "name": "141"
+      }
+    ]
+  },
+  {
+    "categoryId": 116,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 712,
+        "name": "313 MAN CITY SECTION"
+      },
+      {
+        "sectionId": 713,
+        "name": "314 MAN CITY SECTION"
+      },
+      {
+        "sectionId": 714,
+        "name": "315 MAN CITY SECTION"
+      },
+      {
+        "sectionId": 715,
+        "name": "316"
+      },
+      {
+        "sectionId": 716,
+        "name": "317"
+      },
+      {
+        "sectionId": 717,
+        "name": "318"
+      },
+      {
+        "sectionId": 718,
+        "name": "NORTH EAST CORNER"
+      },
+      {
+        "sectionId": 719,
+        "name": "NORTH WEST CORNER"
+      },
+      {
+        "sectionId": 720,
+        "name": "SOUTH WEST CORNER"
+      }
+    ]
+  },
+  {
+    "categoryId": 118,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 721,
+        "name": "042"
+      },
+      {
+        "sectionId": 722,
+        "name": "001"
+      },
+      {
+        "sectionId": 723,
+        "name": "002"
+      },
+      {
+        "sectionId": 724,
+        "name": "004"
+      },
+      {
+        "sectionId": 725,
+        "name": "005"
+      },
+      {
+        "sectionId": 726,
+        "name": "006"
+      },
+      {
+        "sectionId": 727,
+        "name": "007"
+      },
+      {
+        "sectionId": 728,
+        "name": "009"
+      },
+      {
+        "sectionId": 729,
+        "name": "010"
+      },
+      {
+        "sectionId": 730,
+        "name": "021"
+      },
+      {
+        "sectionId": 731,
+        "name": "022"
+      },
+      {
+        "sectionId": 732,
+        "name": "023"
+      },
+      {
+        "sectionId": 733,
+        "name": "025"
+      },
+      {
+        "sectionId": 734,
+        "name": "027"
+      },
+      {
+        "sectionId": 735,
+        "name": "028"
+      },
+      {
+        "sectionId": 736,
+        "name": "030"
+      },
+      {
+        "sectionId": 737,
+        "name": "031"
+      }
+    ]
+  },
+  {
+    "categoryId": 119,
+    "name": "LONGSIDE MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 738,
+        "name": "123"
+      },
+      {
+        "sectionId": 739,
+        "name": "127"
+      },
+      {
+        "sectionId": 740,
+        "name": "128"
+      },
+      {
+        "sectionId": 741,
+        "name": "130"
+      },
+      {
+        "sectionId": 742,
+        "name": "131"
+      },
+      {
+        "sectionId": 743,
+        "name": "142"
+      },
+      {
+        "sectionId": 744,
+        "name": "101"
+      },
+      {
+        "sectionId": 745,
+        "name": "102"
+      },
+      {
+        "sectionId": 746,
+        "name": "104"
+      },
+      {
+        "sectionId": 747,
+        "name": "107"
+      }
+    ]
+  },
+  {
+    "categoryId": 120,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 748,
+        "name": "301"
+      },
+      {
+        "sectionId": 749,
+        "name": "302"
+      },
+      {
+        "sectionId": 750,
+        "name": "303"
+      },
+      {
+        "sectionId": 751,
+        "name": "304"
+      },
+      {
+        "sectionId": 752,
+        "name": "305"
+      },
+      {
+        "sectionId": 753,
+        "name": "306"
+      },
+      {
+        "sectionId": 754,
+        "name": "307"
+      },
+      {
+        "sectionId": 755,
+        "name": "308"
+      },
+      {
+        "sectionId": 756,
+        "name": "309"
+      },
+      {
+        "sectionId": 757,
+        "name": "322"
+      },
+      {
+        "sectionId": 758,
+        "name": "323"
+      },
+      {
+        "sectionId": 759,
+        "name": "324"
+      },
+      {
+        "sectionId": 760,
+        "name": "325"
+      },
+      {
+        "sectionId": 761,
+        "name": "326"
+      },
+      {
+        "sectionId": 762,
+        "name": "327"
+      },
+      {
+        "sectionId": 763,
+        "name": "328"
+      },
+      {
+        "sectionId": 764,
+        "name": "329"
+      },
+      {
+        "sectionId": 765,
+        "name": "330"
+      }
+    ]
+  },
+  {
+    "categoryId": 121,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 122,
+    "name": "AWAY SECTION LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 766,
+        "name": "013"
+      },
+      {
+        "sectionId": 767,
+        "name": "014"
+      },
+      {
+        "sectionId": 768,
+        "name": "015"
+      }
+    ]
+  },
+  {
+    "categoryId": 123,
+    "name": "AWAY SECTION MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 769,
+        "name": "113"
+      },
+      {
+        "sectionId": 770,
+        "name": "114"
+      },
+      {
+        "sectionId": 771,
+        "name": "115"
+      }
+    ]
+  },
+  {
+    "categoryId": 124,
+    "name": "AWAY SECTION UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 772,
+        "name": "313"
+      },
+      {
+        "sectionId": 773,
+        "name": "314"
+      },
+      {
+        "sectionId": 774,
+        "name": "315"
+      }
+    ]
+  },
+  {
+    "categoryId": 126,
+    "name": "VIP SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 775,
+        "name": "NORTH BOXES"
+      },
+      {
+        "sectionId": 776,
+        "name": "SOUTH EAST CORNER"
+      },
+      {
+        "sectionId": 777,
+        "name": "LEGENDS BLOCK"
+      }
+    ]
+  },
+  {
+    "categoryId": 127,
+    "name": "VIP LONGSIDE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 778,
+        "name": "1894 CLUB BAR"
+      },
+      {
+        "sectionId": 779,
+        "name": "CITIZENS BLOCK"
+      },
+      {
+        "sectionId": 780,
+        "name": "JOE'S EAST"
+      },
+      {
+        "sectionId": 781,
+        "name": "COMMONWEALTH"
+      },
+      {
+        "sectionId": 782,
+        "name": "THE TUNNEL CLUB"
+      },
+      {
+        "sectionId": 783,
+        "name": "THE CHAIRMAN'S CLUB"
+      },
+      {
+        "sectionId": 784,
+        "name": "THE MANCUNIAN"
+      },
+      {
+        "sectionId": 785,
+        "name": "EAST BOXES"
+      },
+      {
+        "sectionId": 786,
+        "name": "WEST BOXES"
+      },
+      {
+        "sectionId": 811,
+        "name": "JOE'S WEST"
+      },
+      {
+        "sectionId": 8211,
+        "name": "204 - KITS HOSPITALITY"
+      }
+    ]
+  },
+  {
+    "categoryId": 128,
+    "name": "THE 93:20 LOUNGE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5346,
+        "name": "107"
+      },
+      {
+        "sectionId": 787,
+        "name": "109"
+      },
+      {
+        "sectionId": 788,
+        "name": "110"
+      },
+      {
+        "sectionId": 789,
+        "name": "121"
+      },
+      {
+        "sectionId": 790,
+        "name": "122"
+      }
+    ]
+  },
+  {
+    "categoryId": 130,
+    "name": "EAST STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 131,
+    "name": "EAST STAND MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 132,
+    "name": "EAST STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 134,
+    "name": "COLIN BELL STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 135,
+    "name": "COLIN BELL STAND MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 136,
+    "name": "COLIN BELL STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 138,
+    "name": "SOUTH STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 139,
+    "name": "SOUTH STAND MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 140,
+    "name": "SOUTH STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 142,
+    "name": "FAMILY STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 143,
+    "name": "FAMILY STAND MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2240,
+    "name": "VERMILLION OFF SITE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

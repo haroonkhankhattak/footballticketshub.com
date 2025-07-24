@@ -1,0 +1,167 @@
+[
+  {
+    "categoryId": 340,
+    "name": "STEVE FLETCHER NORTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1897,
+        "name": "SECTOR 10"
+      },
+      {
+        "sectionId": 1898,
+        "name": "SECTOR 11"
+      },
+      {
+        "sectionId": 1899,
+        "name": "SECTOR 12"
+      },
+      {
+        "sectionId": 1900,
+        "name": "SECTOR 13"
+      },
+      {
+        "sectionId": 1901,
+        "name": "SECTOR 14"
+      },
+      {
+        "sectionId": 1902,
+        "name": "SECTOR 15"
+      }
+    ]
+  },
+  {
+    "categoryId": 341,
+    "name": "TED MACDOUGALL SOUTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1903,
+        "name": "SECTOR 25"
+      },
+      {
+        "sectionId": 1904,
+        "name": "SECTOR 26"
+      },
+      {
+        "sectionId": 1905,
+        "name": "SECTOR 27"
+      },
+      {
+        "sectionId": 1906,
+        "name": "SECTOR 28"
+      },
+      {
+        "sectionId": 1907,
+        "name": "SECTOR 29"
+      },
+      {
+        "sectionId": 1908,
+        "name": "SECTOR 30"
+      }
+    ]
+  },
+  {
+    "categoryId": 342,
+    "name": "MAIN STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1909,
+        "name": "SECTOR 1"
+      },
+      {
+        "sectionId": 1910,
+        "name": "SECTOR 2"
+      },
+      {
+        "sectionId": 1911,
+        "name": "SECTOR 3"
+      },
+      {
+        "sectionId": 1912,
+        "name": "SECTOR 4"
+      },
+      {
+        "sectionId": 1913,
+        "name": "SECTOR 5"
+      },
+      {
+        "sectionId": 1914,
+        "name": "SECTOR 6"
+      },
+      {
+        "sectionId": 1915,
+        "name": "SECTOR 7"
+      },
+      {
+        "sectionId": 1916,
+        "name": "SECTOR 8"
+      },
+      {
+        "sectionId": 1917,
+        "name": "SECTOR 9"
+      }
+    ]
+  },
+  {
+    "categoryId": 343,
+    "name": "EAST STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1918,
+        "name": "SECTOR 16"
+      },
+      {
+        "sectionId": 1919,
+        "name": "SECTOR 17"
+      },
+      {
+        "sectionId": 1920,
+        "name": "SECTOR 18"
+      },
+      {
+        "sectionId": 1921,
+        "name": "SECTOR 19"
+      },
+      {
+        "sectionId": 1922,
+        "name": "SECTOR 20"
+      },
+      {
+        "sectionId": 9691,
+        "name": "SECTOR 21"
+      }
+    ]
+  },
+  {
+    "categoryId": 344,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1923,
+        "name": "SECTOR 21"
+      },
+      {
+        "sectionId": 1924,
+        "name": "SECTOR 22"
+      },
+      {
+        "sectionId": 1925,
+        "name": "SECTOR 23"
+      },
+      {
+        "sectionId": 1926,
+        "name": "SECTOR 24"
+      }
+    ]
+  },
+  {
+    "categoryId": 2008,
+    "name": "VIP - HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

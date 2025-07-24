@@ -1,0 +1,352 @@
+[
+  {
+    "categoryId": 305,
+    "name": "SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 307,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 308,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 309,
+    "name": "NORTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1759,
+        "name": "N1A"
+      },
+      {
+        "sectionId": 1760,
+        "name": "N1B"
+      },
+      {
+        "sectionId": 1761,
+        "name": "N1C"
+      },
+      {
+        "sectionId": 1762,
+        "name": "N1D"
+      },
+      {
+        "sectionId": 1763,
+        "name": "N1E"
+      },
+      {
+        "sectionId": 1764,
+        "name": "N1F"
+      },
+      {
+        "sectionId": 1765,
+        "name": "N1G"
+      },
+      {
+        "sectionId": 1766,
+        "name": "N1H"
+      },
+      {
+        "sectionId": 1767,
+        "name": "N1I"
+      },
+      {
+        "sectionId": 1768,
+        "name": "N2A"
+      },
+      {
+        "sectionId": 1769,
+        "name": "N2B"
+      }
+    ]
+  },
+  {
+    "categoryId": 310,
+    "name": "SOUTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1770,
+        "name": "S1A"
+      },
+      {
+        "sectionId": 1771,
+        "name": "S2A"
+      },
+      {
+        "sectionId": 1772,
+        "name": "S1G"
+      },
+      {
+        "sectionId": 1773,
+        "name": "S1H"
+      },
+      {
+        "sectionId": 1774,
+        "name": "S2H"
+      },
+      {
+        "sectionId": 1775,
+        "name": "S1I"
+      },
+      {
+        "sectionId": 1776,
+        "name": "S2I"
+      }
+    ]
+  },
+  {
+    "categoryId": 312,
+    "name": "EAST STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1777,
+        "name": "E2A"
+      },
+      {
+        "sectionId": 1778,
+        "name": "E3A"
+      },
+      {
+        "sectionId": 1779,
+        "name": "E3B"
+      },
+      {
+        "sectionId": 1780,
+        "name": "E3C"
+      },
+      {
+        "sectionId": 1781,
+        "name": "E3D"
+      },
+      {
+        "sectionId": 1782,
+        "name": "E3E"
+      },
+      {
+        "sectionId": 1783,
+        "name": "E3F"
+      },
+      {
+        "sectionId": 1784,
+        "name": "E3G"
+      },
+      {
+        "sectionId": 1785,
+        "name": "E3H"
+      }
+    ]
+  },
+  {
+    "categoryId": 313,
+    "name": "EAST STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1786,
+        "name": "E1A"
+      },
+      {
+        "sectionId": 1787,
+        "name": "E1B"
+      },
+      {
+        "sectionId": 1788,
+        "name": "E1C"
+      },
+      {
+        "sectionId": 1789,
+        "name": "E1D"
+      },
+      {
+        "sectionId": 1790,
+        "name": "E1DH"
+      },
+      {
+        "sectionId": 1791,
+        "name": "E1E"
+      },
+      {
+        "sectionId": 1792,
+        "name": "E1F"
+      },
+      {
+        "sectionId": 1793,
+        "name": "E1G"
+      },
+      {
+        "sectionId": 1794,
+        "name": "E1H"
+      }
+    ]
+  },
+  {
+    "categoryId": 315,
+    "name": "WEST STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1795,
+        "name": "W3A"
+      },
+      {
+        "sectionId": 1796,
+        "name": "W3B"
+      },
+      {
+        "sectionId": 1797,
+        "name": "W3C"
+      },
+      {
+        "sectionId": 1798,
+        "name": "W3D"
+      },
+      {
+        "sectionId": 1799,
+        "name": "W3F"
+      },
+      {
+        "sectionId": 1800,
+        "name": "W3G"
+      },
+      {
+        "sectionId": 1801,
+        "name": "W3H"
+      },
+      {
+        "sectionId": 1802,
+        "name": "W3I"
+      }
+    ]
+  },
+  {
+    "categoryId": 316,
+    "name": "WEST STAND MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1803,
+        "name": "W2A"
+      },
+      {
+        "sectionId": 1804,
+        "name": "W2B"
+      },
+      {
+        "sectionId": 1805,
+        "name": "W2C"
+      },
+      {
+        "sectionId": 1806,
+        "name": "W2D"
+      },
+      {
+        "sectionId": 1807,
+        "name": "W2F"
+      },
+      {
+        "sectionId": 1808,
+        "name": "W2G"
+      },
+      {
+        "sectionId": 1809,
+        "name": "W2H"
+      },
+      {
+        "sectionId": 1810,
+        "name": "W2I"
+      }
+    ]
+  },
+  {
+    "categoryId": 317,
+    "name": "WEST STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1811,
+        "name": "W1A"
+      },
+      {
+        "sectionId": 1812,
+        "name": "W1B"
+      },
+      {
+        "sectionId": 1813,
+        "name": "W1C"
+      },
+      {
+        "sectionId": 1814,
+        "name": "W1D"
+      },
+      {
+        "sectionId": 1815,
+        "name": "W1DH"
+      },
+      {
+        "sectionId": 1816,
+        "name": "W1F"
+      },
+      {
+        "sectionId": 1817,
+        "name": "W1G"
+      },
+      {
+        "sectionId": 1818,
+        "name": "W1H"
+      },
+      {
+        "sectionId": 1819,
+        "name": "W1I"
+      }
+    ]
+  },
+  {
+    "categoryId": 318,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1820,
+        "name": "S1B"
+      },
+      {
+        "sectionId": 1821,
+        "name": "S1C"
+      },
+      {
+        "sectionId": 1822,
+        "name": "S1D"
+      },
+      {
+        "sectionId": 1823,
+        "name": "S1E"
+      },
+      {
+        "sectionId": 1824,
+        "name": "S1F"
+      }
+    ]
+  },
+  {
+    "categoryId": 320,
+    "name": "VIP - HOSPITALITY LONGSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 321,
+    "name": "VIP - HOSPITALITY SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

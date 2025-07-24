@@ -1,0 +1,448 @@
+[
+  {
+    "categoryId": 7261,
+    "name": "EAST STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28787,
+        "name": "BLOCK 216"
+      },
+      {
+        "sectionId": 28788,
+        "name": "BLOCK 217"
+      },
+      {
+        "sectionId": 28789,
+        "name": "BLOCK 220"
+      },
+      {
+        "sectionId": 28790,
+        "name": "BLOCK 223"
+      },
+      {
+        "sectionId": 28791,
+        "name": "BLOCK 226"
+      },
+      {
+        "sectionId": 28792,
+        "name": "BLOCK 227"
+      }
+    ]
+  },
+  {
+    "categoryId": 7262,
+    "name": "LONGSIDE UPPER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 7263,
+    "name": "CLUB VIEW",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28793,
+        "name": "BLOCK 321"
+      },
+      {
+        "sectionId": 28794,
+        "name": "BLOCK 322"
+      },
+      {
+        "sectionId": 28795,
+        "name": "BLOCK 323"
+      },
+      {
+        "sectionId": 28796,
+        "name": "BLOCK 324"
+      }
+    ]
+  },
+  {
+    "categoryId": 7264,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28797,
+        "name": "BLOCK 118"
+      },
+      {
+        "sectionId": 28798,
+        "name": "BLOCK 119"
+      },
+      {
+        "sectionId": 28799,
+        "name": "BLOCK 120"
+      }
+    ]
+  },
+  {
+    "categoryId": 7265,
+    "name": "EAST STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28800,
+        "name": "BLOCK 011"
+      },
+      {
+        "sectionId": 28801,
+        "name": "BLOCK 012"
+      },
+      {
+        "sectionId": 28802,
+        "name": "BLOCK 013"
+      },
+      {
+        "sectionId": 28803,
+        "name": "BLOCK 014"
+      },
+      {
+        "sectionId": 28804,
+        "name": "BLOCK 015"
+      },
+      {
+        "sectionId": 28805,
+        "name": "BLOCK 016"
+      },
+      {
+        "sectionId": 28806,
+        "name": "BLOCK 017"
+      }
+    ]
+  },
+  {
+    "categoryId": 7266,
+    "name": "LONGSIDE LOWER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 7267,
+    "name": "WEST STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28807,
+        "name": "BLOCK 204"
+      },
+      {
+        "sectionId": 28808,
+        "name": "BLOCK 201"
+      },
+      {
+        "sectionId": 28809,
+        "name": "BLOCK 200"
+      },
+      {
+        "sectionId": 28810,
+        "name": "BLOCK 247"
+      },
+      {
+        "sectionId": 28811,
+        "name": "BLOCK 248"
+      },
+      {
+        "sectionId": 28812,
+        "name": "BLOCK 249"
+      }
+    ]
+  },
+  {
+    "categoryId": 7268,
+    "name": "WEST STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28813,
+        "name": "BLOCK 001"
+      },
+      {
+        "sectionId": 28814,
+        "name": "BLOCK 002"
+      },
+      {
+        "sectionId": 28815,
+        "name": "BLOCK 127 FAM"
+      },
+      {
+        "sectionId": 28816,
+        "name": "BLOCK 128 FAM"
+      }
+    ]
+  },
+  {
+    "categoryId": 7269,
+    "name": "NORTH STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28817,
+        "name": "BLOCK 229"
+      },
+      {
+        "sectionId": 28818,
+        "name": "BLOCK 231"
+      },
+      {
+        "sectionId": 28819,
+        "name": "BLOCK 233"
+      },
+      {
+        "sectionId": 28820,
+        "name": "BLOCK 235"
+      },
+      {
+        "sectionId": 28821,
+        "name": "BLOCK 237"
+      },
+      {
+        "sectionId": 28822,
+        "name": "BLOCK 240"
+      },
+      {
+        "sectionId": 28823,
+        "name": "BLOCK 242"
+      },
+      {
+        "sectionId": 28824,
+        "name": "BLOCK 243"
+      },
+      {
+        "sectionId": 28825,
+        "name": "BLOCK 245"
+      },
+      {
+        "sectionId": 28826,
+        "name": "BLOCK 246"
+      }
+    ]
+  },
+  {
+    "categoryId": 7270,
+    "name": "SHORTSIDE UPPER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 7271,
+    "name": "NORTH STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28827,
+        "name": "BLOCK 018"
+      },
+      {
+        "sectionId": 28828,
+        "name": "BLOCK 019"
+      },
+      {
+        "sectionId": 28829,
+        "name": "BLOCK 020"
+      },
+      {
+        "sectionId": 28830,
+        "name": "BLOCK 021"
+      },
+      {
+        "sectionId": 28831,
+        "name": "BLOCK 125 FAM"
+      },
+      {
+        "sectionId": 28832,
+        "name": "BLOCK 126 FAM"
+      }
+    ]
+  },
+  {
+    "categoryId": 7272,
+    "name": "SHORTSIDE LOWER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 7273,
+    "name": "SOUTH STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28833,
+        "name": "BLOCK 205"
+      },
+      {
+        "sectionId": 28834,
+        "name": "BLOCK 206"
+      },
+      {
+        "sectionId": 28835,
+        "name": "BLOCK 207"
+      },
+      {
+        "sectionId": 28836,
+        "name": "BLOCK 208"
+      },
+      {
+        "sectionId": 28837,
+        "name": "BLOCK 209"
+      },
+      {
+        "sectionId": 28838,
+        "name": "BLOCK 210"
+      },
+      {
+        "sectionId": 28839,
+        "name": "BLOCK 211"
+      },
+      {
+        "sectionId": 28840,
+        "name": "BLOCK 212"
+      },
+      {
+        "sectionId": 28841,
+        "name": "BLOCK 213"
+      },
+      {
+        "sectionId": 28842,
+        "name": "BLOCK 214"
+      }
+    ]
+  },
+  {
+    "categoryId": 7274,
+    "name": "SOUTH STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28843,
+        "name": "BLOCK 003"
+      },
+      {
+        "sectionId": 28844,
+        "name": "BLOCK 004"
+      },
+      {
+        "sectionId": 28845,
+        "name": "BLOCK 005"
+      },
+      {
+        "sectionId": 28846,
+        "name": "BLOCK 006"
+      },
+      {
+        "sectionId": 28847,
+        "name": "BLOCK 007"
+      },
+      {
+        "sectionId": 28848,
+        "name": "BLOCK 008"
+      },
+      {
+        "sectionId": 28849,
+        "name": "BLOCK 009"
+      },
+      {
+        "sectionId": 28850,
+        "name": "BLOCK 010"
+      }
+    ]
+  },
+  {
+    "categoryId": 7275,
+    "name": "DOMINGO'S",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28851,
+        "name": "BLOCK 301"
+      },
+      {
+        "sectionId": 28852,
+        "name": "BLOCK 302"
+      },
+      {
+        "sectionId": 28853,
+        "name": "BLOCK 303"
+      },
+      {
+        "sectionId": 28854,
+        "name": "BLOCK 304"
+      }
+    ]
+  },
+  {
+    "categoryId": 7276,
+    "name": "TRINITY PLACE BAR",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28855,
+        "name": "BLOCK 113"
+      },
+      {
+        "sectionId": 28856,
+        "name": "BLOCK 114"
+      },
+      {
+        "sectionId": 28857,
+        "name": "BLOCK 115"
+      }
+    ]
+  },
+  {
+    "categoryId": 7277,
+    "name": "TRINITY PLACE RESTAURANT",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28858,
+        "name": "BLOCK 113"
+      },
+      {
+        "sectionId": 28859,
+        "name": "BLOCK 114"
+      },
+      {
+        "sectionId": 28860,
+        "name": "BLOCK 115"
+      }
+    ]
+  },
+  {
+    "categoryId": 7278,
+    "name": "VILLAGE STREET",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28861,
+        "name": "BLOCK 301"
+      },
+      {
+        "sectionId": 28862,
+        "name": "BLOCK 302"
+      },
+      {
+        "sectionId": 28863,
+        "name": "BLOCK 303"
+      },
+      {
+        "sectionId": 28864,
+        "name": "BLOCK 304"
+      }
+    ]
+  },
+  {
+    "categoryId": 7279,
+    "name": "BEYOND LOUNGE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 7280,
+    "name": "ENCLOSURE",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

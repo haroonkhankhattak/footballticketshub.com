@@ -1,0 +1,547 @@
+[
+  {
+    "categoryId": 3,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1,
+        "name": "5"
+      },
+      {
+        "sectionId": 2,
+        "name": "6"
+      },
+      {
+        "sectionId": 3,
+        "name": "7"
+      },
+      {
+        "sectionId": 4,
+        "name": "8"
+      },
+      {
+        "sectionId": 5,
+        "name": "9"
+      },
+      {
+        "sectionId": 6,
+        "name": "10"
+      },
+      {
+        "sectionId": 7,
+        "name": "11"
+      },
+      {
+        "sectionId": 8,
+        "name": "12"
+      },
+      {
+        "sectionId": 9,
+        "name": "23"
+      },
+      {
+        "sectionId": 10,
+        "name": "24"
+      },
+      {
+        "sectionId": 11,
+        "name": "25"
+      },
+      {
+        "sectionId": 12,
+        "name": "26"
+      },
+      {
+        "sectionId": 13,
+        "name": "27"
+      },
+      {
+        "sectionId": 14,
+        "name": "28"
+      }
+    ]
+  },
+  {
+    "categoryId": 4,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 19,
+        "name": "95"
+      },
+      {
+        "sectionId": 20,
+        "name": "96"
+      },
+      {
+        "sectionId": 21,
+        "name": "97"
+      },
+      {
+        "sectionId": 22,
+        "name": "98"
+      },
+      {
+        "sectionId": 23,
+        "name": "99"
+      },
+      {
+        "sectionId": 24,
+        "name": "100"
+      },
+      {
+        "sectionId": 25,
+        "name": "101"
+      },
+      {
+        "sectionId": 26,
+        "name": "102"
+      },
+      {
+        "sectionId": 27,
+        "name": "103"
+      },
+      {
+        "sectionId": 28,
+        "name": "104"
+      },
+      {
+        "sectionId": 29,
+        "name": "105"
+      },
+      {
+        "sectionId": 30,
+        "name": "106"
+      },
+      {
+        "sectionId": 31,
+        "name": "107"
+      },
+      {
+        "sectionId": 32,
+        "name": "108"
+      },
+      {
+        "sectionId": 33,
+        "name": "117"
+      },
+      {
+        "sectionId": 34,
+        "name": "118"
+      },
+      {
+        "sectionId": 35,
+        "name": "119"
+      },
+      {
+        "sectionId": 36,
+        "name": "120"
+      },
+      {
+        "sectionId": 37,
+        "name": "121"
+      },
+      {
+        "sectionId": 38,
+        "name": "122"
+      },
+      {
+        "sectionId": 39,
+        "name": "123"
+      },
+      {
+        "sectionId": 40,
+        "name": "124"
+      },
+      {
+        "sectionId": 41,
+        "name": "125"
+      },
+      {
+        "sectionId": 42,
+        "name": "126"
+      },
+      {
+        "sectionId": 43,
+        "name": "127"
+      },
+      {
+        "sectionId": 44,
+        "name": "128"
+      },
+      {
+        "sectionId": 45,
+        "name": "129"
+      },
+      {
+        "sectionId": 46,
+        "name": "130"
+      }
+    ]
+  },
+  {
+    "categoryId": 5,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 47,
+        "name": "1"
+      },
+      {
+        "sectionId": 48,
+        "name": "2"
+      },
+      {
+        "sectionId": 49,
+        "name": "3"
+      },
+      {
+        "sectionId": 50,
+        "name": "4"
+      },
+      {
+        "sectionId": 51,
+        "name": "29"
+      },
+      {
+        "sectionId": 52,
+        "name": "30"
+      },
+      {
+        "sectionId": 53,
+        "name": "31"
+      },
+      {
+        "sectionId": 54,
+        "name": "32"
+      },
+      {
+        "sectionId": 55,
+        "name": "13"
+      },
+      {
+        "sectionId": 56,
+        "name": "14"
+      },
+      {
+        "sectionId": 57,
+        "name": "15"
+      },
+      {
+        "sectionId": 58,
+        "name": "16"
+      },
+      {
+        "sectionId": 59,
+        "name": "17"
+      },
+      {
+        "sectionId": 60,
+        "name": "18"
+      },
+      {
+        "sectionId": 61,
+        "name": "19"
+      }
+    ]
+  },
+  {
+    "categoryId": 6,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 62,
+        "name": "91"
+      },
+      {
+        "sectionId": 63,
+        "name": "92"
+      },
+      {
+        "sectionId": 64,
+        "name": "93"
+      },
+      {
+        "sectionId": 65,
+        "name": "94"
+      },
+      {
+        "sectionId": 66,
+        "name": "131"
+      },
+      {
+        "sectionId": 67,
+        "name": "132"
+      },
+      {
+        "sectionId": 68,
+        "name": "133"
+      },
+      {
+        "sectionId": 69,
+        "name": "134"
+      },
+      {
+        "sectionId": 70,
+        "name": "109"
+      },
+      {
+        "sectionId": 71,
+        "name": "110"
+      },
+      {
+        "sectionId": 72,
+        "name": "111"
+      },
+      {
+        "sectionId": 73,
+        "name": "112"
+      },
+      {
+        "sectionId": 74,
+        "name": "113"
+      },
+      {
+        "sectionId": 75,
+        "name": "114"
+      },
+      {
+        "sectionId": 76,
+        "name": "115"
+      },
+      {
+        "sectionId": 77,
+        "name": "116"
+      }
+    ]
+  },
+  {
+    "categoryId": 7,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 15,
+        "name": "20"
+      },
+      {
+        "sectionId": 16,
+        "name": "21"
+      },
+      {
+        "sectionId": 17,
+        "name": "22"
+      },
+      {
+        "sectionId": 18,
+        "name": "23"
+      }
+    ]
+  },
+  {
+    "categoryId": 9,
+    "name": "CLUB LEVEL LONGSIDE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 96,
+        "name": "C59"
+      },
+      {
+        "sectionId": 97,
+        "name": "C60"
+      },
+      {
+        "sectionId": 98,
+        "name": "C61"
+      },
+      {
+        "sectionId": 99,
+        "name": "C62"
+      },
+      {
+        "sectionId": 100,
+        "name": "C63"
+      },
+      {
+        "sectionId": 101,
+        "name": "C64"
+      },
+      {
+        "sectionId": 102,
+        "name": "C65"
+      },
+      {
+        "sectionId": 103,
+        "name": "C66"
+      },
+      {
+        "sectionId": 118,
+        "name": "C81"
+      },
+      {
+        "sectionId": 119,
+        "name": "C82"
+      },
+      {
+        "sectionId": 120,
+        "name": "C83"
+      },
+      {
+        "sectionId": 121,
+        "name": "C84"
+      },
+      {
+        "sectionId": 78,
+        "name": "C41"
+      },
+      {
+        "sectionId": 79,
+        "name": "C42"
+      },
+      {
+        "sectionId": 80,
+        "name": "C43"
+      },
+      {
+        "sectionId": 81,
+        "name": "C44"
+      }
+    ]
+  },
+  {
+    "categoryId": 10,
+    "name": "CLUB LEVEL SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 82,
+        "name": "C45"
+      },
+      {
+        "sectionId": 83,
+        "name": "C46"
+      },
+      {
+        "sectionId": 84,
+        "name": "C47"
+      },
+      {
+        "sectionId": 85,
+        "name": "C48"
+      },
+      {
+        "sectionId": 86,
+        "name": "C49"
+      },
+      {
+        "sectionId": 87,
+        "name": "C50"
+      },
+      {
+        "sectionId": 88,
+        "name": "C51"
+      },
+      {
+        "sectionId": 89,
+        "name": "C52"
+      },
+      {
+        "sectionId": 90,
+        "name": "C53"
+      },
+      {
+        "sectionId": 91,
+        "name": "C54"
+      },
+      {
+        "sectionId": 92,
+        "name": "C55"
+      },
+      {
+        "sectionId": 93,
+        "name": "C56"
+      },
+      {
+        "sectionId": 94,
+        "name": "C57"
+      },
+      {
+        "sectionId": 95,
+        "name": "C58"
+      },
+      {
+        "sectionId": 104,
+        "name": "C67"
+      },
+      {
+        "sectionId": 105,
+        "name": "C68"
+      },
+      {
+        "sectionId": 106,
+        "name": "C69"
+      },
+      {
+        "sectionId": 107,
+        "name": "C70"
+      },
+      {
+        "sectionId": 108,
+        "name": "C71"
+      },
+      {
+        "sectionId": 109,
+        "name": "C72"
+      },
+      {
+        "sectionId": 110,
+        "name": "C73"
+      },
+      {
+        "sectionId": 111,
+        "name": "C74"
+      },
+      {
+        "sectionId": 112,
+        "name": "C75"
+      },
+      {
+        "sectionId": 113,
+        "name": "C76"
+      },
+      {
+        "sectionId": 114,
+        "name": "C77"
+      },
+      {
+        "sectionId": 115,
+        "name": "C78"
+      },
+      {
+        "sectionId": 116,
+        "name": "C79"
+      },
+      {
+        "sectionId": 117,
+        "name": "C80"
+      }
+    ]
+  },
+  {
+    "categoryId": 1198,
+    "name": "BOX SEATS - SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 1199,
+    "name": "BOX SEATS - LONGSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

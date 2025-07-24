@@ -4,6 +4,9 @@ interface LeagueCardProps {
     leagueName: string;
 }
 
+const description = `The Premier League is widely regarded as the most exciting football league in the world, known for its fast-paced, high-intensity matches and the incredible atmosphere in its stadiums. Every game is unpredictable, with even smaller clubs capable of defeating the biggest teams, ensuring that every fixture is thrilling. The league is home to many of the world’s best players and managers, attracting fans from all over the globe. While fans worldwide tune in to watch, being in the stadium offers a unique and unforgettable experience—the loud chants, passionate supporters, and thrilling moments create an electric atmosphere. From famous grounds like Old Trafford, Anfield, and the Emirates, the Premier League delivers unforgettable live football every week.`;
+
+
 const LeagueCard: React.FC<LeagueCardProps> = ({ leagueName }) => {
     // Function to capitalize each word
     const capitalizeWords = (str: string) => {
@@ -19,7 +22,7 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ leagueName }) => {
             <div className="bg-ltg-white rounded-lg border border-solid border-[rgba(238,238,238,1)] shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)]">
                 <div className="relative h-32 w-full rounded-tl-lg rounded-tr-lg md:h-36">
                     <img
-                        src={`uploads/leaguefans/${leagueName}.webp`}
+                        src={`/uploads/leaguefans/premier-league.jpg`}
                         alt={leagueName}
                         className="w-full h-full rounded-tl-lg rounded-tr-lg object-cover"
                     />
@@ -30,10 +33,10 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ leagueName }) => {
                             {capitalizeWords(leagueName)} Tickets
                         </h1>
                         <div className="font-light max-lg:text-center text-justify text-gray-500">
-                            The {capitalizeWords(leagueName)} is one of the most exciting football leagues in the world.
-                            <strong>Tickets for the {capitalizeWords(leagueName)}</strong> are very popular. We've got the best tickets available for the 2024-2025 season. Grab this opportunity to watch the best league in the world live in action.
+                            {description}
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

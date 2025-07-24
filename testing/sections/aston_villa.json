@@ -1,0 +1,429 @@
+[
+  {
+    "categoryId": 158,
+    "name": "TRINITY ROAD STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 990,
+        "name": "A1"
+      },
+      {
+        "sectionId": 991,
+        "name": "A2"
+      },
+      {
+        "sectionId": 992,
+        "name": "A3"
+      },
+      {
+        "sectionId": 993,
+        "name": "A4"
+      },
+      {
+        "sectionId": 994,
+        "name": "A5"
+      },
+      {
+        "sectionId": 995,
+        "name": "A6"
+      },
+      {
+        "sectionId": 996,
+        "name": "A7"
+      },
+      {
+        "sectionId": 997,
+        "name": "A8"
+      }
+    ]
+  },
+  {
+    "categoryId": 159,
+    "name": "TRINITY ROAD STAND MIDDLE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 998,
+        "name": "B1"
+      },
+      {
+        "sectionId": 999,
+        "name": "B2"
+      },
+      {
+        "sectionId": 1000,
+        "name": "B3"
+      },
+      {
+        "sectionId": 1001,
+        "name": "B4"
+      },
+      {
+        "sectionId": 1002,
+        "name": "B5"
+      },
+      {
+        "sectionId": 1003,
+        "name": "B6"
+      },
+      {
+        "sectionId": 1004,
+        "name": "B7"
+      }
+    ]
+  },
+  {
+    "categoryId": 160,
+    "name": "TRINITY ROAD STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1005,
+        "name": "C1"
+      },
+      {
+        "sectionId": 1006,
+        "name": "C2"
+      },
+      {
+        "sectionId": 1007,
+        "name": "C3"
+      },
+      {
+        "sectionId": 1008,
+        "name": "C4"
+      },
+      {
+        "sectionId": 1009,
+        "name": "C5"
+      },
+      {
+        "sectionId": 1010,
+        "name": "C6"
+      },
+      {
+        "sectionId": 1011,
+        "name": "C7"
+      },
+      {
+        "sectionId": 1012,
+        "name": "C8"
+      },
+      {
+        "sectionId": 1013,
+        "name": "C9"
+      }
+    ]
+  },
+  {
+    "categoryId": 162,
+    "name": "DOUG ELLIS STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1014,
+        "name": "P1"
+      },
+      {
+        "sectionId": 1015,
+        "name": "P2"
+      },
+      {
+        "sectionId": 1016,
+        "name": "P3"
+      },
+      {
+        "sectionId": 1017,
+        "name": "P4"
+      },
+      {
+        "sectionId": 1018,
+        "name": "P5"
+      },
+      {
+        "sectionId": 1019,
+        "name": "P6"
+      },
+      {
+        "sectionId": 1020,
+        "name": "P7"
+      },
+      {
+        "sectionId": 1021,
+        "name": "P8"
+      }
+    ]
+  },
+  {
+    "categoryId": 163,
+    "name": "DOUG ELLIS STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1022,
+        "name": "M1"
+      },
+      {
+        "sectionId": 1023,
+        "name": "M2"
+      },
+      {
+        "sectionId": 1024,
+        "name": "M3"
+      },
+      {
+        "sectionId": 1025,
+        "name": "M4"
+      },
+      {
+        "sectionId": 1026,
+        "name": "M5"
+      }
+    ]
+  },
+  {
+    "categoryId": 165,
+    "name": "NORTH STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1027,
+        "name": "T1"
+      },
+      {
+        "sectionId": 1028,
+        "name": "T2"
+      },
+      {
+        "sectionId": 1029,
+        "name": "T3"
+      },
+      {
+        "sectionId": 1030,
+        "name": "T4"
+      },
+      {
+        "sectionId": 1031,
+        "name": "T5"
+      },
+      {
+        "sectionId": 17496,
+        "name": "T6"
+      }
+    ]
+  },
+  {
+    "categoryId": 166,
+    "name": "NORTH STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1032,
+        "name": "R1"
+      },
+      {
+        "sectionId": 1033,
+        "name": "R2"
+      },
+      {
+        "sectionId": 1034,
+        "name": "R3"
+      },
+      {
+        "sectionId": 1035,
+        "name": "R4"
+      },
+      {
+        "sectionId": 1036,
+        "name": "R5"
+      },
+      {
+        "sectionId": 1037,
+        "name": "R6"
+      },
+      {
+        "sectionId": 1038,
+        "name": "R7"
+      }
+    ]
+  },
+  {
+    "categoryId": 168,
+    "name": "HOLTE END SOUTH STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1039,
+        "name": "K1"
+      },
+      {
+        "sectionId": 1040,
+        "name": "K2"
+      },
+      {
+        "sectionId": 1041,
+        "name": "K3"
+      },
+      {
+        "sectionId": 1042,
+        "name": "K4"
+      },
+      {
+        "sectionId": 1043,
+        "name": "K5"
+      },
+      {
+        "sectionId": 1044,
+        "name": "K6"
+      },
+      {
+        "sectionId": 1045,
+        "name": "K7"
+      }
+    ]
+  },
+  {
+    "categoryId": 169,
+    "name": "HOLTE END SOUTH STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1046,
+        "name": "L1"
+      },
+      {
+        "sectionId": 1047,
+        "name": "L2"
+      },
+      {
+        "sectionId": 1048,
+        "name": "L3"
+      },
+      {
+        "sectionId": 1049,
+        "name": "L4"
+      },
+      {
+        "sectionId": 1050,
+        "name": "L5"
+      },
+      {
+        "sectionId": 1051,
+        "name": "L6"
+      },
+      {
+        "sectionId": 1052,
+        "name": "L7"
+      },
+      {
+        "sectionId": 1053,
+        "name": "L8"
+      },
+      {
+        "sectionId": 1054,
+        "name": "L9"
+      }
+    ]
+  },
+  {
+    "categoryId": 170,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 171,
+    "name": "AWAY SECTION UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1055,
+        "name": "P9"
+      },
+      {
+        "sectionId": 1056,
+        "name": "P10"
+      },
+      {
+        "sectionId": 1057,
+        "name": "P11"
+      }
+    ]
+  },
+  {
+    "categoryId": 172,
+    "name": "AWAY SECTION LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1058,
+        "name": "Q1"
+      },
+      {
+        "sectionId": 1059,
+        "name": "Q2"
+      },
+      {
+        "sectionId": 1060,
+        "name": "Q3"
+      }
+    ]
+  },
+  {
+    "categoryId": 174,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 175,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 177,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 178,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2683,
+    "name": "150 CLUB HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 17577,
+        "name": "M1"
+      },
+      {
+        "sectionId": 17578,
+        "name": "M2"
+      }
+    ]
+  },
+  {
+    "categoryId": 2712,
+    "name": "82 CLUB HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2874,
+    "name": "HOSPITALITY BOXES",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 18687,
+        "name": "TRINITY ROAD STAND BOX"
+      }
+    ]
+  }
+]

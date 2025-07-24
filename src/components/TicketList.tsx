@@ -1,40 +1,223 @@
 import React from "react";
-import { CheckCircle } from "lucide-react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import CustomDropdown from "@/components/DropdownSelector";
-import { DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
-import { Armchair } from "lucide-react";
-import { TicketIcon } from "lucide-react";
 
-import { Minus, Plus } from "lucide-react";
+import TicketItem from "./TicketItem";
+import { Listing } from "../pages/tickets/listing";
 
-interface Ticket {
-    id: number;
-    match: string;
-    date: string;
-    time: string;
-    competition: string;
-    venue: string;
-    area: string;
-    section: string;
-    row: string;
-    price: number;
-    availability: number;
-}
+
+
+// const attributesList = [
+//     {
+//         label: "E-ticket",
+//         icon: QrCode,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Mobile Ticket",
+//         icon: Smartphone,
+//         color: "bg-indigo-100 text-indigo-800",
+//     },
+//     {
+//         label: "Hardcopy",
+//         icon: Tag,
+//         color: "bg-yellow-100 text-yellow-800",
+//     },
+//     {
+//         label: "Unrestricted View",
+//         icon: Eye,
+//         color: "bg-green-100 text-green-800",
+//     },
+//     {
+//         label: "Home Area",
+//         icon: ShieldCheck,
+//         color: "bg-sky-100 text-sky-800",
+//     },
+//     {
+//         label: "Away Fans Allowed",
+//         icon: ShieldCheck,
+//         color: "bg-red-100 text-red-800",
+//     },
+//     {
+//         label: "Neutral Fans Allowed",
+//         icon: Eye,
+//         color: "bg-purple-100 text-purple-800",
+//     },
+//     {
+//         label: "VIP Entry",
+//         icon: UserCheck,
+//         color: "bg-green-100 text-green-800",
+//     },
+//     {
+//         label: "Premium Hospitality",
+//         icon: Handshake,
+//         color: "bg-amber-100 text-amber-800",
+//     },
+//     {
+//         label: "Parking Included",
+//         icon: ParkingCircle,
+//         color: "bg-gray-100 text-gray-800",
+//     },
+// ]
+
+// const restrictionsList = [
+//     {
+//         label: "Restricted View",
+//         icon: Eye,
+//         color: "bg-yellow-100 text-yellow-800",
+//     },
+//     {
+//         label: "Severely Restricted View",
+//         icon: EyeOff,
+//         color: "bg-yellow-200 text-yellow-900",
+//     },
+//     {
+//         label: "Passport Copy Required",
+//         icon: FileWarning,
+//         color: "bg-rose-100 text-rose-700",
+//     },
+//     {
+//         label: "No Hospitality Included",
+//         icon: BadgeMinus,
+//         color: "bg-red-100 text-red-700",
+//     },
+//     {
+//         label: "No Away Team Nationals",
+//         icon: Ban,
+//         color: "bg-orange-100 text-orange-700",
+//     },
+//     {
+//         label: "Standing Section",
+//         icon: Users,
+//         color: "bg-yellow-100 text-yellow-800",
+//     },
+//     {
+//         label: "Unreserved Seating",
+//         icon: Users,
+//         color: "bg-yellow-100 text-yellow-800",
+//     },
+//     {
+//         label: "iPhone Users Only",
+//         icon: Apple,
+//         color: "bg-green-100 text-green-800",
+//     },
+//     {
+//         label: "Android Users Only",
+//         icon: Smartphone,
+//         color: "bg-green-100 text-green-800",
+//     },
+//     {
+//         label: "Junior Ticket",
+//         icon: Baby,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Junior Ticket (Under 20yrs)",
+//         icon: Baby,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Junior Ticket (Under 18yrs)",
+//         icon: Baby,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Junior Ticket (Under 17yrs)",
+//         icon: Baby,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Junior Ticket (18-21yrs)",
+//         icon: Baby,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Junior Ticket (18-20yrs)",
+//         icon: Baby,
+//         color: "bg-blue-100 text-blue-800",
+//     },
+//     {
+//         label: "Young Adult Ticket (17-21yrs)",
+//         icon: User,
+//         color: "bg-indigo-100 text-indigo-800",
+//     },
+//     {
+//         label: "Young Adult Ticket (17-18yrs)",
+//         icon: User,
+//         color: "bg-indigo-100 text-indigo-800",
+//     },
+//     {
+//         label: "Adult + Junior (Under 21yrs)",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Junior (Under 20yrs)",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Junior (Under 18yrs)",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Junior (Under 17yrs)",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Junior (Under 16yrs)",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Junior (Under 11yrs)",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Junior",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Adult + Senior",
+//         icon: Users,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+//     {
+//         label: "Senior Ticket",
+//         icon: UserMinus,
+//         color: "bg-pink-100 text-pink-700",
+//     },
+// ];
+
+// const otherShippingOptions = [
+//     { id: 2, name: "Secure Delivery (Country of Event)", rate: 6.5 },
+//     { id: 4, name: "Hotel Delivery (Event City)", rate: 6.5 },
+//     { id: 6, name: "Bike Courier (Central London)", rate: 20 },
+//     { id: 9, name: "Bike Courier (London Heathrow)", rate: 50 },
+//     { id: 14, name: "UK Special Delivery Mon-Fri Pre-1pm", rate: 7.5 },
+//     { id: 15, name: "UK Special Delivery Mon-Fri Pre-9am", rate: 22.5 },
+//     { id: 16, name: "UK Special Delivery (Residential) Sat Pre-1pm", rate: 22.5 },
+//     { id: 17, name: "UK Special Delivery (Residential) Sat Pre-9am", rate: 27.5 },
+//     { id: 21, name: "TNT International (Central Europe)", rate: 40 },
+//     { id: 25, name: "DHL Delivery (EU)", rate: 35 },
+//     { id: 26, name: "DHL Delivery (Non-EU)", rate: 50 },
+//     { id: 29, name: "UPS/Fedex Delivery", rate: 20 },
+// ];
 
 interface TicketListProps {
-    tickets: Ticket[];
+    listings: Listing[];
     selectedSeat: string | null;
-    areaNames: Record<string, string>;
+    areaNames: string[];
     onTicketHover: (area: string, section?: string) => void;
-    onTicketSelect: (id: number) => void;
+    onTicketSelect: (id: string) => void;
     selectedArea: string;
     selectedSection: string;
 }
 
 const TicketList: React.FC<TicketListProps> = ({
-    tickets,
+    listings,
     selectedSeat,
     areaNames,
     onTicketHover,
@@ -42,193 +225,34 @@ const TicketList: React.FC<TicketListProps> = ({
     selectedArea,
     selectedSection,
 }) => {
-    // Filter tickets to show only those in the selected area or all if none selected
+
+
+    // Filter listings to show only those in the selected area or all if none selected
     let displayTickets = selectedArea
-        ? tickets.filter((ticket) => ticket.area === selectedArea)
-        : tickets;
+        ? listings.filter((ticket) => ticket.section_stand_name === selectedArea)
+        : listings;
 
     displayTickets = selectedSection
-        ? tickets.filter((ticket) => ticket.section === selectedSection)
-        : tickets;
-
-    const maxLimit = 10;
-
-    const [ticketCount, setTicketCount] = useState<{ [key: string]: number }>({});
-
-    const increment = (id: number) => {
-        setTicketCount((prev) => {
-            const current = prev[id] || 1;
-            if (current >= 10) return prev; // max limit
-            return { ...prev, [id]: current + 1 };
-        });
-    };
-
-    const decrement = (id: number) => {
-        setTicketCount((prev) => {
-            const current = prev[id] || 1;
-            if (current <= 1) return prev; // min limit
-            return { ...prev, [id]: current - 1 };
-        });
-    };
+        ? listings.filter((ticket) => ticket.section_id === selectedSection)
+        : listings;
 
     return (
-        <div className="bg-white rounded-lg">
-            {/* <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">Liverpool vs West Ham United</h2>
-                <div className="text-sm text-green-600 font-medium mb-4">Premier League</div>
-            </div> */}
 
-            <div className="mb-6">
-                {/* <h3 className="text-lg font-semibold mb-4">
-                    {selectedArea ? `${areaNames[selectedArea]} Tickets` : 'Available Tickets'}
-                </h3> */}
-                <div className="space-y-4">
-                    {/* {displayTickets.map((ticket) => (
-                        <div
-                            key={ticket.id}
-                            className={`border rounded-lg p-4 cursor-pointer transition-colors hover:border-green-500 ${selectedSeat === ticket.section ? 'border-green-500 bg-green-50' : ''}`}
-                            onMouseEnter={() => onTicketHover(ticket.area, ticket.section)}
-                            onMouseLeave={() => onTicketHover(selectedArea)}
-                            onClick={() => onTicketSelect(ticket.id)}
-                        >
-                            <div className="flex justify-between items-start mb-3">
-                                <div>
-                                    <div className="font-medium">{areaNames[ticket.area]}</div>
-                                    <div className="text-sm text-gray-500">Section {ticket.section}, Row {ticket.row}</div>
-                                </div>
-                                <div className="text-xl font-bold text-green-600">£{ticket.price}</div>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <div className="text-sm text-gray-500">{ticket.availability} tickets available</div>
-                                <button className="px-4 py-1 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition-colors">
-                                    Select
-                                </button>
-                            </div>
-                        </div>
-                    ))} */}
 
-                    {displayTickets.map((ticket) => (
-                        <div
-                            key={ticket.id}
-                            className={`relative bg-white rounded-lg p-4 group ticket-red shadow border cursor-pointer transition-colors  ${selectedSeat === ticket.section ? " bg-green-500" : ""
-                                }`}
-                            onMouseEnter={() => onTicketHover(ticket.area, ticket.section)}
-                            onMouseLeave={() => onTicketHover(selectedArea)}
-                            onClick={() => onTicketSelect(ticket.id)}>
-                            {/* Counter top right */}
-                            <div className="absolute top-2 right-2 z-10">
-                                <div className="flex items-center p-1 gap-1 rounded-sm bg-white">
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            decrement(ticket.id);
-                                        }}
-                                        className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-colors p-2 rounded-full">
-                                        <Minus className="w-3 h-3" />
-                                    </button>
+        <div className="space-y-6">
 
-                                    <div className="flex flex-col items-center px-1">
-                                        <span className="text-lg font-medium text-center min-w-[1.5rem]">
-                                            {ticketCount[ticket.id] || 1} &nbsp;
-                                            <span className="text-xs font-light text-center whitespace-nowrapn">
-                                                Ticket{(ticketCount[ticket.id] || 1) > 1 ? "s" : ""}
-                                            </span>
-                                        </span>
-                                    </div>
-
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            increment(ticket.id);
-                                        }}
-                                        className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-colors p-2 rounded-full">
-                                        <Plus className="w-3 h-3" />
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Header */}
-                            <header className="">
-                                <h3 className="text-gray-800 text-base font-semibold group-hover:text-ticket-red ">
-                                    <span>{areaNames[ticket.area]}</span>
-                                    <span className="block text-sm text-gray-500 ml-1 group-hover:text-black">
-                                        Section {ticket.section}, Row {ticket.row}
-                                    </span>
-                                </h3>
-                            </header>
-
-                            <ul className="flex flex-wrap gap-2 text-xs mb-3">
-                                <li>
-                                    <span className="bg-gray-100 border border-gray-300 text-gray-600 rounded-md px-2 py-1 inline-flex items-center gap-1">
-                                        <DevicePhoneMobileIcon className="w-3 h-3" />
-                                        Mobile ticket
-                                    </span>
-
-                                    {/* <span className="bg-gray-100 border border-gray-300 text-gray-600 rounded-md px-2 py-1 inline-flex items-center gap-1">
-                                        <TicketIcon className="w-3 h-3" />
-                                        E-ticket
-                                    </span> */}
-                                </li>
-                                <li>
-                                    <span className="bg-gray-100 border border-gray-300 text-gray-600 rounded-md px-2 py-1 inline-flex items-center gap-1">
-                                        <Armchair className="w-3 h-3" />
-                                        Single seat
-                                    </span>
-                                </li>
-                            </ul>
-
-                            {/* Tags */}
-                            <ul className="flex flex-wrap gap-2 text-xs mb-3">
-                                {/* ... your tags ... */}
-                            </ul>
-
-                            {/* Bottom Row */}
-                            <div className="flex justify-between items-center">
-                                <div className="text-sm text-gray-500">
-                                    {ticket.availability} tickets available
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="text-lg font-semibold text-black">
-                                        £{ticket.price}{" "}
-                                        <span className="font-thin text-sm text-gray-500">
-                                            / Ticket
-                                        </span>
-                                    </div>
-                                    <Link to={`/checkout`} className="block">
-                                        <button className="px-4 py-2 bg-ticket-primarycolor text-white text-sm rounded-full group-hover:bg-ticket-red transition-colors">
-                                            Buy Now
-                                        </button>
-                                    </Link>
-
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            {/* 
-      <div className="mt-4 space-y-3">
-        <h3 className="text-lg font-semibold">Ticket Information</h3>
-        <div className="flex items-start">
-          <CheckCircle size={16} className="text-green-600 mt-1 mr-2" />
-          <span className="text-sm">
-            All tickets are 100% guaranteed and delivered securely via email.
-          </span>
+            {displayTickets.map((ticket) => (
+                <TicketItem
+                    key={ticket.listing_id}
+                    ticket={ticket}
+                    selectedSeat={selectedSeat}
+                    onTicketHover={onTicketHover}
+                    selectedArea={selectedArea}
+                    areaNames={areaNames}
+                />
+            ))}
         </div>
-        <div className="flex items-start">
-          <CheckCircle size={16} className="text-green-600 mt-1 mr-2" />
-          <span className="text-sm">
-            Tickets for the same group/party are always adjacent to each other.
-          </span>
-        </div>
-        <div className="flex items-start">
-          <CheckCircle size={16} className="text-green-600 mt-1 mr-2" />
-          <span className="text-sm">
-            Ticket prices include all fees and service charges.
-          </span>
-        </div>
-      </div> */}
-        </div>
+
     );
 };
 

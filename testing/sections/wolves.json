@@ -1,0 +1,434 @@
+[
+  {
+    "categoryId": 261,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 262,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 263,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 264,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 266,
+    "name": "SIR JACK HAYWARD STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1625,
+        "name": "S1"
+      },
+      {
+        "sectionId": 1626,
+        "name": "S2"
+      },
+      {
+        "sectionId": 1627,
+        "name": "S3"
+      },
+      {
+        "sectionId": 1628,
+        "name": "S4"
+      },
+      {
+        "sectionId": 1629,
+        "name": "S5"
+      }
+    ]
+  },
+  {
+    "categoryId": 267,
+    "name": "SIR JACK HAYWARD STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1630,
+        "name": "SL1"
+      },
+      {
+        "sectionId": 1631,
+        "name": "SL2"
+      },
+      {
+        "sectionId": 1632,
+        "name": "SL3"
+      },
+      {
+        "sectionId": 1633,
+        "name": "SL4"
+      },
+      {
+        "sectionId": 1634,
+        "name": "SL5"
+      }
+    ]
+  },
+  {
+    "categoryId": 269,
+    "name": "STAN CULLIS STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1635,
+        "name": "NU1"
+      },
+      {
+        "sectionId": 1636,
+        "name": "NU2"
+      },
+      {
+        "sectionId": 1637,
+        "name": "NU3"
+      },
+      {
+        "sectionId": 1638,
+        "name": "NU4"
+      },
+      {
+        "sectionId": 1639,
+        "name": "NU5"
+      },
+      {
+        "sectionId": 1640,
+        "name": "NU6"
+      },
+      {
+        "sectionId": 1641,
+        "name": "NU7"
+      },
+      {
+        "sectionId": 1642,
+        "name": "PU1"
+      },
+      {
+        "sectionId": 1643,
+        "name": "PU2"
+      }
+    ]
+  },
+  {
+    "categoryId": 270,
+    "name": "STAN CULLIS STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1644,
+        "name": "NL1"
+      },
+      {
+        "sectionId": 1645,
+        "name": "NL2"
+      },
+      {
+        "sectionId": 1646,
+        "name": "NL3"
+      },
+      {
+        "sectionId": 1647,
+        "name": "NL4"
+      },
+      {
+        "sectionId": 1648,
+        "name": "NL5"
+      },
+      {
+        "sectionId": 1649,
+        "name": "NL6"
+      },
+      {
+        "sectionId": 1650,
+        "name": "PL1"
+      },
+      {
+        "sectionId": 1651,
+        "name": "PL2"
+      }
+    ]
+  },
+  {
+    "categoryId": 272,
+    "name": "BILLY WRIGHT STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1652,
+        "name": "W1"
+      },
+      {
+        "sectionId": 1653,
+        "name": "W2"
+      },
+      {
+        "sectionId": 1654,
+        "name": "W3"
+      },
+      {
+        "sectionId": 1655,
+        "name": "W4"
+      },
+      {
+        "sectionId": 1656,
+        "name": "W5"
+      },
+      {
+        "sectionId": 1657,
+        "name": "W6"
+      },
+      {
+        "sectionId": 1658,
+        "name": "W7"
+      },
+      {
+        "sectionId": 1659,
+        "name": "W8"
+      },
+      {
+        "sectionId": 1660,
+        "name": "W9"
+      }
+    ]
+  },
+  {
+    "categoryId": 273,
+    "name": "BILLY WRIGHT STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1661,
+        "name": "WL1"
+      },
+      {
+        "sectionId": 1662,
+        "name": "WL2"
+      },
+      {
+        "sectionId": 1663,
+        "name": "WL3"
+      },
+      {
+        "sectionId": 1664,
+        "name": "WL4"
+      },
+      {
+        "sectionId": 1665,
+        "name": "WL5"
+      },
+      {
+        "sectionId": 1666,
+        "name": "WL6"
+      },
+      {
+        "sectionId": 1667,
+        "name": "WL7"
+      },
+      {
+        "sectionId": 1668,
+        "name": "WL8"
+      },
+      {
+        "sectionId": 1669,
+        "name": "WL9"
+      }
+    ]
+  },
+  {
+    "categoryId": 275,
+    "name": "STEVE BULL STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1670,
+        "name": "J1"
+      },
+      {
+        "sectionId": 1671,
+        "name": "J2"
+      },
+      {
+        "sectionId": 1672,
+        "name": "J3"
+      },
+      {
+        "sectionId": 1673,
+        "name": "J4"
+      },
+      {
+        "sectionId": 1674,
+        "name": "J5"
+      },
+      {
+        "sectionId": 1675,
+        "name": "J6"
+      },
+      {
+        "sectionId": 1676,
+        "name": "J7"
+      },
+      {
+        "sectionId": 1677,
+        "name": "J8"
+      },
+      {
+        "sectionId": 1678,
+        "name": "J9"
+      },
+      {
+        "sectionId": 1679,
+        "name": "J10"
+      }
+    ]
+  },
+  {
+    "categoryId": 276,
+    "name": "STEVE BULL STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 9713,
+        "name": "JL2"
+      },
+      {
+        "sectionId": 9714,
+        "name": "JL3"
+      },
+      {
+        "sectionId": 9715,
+        "name": "JL4"
+      },
+      {
+        "sectionId": 9716,
+        "name": "JL5"
+      },
+      {
+        "sectionId": 9717,
+        "name": "JL6"
+      },
+      {
+        "sectionId": 9718,
+        "name": "JL7"
+      },
+      {
+        "sectionId": 9719,
+        "name": "JL8"
+      },
+      {
+        "sectionId": 9720,
+        "name": "JL9"
+      },
+      {
+        "sectionId": 9721,
+        "name": "JL10"
+      }
+    ]
+  },
+  {
+    "categoryId": 277,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 9708,
+        "name": "NU5"
+      },
+      {
+        "sectionId": 9709,
+        "name": "NU6"
+      },
+      {
+        "sectionId": 9710,
+        "name": "NU7"
+      },
+      {
+        "sectionId": 9711,
+        "name": "NL5"
+      },
+      {
+        "sectionId": 9712,
+        "name": "NL6"
+      },
+      {
+        "sectionId": 1681,
+        "name": "JL2"
+      },
+      {
+        "sectionId": 1682,
+        "name": "JL3"
+      },
+      {
+        "sectionId": 1683,
+        "name": "JL4"
+      },
+      {
+        "sectionId": 1684,
+        "name": "JL5"
+      },
+      {
+        "sectionId": 1685,
+        "name": "JL6"
+      },
+      {
+        "sectionId": 1686,
+        "name": "JL7"
+      },
+      {
+        "sectionId": 1687,
+        "name": "JL8"
+      },
+      {
+        "sectionId": 1688,
+        "name": "JL9"
+      },
+      {
+        "sectionId": 1689,
+        "name": "JL10"
+      }
+    ]
+  },
+  {
+    "categoryId": 278,
+    "name": "GRAHAM HUGHES STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1690,
+        "name": "SW1"
+      },
+      {
+        "sectionId": 1691,
+        "name": "SW2"
+      }
+    ]
+  },
+  {
+    "categoryId": 279,
+    "name": "VIP - HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 280,
+    "name": "VIP - HOSPITALITY LONGSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 281,
+    "name": "VIP - HOSPITALITY SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

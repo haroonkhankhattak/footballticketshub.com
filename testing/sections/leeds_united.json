@@ -1,0 +1,126 @@
+[
+  {
+    "categoryId": 430,
+    "name": "AWAY SECTION UPPER TIER",
+    "sectionMandatory": true,
+    "sections": [
+      { "sectionId": 2171, "name": "B1", "tier": "Upper" },
+      { "sectionId": 2172, "name": "B2", "tier": "Upper" },
+      { "sectionId": 2173, "name": "B3", "tier": "Upper" },
+      { "sectionId": 2174, "name": "B4", "tier": "Upper" }
+    ]
+  },
+  {
+    "categoryId": 431,
+    "name": "AWAY SECTION LOWER TIER",
+    "sectionMandatory": true,
+    "sections": [
+      { "sectionId": 2175, "name": "FA7", "tier": "Lower" },
+      { "sectionId": 2176, "name": "C15", "tier": "Lower" },
+      { "sectionId": 2177, "name": "C16", "tier": "Lower" },
+      { "sectionId": 2178, "name": "C17", "tier": "Lower" }
+    ]
+  },
+  {
+    "categoryId": 433,
+    "name": "NORTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      { "name": "N1" },
+      { "name": "N2" },
+      { "name": "N3" },
+      { "name": "N4" },
+      { "name": "N5" },
+      { "name": "N6" },
+      { "name": "N7" },
+      { "name": "N8" },
+      { "name": "N9" },
+      { "name": "N10" },
+      { "name": "N11" },
+      { "name": "N12" },
+      { "name": "NEL" }
+    ]
+  },
+  {
+    "categoryId": 434,
+    "name": "SOUTH STAND",
+    "sectionMandatory": false,
+    "sections": [
+      { "name": "SS1" },
+      { "name": "SS2" },
+      { "name": "SS3" },
+      { "name": "SS4" },
+      { "name": "SS5" },
+      { "name": "SS6" },
+      { "name": "SEL" }
+    ]
+  },
+  {
+    "categoryId": 435,
+    "name": "EAST STAND",
+    "sectionMandatory": false,
+    "sections": [
+      { "name": "SE1" },
+      { "name": "SE2" },
+      { "name": "SE3" },
+      { "name": "C18" },
+      { "name": "C19" },
+      { "name": "C20" },
+      { "name": "C21" },
+      { "name": "C22" }
+    ]
+  },
+  {
+    "categoryId": 436,
+    "name": "WEST STAND / WEST UPPER",
+    "sectionMandatory": false,
+    "sections": [{ "name": "D11" }, { "name": "D12" }, { "name": "D13" }]
+  },
+  {
+    "categoryId": 437,
+    "name": "LOWER WEST / FAMILY AREA",
+    "sectionMandatory": false,
+    "sections": [
+      { "name": "FA1" },
+      { "name": "FA2" },
+      { "name": "FA3" },
+      { "name": "FA4" },
+      { "name": "FA5" },
+      { "name": "FA6" }
+    ]
+  },
+  {
+    "categoryId": 438,
+    "name": "PREMIUM SEATS / LOUNGES",
+    "sectionMandatory": false,
+    "sections": [
+      { "name": "BREM" },
+      { "name": "L28" },
+      { "name": "L29" },
+      { "name": "L30" },
+      { "name": "L31" },
+      { "name": "L32" },
+      { "name": "L33" },
+      { "name": "L34" },
+      { "name": "L35" },
+      { "name": "L36" },
+      { "name": "L37" },
+      { "name": "L38" },
+      { "name": "L42" },
+      { "name": "L43" },
+      { "name": "L44" }
+    ]
+  },
+  {
+    "categoryId": 439,
+    "name": "CORNER & MISC SECTIONS",
+    "sectionMandatory": false,
+    "sections": [
+      { "name": "F23" },
+      { "name": "F24" },
+      { "name": "H25" },
+      { "name": "H26" },
+      { "name": "H27" }
+    ]
+  }
+]

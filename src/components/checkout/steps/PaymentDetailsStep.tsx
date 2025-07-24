@@ -36,12 +36,11 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
       </div>
 
       {/* Payment method selection */}
-      <div className="flex gap-4">
+      <div className="flex gap-2 sm:gap-4">
         <button
-          onClick={() => setSelectedMethod("apple")}
-          className={`border p-3 rounded-md flex items-center gap-2 ${
-            selectedMethod === "apple" ? "border-primary" : "border-gray-300"
-          }`}>
+          // onClick={() => setSelectedMethod("apple")}
+          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod === "google" ? "border-primary" : "border-gray-300"
+            }`}>
           <img
             src="/uploads/icons/apple-pay.svg"
             alt="Apple Pay"
@@ -52,24 +51,25 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
         </button>
 
         <button
-          onClick={() => setSelectedMethod("google")}
-          className={`border p-3 rounded-md flex items-center gap-2 ${
-            selectedMethod === "google" ? "border-primary" : "border-gray-300"
-          }`}>
+          // onClick={() => setSelectedMethod("google")}
+          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod === "google" ? "border-primary" : "border-gray-300"
+            }`}
+        >
           <img
             src="/uploads/icons/google-pay.svg"
             alt="Google Pay"
             width={32}
             height={32}
+            className="sm:mr-2"
           />
           <span className="text-sm">Google Pay</span>
         </button>
 
+
         <button
-          onClick={() => setSelectedMethod("card")}
-          className={`border p-3 rounded-md flex items-center gap-2 ${
-            selectedMethod === "card" ? "border-primary" : "border-gray-300"
-          }`}>
+          // onClick={() => setSelectedMethod("card")}
+          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod === "google" ? "border-primary" : "border-gray-300"
+            }`}>
           <CreditCard className="h-5 w-5 text-gray-600" />
           <span className="text-sm">Credit Card</span>
         </button>

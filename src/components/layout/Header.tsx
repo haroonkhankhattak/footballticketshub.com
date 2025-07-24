@@ -1,34 +1,20 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, ChevronDown, Check } from "lucide-react";
+import { Search, Clock, MapPin, X, Menu, Ticket, ShoppingBagIcon, ShoppingBasketIcon, ShoppingCartIcon, List } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { GetServerSideProps } from "next";
-import { client } from "@/lib/graphql/apollo-client";
+import { useMutation, useQuery } from '@apollo/client';
+import { debounce } from "lodash";
 
-import { GET_UPCOMING_POPULAR_MATCHES } from "../../lib/graphql/queries/PopularUpcomingMatches";
+import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
+import { predefinedKeywords } from "../../lib/searchKeywords";
+import { useNavigate } from 'react-router-dom';
+import { GET_SEARCH_RESULTS } from "../../lib/graphql/queries/Search";
+import BasketWithTimer from "../BasketWithTimer";
+import { GET_BASKET_BY_SESSION } from "../../lib/graphql/queries/GetBasket";
+import { BasketProps } from "../../types/basket";
+import { CLEAR_BASKET } from "../../lib/graphql/queries/ClearBasket";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const { data } = await client.query({
-      query: GET_UPCOMING_POPULAR_MATCHES,
-    });
-
-    return {
-      props: {
-        posts: data.posts,
-      },
-    };
-  } catch (error) {
-    console.error("Apollo SSR error:", error);
-    return { props: { posts: [] } };
-  }
-};
+const DEBOUNCE_DELAY = 300;
 
 const Header = ({
   isScrolledPastHero,
@@ -37,14 +23,16 @@ const Header = ({
   isScrolledPastHero: boolean;
   fixed: boolean;
 }) => {
+
+
   const currencies = [
-    { id: "1", code: "GBP", symbol: "£", name: "British Pound" },
-    { id: "2", code: "EUR", symbol: "€", name: "Euro" },
-    { id: "3", code: "USD", symbol: "$", name: "US Dollar" },
-    { id: "4", code: "CHF", symbol: "Fr", name: "Swiss Franc" },
-    { id: "5", code: "SEK", symbol: "kr", name: "Swedish Krona" },
-    { id: "6", code: "NOK", symbol: "kr", name: "Norwegian Krone" },
-    { id: "7", code: "DKK", symbol: "kr", name: "Danish Krone" },
+    { id: "1", code: "gbp", symbol: "£", name: "British Pound" },
+    { id: "2", code: "eur", symbol: "€", name: "Euro" },
+    { id: "3", code: "usd", symbol: "$", name: "US Dollar" },
+    { id: "4", code: "chf", symbol: "Fr", name: "Swiss Franc" },
+    { id: "5", code: "sek", symbol: "kr", name: "Swedish Krona" },
+    { id: "6", code: "nok", symbol: "kr", name: "Norwegian Krone" },
+    { id: "7", code: "dkk", symbol: "kr", name: "Danish Krone" },
   ];
 
   const languages = [
@@ -55,16 +43,77 @@ const Header = ({
     { id: "5", code: "nl", icon: "/uploads/icons/nl.png", name: "Dutch" },
   ];
 
-  const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+  const [basket, setBasket] = useState<BasketProps>();
+
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [results, setResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(true);
+  const [basketItems, setBasketItems] = useState(basket?.listing.tickets.map(ticket => ticket.ticket_id) || []); // Initialize with empty array if no tickets
+
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
+  // const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
 
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  // const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+
+  const { selectedCurrency, setSelectedCurrency, selectedLanguage, setSelectedLanguage } = useCurrencyLanguage();
 
   const { t, i18n } = useTranslation();
+
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const filteredSuggestions = predefinedKeywords.filter((keyword) =>
+    keyword.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery
+  );
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  const [clearBasket, { loading, error }] = useMutation(CLEAR_BASKET, {
+    fetchPolicy: "network-only",
+  });
+
+  const handleClearBasket = async () => {
+    try {
+      const { data } = await clearBasket();
+      if (data?.clearBasket?.success) {
+        console.log("Basket cleared:", data.clearBasket.message);
+      } else {
+        console.warn("Failed to clear basket");
+      }
+    } catch (err) {
+      console.error("Clear basket error:", err);
+    }
+  };
+
+
+
+  const { data } = useQuery(GET_BASKET_BY_SESSION, {
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (data && data.getBasketBySessionId) {
+      console.log("Basket Data getBasketBySessionId:", data.getBasketBySessionId);
+      setBasket(data.getBasketBySessionId);
+    }
+  }, [data]);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); // run on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const savedCurrency = localStorage.getItem("selectedCurrency");
@@ -80,20 +129,20 @@ const Header = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
   const handleCurrencySelect = (currencyCode: string) => {
     setSelectedCurrency(currencyCode);
-    localStorage.setItem("selectedCurrency", currencyCode);
     setShowCurrencySelector(false);
   };
 
   const handleLanguageSelect = (languageCode: string) => {
     setSelectedLanguage(languageCode);
     i18n.changeLanguage(languageCode);
-    localStorage.setItem("selectedLanguage", languageCode);
     setShowLanguageSelector(false);
   };
 
-  // Find the selected currency from the local list
+
+
   const selectedCurrencyData = currencies.find(
     (currency) => currency.code === selectedCurrency
   );
@@ -102,50 +151,250 @@ const Header = ({
     (language) => language.code === selectedLanguage
   );
 
+
+  const { data: searchData, loading: queryLoading, error: searchError } = useQuery(GET_SEARCH_RESULTS, {
+    variables: { searchTerm },
+    fetchPolicy: "network-only",
+    skip: !searchTerm.trim(),
+  });
+
+  useEffect(() => {
+    if (searchData?.searchResult) {
+      console.log(searchData?.searchResult);
+      setResults(searchData.searchResult);
+      setSearchLoading(false);
+    }
+  }, [searchData]);
+
+  // Debounce function to update the searchTerm state (triggers query)
+  const debouncedSetSearchTerm = debounce((val) => {
+    setSearchTerm(val);
+    setSearchLoading(true);
+  }, DEBOUNCE_DELAY);
+
+  // On input change: update input field and debounce update of searchTerm
+  const onInputChange = (e) => {
+    const val = e.target.value;
+    setSearchQuery(val);
+    setShowSuggestions(true);
+    debouncedSetSearchTerm(val);
+    if (val.trim() === '') {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSelectSuggestion = (value) => {
+    // setSearchQuery(value);
+    // setSearchTerm(value);
+
+    if (value.type === "MatchResult") {
+
+      const newDate = new Date(Number(value.date));
+
+      const day = String(newDate.getUTCDate()).padStart(2, '0'); // "04"
+
+      const month = newDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(); // AUG
+      const year = newDate.getUTCFullYear(); // 2025
+      const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
+
+      navigate(`/tickets/${value.slug}`, {
+        state: {
+          homeTeam: value.home_team,
+          eventId: value.id,
+          eventCode: value.eventCode,
+          eventTypeCode: value.eventTypeCode,
+          pageNumber: 1,
+          eventName: value.title,
+          categoryName: value.league,
+          day: day,
+          month: month,
+          year: year,
+          time: time,
+          venue: value.venue,
+          city: value.city,
+          country: value.country,
+          minPrice: value.price,
+        },
+      });
+    } else {
+      console.log(value.slug);
+      navigate(`/matches/premier-league/${value.slug}`);
+    }
+
+    setShowSuggestions(false);
+    setSearchLoading(true);
+  };
+
+
+  const toggleSection = (section: string) => {
+    setOpenSection(prev => (prev === section ? null : section));
+  };
+
+
   return (
     <header
       className={`w-full top-0 left-0 z-50 bg-white shadow-md ${fixed ? "fixed" : ""
-        }`}>
+        }`}
+    >
       {/* Top Info Bar */}
       {!isScrolledPastHero && (
-        <div className="w-full bg-white text-gray-700 py-2 text-sm border-b">
-          <div className="ticket-container">
-            <p className="text-center">{t("welcome")}</p>
+        <div className="w-full bg-white text-gray-700 py-2 text-xs sm:text-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-center truncate">{t("welcome")}</p>
           </div>
         </div>
       )}
 
       {/* Logo and Currency Selection */}
       <div className="bg-white py-3 border-b">
-        <div className="ticket-container flex justify-between items-center">
-          <Link to="/" className="flex items-center">
-            <div>
-              <span className="font-bold text-2xl">
-                Foolball<span className="text-ticket-red">Tickets</span>Hub
-              </span>
-              <span className="text-xs text-gray-600 block tracking-tight">
-                RELIABLE. SECURE. ENJOY THE MATCH
-              </span>
-            </div>
-          </Link>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          {/* Logo */}
+          <div className={`w-full md:w-auto ${searchQuery && isMobile ? 'hidden' : 'block'}`}>
+            <Link to="/" className="flex items-center">
+              <div>
+                <span className="font-bold text-base sm:text-xl md:text-2xl block">
+                  Foolball<span className="text-ticket-red">Tickets</span>Hub
+                </span>
+                <span className="text-[8px] sm:text-xs text-gray-600 block tracking-tight">
+                  RELIABLE. SECURE. ENJOY THE MATCH
+                </span>
+              </div>
+            </Link>
+          </div>
+
 
           {isScrolledPastHero && (
-            <div className="w-full  max-w-2xl relative">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search for team, match, stadium or city"
-                className="w-full bg-gray-200 py-2 px-5 pr-12 rounded-md text-black text-lg focus:outline-none"
-              />
-              <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
-                <Search size={24} />
-              </button>
+            // <div className="w-full max-w-2xl relative mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`w-full ${searchQuery && isMobile ? 'mt-0' : 'md:max-w-2xl'} relative`}>
+
+              <div className="w-full max-w-3xl mx-auto mt-0">
+                {/* Search Input */}
+                <div className="flex flex-col md:flex-row md:items-center gap-4 relative">
+                  <div className="flex-1 relative">
+                    <div className="relative w-full">
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={onInputChange}
+                        placeholder="Search here..."
+                        className="w-full border border-ticket-lightgray rounded-lg p-3 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-ticket-primarycolor text-black"
+                      />
+
+                      {/* Search Icon (left) */}
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={18} />
+
+                      {/* Clear (X) Icon (right) - only show if there's a query */}
+                      {searchQuery && (
+                        <button
+                          onClick={() => {
+                            setSearchQuery("");
+                            setResults([]);
+                            setShowSuggestions(false);
+                          }}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-ticket-red"
+                          aria-label="Clear search"
+                        >
+                          <X size={18} />
+                        </button>
+                      )}
+                    </div>
+
+
+
+
+                    {/* Suggestions dropdown */}
+                    {showSuggestions && (
+                      <div className="absolute z-20 w-full bg-white text-black border border-gray-200 mt-1 rounded-lg max-h-80 overflow-y-auto shadow-lg">
+                        {searchLoading ? (
+                          <div className="flex justify-center items-center py-6">
+                            <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-ticket-primarycolor"></div>
+                          </div>
+                        ) : results.length > 0 ? (
+                          <ul>
+                            {results.map((item) => {
+                              // Format date only for match results
+                              let day, month, year, time;
+
+                              if (item.type === "MatchResult") {
+                                const newDate = new Date(Number(item.date));
+                                day = String(newDate.getUTCDate()).padStart(2, "0");
+                                month = newDate
+                                  .toLocaleString("en-US", { month: "short", timeZone: "UTC" })
+                                  .toUpperCase();
+                                year = newDate.getUTCFullYear();
+                                time = newDate.toLocaleTimeString("en-US", {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                  timeZone: "UTC",
+                                });
+                              }
+
+                              return (
+                                <li
+                                  key={item.id}
+                                  className="px-4 py-2 hover:bg-ticket-lightgray cursor-pointer text-sm"
+                                  onClick={() => handleSelectSuggestion(item)}
+                                >
+                                  {item.type === "TeamResult" ? (
+                                    <>
+                                      <h3 className="text-base text-ticket-red font-semibold">{item.title}</h3>
+                                      <p className="text-sm text-gray-600">{item.country}</p>
+                                      <a className="text-sm hover:underline mt-2 inline-block">
+                                        View Club Matches
+                                      </a>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <div className="grid grid-cols-12 items-center border-gray-200 group cursor-pointer transition">
+                                        <div className="col-span-1 bg-gray-50 text-center transition">
+                                          <div className="py-1">
+                                            <div className="uppercase text-xs text-gray-800">{month}</div>
+                                            <div className="text-2xl font-bold group-hover:text-ticket-red">{day}</div>
+                                            <div className="text-sm text-gray-400">{year}</div>
+                                          </div>
+                                        </div>
+
+                                        <div className="col-span-8 pl-4">
+                                          <div className="text-xs text-gray-500 uppercase mb-1 group-hover:text-black transition">
+                                            {item.league}
+                                          </div>
+                                          <div className="text-sm font-medium mb-1 group-hover:text-ticket-red transition">
+                                            {item.title}
+                                          </div>
+                                          <div className="flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800 transition whitespace-nowrap overflow-hidden text-ellipsis">
+                                            <Clock size={14} className="mr-1 shrink-0" />
+                                            <span>{time}</span>
+                                            <span className="mx-2">•</span>
+                                            <MapPin size={14} className="mr-1 shrink-0" />
+                                            <span className="truncate">
+                                              {item.venue}, {item.city}, {item.country}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </>
+                                  )}
+                                  <hr />
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          <p className="text-center text-sm text-gray-500 py-4">No results found.</p>
+                        )}
+                      </div>
+                    )}
+
+                  </div>
+
+                </div>
+              </div>
             </div>
           )}
 
-          <div className="flex items-center gap-1">
-            <Popover
+          {/* <div className="flex items-center gap-1"> */}
+          {/* <Popover
               open={showCurrencySelector}
               onOpenChange={setShowCurrencySelector}>
               <PopoverTrigger asChild>
@@ -155,7 +404,7 @@ const Header = ({
                       <span className="mr-2">
                         {selectedCurrencyData.symbol}
                       </span>
-                      <span>{selectedCurrencyData.code}</span>
+                      <span>{selectedCurrencyData.code.toUpperCase()}</span>
                     </>
                   ) : (
                     "Select Currency"
@@ -195,9 +444,9 @@ const Header = ({
                   ))}
                 </div>
               </PopoverContent>
-            </Popover>
+            </Popover> */}
 
-            <Popover
+          {/* <Popover
               open={showLanguageSelector}
               onOpenChange={setShowLanguageSelector}>
               <PopoverTrigger asChild>
@@ -243,217 +492,247 @@ const Header = ({
                   ))}
                 </div>
               </PopoverContent>
-            </Popover>
-          </div>
+            </Popover> */}
+          {/* </div> */}
+
+
+          {basket && basket.listing.tickets && basket.listing.tickets.length > 0 && (
+            <BasketWithTimer
+              expiresAt={basket.expires}
+              listing={basket.listing}
+              onExpire={() => {
+                setBasketItems([]);
+                // handleClearBasket();
+              }}
+            />
+          )}
+
         </div>
       </div>
 
+
+      {/* Hamburger Icon on Mobile - Full-width background */}
+      <div className="lg:hidden w-full bg-ticket-primarycolor  px-4 py-2 flex justify-start">
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} className="text-white" /> : <Menu size={24} className="text-white" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu with animation */}
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out bg-ticket-primarycolor ${mobileMenuOpen ? 'max-h-[1000px] opacity-100 py-4' : 'max-h-0 opacity-0 py-0'
+          }`}
+      >
+        <div className="flex flex-col gap-2 px-4 text-white font-semibold">
+
+          <Link to="/" className="hover:text-ticket-red text-sm">HOME</Link>
+
+
+          <div></div>
+
+
+          {/* --- PREMIER LEAGUE Section --- */}
+          <button
+            className="text-left  text-sm hover:text-ticket-red"
+            onClick={() => toggleSection('premier-league')}
+          >
+            PREMIER LEAGUE
+          </button>
+          <div
+            className={`pl-4 text-sm transition-all duration-300 ease-in-out overflow-hidden ${openSection === 'premier-league' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
+              }`}
+          >
+            <a href="/matches/premier-league/liverpool" className="block py-1  hover:text-ticket-red">Liverpool</a>
+            <a href="/matches/premier-league/arsenal" className="block py-1 hover:text-ticket-red">Arsenal</a>
+            <a href="/matches/premier-league/manchester-united" className="block py-1 hover:text-ticket-red">Manchester United</a>
+            <a href="/matches/premier-league/chelsea" className="block py-1 hover:text-ticket-red">Chelsea</a>
+            <a href="/league/premier-league" className="block py-1 font-thin hover:text-ticket-red">View All</a>
+          </div>
+
+          {/* --- ENGLISH CUPS Section --- */}
+          <button
+            className="text-left text-sm hover:text-ticket-red"
+            onClick={() => toggleSection('english-cups')}
+          >
+            ENGLISH CUPS
+          </button>
+          <div
+            className={`pl-4 text-sm transition-all duration-300 ease-in-out overflow-hidden ${openSection === 'english-cups' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
+              }`}
+          >
+            <a href="/league/fa-cup" className="block py-1 hover:text-ticket-red">FA Cup</a>
+            <a href="/league/efl-cup" className="block py-1 hover:text-ticket-red">EFL Cup</a>
+            <a href="/league/community-sheild" className="block py-1 hover:text-ticket-red">Community Sheild</a>
+            <a href="/league/championship-play-off-final" className="block py-1 hover:text-ticket-red">Championship Play Off Final</a>
+          </div>
+
+
+          {/* --- EUROPEAN CUPS Section --- */}
+          <button
+            className="text-left text-sm hover:text-ticket-red"
+            onClick={() => toggleSection('european-cups')}
+          >
+            EUROPEAN CUPS
+          </button>
+          <div
+            className={`pl-4 text-sm transition-all duration-300 ease-in-out overflow-hidden ${openSection === 'european-cups' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
+              }`}
+          >
+            <a href="/league/champions-league" className="block py-1 hover:text-ticket-red">Champions League</a>
+            <a href="/league/europa-league" className="block py-1 hover:text-ticket-red"> Europa League</a>
+            <a href="/league/super-cup" className="block py-1 hover:text-ticket-red">Super Cup</a>
+            <a href="/league/conference-league" className="block py-1 hover:text-ticket-red">Conference League</a>
+          </div>
+
+          <Link to="/track" className="py-4 text-sm flex items-center gap-2 hover:text-ticket-red">
+            <Ticket />
+            <span>Track your tickets</span>
+          </Link>
+
+        </div>
+      </div>
+
+
       {/* Main Navigation */}
-      <div className="bg-ticket-primarycolor text-white">
-        <div className="ticket-container">
-          <nav className="flex justify-between">
-            <div className="flex">
-              {/* <Link
-                to="/"
-                className="navbar-link px-0 font-bold py-4 whitespace-nowrap hover:text-ticket-red">
-                HOME
-              </Link> */}
+      <div className="bg-ticket-primarycolor text-white hidden lg:flex">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex items-center justify-between w-full">
+
+
+            <div className="flex items-center space-x-4">
+
               <Link
-                to="/test"
-                className="navbar-link px-0 font-bold py-4 whitespace-nowrap hover:text-ticket-red">
+                to="/"
+                className="navbar-link px-0 font-bold py-4 whitespace-nowrap hover:text-ticket-red"
+              >
                 HOME
               </Link>
 
               <div className="relative group">
                 {/* --- Trigger Link --- */}
                 <Link
-                  to="/premier-league"
-                  className="navbar-link px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap">
+                  to="/league/premier-league"
+                  className="navbar-link px-4 sm:px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap"
+                >
                   PREMIER LEAGUE
                   {/* <ChevronDown size={18} className="ml-1" /> */}
                 </Link>
 
                 {/* --- Full Width Dropdown Directly Below the Link --- */}
                 <div className="fixed left-0 w-screen bg-ticket-primarycolor shadow-xl transform scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-in-out z-40">
-                  <div className="max-w-screen-lg mx-auto px-6 flex flex-row space-x-12 items-start">
-                    <div className="max-w-screen-md px-6 py-8 flex flex-col space-y-4 items-start">
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/Liverpool.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Liverpool
-                        </a>
-                      </div>
-
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/Arsenal.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Arsenal&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Arsenal
-                        </a>
-                      </div>
-
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/manchester_united.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Manchester United
-                        </a>
-                      </div>
-
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/Chelsea.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Chelsea
-                        </a>
-                      </div>
+                  <div className="max-w-screen-lg mx-auto px-6 flex flex-row space-x-6 sm:space-x-12 items-start flex-wrap">
+                    <div className="max-w-screen-md px-4 sm:px-6 py-8 flex flex-col space-y-4 items-start">
+                      <a
+                        href="/matches/premier-league/liverpool"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Liverpool
+                      </a>
+                      <a
+                        href="/matches/premier-league/arsenal"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Arsenal
+                      </a>
+                      <a
+                        href="/matches/premier-league/manchester-united"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Manchester United
+                      </a>
+                      <a
+                        href="/matches/premier-league/chelsea"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Chelsea
+                      </a>
                     </div>
 
-                    <div className="max-w-screen-md px-6 py-8 flex flex-col space-y-4 items-start">
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/nottingham_forest.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Nottingham Forest
-                        </a>
-                      </div>
-
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/newcastle.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          NewCastle
-                        </a>
-                      </div>
-
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/fulham.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Fulham
-                        </a>
-                      </div>
-
-                      <div className="flex items-center">
-                        {/* <img
-                          src="/uploads/teamlogo/wolves.webp" // Add logo image URL
-                          alt={`${name} logo`}
-                          className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                        /> */}
-                        <a
-                          href="/matches?team=Liverpool&league=Premier League"
-                          className="text-l text-white hover:text-ticket-red transition-colors">
-                          Wolves
-                        </a>
-                      </div>
+                    <div className="max-w-screen-md px-4 sm:px-6 py-8 flex flex-col space-y-4 items-start">
+                      <a
+                        href="/matches/premier-league/nottingham-forest"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Nottingham Forest
+                      </a>
+                      <a
+                        href="/matches/premier-league/newcastle-united"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Newcastle
+                      </a>
+                      <a
+                        href="/matches/premier-league/fulham"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Fulham
+                      </a>
+                      <a
+                        href="/matches/premier-league/wolves"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
+                        Wolves
+                      </a>
                     </div>
 
-                    <div className="max-w-screen-md px-6 py-8 flex flex-col space-y-4 items-start">
-                      <div className="flex items-end mb-10 ml-8">
-                        <a
-                          href="/league?league=Premier League"
-                          className="text-sm text-ticket-backgroundcolor underline hover:text-ticket-red transition-colors">
-                          View All
-                        </a>
-                      </div>
+                    <div className="max-w-screen-md px-4 sm:px-6 py-8 flex flex-col items-start justify-end">
+                      <a
+                        href="/league/premier-league"
+                        className="text-sm text-ticket-backgroundcolor underline hover:text-ticket-red transition-colors ml-8 mb-4 sm:mb-10"
+                      >
+                        View All
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
 
+
               <div className="relative group">
                 {/* --- Trigger Link --- */}
                 <Link
-                  to="/premier-league"
-                  className="navbar-link px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap">
+                  to="/ENGLISH CUPS"
+                  className="navbar-link px-4 sm:px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap"
+                >
                   ENGLISH CUPS
                   {/* <ChevronDown size={18} className="ml-1" /> */}
                 </Link>
 
                 {/* --- Full Width Dropdown Directly Below the Link --- */}
                 <div className="fixed left-0 w-screen bg-ticket-primarycolor shadow-xl transform scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-in-out z-40">
-                  <div className="max-w-screen-md mx-auto px-6 py-8 flex flex-col space-y-4 items-start">
+                  <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-8 flex flex-col space-y-4 items-start">
                     <div className="flex items-center">
-                      {/* <img
-                        src="/uploads/leaguelogo/fa_cup.png" // Add logo image URL
-                        alt={`${name} logo`}
-                        className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                      /> */}
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l text-white hover:text-ticket-red transition-colors">
+                        href="/fa-cup"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
                         FA Cup
                       </a>
                     </div>
                     <div className="flex items-center">
-                      {/* <img
-                        src="/uploads/leaguelogo/efl_cup.png" // Add logo image URL
-                        alt={`${name} logo`}
-                        className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                      /> */}
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l text-white hover:text-ticket-red transition-colors">
+                        href="/efl-cup"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
                         EFL Cup
                       </a>
                     </div>
                     <div className="flex items-center">
-                      {/* <img
-                        src="/uploads/leaguelogo/community_shield.png" // Add logo image URL
-                        alt={`${name} logo`}
-                        className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                      /> */}
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l text-white hover:text-ticket-red transition-colors">
+                        href="/community-sheild"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
                         Community Sheild
                       </a>
                     </div>
                     <div className="flex items-center">
-                      {/* <img
-                        src="/uploads/leaguelogo/championship_play_offs.webp" // Add logo image URL
-                        alt={`${name} logo`}
-                        className="w-6 h-6 object-contain mr-2" // Adjust size and margin
-                      /> */}
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l  text-white hover:text-ticket-red transition-colors">
+                        href="/championship-play-off-final"
+                        className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
+                      >
                         Championship Play Off Final
                       </a>
                     </div>
@@ -461,43 +740,50 @@ const Header = ({
                 </div>
               </div>
 
+
               <div className="relative group">
                 {/* --- Trigger Link --- */}
                 <Link
-                  to="/premier-league"
-                  className="navbar-link px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap">
+                  to="/european-cups"
+                  className="navbar-link px-2 sm:px-4 md:px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap"
+                  style={{ minWidth: 0 }} // prevent flex overflow
+                >
                   EUROPEAN CUPS
                   {/* <ChevronDown size={18} className="ml-1" /> */}
                 </Link>
 
                 {/* --- Full Width Dropdown Directly Below the Link --- */}
                 <div className="fixed left-0 w-screen bg-ticket-primarycolor shadow-xl transform scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500 ease-in-out z-40">
-                  <div className="max-w-screen-md mx-auto px-6 py-8 pl-20 flex flex-col space-y-4 items-start">
+                  <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-8 pl-6 sm:pl-20 flex flex-col space-y-4 items-start">
                     <div className="flex items-center">
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l font-light text-white hover:text-ticket-red transition-colors">
+                        href="/league/champions-league"
+                        className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
+                      >
                         Champions League
                       </a>
                     </div>
                     <div className="flex items-center">
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l font-light text-white hover:text-ticket-red transition-colors">
+                        href="/league/europa-league"
+                        className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
+                      >
                         Europa League
                       </a>
                     </div>
                     <div className="flex items-center">
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l font-light text-white hover:text-ticket-red transition-colors">
+                        href="/league/super-cup"
+                        className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
+                      >
                         Super Cup
                       </a>
                     </div>
                     <div className="flex items-center">
                       <a
-                        href="/matches?team=Liverpool&league=Premier League"
-                        className="text-l font-light text-white hover:text-ticket-red transition-colors">
+                        href="/league/conference-league"
+                        className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
+                      >
                         Conference League
                       </a>
                     </div>
@@ -505,60 +791,18 @@ const Header = ({
                 </div>
               </div>
 
-              {/* <div className="group relative">
-                <Link
-                  to="/international"
-                  className="navbar-link px-4 py-4 font-bold flex items-center whitespace-nowrap"
-                >
-                  INTERNATIONAL
-                  <ChevronDown size={18} className="ml-1" />
-                </Link>
 
-                <div className="bg-ltg-white border-b-ltg-grey-4 shadow-ltg-grey-2 absolute z-10 hidden space-y-2 rounded-b-md px-4 py-2 shadow-lg group-hover:block bg-white min-w-[200px]">
-
-                  <a href="/competition/world-cup-2026.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">World Cup 2026</a>
-
-                  <a href="/competition/euro-cup-2028.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Euro Cup 2028</a>
-
-                  <a href="/competition/nations-league.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Nations League</a>
-
-                  <a href="/competition/copa-america.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Copa America</a>
-
-                </div>
-              </div>
-
-              <div className="group relative">
-                <Link
-                  to="/other-competitions"
-                  className="navbar-link font-bold px-4 py-4 flex items-center whitespace-nowrap"
-                >
-                  OTHER COMPETITIONS
-                  <ChevronDown size={18} className="ml-1" />
-                </Link>
-                <div className="bg-ltg-white border-b-ltg-grey-4 shadow-ltg-grey-2 absolute z-10 hidden space-y-2 rounded-b-md px-4 py-2 shadow-lg group-hover:block bg-white min-w-[200px]">
-
-                  <a href="/english-championship-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">English Championship</a><a href="/la-liga-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Spanish La Liga</a><a href="/segunda-division-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Spanish Segunda Division</a><a href="/spl-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Scottish Premier League</a><a href="/bundesliga-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">German Bundesliga</a><a href="/serie-a-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Italian Serie A</a><a href="/eredivisie-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Dutch Eredivisie</a><a href="/ligue-1-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">French Ligue 1</a><a href="/portuguese-liga-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Portuguese Liga</a><a href="/mls-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">MLS USA</a><a href="/friendly-matches-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">Friendly Matches</a><a href="/nfl-london-tickets.html" className="border-b-ltg-grey-4 block min-w-[250px] border-b-2 py-3 text-left text-base text-black last:border-b-0 hover:text-opacity-50">NFL London</a></div>
-              </div> */}
             </div>
 
-            <Link
-              to="/track"
-              className="navbar-link px-4 py-4 flex items-center whitespace-nowrap">
-              <svg
-                width="16"
-                height="12"
-                viewBox="0 0 16 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M15.2859 4.15912C15.6826 4.13044 16 3.78624 16 3.3273V1.7497C16 0.774457 15.286 0 14.3868 0H1.61322C0.71405 0 0 0.774457 0 1.7497V3.35598C0 3.78624 0.317355 4.15912 0.71405 4.18781C1.45455 4.27386 2.00992 4.96226 2.00992 5.79409C2.00992 6.62591 1.45455 7.31432 0.71405 7.37169C0.317355 7.40037 0 7.77326 0 8.20351V9.78111C0 10.7563 0.71405 11.5308 1.61322 11.5308H14.3868C15.286 11.5308 16 10.7563 16 9.78111V8.20351C16 7.77326 15.6826 7.40037 15.2859 7.37169C14.5455 7.28563 13.9901 6.59723 13.9901 5.7654C13.9901 4.9049 14.5455 4.21649 15.2859 4.15912ZM14.8099 8.5764V9.78111C14.8099 10.0393 14.6248 10.24 14.3868 10.24H7.90744V8.69113C7.90744 8.34693 7.64297 8.03141 7.29917 8.03141C6.95537 8.03141 6.69091 8.31824 6.69091 8.69113V10.24H1.61322C1.37521 10.24 1.19008 10.0393 1.19008 9.78111V8.63376C2.35372 8.34693 3.2 7.19958 3.2 5.82277C3.2 4.47464 2.35372 3.29861 1.19008 2.98309V1.7497C1.19008 1.49155 1.37521 1.29076 1.61322 1.29076H6.71736V2.83968C6.71736 3.18388 6.98182 3.4994 7.32562 3.4994C7.66942 3.4994 7.93388 3.21256 7.93388 2.83968V1.29076H14.3868C14.6248 1.29076 14.8099 1.49155 14.8099 1.7497V2.92573C13.6463 3.24125 12.8 4.38859 12.8 5.7654C12.8 7.11353 13.6463 8.26088 14.8099 8.5764Z"
-                  fill="#fff"></path>
-                <path
-                  d="M7.32567 4.38867C7.00832 4.38867 6.71741 4.67551 6.71741 5.04839V6.51126C6.71741 6.85546 6.98187 7.17098 7.32567 7.17098C7.66947 7.17098 7.93394 6.88414 7.93394 6.51126V5.04839C7.90749 4.67551 7.64303 4.38867 7.32567 4.38867Z"
-                  fill="#fff"></path>
-              </svg>
-              <div>&nbsp; Track your tickets</div>
-            </Link>
+            <div className="ml-auto">
+              <Link
+                to="/track"
+                className="navbar-link px-4 py-4 flex items-center whitespace-nowrap"
+              >
+                <Ticket />
+                <div>&nbsp; Track your tickets</div>
+              </Link>
+            </div>
           </nav>
         </div>
       </div>
@@ -567,3 +811,5 @@ const Header = ({
 };
 
 export default Header;
+
+

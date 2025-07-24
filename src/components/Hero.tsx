@@ -1,306 +1,392 @@
-import React, { useState } from "react";
-import { Calendar, MapPin, Search, Check } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Calendar, MapPin, Search, Check, X, Clock } from "lucide-react";
 import TrustPilotRow from "../components/TrustpilotRow";
-import { Link } from "react-router-dom";
-// import type { HomePageProps } from "../pages/Index";
-// import type { HomePageProps } from "../pages/Index";
+import { Link, Navigate } from "react-router-dom";
+import { leagueRedirects, predefinedKeywords, teamRedirects } from "../lib/searchKeywords";
+import { GET_UPCOMING_POPULAR_MATCHES } from "../lib/graphql/queries/PopularUpcomingMatches";
+import { useQuery } from '@apollo/client';
+import { formatDate } from "../lib/utils";
+import { Match } from "../lib/graphql/queries/getHomePageProps";
+import { GET_SEARCH_RESULTS } from "../lib/graphql/queries/Search";
+import { debounce } from "lodash";
+import { useNavigate } from 'react-router-dom';
+import { log } from "console";
 
+
+const DEBOUNCE_DELAY = 300;
 const Hero = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
 
-  const featuredMatches = [
-    {
-      id: 1,
-      name: "Asenal vs Bournemouth",
-      date: "May 03, 2025",
-      league: "Premier League",
-    },
-    {
-      id: 3,
-      name: "Newcastle vs Chelsea",
-      date: "May 11, 2025",
-      league: "English Premier League",
-    },
-    {
-      id: 3,
-      name: "Chelsea vs Liverpool",
-      date: "May 04, 2025",
-      league: "English Premier League",
-    },
-    {
-      id: 4,
-      name: "Arsenal vs Paris Saint-Germain",
-      date: "April 29, 2025",
-      league: "Champions League",
-    },
-  ];
+  const navigate = useNavigate();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [featuredMatches, setFeaturedMatches] = useState([]);
+  const [results, setResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(true);
+
+  const { data: upcomingData,
+    loading: upcomingLoading,
+    error: upcomingError,
+  } = useQuery(GET_UPCOMING_POPULAR_MATCHES, {
+    variables: { limit: 4, },
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (upcomingData?.popularUpcomingMatches) {
+      const formattedMatches = upcomingData.popularUpcomingMatches.map((match: any, index: number) => {
+        const matchDate = new Date(Number(match.date));
+        return {
+          id: index,
+          homeTeam: match.home_team,
+          categoryName: match.league,
+          year: matchDate.getFullYear(),
+          month: matchDate.toLocaleString("en-US", { month: "short" }).toUpperCase(),
+          day: matchDate.getDate(),
+          time: matchDate.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          }),
+          venue: match.venue,
+          city: match.city,
+          country: match.country,
+          eventName: match.title,
+          date: formatDate(match.date),
+          league: match.league,
+          urlToEvent: match.slug,
+          tba: false,
+          minPrice: {
+            gbp: 95,
+            usd: 120,
+            eur: 110,
+            aud: 170,
+            cad: 160,
+            chf: 105,
+          },
+          link: `/tickets/${match.slug}`,
+        };
+      });
+      setFeaturedMatches(formattedMatches);
+    }
+  }, [upcomingData]);
+
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const filteredSuggestions = predefinedKeywords.filter((keyword) =>
+    keyword.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery
+  );
+
+  const { data: searchData, loading: queryLoading, error: searchError } = useQuery(GET_SEARCH_RESULTS, {
+    variables: { searchTerm },
+    fetchPolicy: "network-only",
+    skip: !searchTerm.trim(),
+  });
+
+  useEffect(() => {
+    if (searchData?.searchResult) {
+      setResults(searchData.searchResult);
+      setSearchLoading(false);
+    }
+  }, [searchData]);
+
+  // Debounce function to update the searchTerm state (triggers query)
+  const debouncedSetSearchTerm = debounce((val) => {
+    setSearchTerm(val);
+    setSearchLoading(true);
+  }, DEBOUNCE_DELAY);
+
+  // On input change: update input field and debounce update of searchTerm
+  const onInputChange = (e) => {
+    const val = e.target.value;
+    setSearchQuery(val);
+    setShowSuggestions(true);
+    debouncedSetSearchTerm(val);
+    if (val.trim() === '') {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSelectSuggestion = (value) => {
+    // setSearchQuery(value);
+    // setSearchTerm(value);
+
+    if (value.type === "MatchResult") {
+
+      const newDate = new Date(Number(value.date));
+
+      const day = String(newDate.getUTCDate()).padStart(2, '0'); // "04"
+
+      const month = newDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(); // AUG
+      const year = newDate.getUTCFullYear(); // 2025
+      const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
+
+      navigate(`/tickets/${value.slug}`, {
+        state: {
+          homeTeam: value.home_team,
+          eventId: value.id,
+          eventCode: value.eventCode,
+          eventTypeCode: value.eventTypeCode,
+          pageNumber: 1,
+          eventName: value.title,
+          categoryName: value.league,
+          day: day,
+          month: month,
+          year: year,
+          time: time,
+          venue: value.venue,
+          city: value.city,
+          country: value.country,
+          minPrice: value.price,
+        },
+      });
+    } else {
+      navigate(`/matches/premeri-league/${value.slug}`);
+    }
+
+    setShowSuggestions(false);
+    setSearchLoading(true);
+  };
+
+
+  // const handleSelectSuggestion = (keyword: string) => {
+
+  //   const team = teamRedirects[keyword];
+  //   if (team) {
+  //     window.location.href = `/matches?team=${encodeURIComponent(team)}&league=Premier League`;
+  //     return;
+  //   }
+  //   switch (keyword) {
+  //     case "Premier League":
+  //       window.location.href = "/league/premier-league";
+  //       return;
+  //     case "Champions League":
+  //       window.location.href = "/champions league";
+  //       return;
+  //     case "Europa League":
+  //       window.location.href = "/europa-league";
+  //       return;
+  //     case "FA Cup":
+  //       window.location.href = "/fa-cup";
+  //       return;
+  //     case "EFL Cup":
+  //       window.location.href = "/efl-cup";
+  //       return;
+  //     case "Community Shield":
+  //       window.location.href = "/community-shield";
+  //       return;
+  //     case "Championship":
+  //       window.location.href = "/championship";
+  //       return;
+  //     default:
+  //       setSearchQuery(keyword);
+  //       setShowSuggestions(false);
+  //   }
+  //   setSearchQuery(keyword);
+  //   setShowSuggestions(false);
+  // };
+
+
 
   return (
     <main>
-      {/* <TrustPilotRow /> */}
-      <div className="w-full relative">
-        {/* Hero Background Image */}
+      <div className="w-full relative md:mt-10">
+
+        {/* Hero Image */}
         <div
           className="w-full h-[60vh] min-h-[300px] bg-cover bg-center relative"
           style={{
             backgroundImage: `url('/uploads/monochrome-soccer-fans-cheering.jpg')`,
             backgroundPosition: "50% 30%",
-          }}>
+          }}
+        >
           <div className="absolute inset-0 bg-black bg-opacity-30"></div>
 
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center p-4">
-            <div className="bg-white/10 my-12 rounded-xl shadow-lg max-w-3xl mx-auto overflow-visible mb-12 animate-slide-in">
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <Search size={20} className="text-ticket-lightcolor" />
-                  <h2 className="text-lg font-semibold ml-2">
-                    Find your perfect match
-                  </h2>
-                </div>
+          {/* Overlay Content */}
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4 sm:px-6">
+            <div className="bg-white/10 rounded-xl shadow-lg w-full max-w-[95%] sm:max-w-2xl md:max-w-3xl mx-auto p-4 sm:p-6 animate-slide-in">
 
-                <div className="flex flex-col md:flex-row md:items-center gap-4">
-                  <div className="flex-1">
-                    <div className="relative">
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search teams or competitions..."
-                        className="w-full border border-ticket-lightgray rounded-lg p-3 pl-10 focus:outline-none focus:ring-1 focus:ring-ticket-red text-black"
-                      />
-                      <Search
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 "
-                        size={18}
-                      />
-                    </div>
+              {/* Title Section */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-start mb-4 gap-3 text-left">
+                <Search size={20} className="text-ticket-lightcolor" />
+                <h2 className="text-base sm:text-lg font-semibold">
+                  Find your perfect match
+                </h2>
+              </div>
+
+              {/* Search Input */}
+              <div className="w-full mt-6 sm:mt-10">
+                <div className="flex flex-col md:flex-row md:items-center gap-4 w-full">
+                  <div className="flex-1 relative">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={onInputChange}
+                      placeholder="Search clubs or matches..."
+                      className="w-full border border-ticket-lightgray rounded-lg p-3 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-ticket-primarycolor text-black"
+                    />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+                    {searchQuery && (
+                      <button
+                        onClick={() => {
+                          setSearchQuery("");
+                          setResults([]);
+                          setShowSuggestions(false);
+                        }}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-ticket-red"
+                        aria-label="Clear search"
+                      >
+                        <X size={18} />
+                      </button>
+                    )}
+                    {showSuggestions && (
+                      <div className="absolute z-20 w-full bg-white text-black border border-gray-200 mt-1 rounded-lg max-h-80 overflow-y-auto shadow-lg text-left">
+                        {searchLoading ? (
+                          <div className="flex justify-center items-center py-6">
+                            <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-ticket-primarycolor"></div>
+                          </div>
+                        ) : results.length > 0 ? (
+                          <ul>
+                            {results.map((item) => {
+                              // extract date
+                              let day, month, year, time;
+                              if (item.type === "MatchResult") {
+                                const newDate = new Date(Number(item.date));
+                                day = String(newDate.getUTCDate()).padStart(2, "0");
+                                month = newDate.toLocaleString("en-US", {
+                                  month: "short",
+                                  timeZone: "UTC"
+                                }).toUpperCase();
+                                year = newDate.getUTCFullYear();
+                                time = newDate.toLocaleTimeString("en-US", {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                  timeZone: "UTC"
+                                });
+                              }
+
+                              return (
+                                <li
+                                  key={item.id}
+                                  className="px-4 py-2 hover:bg-ticket-lightgray cursor-pointer text-sm"
+                                  onClick={() => handleSelectSuggestion(item)}
+                                >
+                                  {item.type === "TeamResult" ? (
+                                    <>
+                                      <h3 className="text-base text-ticket-red font-semibold">{item.title}</h3>
+                                      <p className="text-sm text-gray-600">{item.country}</p>
+                                      <a className="text-sm hover:underline mt-2 inline-block">View Club Matches</a>
+                                    </>
+                                  ) : (
+                                    <div className="grid grid-cols-12 items-center group transition">
+                                      <div className="col-span-2 text-center">
+                                        <div className="uppercase text-xs text-gray-800">{month}</div>
+                                        <div className="text-xl font-bold group-hover:text-ticket-red">{day}</div>
+                                        <div className="text-xs text-gray-400">{year}</div>
+                                      </div>
+                                      <div className="col-span-10 pl-3">
+                                        <div className="text-xs text-gray-500 uppercase mb-1 group-hover:text-black">{item.league}</div>
+                                        <div className="text-sm font-medium group-hover:text-ticket-red">{item.title}</div>
+                                        <div className="flex items-center text-sm text-gray-600 group-hover:text-gray-800 whitespace-nowrap overflow-hidden">
+                                          <Clock size={14} className="mr-1" />
+                                          <span>{time}</span>
+                                          <span className="mx-2">•</span>
+                                          <MapPin size={14} className="mr-1" />
+                                          <span className="truncate">{item.venue}, {item.city}, {item.country}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                  <hr />
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          <p className="text-center text-sm text-gray-500 py-4">No results found.</p>
+                        )}
+                      </div>
+                    )}
                   </div>
 
-                  <button className="btn-primary bg-ticket-primarycolor hover:bg-ticket-red flex items-center justify-center">
+                  <button
+                    className="hidden md:flex btn-primary bg-ticket-primarycolor hover:bg-ticket-red flex items-center justify-center w-full md:w-auto px-5 py-3 rounded-lg text-white"
+                    onClick={() => {
+                      setSearchTerm(searchQuery);
+                      setShowSuggestions(false);
+                      setSearchLoading(true);
+                    }}
+                  >
                     <Search size={18} className="mr-2" />
                     Find Tickets
                   </button>
+
                 </div>
               </div>
 
               {/* Quick Picks */}
-              <div className="px-6 py-4">
+              <div className="mt-10 w-full px-2 sm:px-0">
                 <div className="flex items-center mb-2">
                   <Calendar size={16} className="text-ticket-lightcolor mr-2" />
-                  <span className="text-sm font-semibold text-ticket-lightcolor">
-                    Popular Upcoming Matches
-                  </span>
+                  <span className="text-sm font-semibold text-ticket-lightcolor">Popular Upcoming Matches</span>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                  {featuredMatches.map((match) => (
-                    <Link
-                      key={match.id}
-                      to={`/tickets/${match.id}`}
-                      className="bg-white p-3 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group">
-                      {/* Match name wrapper */}
-                      <div className="font-medium overflow-hidden ">
-                        <div className="inline-block whitespace-nowrap transition-transform duration-500 group-hover:translate-x-[-30%]">
-                          {match.name}
-                        </div>
-                      </div>
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {featuredMatches.slice(0, 4).map((match) => {
+                    // Split the eventName by " vs "
+                    const teams = match.eventName.split(" vs ");
 
-                      <div className="text-xs text-gray-500 flex items-center group-hover:text-ticket-darkcolor mt-1">
-                        <Calendar size={12} className="mr-1" />
-                        {match.date}
-                      </div>
-                    </Link>
-                  ))}
+                    return (
+                      <Link
+                        key={match.id}
+                        to={match.link}
+                        state={{
+                          homeTeam: match.homeTeam,
+                          eventId: match.id,
+                          eventCode: match.eventCode,
+                          eventTypeCode: match.eventTypeCode,
+                          pageNumber: 1,
+                          eventName: match.eventName,
+                          categoryName: match.categoryName,
+                          day: match.day,
+                          month: match.month,
+                          year: match.year,
+                          time: match.time,
+                          venue: match.venue,
+                          city: match.city,
+                          country: match.country,
+                          minPrice: match.minPrice.gbp
+                        }}
+                        className="bg-white p-1 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group transition"
+                      >
+                        <div className="font-medium overflow-hidden text-center">
+                          <div className="transition-transform duration-500">
+                            <div className="leading-tight">
+                              <div className="text-xs sm:text-sm">{teams[0]}</div>
+                              <div className="text-ticket-red font-semibold text-sm sm:text-base my-0">vs</div>
+                              <div className="text-xs sm:text-sm">{teams[1]}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-xs sm:text-sm text-gray-500 flex items-center justify-center group-hover:text-ticket-darkcolor mt-1">
+                          <Calendar size={12} className="mr-1" />
+                          <span className="text-[0.65rem] sm:text-xs">{match.date}</span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+
                 </div>
               </div>
+
             </div>
-
-            {/* <h1 className="font-dosis text-4xl font-bold mb-6">
-              Be part of the live action!
-            </h1>
-            <p className="text-xl md:text-xl font-bold mb-8">
-              Score tickets fast & safe on the most trusted platform
-            </p> */}
-
-            {/* Search Bar */}
-            {/* <div className="w-full max-w-2xl relative">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search for team, match, stadium or city"
-                className="w-full py-2 px-5 pr-12 rounded-md text-black text-lg focus:outline-none"
-              />
-              <button className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
-                <Search size={24} />
-              </button>
-            </div> */}
           </div>
         </div>
-
-        {/* Guarantee Banner */}
-        {/* <div className="bg-white py-4 text-center">
-          <div className="flex justify-center items-center text-green-600">
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2"
-            >
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <span className="font-medium">
-              All our orders are 150% guaranteed
-            </span>
-            <svg
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="ml-1"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-          </div>
-        </div> */}
-
-        {/* <div className="max-w-screen-xl mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-16 py-8 mb-4">
-
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">100%</div>
-            <div className="text-sm font-medium text-black">Ticket Guarantee</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">24/7</div>
-            <div className="text-sm font-medium text-black">Customer Support</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">Global</div>
-            <div className="text-sm font-medium text-black">Worldwide Coverage</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">Fast</div>
-            <div className="text-sm font-medium text-black">E-Ticket Delivery</div>
-          </div>
-          <div className="bg-white p-4 rounded-md text-center shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col justify-center items-center space-y-1  transform">
-            <div className="text-ticket-red font-semibold text-lg">Secure</div>
-            <div className="text-sm font-medium text-black">Checkout Process</div>
-          </div>
-
-        </div> */}
       </div>
     </main>
+
   );
 };
 
 export default Hero;
 
-// import React, { useState } from 'react';
-// import { Calendar, Search, MapPin } from 'lucide-react';
-// import { Link } from 'react-router-dom';
-
-// const Hero = () => {
-//   const [searchQuery, setSearchQuery] = useState('');
-
-//   // Featured matches data
-//   const featuredMatches = [
-//     { id: 1, name: 'Man United vs Liverpool', date: 'October 20, 2023', league: 'Premier League' },
-//     { id: 2, name: 'Real Madrid vs Barcelona', date: 'October 28, 2023', league: 'La Liga' },
-//     { id: 3, name: 'PSG vs Bayern Munich', date: 'November 7, 2023', league: 'Champions League' },
-//     { id: 4, name: 'Arsenal vs Tottenham', date: 'November 15, 2023', league: 'Premier League' },
-//   ];
-
-//   return (
-//     <div className="pt-24 bg-gradient-to-b from-white to-ticket-gray">
-//       <div className="ticket-container py-12">
-//         {/* Search Box */}
-//         <div className="bg-white rounded-xl shadow-lg max-w-3xl mx-auto overflow-hidden mb-12 animate-slide-in">
-//           <div className="p-6">
-//             <div className="flex items-center mb-4">
-//               <Search size={20} className="text-ticket-red" />
-//               <h2 className="text-lg font-semibold ml-2">
-//                 Find your perfect match
-//               </h2>
-//             </div>
-
-//             <div className="flex flex-col md:flex-row md:items-center gap-4">
-//               <div className="flex-1">
-//                 <div className="relative">
-//                   <input
-//                     type="text"
-//                     value={searchQuery}
-//                     onChange={(e) => setSearchQuery(e.target.value)}
-//                     placeholder="Search teams or competitions..."
-//                     className="w-full border border-ticket-lightgray rounded-lg p-3 pl-10 focus:outline-none focus:ring-2 focus:ring-ticket-red"
-//                   />
-//                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-//                 </div>
-//               </div>
-
-//               <button className="btn-primary flex items-center justify-center">
-//                 <Search size={18} className="mr-2" />
-//                 Find Tickets
-//               </button>
-//             </div>
-//           </div>
-
-//           {/* Quick Picks */}
-//           <div className="bg-ticket-gray px-6 py-4">
-//             <div className="flex items-center mb-2">
-//               <Calendar size={16} className="text-ticket-red mr-2" />
-//               <span className="text-sm font-medium text-ticket-darkgray">Popular Upcoming Matches</span>
-//             </div>
-//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-//               {featuredMatches.map(match => (
-//                 <Link
-//                   key={match.id}
-//                   to={`/match/${match.id}`}
-//                   className="bg-white p-3 rounded-md hover:shadow-md transition-shadow text-sm hover:text-ticket-red"
-//                 >
-//                   <div className="font-medium truncate">{match.name}</div>
-//                   <div className="text-xs text-gray-500 flex items-center mt-1">
-//                     <Calendar size={12} className="mr-1" />
-//                     {match.date}
-//                   </div>
-//                 </Link>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Trust Badges */}
-//         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-//           <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-//             <div className="text-ticket-red font-bold mb-1">100%</div>
-//             <div className="text-sm text-ticket-darkgray">Ticket Guarantee</div>
-//           </div>
-//           <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-//             <div className="text-ticket-red font-bold mb-1">24/7</div>
-//             <div className="text-sm text-ticket-darkgray">Customer Support</div>
-//           </div>
-//           <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-//             <div className="text-ticket-red font-bold mb-1">Secure</div>
-//             <div className="text-sm text-ticket-darkgray">Checkout Process</div>
-//           </div>
-//           <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-//             <div className="text-ticket-red font-bold mb-1">Fast</div>
-//             <div className="text-sm text-ticket-darkgray">Worldwide Shipping</div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Hero;

@@ -1,0 +1,829 @@
+[
+  {
+    "categoryId": 233,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 235,
+    "name": "MILBURN STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1491,
+        "name": "L7A"
+      },
+      {
+        "sectionId": 1492,
+        "name": "LL7A"
+      },
+      {
+        "sectionId": 1493,
+        "name": "L7B"
+      },
+      {
+        "sectionId": 1494,
+        "name": "LL7B"
+      },
+      {
+        "sectionId": 1495,
+        "name": "L7C"
+      },
+      {
+        "sectionId": 1496,
+        "name": "LL7C"
+      },
+      {
+        "sectionId": 1497,
+        "name": "L7D"
+      },
+      {
+        "sectionId": 1498,
+        "name": "LL7D"
+      },
+      {
+        "sectionId": 1499,
+        "name": "L7E"
+      },
+      {
+        "sectionId": 1500,
+        "name": "LL7E"
+      },
+      {
+        "sectionId": 1501,
+        "name": "L7F"
+      },
+      {
+        "sectionId": 1502,
+        "name": "LL7F"
+      },
+      {
+        "sectionId": 1503,
+        "name": "L7G"
+      },
+      {
+        "sectionId": 1504,
+        "name": "LL7G"
+      },
+      {
+        "sectionId": 1505,
+        "name": "L7H"
+      },
+      {
+        "sectionId": 1506,
+        "name": "LL7H"
+      }
+    ]
+  },
+  {
+    "categoryId": 236,
+    "name": "MILBURN STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1507,
+        "name": "L1A"
+      },
+      {
+        "sectionId": 1508,
+        "name": "L1B"
+      },
+      {
+        "sectionId": 1509,
+        "name": "L1C"
+      },
+      {
+        "sectionId": 1510,
+        "name": "L1D"
+      },
+      {
+        "sectionId": 1511,
+        "name": "L1F"
+      },
+      {
+        "sectionId": 1512,
+        "name": "L1G"
+      },
+      {
+        "sectionId": 1513,
+        "name": "L1H"
+      },
+      {
+        "sectionId": 1514,
+        "name": "L1I"
+      }
+    ]
+  },
+  {
+    "categoryId": 237,
+    "name": "EAST STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1427,
+        "name": "A"
+      },
+      {
+        "sectionId": 1428,
+        "name": "B"
+      },
+      {
+        "sectionId": 1429,
+        "name": "C"
+      },
+      {
+        "sectionId": 1430,
+        "name": "D"
+      },
+      {
+        "sectionId": 1431,
+        "name": "E"
+      },
+      {
+        "sectionId": 1432,
+        "name": "F"
+      },
+      {
+        "sectionId": 1433,
+        "name": "H"
+      },
+      {
+        "sectionId": 1434,
+        "name": "I"
+      },
+      {
+        "sectionId": 1435,
+        "name": "J"
+      },
+      {
+        "sectionId": 1436,
+        "name": "K"
+      },
+      {
+        "sectionId": 1437,
+        "name": "L"
+      },
+      {
+        "sectionId": 1438,
+        "name": "M"
+      }
+    ]
+  },
+  {
+    "categoryId": 238,
+    "name": "LEAZES STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1565,
+        "name": "L6A"
+      },
+      {
+        "sectionId": 1566,
+        "name": "L6B"
+      },
+      {
+        "sectionId": 1567,
+        "name": "L6C"
+      },
+      {
+        "sectionId": 1568,
+        "name": "L6D"
+      },
+      {
+        "sectionId": 1569,
+        "name": "L6E"
+      },
+      {
+        "sectionId": 1570,
+        "name": "L4T"
+      },
+      {
+        "sectionId": 1571,
+        "name": "L4U"
+      },
+      {
+        "sectionId": 1572,
+        "name": "L4V"
+      },
+      {
+        "sectionId": 1573,
+        "name": "L4W"
+      },
+      {
+        "sectionId": 1574,
+        "name": "L4X"
+      },
+      {
+        "sectionId": 1576,
+        "name": "L2M"
+      },
+      {
+        "sectionId": 1577,
+        "name": "L2N"
+      },
+      {
+        "sectionId": 1578,
+        "name": "L2P"
+      },
+      {
+        "sectionId": 1579,
+        "name": "L2Q"
+      },
+      {
+        "sectionId": 1580,
+        "name": "L2R"
+      },
+      {
+        "sectionId": 1581,
+        "name": "L2S"
+      },
+      {
+        "sectionId": 1582,
+        "name": "L1A"
+      },
+      {
+        "sectionId": 1583,
+        "name": "L1B"
+      },
+      {
+        "sectionId": 1584,
+        "name": "L1C"
+      },
+      {
+        "sectionId": 1585,
+        "name": "L1D"
+      },
+      {
+        "sectionId": 1586,
+        "name": "L1E"
+      },
+      {
+        "sectionId": 1587,
+        "name": "L1F"
+      },
+      {
+        "sectionId": 1588,
+        "name": "L1L"
+      },
+      {
+        "sectionId": 1589,
+        "name": "L1K"
+      },
+      {
+        "sectionId": 1590,
+        "name": "L1J"
+      },
+      {
+        "sectionId": 1591,
+        "name": "L1I"
+      },
+      {
+        "sectionId": 1592,
+        "name": "L1H"
+      },
+      {
+        "sectionId": 1593,
+        "name": "L1G"
+      },
+      {
+        "sectionId": 9677,
+        "name": "L7F"
+      },
+      {
+        "sectionId": 9678,
+        "name": "L7H"
+      },
+      {
+        "sectionId": 9679,
+        "name": "L7J"
+      },
+      {
+        "sectionId": 9680,
+        "name": "L7K"
+      },
+      {
+        "sectionId": 9681,
+        "name": "L7L"
+      },
+      {
+        "sectionId": 9682,
+        "name": "L7M"
+      },
+      {
+        "sectionId": 9683,
+        "name": "LL7F"
+      },
+      {
+        "sectionId": 9684,
+        "name": "LL7H"
+      },
+      {
+        "sectionId": 9685,
+        "name": "LL7J"
+      },
+      {
+        "sectionId": 9686,
+        "name": "LL7K"
+      },
+      {
+        "sectionId": 9687,
+        "name": "LL7L"
+      },
+      {
+        "sectionId": 9688,
+        "name": "LL7M"
+      }
+    ]
+  },
+  {
+    "categoryId": 239,
+    "name": "GALLOWGATE STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1515,
+        "name": "A"
+      },
+      {
+        "sectionId": 1516,
+        "name": "B"
+      },
+      {
+        "sectionId": 1517,
+        "name": "C"
+      },
+      {
+        "sectionId": 1518,
+        "name": "D"
+      },
+      {
+        "sectionId": 1519,
+        "name": "E"
+      },
+      {
+        "sectionId": 1520,
+        "name": "F"
+      },
+      {
+        "sectionId": 1521,
+        "name": "G"
+      },
+      {
+        "sectionId": 1522,
+        "name": "H"
+      },
+      {
+        "sectionId": 1523,
+        "name": "I"
+      },
+      {
+        "sectionId": 1524,
+        "name": "J"
+      },
+      {
+        "sectionId": 1525,
+        "name": "K"
+      },
+      {
+        "sectionId": 1526,
+        "name": "L"
+      },
+      {
+        "sectionId": 1527,
+        "name": "M"
+      },
+      {
+        "sectionId": 1528,
+        "name": "N"
+      },
+      {
+        "sectionId": 1529,
+        "name": "P"
+      },
+      {
+        "sectionId": 1530,
+        "name": "Q"
+      },
+      {
+        "sectionId": 1531,
+        "name": "R"
+      },
+      {
+        "sectionId": 1532,
+        "name": "S"
+      },
+      {
+        "sectionId": 1533,
+        "name": "T"
+      },
+      {
+        "sectionId": 1534,
+        "name": "U"
+      },
+      {
+        "sectionId": 1535,
+        "name": "V"
+      }
+    ]
+  },
+  {
+    "categoryId": 241,
+    "name": "GALLOWGATE WEST CORNER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1469,
+        "name": "A"
+      },
+      {
+        "sectionId": 1470,
+        "name": "B"
+      },
+      {
+        "sectionId": 1471,
+        "name": "C"
+      },
+      {
+        "sectionId": 1472,
+        "name": "D"
+      },
+      {
+        "sectionId": 1473,
+        "name": "E"
+      }
+    ]
+  },
+  {
+    "categoryId": 242,
+    "name": "GALLOWGATE EAST CORNER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1474,
+        "name": "A"
+      },
+      {
+        "sectionId": 1475,
+        "name": "B"
+      },
+      {
+        "sectionId": 1476,
+        "name": "C"
+      },
+      {
+        "sectionId": 1477,
+        "name": "D"
+      },
+      {
+        "sectionId": 1478,
+        "name": "E"
+      },
+      {
+        "sectionId": 1479,
+        "name": "F"
+      }
+    ]
+  },
+  {
+    "categoryId": 243,
+    "name": "LEAZES WEST CORNER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1480,
+        "name": "LL7A"
+      },
+      {
+        "sectionId": 1481,
+        "name": "LL7B"
+      },
+      {
+        "sectionId": 1482,
+        "name": "LL7C"
+      },
+      {
+        "sectionId": 1483,
+        "name": "LL7D"
+      },
+      {
+        "sectionId": 1484,
+        "name": "LL7E"
+      },
+      {
+        "sectionId": 1445,
+        "name": "L7A"
+      },
+      {
+        "sectionId": 1446,
+        "name": "L7B"
+      },
+      {
+        "sectionId": 1447,
+        "name": "L7C"
+      },
+      {
+        "sectionId": 1448,
+        "name": "L7D"
+      },
+      {
+        "sectionId": 1449,
+        "name": "L7E"
+      },
+      {
+        "sectionId": 1450,
+        "name": "L4A"
+      },
+      {
+        "sectionId": 1451,
+        "name": "L4B"
+      },
+      {
+        "sectionId": 1452,
+        "name": "L4C"
+      },
+      {
+        "sectionId": 1453,
+        "name": "L4D"
+      },
+      {
+        "sectionId": 1454,
+        "name": "L4E"
+      },
+      {
+        "sectionId": 1455,
+        "name": "L4F"
+      },
+      {
+        "sectionId": 1456,
+        "name": "L2A"
+      },
+      {
+        "sectionId": 1457,
+        "name": "L2B"
+      },
+      {
+        "sectionId": 1458,
+        "name": "L2C"
+      },
+      {
+        "sectionId": 1459,
+        "name": "L2D"
+      }
+    ]
+  },
+  {
+    "categoryId": 244,
+    "name": "LEAZES EAST CORNER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1460,
+        "name": "A"
+      },
+      {
+        "sectionId": 1461,
+        "name": "B"
+      },
+      {
+        "sectionId": 1462,
+        "name": "C"
+      },
+      {
+        "sectionId": 1463,
+        "name": "D"
+      },
+      {
+        "sectionId": 1464,
+        "name": "E"
+      },
+      {
+        "sectionId": 1465,
+        "name": "F"
+      },
+      {
+        "sectionId": 1466,
+        "name": "G"
+      },
+      {
+        "sectionId": 1467,
+        "name": "H"
+      },
+      {
+        "sectionId": 1468,
+        "name": "J"
+      }
+    ]
+  },
+  {
+    "categoryId": 246,
+    "name": "PLATINUM CLUB LONGSIDE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1536,
+        "name": "L2A"
+      },
+      {
+        "sectionId": 1540,
+        "name": "L3A"
+      },
+      {
+        "sectionId": 1541,
+        "name": "L2B"
+      },
+      {
+        "sectionId": 1544,
+        "name": "L2C"
+      },
+      {
+        "sectionId": 1547,
+        "name": "L2D"
+      },
+      {
+        "sectionId": 1553,
+        "name": "L2E"
+      },
+      {
+        "sectionId": 1556,
+        "name": "L2F"
+      },
+      {
+        "sectionId": 1559,
+        "name": "L3E"
+      },
+      {
+        "sectionId": 1560,
+        "name": "L2G"
+      },
+      {
+        "sectionId": 1563,
+        "name": "L2H"
+      }
+    ]
+  },
+  {
+    "categoryId": 247,
+    "name": "HOSPITALITY SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1575,
+        "name": "L2SB"
+      }
+    ]
+  },
+  {
+    "categoryId": 248,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1485,
+        "name": "LL7M"
+      },
+      {
+        "sectionId": 1486,
+        "name": "LL7L"
+      },
+      {
+        "sectionId": 1487,
+        "name": "LL7K"
+      },
+      {
+        "sectionId": 1488,
+        "name": "LL7J"
+      },
+      {
+        "sectionId": 1489,
+        "name": "LL7H"
+      },
+      {
+        "sectionId": 1490,
+        "name": "LL7F"
+      },
+      {
+        "sectionId": 1439,
+        "name": "L7F"
+      },
+      {
+        "sectionId": 1440,
+        "name": "L7H"
+      },
+      {
+        "sectionId": 1441,
+        "name": "L7J"
+      },
+      {
+        "sectionId": 1442,
+        "name": "L7K"
+      },
+      {
+        "sectionId": 1443,
+        "name": "L7L"
+      },
+      {
+        "sectionId": 1444,
+        "name": "L7M"
+      }
+    ]
+  },
+  {
+    "categoryId": 2719,
+    "name": "BAR 1892 - PREMIUM AREA",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 17627,
+        "name": "LL2A"
+      },
+      {
+        "sectionId": 17628,
+        "name": "LL2B"
+      },
+      {
+        "sectionId": 17629,
+        "name": "LL2C"
+      },
+      {
+        "sectionId": 17630,
+        "name": "LL2D"
+      },
+      {
+        "sectionId": 17631,
+        "name": "LL2E"
+      },
+      {
+        "sectionId": 17632,
+        "name": "LL2F"
+      },
+      {
+        "sectionId": 17633,
+        "name": "LL2G"
+      },
+      {
+        "sectionId": 17634,
+        "name": "LL2H"
+      }
+    ]
+  },
+  {
+    "categoryId": 2720,
+    "name": "CORPORATE HOSPITALITY LONGSIDE",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 17635,
+        "name": "L4A"
+      },
+      {
+        "sectionId": 17636,
+        "name": "L4B"
+      },
+      {
+        "sectionId": 17637,
+        "name": "L4C"
+      },
+      {
+        "sectionId": 17638,
+        "name": "L4D"
+      },
+      {
+        "sectionId": 17639,
+        "name": "L4E"
+      },
+      {
+        "sectionId": 17640,
+        "name": "L4F"
+      },
+      {
+        "sectionId": 17641,
+        "name": "L4G"
+      },
+      {
+        "sectionId": 17642,
+        "name": "L4H"
+      }
+    ]
+  },
+  {
+    "categoryId": 2721,
+    "name": "DIRECTORS BOX",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 17643,
+        "name": "L3B"
+      },
+      {
+        "sectionId": 17644,
+        "name": "L3C"
+      },
+      {
+        "sectionId": 17645,
+        "name": "L3D"
+      }
+    ]
+  }
+]

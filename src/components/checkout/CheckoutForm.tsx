@@ -1,18 +1,29 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { ChevronRight, ChevronLeft, UserCircle2 } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { CheckoutFormData, CheckoutStep } from "@/types/checkout";
 import PersonalDetailsStep from "./steps/PersonalDetailsStep";
 import VisitorDetailsStep from "./steps/VisitorDetailsStep";
 import PaymentDetailsStep from "./steps/PaymentDetailsStep";
 import { cn } from "@/lib/utils";
 
-const CheckoutForm = () => {
+interface CheckoutFormProps {
+    ticketCount: number;
+}
+
+const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
     const [currentStep, setCurrentStep] = React.useState<CheckoutStep>("details");
-    const form = useForm<CheckoutFormData>();
+
+    const form = useForm<CheckoutFormData>({
+        defaultValues: {
+            visitors: Array(ticketCount).fill({ firstName: "", lastName: "" }),
+        },
+    });
+
+    const { control } = form;
 
     const steps = [
         { id: "details" as const, title: "Your Details" },
@@ -41,7 +52,7 @@ const CheckoutForm = () => {
         }
     };
 
-    const getFieldsForStep = (step: CheckoutStep): (keyof CheckoutFormData)[] => {
+    const getFieldsForStep = (step: CheckoutStep): (keyof CheckoutFormData | `visitors.${number}.firstName` | `visitors.${number}.lastName`)[] => {
         switch (step) {
             case "details":
                 return [
@@ -57,7 +68,10 @@ const CheckoutForm = () => {
                     "acceptTerms",
                 ];
             case "visitor":
-                return ["visitor1FirstName", "visitor1LastName"];
+                return Array.from({ length: ticketCount }).flatMap((_, i) => [
+                    `visitors.${i}.firstName`,
+                    `visitors.${i}.lastName`,
+                ]);
             case "payment":
                 return ["cardNumber", "expiryDate", "cvv", "cardHolderName"];
             default:
@@ -72,7 +86,7 @@ const CheckoutForm = () => {
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-semibold">
                         {currentStepIndex + 1}
                     </div>
-                    <h2 className="text-2xl font-semibold">
+                    <h2 className="text-sm sm:text-2xl font-semibold">
                         {steps[currentStepIndex].title}
                     </h2>
                 </div>
@@ -83,7 +97,7 @@ const CheckoutForm = () => {
                             <div className="flex items-center">
                                 <div
                                     className={cn(
-                                        "w-3 h-3 rounded-full",
+                                        "w-3 h-3 rounded-full ",
                                         currentStepIndex === index
                                             ? "bg-primary"
                                             : currentStepIndex > index
@@ -93,7 +107,7 @@ const CheckoutForm = () => {
                                 />
                                 <div
                                     className={cn(
-                                        "text-sm ml-2",
+                                        "text-xs text-center sm:text-sm ml-2",
                                         currentStepIndex === index
                                             ? "text-primary font-medium"
                                             : "text-gray-500"
@@ -113,13 +127,13 @@ const CheckoutForm = () => {
                 <Form {...form}>
                     <form className="space-y-6">
                         {currentStep === "details" && (
-                            <PersonalDetailsStep control={form.control} />
+                            <PersonalDetailsStep control={control} />
                         )}
                         {currentStep === "visitor" && (
-                            <VisitorDetailsStep control={form.control} />
+                            <VisitorDetailsStep control={control} />
                         )}
                         {currentStep === "payment" && (
-                            <PaymentDetailsStep control={form.control} />
+                            <PaymentDetailsStep control={control} />
                         )}
 
                         <div className="flex justify-between pt-6">
@@ -137,7 +151,9 @@ const CheckoutForm = () => {
                                 type="button"
                                 onClick={
                                     currentStep === "payment"
-                                        ? form.handleSubmit(() => { })
+                                        ? form.handleSubmit((data) => {
+                                            console.log("Submitting", data);
+                                        })
                                         : handleNext
                                 }
                                 className="h-11">

@@ -12,11 +12,11 @@ const FootballTickets: React.FC = () => {
                     <div className="text-sm font-light text-black mb-2 text-justify">
                         <p>
                             Many people ask us where they can buy the best <span className="font-semibold" >Football Tickets</span> online.
-                            Live Football Ticketsis a marketplace with a wide collection of football tickets for sale in the UK.
+                            Football Tickets hub is a marketplace with a wide collection of football tickets for sale in the UK.
                             You can book them securely online, even in your own languages such as
-                            <a href="https://www.livefootballtickets.com/de"> German</a>,
-                            <a href="https://www.livefootballtickets.com/fr"> French</a>, and
-                            <a href="https://www.livefootballtickets.com/nl"> Dutch</a> via our ticket sellers. They sell mainly tickets for these leagues:
+                            <a href="https://www.footballticketshub.com/"> German</a>,
+                            <a href="https://www.footballticketshub.com/"> French</a>, and
+                            <a href="https://www.footballticketshub.com/"> Dutch</a> via our ticket sellers. They sell mainly tickets for these leagues:
                         </p>
                         <div className="py-2">
                             <ul className="list-disc pl-5 space-y-2">
@@ -33,7 +33,7 @@ const FootballTickets: React.FC = () => {
 
                         <p>
                             We offer a marketplace to sell football match tickets for the biggest national tournaments like
-                            <a href="https://www.livefootballtickets.com/euro-cup-tickets.html"> Euro 2028</a> and World Cup.
+                            <a href="https://www.footballticketshub.com/euro-cup"> Euro 2028</a> and World Cup.
                             Use our search bar when you’re looking for a specific match.
                         </p>
                         <div className="py-4 pb-4">
@@ -64,12 +64,12 @@ const FootballTickets: React.FC = () => {
                             <div className="py-2">
                                 <p>
                                     We have football tickets available for the biggest teams in the world, including the Premier League clubs
-                                    <a href="https://www.livefootballtickets.com/english-premiership/arsenal-tickets.html"> Arsenal</a>,
-                                    <a href="https://www.livefootballtickets.com/english-premiership/manchester-city-tickets.html"> Manchester City</a>,
-                                    <a href="https://www.livefootballtickets.com/english-premiership/manchester-united-tickets.html"> Manchester United</a>,
-                                    <a href="https://www.livefootballtickets.com/english-premiership/fc-chelsea-tickets.html"> Chelsea</a>,
-                                    <a href="https://www.livefootballtickets.com/english-premiership/tottenham-hotspur-tickets.html"> Tottenham Hotspur</a>, and
-                                    <a href="https://www.livefootballtickets.com/english-premiership/liverpool-tickets.html"> Liverpool</a>.
+                                    <a href="https://www.footballticketshub.com/league/premier-league/arsenal"> Arsenal</a>,
+                                    <a href="https://www.footballticketshub.com/league/premier-league/manchester-city"> Manchester City</a>,
+                                    <a href="https://www.footballticketshub.com/league/premier-league/manchester-united"> Manchester United</a>,
+                                    <a href="https://www.footballticketshub.com/league/premier-league/fc-chelsea"> Chelsea</a>,
+                                    <a href="https://www.footballticketshub.com/league/premier-league/tottenham-hotspur"> Tottenham Hotspur</a>, and
+                                    <a href="https://www.footballticketshub.com/league/premier-league/liverpool"> Liverpool</a>.
                                 </p>
                             </div>
                         </div>
@@ -80,7 +80,7 @@ const FootballTickets: React.FC = () => {
                                 How much are football tickets?</h2>
                             <div className="py-2">
                                 <p>
-                                    Many people are using our site to find cheap football tickets in the UK. The cheapest way to watch a match in the stadium is by having a season ticket. unfortunately there is a big waiting list for every British Premier League club. So it's not easy to get your hands on a season ticket. LiveFootball tickets is there for everyone without a season tickets. We are an online marketplace for football tickets. Our tickets seller decide their prices. In this table we give you a little impression of the football ticket prices for the biggest leagues in Europe:
+                                    Many people are using our site to find cheap football tickets in the UK. The cheapest way to watch a match in the stadium is by having a season ticket. unfortunately there is a big waiting list for every British Premier League club. So it's not easy to get your hands on a season ticket. Football tickets hub is there for everyone without a season tickets. We are an online marketplace for football tickets. Our tickets seller decide their prices. In this table we give you a little impression of the football ticket prices for the biggest leagues in Europe:
                                 </p>
                             </div>
                         </div>
@@ -126,10 +126,10 @@ const FootballTickets: React.FC = () => {
 
                         <div className="py-4 pb-4">
                             <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
-                                Biggest tournaments in 2024-25 season</h2>
+                                Biggest tournaments in 2025-2026 season</h2>
                             <div className="py-2">
                                 <p>
-                                    The 2024-2025 season is going to be a special one, since the Champions League enters a new phase. We've got loads of tickets for huge events during this entire season including FA Cup final tickets, Champions League final tickets, Europa League final tickets and Conference League final tickets amongst others via our booking system.
+                                    The 2025-2026 season is going to be a special one, since the Champions League enters a new phase. We've got loads of tickets for huge events during this entire season including FA Cup final tickets, Champions League final tickets, Europa League final tickets and Conference League final tickets amongst others via our booking system.
 
                                 </p>
                             </div>

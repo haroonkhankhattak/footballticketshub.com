@@ -1,0 +1,222 @@
+[
+  {
+    "categoryId": 192,
+    "name": "SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 193,
+    "name": "LONGSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 194,
+    "name": "ARTHUR WAIT STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1111,
+        "name": "U"
+      },
+      {
+        "sectionId": 1112,
+        "name": "V"
+      },
+      {
+        "sectionId": 1113,
+        "name": "W"
+      },
+      {
+        "sectionId": 1114,
+        "name": "X"
+      },
+      {
+        "sectionId": 1115,
+        "name": "Y"
+      },
+      {
+        "sectionId": 1116,
+        "name": "Z"
+      }
+    ]
+  },
+  {
+    "categoryId": 195,
+    "name": "MAIN STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1117,
+        "name": "A"
+      },
+      {
+        "sectionId": 1118,
+        "name": "B"
+      },
+      {
+        "sectionId": 1119,
+        "name": "C"
+      },
+      {
+        "sectionId": 1120,
+        "name": "D"
+      },
+      {
+        "sectionId": 1121,
+        "name": "E"
+      },
+      {
+        "sectionId": 1122,
+        "name": "F"
+      },
+      {
+        "sectionId": 1123,
+        "name": "G"
+      },
+      {
+        "sectionId": 1124,
+        "name": "H"
+      },
+      {
+        "sectionId": 1125,
+        "name": "J"
+      }
+    ]
+  },
+  {
+    "categoryId": 197,
+    "name": "HOLMESDALE ROAD UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1126,
+        "name": "K"
+      },
+      {
+        "sectionId": 1127,
+        "name": "L"
+      },
+      {
+        "sectionId": 1128,
+        "name": "M"
+      },
+      {
+        "sectionId": 1129,
+        "name": "N"
+      },
+      {
+        "sectionId": 1130,
+        "name": "P"
+      },
+      {
+        "sectionId": 1131,
+        "name": "Q"
+      },
+      {
+        "sectionId": 1132,
+        "name": "R"
+      },
+      {
+        "sectionId": 1133,
+        "name": "S"
+      }
+    ]
+  },
+  {
+    "categoryId": 198,
+    "name": "HOLMESDALE ROAD LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1134,
+        "name": "A"
+      },
+      {
+        "sectionId": 1135,
+        "name": "B"
+      },
+      {
+        "sectionId": 1136,
+        "name": "C"
+      },
+      {
+        "sectionId": 1137,
+        "name": "D"
+      },
+      {
+        "sectionId": 1138,
+        "name": "E"
+      },
+      {
+        "sectionId": 1139,
+        "name": "F"
+      },
+      {
+        "sectionId": 1140,
+        "name": "G"
+      },
+      {
+        "sectionId": 1141,
+        "name": "H"
+      },
+      {
+        "sectionId": 1142,
+        "name": "J"
+      }
+    ]
+  },
+  {
+    "categoryId": 199,
+    "name": "WHITEHORSE LANE STAND",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 200,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1108,
+        "name": "R"
+      },
+      {
+        "sectionId": 1109,
+        "name": "S"
+      },
+      {
+        "sectionId": 1110,
+        "name": "T"
+      }
+    ]
+  },
+  {
+    "categoryId": 201,
+    "name": "PREMIUM SEATS",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 1104,
+        "name": "EXECUTIVE BOXES"
+      },
+      {
+        "sectionId": 1105,
+        "name": "LEGENDS RESTAURANT"
+      },
+      {
+        "sectionId": 1106,
+        "name": "SPERONI'S RESTAURANT"
+      },
+      {
+        "sectionId": 1107,
+        "name": "2010 CLUB"
+      },
+      {
+        "sectionId": 4232,
+        "name": "DIRECTORS' AREA"
+      }
+    ]
+  }
+]

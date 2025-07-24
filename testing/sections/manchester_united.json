@@ -1,0 +1,780 @@
+[
+  {
+    "categoryId": 71,
+    "name": "SHORTSIDE 1st TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 72,
+    "name": "SHORTSIDE 2nd TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 74,
+    "name": "EAST STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 430,
+        "name": "E331"
+      },
+      {
+        "sectionId": 431,
+        "name": "E332"
+      },
+      {
+        "sectionId": 432,
+        "name": "E333"
+      },
+      {
+        "sectionId": 433,
+        "name": "E334"
+      },
+      {
+        "sectionId": 434,
+        "name": "E335"
+      },
+      {
+        "sectionId": 435,
+        "name": "E336"
+      }
+    ]
+  },
+  {
+    "categoryId": 75,
+    "name": "EAST STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 436,
+        "name": "E133"
+      },
+      {
+        "sectionId": 437,
+        "name": "E134"
+      },
+      {
+        "sectionId": 438,
+        "name": "E135"
+      },
+      {
+        "sectionId": 439,
+        "name": "E136"
+      },
+      {
+        "sectionId": 440,
+        "name": "E137"
+      },
+      {
+        "sectionId": 441,
+        "name": "E138"
+      },
+      {
+        "sectionId": 442,
+        "name": "E233"
+      },
+      {
+        "sectionId": 443,
+        "name": "E234"
+      },
+      {
+        "sectionId": 444,
+        "name": "E235"
+      },
+      {
+        "sectionId": 445,
+        "name": "E236"
+      },
+      {
+        "sectionId": 446,
+        "name": "E237"
+      },
+      {
+        "sectionId": 447,
+        "name": "E238"
+      },
+      {
+        "sectionId": 448,
+        "name": "E239"
+      }
+    ]
+  },
+  {
+    "categoryId": 77,
+    "name": "WEST STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 449,
+        "name": "W3101"
+      },
+      {
+        "sectionId": 450,
+        "name": "W3102"
+      },
+      {
+        "sectionId": 451,
+        "name": "W3103"
+      },
+      {
+        "sectionId": 452,
+        "name": "W3104"
+      },
+      {
+        "sectionId": 453,
+        "name": "W3105"
+      },
+      {
+        "sectionId": 454,
+        "name": "W3106"
+      }
+    ]
+  },
+  {
+    "categoryId": 78,
+    "name": "WEST STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 455,
+        "name": "WL0"
+      },
+      {
+        "sectionId": 456,
+        "name": "W101"
+      },
+      {
+        "sectionId": 457,
+        "name": "W102"
+      },
+      {
+        "sectionId": 458,
+        "name": "W103"
+      },
+      {
+        "sectionId": 459,
+        "name": "W104"
+      },
+      {
+        "sectionId": 460,
+        "name": "W105"
+      },
+      {
+        "sectionId": 461,
+        "name": "W106"
+      },
+      {
+        "sectionId": 462,
+        "name": "W201"
+      },
+      {
+        "sectionId": 463,
+        "name": "W202"
+      },
+      {
+        "sectionId": 464,
+        "name": "W203"
+      },
+      {
+        "sectionId": 465,
+        "name": "W204"
+      },
+      {
+        "sectionId": 466,
+        "name": "W206"
+      },
+      {
+        "sectionId": 467,
+        "name": "W207"
+      },
+      {
+        "sectionId": 468,
+        "name": "W208"
+      },
+      {
+        "sectionId": 469,
+        "name": "W209"
+      },
+      {
+        "sectionId": 470,
+        "name": "W210"
+      },
+      {
+        "sectionId": 471,
+        "name": "W211"
+      },
+      {
+        "sectionId": 472,
+        "name": "W212"
+      }
+    ]
+  },
+  {
+    "categoryId": 80,
+    "name": "QUADRANTS 1ST TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 473,
+        "name": "N1401"
+      },
+      {
+        "sectionId": 474,
+        "name": "N2401"
+      },
+      {
+        "sectionId": 475,
+        "name": "N2402"
+      },
+      {
+        "sectionId": 476,
+        "name": "N1413"
+      },
+      {
+        "sectionId": 477,
+        "name": "N2413"
+      },
+      {
+        "sectionId": 478,
+        "name": "N2412"
+      }
+    ]
+  },
+  {
+    "categoryId": 81,
+    "name": "QUADRANTS 2ND TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 479,
+        "name": "NE3417"
+      },
+      {
+        "sectionId": 480,
+        "name": "NE3419"
+      },
+      {
+        "sectionId": 481,
+        "name": "NE3420"
+      },
+      {
+        "sectionId": 482,
+        "name": "NE3421"
+      },
+      {
+        "sectionId": 483,
+        "name": "NE3422"
+      },
+      {
+        "sectionId": 484,
+        "name": "NE3424"
+      },
+      {
+        "sectionId": 485,
+        "name": "NW3434"
+      },
+      {
+        "sectionId": 486,
+        "name": "NW3432"
+      },
+      {
+        "sectionId": 487,
+        "name": "NW3431"
+      },
+      {
+        "sectionId": 488,
+        "name": "NW3430"
+      },
+      {
+        "sectionId": 489,
+        "name": "NW3429"
+      },
+      {
+        "sectionId": 490,
+        "name": "NW3427"
+      },
+      {
+        "sectionId": 8154,
+        "name": "NW3433"
+      },
+      {
+        "sectionId": 8155,
+        "name": "NW3428"
+      }
+    ]
+  },
+  {
+    "categoryId": 83,
+    "name": "LONGSIDE 1st TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 84,
+    "name": "LONGSIDE 2nd TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 85,
+    "name": "LONGSIDE 3rd TIER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 86,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 87,
+    "name": "AWAY SECTION LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 491,
+        "name": "E132"
+      }
+    ]
+  },
+  {
+    "categoryId": 88,
+    "name": "AWAY SECTION UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 492,
+        "name": "E230"
+      },
+      {
+        "sectionId": 493,
+        "name": "E231"
+      },
+      {
+        "sectionId": 494,
+        "name": "E232"
+      }
+    ]
+  },
+  {
+    "categoryId": 90,
+    "name": "SIR ALEX FERGUSON STAND 1ST TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 495,
+        "name": "N1411"
+      },
+      {
+        "sectionId": 496,
+        "name": "N1410"
+      },
+      {
+        "sectionId": 497,
+        "name": "N1409"
+      },
+      {
+        "sectionId": 498,
+        "name": "N1408"
+      },
+      {
+        "sectionId": 499,
+        "name": "N1407"
+      },
+      {
+        "sectionId": 500,
+        "name": "N1406"
+      },
+      {
+        "sectionId": 501,
+        "name": "N1405"
+      },
+      {
+        "sectionId": 502,
+        "name": "N1404"
+      },
+      {
+        "sectionId": 503,
+        "name": "N1403"
+      },
+      {
+        "sectionId": 504,
+        "name": "N2411"
+      },
+      {
+        "sectionId": 505,
+        "name": "N2410"
+      },
+      {
+        "sectionId": 506,
+        "name": "N2409"
+      },
+      {
+        "sectionId": 507,
+        "name": "N2408"
+      },
+      {
+        "sectionId": 508,
+        "name": "N2407"
+      },
+      {
+        "sectionId": 509,
+        "name": "N2406"
+      },
+      {
+        "sectionId": 510,
+        "name": "N2405"
+      },
+      {
+        "sectionId": 511,
+        "name": "N2404"
+      },
+      {
+        "sectionId": 512,
+        "name": "N2403"
+      }
+    ]
+  },
+  {
+    "categoryId": 91,
+    "name": "SIR ALEX FERGUSON STAND 2ND TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 513,
+        "name": "FAM N3408"
+      },
+      {
+        "sectionId": 514,
+        "name": "N3407"
+      },
+      {
+        "sectionId": 515,
+        "name": "N3406"
+      },
+      {
+        "sectionId": 516,
+        "name": "N3405"
+      },
+      {
+        "sectionId": 517,
+        "name": "N3404"
+      },
+      {
+        "sectionId": 518,
+        "name": "N3403"
+      },
+      {
+        "sectionId": 519,
+        "name": "N3402"
+      },
+      {
+        "sectionId": 520,
+        "name": "N3401"
+      }
+    ]
+  },
+  {
+    "categoryId": 92,
+    "name": "SIR ALEX FERGUSON STAND 3RD TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 521,
+        "name": "N4408"
+      },
+      {
+        "sectionId": 522,
+        "name": "N4407"
+      },
+      {
+        "sectionId": 523,
+        "name": "N4406"
+      },
+      {
+        "sectionId": 524,
+        "name": "N4405"
+      },
+      {
+        "sectionId": 525,
+        "name": "N4404"
+      },
+      {
+        "sectionId": 526,
+        "name": "N4403"
+      },
+      {
+        "sectionId": 527,
+        "name": "N4402"
+      },
+      {
+        "sectionId": 528,
+        "name": "N4401"
+      }
+    ]
+  },
+  {
+    "categoryId": 93,
+    "name": "SIR BOBBY CHARLTON STAND",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 529,
+        "name": "S121"
+      },
+      {
+        "sectionId": 530,
+        "name": "S122"
+      },
+      {
+        "sectionId": 531,
+        "name": "S123"
+      },
+      {
+        "sectionId": 532,
+        "name": "S124"
+      },
+      {
+        "sectionId": 533,
+        "name": "S125"
+      },
+      {
+        "sectionId": 534,
+        "name": "S126"
+      },
+      {
+        "sectionId": 535,
+        "name": "S127"
+      },
+      {
+        "sectionId": 536,
+        "name": "S128"
+      },
+      {
+        "sectionId": 537,
+        "name": "S227"
+      },
+      {
+        "sectionId": 538,
+        "name": "S228"
+      },
+      {
+        "sectionId": 539,
+        "name": "S229"
+      }
+    ]
+  },
+  {
+    "categoryId": 95,
+    "name": "QUADRANTS EXECUTIVE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 540,
+        "name": "NW3433"
+      },
+      {
+        "sectionId": 541,
+        "name": "NW3428"
+      },
+      {
+        "sectionId": 542,
+        "name": "NW3436"
+      },
+      {
+        "sectionId": 543,
+        "name": "NE3423"
+      },
+      {
+        "sectionId": 544,
+        "name": "NE3418"
+      },
+      {
+        "sectionId": 547,
+        "name": "NE3426"
+      },
+      {
+        "sectionId": 548,
+        "name": "NE3425"
+      }
+    ]
+  },
+  {
+    "categoryId": 96,
+    "name": "\tSIR BOBBY CHARLTON STAND EXECUTIVE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 549,
+        "name": "S221"
+      },
+      {
+        "sectionId": 550,
+        "name": "S222"
+      },
+      {
+        "sectionId": 551,
+        "name": "S223"
+      },
+      {
+        "sectionId": 552,
+        "name": "S224"
+      },
+      {
+        "sectionId": 553,
+        "name": "S226"
+      }
+    ]
+  },
+  {
+    "categoryId": 97,
+    "name": "SALFORD EXECUTIVE SUITE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 554,
+        "name": "N3416"
+      },
+      {
+        "sectionId": 555,
+        "name": "N3415"
+      },
+      {
+        "sectionId": 556,
+        "name": "N3414"
+      },
+      {
+        "sectionId": 557,
+        "name": "N3413"
+      }
+    ]
+  },
+  {
+    "categoryId": 98,
+    "name": "MANCHESTER EXECUTIVE SUITE",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 558,
+        "name": "VIP N2408"
+      },
+      {
+        "sectionId": 559,
+        "name": "VIP N2407"
+      },
+      {
+        "sectionId": 560,
+        "name": "VIP N2406"
+      }
+    ]
+  },
+  {
+    "categoryId": 99,
+    "name": "W205 - INTERNATIONAL EXECUTIVE SUITE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 1988,
+    "name": "EXECUTIVE LOUNGE",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 9634,
+        "name": "N3405"
+      }
+    ]
+  },
+  {
+    "categoryId": 2638,
+    "name": "TICKET PLUS",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 28870,
+        "name": "NW3427"
+      },
+      {
+        "sectionId": 28872,
+        "name": "NW3432"
+      }
+    ]
+  },
+  {
+    "categoryId": 2642,
+    "name": "MUSEUM VIP HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 2798,
+    "name": "VICTORIA WAREHOUSE (Offsite)",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 18621,
+        "name": "N1404"
+      },
+      {
+        "sectionId": 18624,
+        "name": "N1405"
+      },
+      {
+        "sectionId": 28865,
+        "name": "N1407"
+      },
+      {
+        "sectionId": 28866,
+        "name": "N1408"
+      },
+      {
+        "sectionId": 28867,
+        "name": "S124"
+      },
+      {
+        "sectionId": 28868,
+        "name": "S126"
+      }
+    ]
+  },
+  {
+    "categoryId": 3026,
+    "name": "THE ACADEMY SUITE",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 20592,
+        "name": "NE3420"
+      },
+      {
+        "sectionId": 20593,
+        "name": "NE3425"
+      }
+    ]
+  },
+  {
+    "categoryId": 7281,
+    "name": "INTERNATIONAL SUITE (Post Match)",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 28869,
+        "name": "N3408"
+      }
+    ]
+  },
+  {
+    "categoryId": 7342,
+    "name": "TRINITY CLUB PRE MATCH HOSPITALITY",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 28871,
+        "name": "E334"
+      }
+    ]
+  }
+]

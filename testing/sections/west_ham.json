@@ -1,0 +1,541 @@
+[
+  {
+    "categoryId": 100,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 102,
+    "name": "AWAY SECTION UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 562,
+        "name": "218"
+      },
+      {
+        "sectionId": 563,
+        "name": "219"
+      },
+      {
+        "sectionId": 564,
+        "name": "220"
+      }
+    ]
+  },
+  {
+    "categoryId": 103,
+    "name": "AWAY SECTION LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 565,
+        "name": "117"
+      },
+      {
+        "sectionId": 566,
+        "name": "118"
+      },
+      {
+        "sectionId": 567,
+        "name": "119"
+      },
+      {
+        "sectionId": 568,
+        "name": "120"
+      }
+    ]
+  },
+  {
+    "categoryId": 104,
+    "name": "LONGSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 569,
+        "name": "131"
+      },
+      {
+        "sectionId": 570,
+        "name": "132"
+      },
+      {
+        "sectionId": 571,
+        "name": "133"
+      },
+      {
+        "sectionId": 572,
+        "name": "134"
+      },
+      {
+        "sectionId": 573,
+        "name": "135"
+      },
+      {
+        "sectionId": 574,
+        "name": "136"
+      },
+      {
+        "sectionId": 575,
+        "name": "137"
+      },
+      {
+        "sectionId": 576,
+        "name": "138"
+      },
+      {
+        "sectionId": 577,
+        "name": "139"
+      },
+      {
+        "sectionId": 578,
+        "name": "140"
+      },
+      {
+        "sectionId": 579,
+        "name": "141"
+      },
+      {
+        "sectionId": 580,
+        "name": "103"
+      },
+      {
+        "sectionId": 581,
+        "name": "104"
+      },
+      {
+        "sectionId": 582,
+        "name": "105"
+      },
+      {
+        "sectionId": 583,
+        "name": "106"
+      },
+      {
+        "sectionId": 584,
+        "name": "110"
+      },
+      {
+        "sectionId": 585,
+        "name": "111"
+      },
+      {
+        "sectionId": 586,
+        "name": "112"
+      },
+      {
+        "sectionId": 587,
+        "name": "113"
+      }
+    ]
+  },
+  {
+    "categoryId": 105,
+    "name": "LONGSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 588,
+        "name": "231"
+      },
+      {
+        "sectionId": 589,
+        "name": "232"
+      },
+      {
+        "sectionId": 590,
+        "name": "233"
+      },
+      {
+        "sectionId": 591,
+        "name": "234"
+      },
+      {
+        "sectionId": 592,
+        "name": "235"
+      },
+      {
+        "sectionId": 593,
+        "name": "236"
+      },
+      {
+        "sectionId": 594,
+        "name": "237"
+      },
+      {
+        "sectionId": 595,
+        "name": "238"
+      },
+      {
+        "sectionId": 596,
+        "name": "239"
+      },
+      {
+        "sectionId": 597,
+        "name": "240"
+      },
+      {
+        "sectionId": 598,
+        "name": "241"
+      },
+      {
+        "sectionId": 599,
+        "name": "203"
+      },
+      {
+        "sectionId": 600,
+        "name": "204"
+      },
+      {
+        "sectionId": 601,
+        "name": "205"
+      },
+      {
+        "sectionId": 602,
+        "name": "206"
+      },
+      {
+        "sectionId": 603,
+        "name": "210"
+      },
+      {
+        "sectionId": 604,
+        "name": "211"
+      },
+      {
+        "sectionId": 605,
+        "name": "212"
+      },
+      {
+        "sectionId": 606,
+        "name": "213"
+      }
+    ]
+  },
+  {
+    "categoryId": 107,
+    "name": "SHORTSIDE LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 607,
+        "name": "142"
+      },
+      {
+        "sectionId": 608,
+        "name": "145"
+      },
+      {
+        "sectionId": 609,
+        "name": "146"
+      },
+      {
+        "sectionId": 610,
+        "name": "147"
+      },
+      {
+        "sectionId": 611,
+        "name": "148"
+      },
+      {
+        "sectionId": 615,
+        "name": "152"
+      },
+      {
+        "sectionId": 616,
+        "name": "153"
+      },
+      {
+        "sectionId": 617,
+        "name": "154"
+      },
+      {
+        "sectionId": 618,
+        "name": "155"
+      },
+      {
+        "sectionId": 619,
+        "name": "102"
+      },
+      {
+        "sectionId": 620,
+        "name": "114"
+      },
+      {
+        "sectionId": 621,
+        "name": "124"
+      },
+      {
+        "sectionId": 622,
+        "name": "125"
+      },
+      {
+        "sectionId": 623,
+        "name": "126"
+      },
+      {
+        "sectionId": 624,
+        "name": "127"
+      },
+      {
+        "sectionId": 625,
+        "name": "130"
+      }
+    ]
+  },
+  {
+    "categoryId": 108,
+    "name": "SHORTSIDE UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 626,
+        "name": "202"
+      },
+      {
+        "sectionId": 627,
+        "name": "201"
+      },
+      {
+        "sectionId": 628,
+        "name": "242"
+      },
+      {
+        "sectionId": 629,
+        "name": "243"
+      },
+      {
+        "sectionId": 630,
+        "name": "244"
+      },
+      {
+        "sectionId": 631,
+        "name": "245"
+      },
+      {
+        "sectionId": 632,
+        "name": "246"
+      },
+      {
+        "sectionId": 633,
+        "name": "247"
+      },
+      {
+        "sectionId": 634,
+        "name": "248"
+      },
+      {
+        "sectionId": 635,
+        "name": "249"
+      },
+      {
+        "sectionId": 636,
+        "name": "250"
+      },
+      {
+        "sectionId": 637,
+        "name": "251"
+      },
+      {
+        "sectionId": 638,
+        "name": "252"
+      },
+      {
+        "sectionId": 639,
+        "name": "253"
+      },
+      {
+        "sectionId": 640,
+        "name": "254"
+      },
+      {
+        "sectionId": 641,
+        "name": "255"
+      },
+      {
+        "sectionId": 642,
+        "name": "256"
+      },
+      {
+        "sectionId": 643,
+        "name": "214"
+      },
+      {
+        "sectionId": 644,
+        "name": "215"
+      },
+      {
+        "sectionId": 645,
+        "name": "216"
+      },
+      {
+        "sectionId": 646,
+        "name": "217"
+      },
+      {
+        "sectionId": 647,
+        "name": "221"
+      },
+      {
+        "sectionId": 648,
+        "name": "222"
+      },
+      {
+        "sectionId": 649,
+        "name": "223"
+      },
+      {
+        "sectionId": 650,
+        "name": "224"
+      },
+      {
+        "sectionId": 651,
+        "name": "225"
+      },
+      {
+        "sectionId": 652,
+        "name": "226"
+      },
+      {
+        "sectionId": 653,
+        "name": "227"
+      },
+      {
+        "sectionId": 654,
+        "name": "228"
+      },
+      {
+        "sectionId": 655,
+        "name": "229"
+      },
+      {
+        "sectionId": 656,
+        "name": "230"
+      }
+    ]
+  },
+  {
+    "categoryId": 109,
+    "name": "HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 110,
+    "name": "HOSPITALITY UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 657,
+        "name": "207"
+      },
+      {
+        "sectionId": 658,
+        "name": "208"
+      },
+      {
+        "sectionId": 659,
+        "name": "209"
+      }
+    ]
+  },
+  {
+    "categoryId": 111,
+    "name": "HOSPITALITY MIDDLE TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 660,
+        "name": "M01"
+      },
+      {
+        "sectionId": 661,
+        "name": "M02"
+      },
+      {
+        "sectionId": 662,
+        "name": "M03"
+      },
+      {
+        "sectionId": 663,
+        "name": "M04"
+      },
+      {
+        "sectionId": 664,
+        "name": "M05"
+      },
+      {
+        "sectionId": 665,
+        "name": "M06"
+      },
+      {
+        "sectionId": 666,
+        "name": "M07"
+      },
+      {
+        "sectionId": 667,
+        "name": "M08"
+      },
+      {
+        "sectionId": 668,
+        "name": "M09"
+      },
+      {
+        "sectionId": 669,
+        "name": "M10"
+      },
+      {
+        "sectionId": 670,
+        "name": "M11"
+      },
+      {
+        "sectionId": 671,
+        "name": "M12"
+      },
+      {
+        "sectionId": 672,
+        "name": "M13"
+      },
+      {
+        "sectionId": 673,
+        "name": "M14"
+      },
+      {
+        "sectionId": 674,
+        "name": "M15"
+      },
+      {
+        "sectionId": 675,
+        "name": "M16"
+      }
+    ]
+  },
+  {
+    "categoryId": 112,
+    "name": "HOSPITALITY LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 676,
+        "name": "106 VIP"
+      },
+      {
+        "sectionId": 677,
+        "name": "107"
+      },
+      {
+        "sectionId": 678,
+        "name": "108"
+      },
+      {
+        "sectionId": 679,
+        "name": "109"
+      },
+      {
+        "sectionId": 680,
+        "name": "110 VIP"
+      }
+    ]
+  }
+]

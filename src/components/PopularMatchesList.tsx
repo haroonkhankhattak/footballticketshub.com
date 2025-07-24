@@ -1,19 +1,18 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Clock } from "lucide-react";
 import LeagueCard from "./LeagueCard";
+import React, { useState, useEffect, useRef } from "react";
+import { leagues } from "../lib/constants/leagues";
+import { EventProps, Props } from "../types/event";
+import { POPULAR_MATCHES_API } from "../lib/constants/apis";
+import FilterButton from "./FilterButton";
+import { premier_league_2025_2026_events } from "../pages/league/matches";
+import { formatDate } from "../lib/utils";
+import { useQuery } from "@apollo/client/react/hooks/useQuery";
+import { GET_POPULAR_MATCHES } from "../lib/graphql/queries/PopularMatches";
+import { url } from "inspector";
+import { Match } from "../types/match";
 
-interface MatchProps {
-  id: number;
-  date: string;
-  month: string;
-  year: string;
-  competition: string;
-  teams: string;
-  time: string;
-  venue: string;
-  country: string;
-}
 
 interface Team {
   name: string;
@@ -32,15 +31,16 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({
   viewAllLink,
 }) => {
   return (
-    <div className="mb-16">
-      <h2 className="font-dosis text-ltg-black text-lg font-medium capitalize pb-3">
+    <div className="mb-16 px-4 sm:px-6 md:px-0">
+      <h2 className="font-dosis text-ltg-black text-base sm:text-lg font-medium capitalize pb-2 sm:pb-3">
         {title}
       </h2>
-      <ul className="text-sm">
+      <ul className="text-xs sm:text-sm">
         {teams.map((team, index) => (
           <li
             key={index}
-            className="border-ltg-grey-4 border-t py-2 last:border-b">
+            className="border-ltg-grey-4 border-t py-1 sm:py-2 last:border-b"
+          >
             <a href={team.link} className="flex hover:underline">
               {team.name}
             </a>
@@ -49,255 +49,328 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({
       </ul>
       <a
         href={viewAllLink}
-        className="text-ltg-grey-1 inline-block pt-3 text-gray-500 text-sm">
+        className="text-ltg-grey-1 inline-block pt-2 sm:pt-3 text-gray-500 text-xs sm:text-sm"
+      >
         View all {title} <span className="capitalize">tickets</span>&nbsp;»
       </a>
     </div>
+
   );
 };
 
-const leagues = [
-  {
-    title: "English Premier League",
-    viewAllLink: "/english-premiership-tickets.html",
-    teams: [
-      { name: "Arsenal", link: "/matches?team=Arsenal&league=Premier League" },
-      {
-        name: "Aston Villa",
-        link: "/matches?team=Aston Villa&league=Premier League",
-      },
-      { name: "Chelsea", link: "/matches?team=Chelsea&league=Premier League" },
-      { name: "Everton", link: "/matches?team=Everton&league=Premier League" },
-      { name: "Fulham", link: "/matches?team=Fulham&league=Premier League" },
-      {
-        name: "Liverpool",
-        link: "/matches?team=Liverpool&league=Premier League",
-      },
-      {
-        name: "Manchester City",
-        link: "/matches?team=Manchester City&league=Premier League",
-      },
-      {
-        name: "Manchester United",
-        link: "/matches?team=Manchester United&league=Premier League",
-      },
-      {
-        name: "Newcastle United",
-        link: "/matches?team=Newcastle United&league=Premier League",
-      },
-    ],
-  },
-  {
-    title: "Spanish La Liga",
-    viewAllLink: "/la-liga-tickets.html",
-    teams: [
-      { name: "FC Barcelona", link: "/la-liga/fc-barcelona-tickets.html" },
-      { name: "Real Madrid", link: "/la-liga/real-madrid-tickets.html" },
-    ],
-  },
-  {
-    title: "National Football Teams",
-    viewAllLink: "/national-football-teams-tickets.html",
-    teams: [
-      {
-        name: "England",
-        link: "/national-football-teams/england-football-tickets.html",
-      },
-      {
-        name: "Scotland",
-        link: "/national-football-teams/scotland-football-tickets.html",
-      },
-    ],
-  },
-  {
-    title: "Champions League",
-    viewAllLink: "/champions-league-tickets.html",
-    teams: [
-      {
-        name: "Real Madrid",
-        link: "/champions-league/real-madrid-tickets.html",
-      },
-      {
-        name: "Bayern Munich",
-        link: "/champions-league/bayern-munich-tickets.html",
-      },
-    ],
-  },
-  {
-    title: "Italian Serie A",
-    viewAllLink: "/serie-a-tickets.html",
-    teams: [
-      { name: "AC Milan", link: "/serie-a/ac-milan-tickets.html" },
-      { name: "AS Roma", link: "/serie-a/as-roma-tickets.html" },
-    ],
-  },
-];
 
-const MatchRow: React.FC<MatchProps> = ({
+
+const MatchRow: React.FC<Match> = ({
   id,
   date,
-  month,
-  year,
-  competition,
-  teams,
-  time,
+  league,
+  title,
+  home_team,
+  away_team,
+  home_team_slug,
+  away_team_slug,
+  slug,
   venue,
+  city,
   country,
+  price_starts_from,
 }) => {
+
+  // const match = urlToEvent.match(/\/fixtures\/(.*?)-tickets-(.*)\.html/);
+  const eventCode = "";
+  const eventTypeCode = "";
+  // console.log("---hometeam---", homeTeam);
+
+  const newDate = new Date(Number(date));
+
+  const day = String(newDate.getUTCDate()).padStart(2, '0'); // "04"
+
+  const month = newDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(); // AUG
+  const year = newDate.getUTCFullYear(); // 2025
+  const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
+
+
   return (
-    <Link to={`/tickets/${id}`} className="block">
+    <Link
+      to={`/tickets/${slug}`}
+      state={{
+        homeTeam: home_team,
+        eventId: id,
+        eventCode: eventCode,
+        eventTypeCode: eventTypeCode,
+        pageNumber: 1,
+        eventName: title,
+        categoryName: league,
+        day: day,
+        month: month,
+        year: year,
+        time: time,
+        venue: venue,
+        city: city,
+        country: country,
+        minPrice: price_starts_from,
+      }}
+    >
+
       <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
-        <div className="col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
+
+        {/* Date */}
+        <div className="col-span-3 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
           <div className="py-5">
-            <div className="uppercase text-xs text-gray-800">{month}</div>
-            <div className="text-3xl font-bold group-hover:text-ticket-red">
-              {date}
+            <div className="uppercase text-[10px] sm:text-xs text-gray-800">{month}</div>
+            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
+            <div className="text-xs sm:text-sm text-gray-400">{year}</div>
+
+            {/* Show time below year only on mobile */}
+            <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
+              <Clock size={12} />
+              <span>{time}</span>
             </div>
-            <div className="text-sm text-gray-400">{year}</div>
           </div>
         </div>
 
-        <div className="col-span-8 pl-4">
-          <div className="text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
-            {competition}
+
+
+        {/* Info */}
+        <div className="col-span-9 sm:col-span-8 pl-4">
+          <div className="text-[10px] sm:text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
+            {league}
           </div>
-          <div className="text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
-            {teams}
+
+          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
+            {title}
           </div>
-          <div className="flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800  transition">
+
+          {/* Desktop view: time + location */}
+          <div className="hidden sm:flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800 transition">
             <Clock size={14} className="mr-1" />
             {time}
             <span className="mx-2">•</span>
             <MapPin size={14} className="mr-1" />
-            {venue}, {country}
+            {venue}, {city}, {country}
+          </div>
+
+          {/* Mobile view: show only location */}
+          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-1">
+            <MapPin size={12} className="mr-1" />
+            {venue}, {city}, {country}
           </div>
         </div>
 
-        <div className="col-span-3 px-4 text-right">
+
+        {/* View Tickets button */}
+        <div className="col-span-12 sm:col-span-3 px-4 text-right hidden sm:block">
           <Link
-            to={`/tickets/${id}`}
-            className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+            to={`/tickets/${slug}`}
+            state={{
+              homeTeam: home_team,
+              eventId: id,
+              eventCode: eventCode,
+              eventTypeCode: eventTypeCode,
+              pageNumber: 1,
+              eventName: title,
+              categoryName: league,
+              day: day,
+              month: month,
+              year: year,
+              time: time,
+              venue: venue,
+              city: city,
+              country: country,
+              minPrice: price_starts_from,
+            }}
+            className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full"
+          >
             View Tickets
           </Link>
         </div>
       </div>
     </Link>
+
   );
 };
 
-const PopularMatchesList = () => {
-  const matches = [
+const PopularMatchesList: React.FC<Props> = () => {
+  // if (loading) return <div>Loading matches...</div>;
+  // if (error) return <div>{error}</div>;
 
-    {
-      id: 6,
-      date: "29",
-      month: "APR",
-      year: "2025",
-      competition: "CHAMPIONS LEAGUE",
-      teams: "Arsenal vs Paris Saint-Germain",
-      time: "20:00",
-      venue: "Emirates Stadium, London",
-      country: "United Kingdom",
-      priceRange: "320",
-    },
-    {
-      id: 7,
-      date: "04",
-      month: "MAY",
-      year: "2025",
-      competition: "ENGLISH PREMIERE LEAGUE",
-      teams: "Chelsea vs Liverpool",
-      time: "16:30",
-      venue: "Stamford Bridge, London",
-      country: "United Kingdom",
-      priceRange: "250",
-    },
-    {
-      id: 3,
-      date: "11",
-      month: "MAY",
-      year: "2025",
-      competition: "ENGLISH PREMIER LEAGUE",
-      teams: "Liverpool vs Arsenal",
-      time: "16:30",
-      venue: "Andfield Road, Liverpool",
-      country: "United Kingdom",
-      priceRange: "299",
-    },
-    {
-      id: 9,
-      date: "18",
-      month: "MAY",
-      year: "2025",
-      competition: "ENGILSH PREMIERE LEAGUE",
-      teams: "Arsenal vs Newcastle United",
-      time: "16:00",
-      venue: "Emirates Stadium, London",
-      country: "United Kingdom",
-      priceRange: "299",
-    },
-    {
-      id: 1,
-      date: "26",
-      month: "APR",
-      year: "2025",
-      competition: "ENGLISH PREMIER LEAGUE",
-      teams: "Chelsea vs Everton",
-      time: "12:30",
-      venue: "Stamford Bridge, London",
-      country: "United Kingdom",
-      priceRange: "110",
-    },
-    {
-      id: 2,
-      date: "26",
-      month: "APR",
-      year: "2025",
-      competition: "ENGLISH PREMIER LEAGUE",
-      teams: "Newcastle United vs Ipswich Town",
-      time: "15:00",
-      venue: "St James Park, Newcastle Upon Tyne ",
-      country: "United Kingdom",
-      priceRange: "320",
-    },
-    {
-      id: 3,
-      date: "26",
-      month: "APR",
-      year: "2025",
-      competition: "FA CUP",
-      teams: "Crystal Palace vs Aston Villa",
-      time: "19:45",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-    },
-    {
-      id: 4,
-      date: "27",
-      month: "APR",
-      year: "2025",
-      competition: "FA CUP",
-      teams: "Nottingham Forest vs Manchester City ",
-      time: "16:30",
-      venue: "Wembley Stadium, London",
-      country: "United Kingdom",
-    },
-  ];
+  // const [matches, setMatches] = useState<EventProps[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
+  const [featuredMatches, setFeaturedMatches] = useState([]);
+  const [matches, setMatches] = useState<Match[]>([]);
+  // const { data } = useQuery(GET_POPULAR_MATCHES);
+
+  // useEffect(() => {
+  //   if (data?.popularMatches) {
+  //     const formattedMatches = data.popularMatches.map((match: any, index: number) => {
+  //       const matchDate = new Date(Number(match.date)); // ensure it's a number
+
+  //       return {
+  //         id: index,
+  //         homeTeam: match.home_team,
+  //         categoryName: match.league,
+  //         year: matchDate.getFullYear(),
+  //         month: matchDate.toLocaleString("en-US", { month: "short" }).toUpperCase(),
+  //         day: matchDate.getDate(),
+  //         time: matchDate.toLocaleTimeString("en-US", {
+  //           hour: "2-digit",
+  //           minute: "2-digit",
+  //           hour12: true,
+  //         }),
+  //         venue: match.venue,
+  //         city: match.city,
+  //         country: match.country,
+  //         eventName: match.title,
+  //         date: formatDate(match.date),
+  //         league: match.league,
+  //         urlToEvent: match.slug,
+  //         tba: false,
+  //         minPrice: {
+  //           gbp: 95,
+  //           usd: 120,
+  //           eur: 110,
+  //           aud: 170,
+  //           cad: 160,
+  //           chf: 105,
+  //         },
+  //         link: `/tickets/${match.slug}`,
+  //       };
+  //     });
+
+  //     setMatches(formattedMatches);
+  //   }
+  // }, [data]);
+
+
+
+  // Function to be passed to FilterButton to update the date filter state
+
+  // Apply both filters using the local state for date and search param for team
+  const filteredMatches = getFilteredMatches(
+    matches,
+    currentDateFilter
+  );
+
+  const { data } = useQuery(GET_POPULAR_MATCHES, {
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (data?.popularMatches) {
+      setMatches(data.popularMatches);
+      setLoading(false);
+    }
+  }, [data, filteredMatches]);
+
+  const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
+    setCurrentDateFilter(filterType);
+  };
+
+  function getFilteredMatches(events, dateFilter) {
+    console.log("Filtering matches with date filter:", dateFilter);
+    if (dateFilter === "all") {
+      return events;
+    }
+
+    // Reference current date based on the provided context (June 5, 2025).
+    // Set to midnight local time for consistent date comparison.
+    const currentDate = new Date(2025, 5, 5); // Month is 0-indexed (June is 5)
+    currentDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+
+    let filterDays;
+    if (dateFilter === "30 days") {
+      filterDays = 30;
+    } else if (dateFilter === "7 days") {
+      filterDays = 7;
+    } else if (dateFilter === "3 days") {
+      filterDays = 3;
+    } else {
+      // If an invalid filter is provided, return all events or handle as an error.
+      // For this case, we'll default to returning all events.
+      console.warn(`Invalid date filter: ${dateFilter}. Returning all matches.`);
+      return events;
+    }
+
+    // Calculate the end date for the filter period
+    const endDate = new Date(currentDate);
+    endDate.setDate(currentDate.getDate() + filterDays);
+    endDate.setHours(23, 59, 59, 999); // Set to end of the day to include matches on the last day
+
+    // Helper map for month names to 0-indexed numbers
+    const monthNameToNumber = {
+      "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
+      "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
+    };
+
+    return events.filter(event => {
+      // Construct the event date from its properties (year, month, day)
+      // Set to midnight local time for consistent date comparison
+      const eventDate = new Date(event.year, monthNameToNumber[event.month], event.day);
+      eventDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+
+      // Filter criteria: event must be on or after the current date,
+      // and on or before the calculated end date.
+      return eventDate >= currentDate && eventDate <= endDate;
+    });
+  }
+
+
+  // useEffect(() => {
+  //   // fetch(POPULAR_MATCHES_API)
+  //   //   .then((response) => response.json())
+  //   //   .then((data) => {
+  //   //     console.log("fetching data:", data);
+  //   //     setMatches(data.matches);
+  //   //     setLoading(false);
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.error("Error fetching data:", err);
+  //   //     setError("Failed to load matches");
+  //   //     setLoading(false);
+  //   //   });
+  //   setMatches(featuredMatches)
+  // }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+
+  }, []);
 
 
   return (
     <section className="py-8 bg-white">
       <div className="ticket-container">
-        <div className="grid lg:grid-cols-12 gap-8 px-4">
+        <div className="grid lg:grid-cols-12 gap-8 px-0">
           {/* div left */}
           <div className="lg:col-span-8">
-            <div className="text-xl font-medium py-4 border-b sticky top-0 bg-white z-10">
+            <div className="text-xl font-medium py-4 sticky top-0 bg-white z-10">
               Most Popular Football Tickets
             </div>
-            <div className="max-h-[1500px] overflow-y-auto space-y-2">
-              {matches.map((match) => (
-                <MatchRow key={match.id} {...match} />
-              ))}
+            {/* <div className="text-sm text-black py-2 ">
+              {filteredMatches.length} results found.
+            </div> */}
+            <FilterButton
+              onFilterChange={handleDateFilterChange}
+              selectedFilter={currentDateFilter}
+            />
+            <div className="max-h-[2500px] overflow-y-auto space-y-2">
+              {loading ? (
+                <div className="w-full py-6 flex items-center justify-center bg-white/60">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
+                </div>
+              ) : filteredMatches.length === 0 ? (
+                <div className="text-center text-gray-500 py-8">No matches found.</div>
+              ) : (
+                filteredMatches.map((match) => (
+                  <MatchRow key={match.id} {...match} />
+                ))
+              )}
             </div>
           </div>
 
@@ -414,6 +487,7 @@ const PopularMatchesList = () => {
       </div>
     </section>
   );
+
 };
 
 export default PopularMatchesList;

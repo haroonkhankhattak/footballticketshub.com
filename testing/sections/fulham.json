@@ -1,0 +1,272 @@
+[
+  {
+    "categoryId": 690,
+    "name": "SHORTSIDE",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 693,
+    "name": "HAMMERSMITH END",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5666,
+        "name": "BLOCK H1"
+      },
+      {
+        "sectionId": 5667,
+        "name": "BLOCK H2"
+      },
+      {
+        "sectionId": 5668,
+        "name": "BLOCK H3"
+      },
+      {
+        "sectionId": 5669,
+        "name": "BLOCK H4"
+      },
+      {
+        "sectionId": 5670,
+        "name": "BLOCK H5"
+      },
+      {
+        "sectionId": 5671,
+        "name": "BLOCK H6"
+      },
+      {
+        "sectionId": 5672,
+        "name": "BLOCK H7"
+      },
+      {
+        "sectionId": 5673,
+        "name": "BLOCK H8"
+      }
+    ]
+  },
+  {
+    "categoryId": 694,
+    "name": "PUTNEY END",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5674,
+        "name": "BLOCK P1"
+      },
+      {
+        "sectionId": 5675,
+        "name": "BLOCK P2"
+      },
+      {
+        "sectionId": 5676,
+        "name": "BLOCK P3"
+      },
+      {
+        "sectionId": 5677,
+        "name": "BLOCK P4"
+      },
+      {
+        "sectionId": 5678,
+        "name": "BLOCK P5"
+      }
+    ]
+  },
+  {
+    "categoryId": 696,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5679,
+        "name": "BLOCK P5"
+      },
+      {
+        "sectionId": 5680,
+        "name": "BLOCK P6"
+      },
+      {
+        "sectionId": 5681,
+        "name": "BLOCK P7"
+      }
+    ]
+  },
+  {
+    "categoryId": 697,
+    "name": "VIP - HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 20607,
+        "name": "MATCHDAY PLUS"
+      }
+    ]
+  },
+  {
+    "categoryId": 1200,
+    "name": "LONGSIDE UPPER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 1201,
+    "name": "LONGSIDE LOWER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 1202,
+    "name": "JOHNNY HAYNES STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5682,
+        "name": "BLOCK A"
+      },
+      {
+        "sectionId": 5683,
+        "name": "BLOCK B"
+      },
+      {
+        "sectionId": 5684,
+        "name": "BLOCK C"
+      },
+      {
+        "sectionId": 5685,
+        "name": "BLOCK D"
+      },
+      {
+        "sectionId": 5686,
+        "name": "BLOCK E"
+      },
+      {
+        "sectionId": 5687,
+        "name": "BLOCK F"
+      },
+      {
+        "sectionId": 5688,
+        "name": "BLOCK G"
+      },
+      {
+        "sectionId": 5689,
+        "name": "BLOCK H"
+      },
+      {
+        "sectionId": 5690,
+        "name": "BLOCK J"
+      },
+      {
+        "sectionId": 5691,
+        "name": "BLOCK K"
+      }
+    ]
+  },
+  {
+    "categoryId": 1203,
+    "name": "JOHNNY HAYNES STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5692,
+        "name": "BLOCK AL"
+      },
+      {
+        "sectionId": 5693,
+        "name": "BLOCK BL"
+      },
+      {
+        "sectionId": 5694,
+        "name": "BLOCK CL"
+      },
+      {
+        "sectionId": 5695,
+        "name": "BLOCK DL"
+      },
+      {
+        "sectionId": 5696,
+        "name": "BLOCK EL"
+      },
+      {
+        "sectionId": 5697,
+        "name": "BLOCK FL"
+      },
+      {
+        "sectionId": 5698,
+        "name": "BLOCK GL"
+      },
+      {
+        "sectionId": 5699,
+        "name": "BLOCK HL"
+      },
+      {
+        "sectionId": 5700,
+        "name": "BLOCK JL"
+      },
+      {
+        "sectionId": 5701,
+        "name": "BLOCK KL"
+      }
+    ]
+  },
+  {
+    "categoryId": 1204,
+    "name": "RIVERSIDE STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5702,
+        "name": "BLOCK R11"
+      },
+      {
+        "sectionId": 5703,
+        "name": "BLOCK R12"
+      },
+      {
+        "sectionId": 8212,
+        "name": "BLOCK R17"
+      },
+      {
+        "sectionId": 8213,
+        "name": "BLOCK R18"
+      }
+    ]
+  },
+  {
+    "categoryId": 1205,
+    "name": "RIVERSIDE STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5704,
+        "name": "BLOCK R01"
+      },
+      {
+        "sectionId": 5705,
+        "name": "BLOCK R02"
+      },
+      {
+        "sectionId": 5706,
+        "name": "BLOCK R03"
+      },
+      {
+        "sectionId": 5707,
+        "name": "BLOCK R04"
+      },
+      {
+        "sectionId": 5708,
+        "name": "BLOCK R05"
+      },
+      {
+        "sectionId": 5709,
+        "name": "BLOCK R06"
+      },
+      {
+        "sectionId": 5710,
+        "name": "BLOCK R07"
+      },
+      {
+        "sectionId": 5711,
+        "name": "BLOCK R08"
+      }
+    ]
+  }
+]

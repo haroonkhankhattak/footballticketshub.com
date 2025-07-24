@@ -1,0 +1,481 @@
+[
+  {
+    "categoryId": 22,
+    "name": "MATTHEW HARDING UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 270,
+        "name": "U08"
+      },
+      {
+        "sectionId": 271,
+        "name": "U09"
+      },
+      {
+        "sectionId": 272,
+        "name": "U10"
+      },
+      {
+        "sectionId": 273,
+        "name": "U11"
+      },
+      {
+        "sectionId": 274,
+        "name": "U12"
+      },
+      {
+        "sectionId": 275,
+        "name": "U13"
+      },
+      {
+        "sectionId": 276,
+        "name": "U14"
+      },
+      {
+        "sectionId": 277,
+        "name": "U15"
+      },
+      {
+        "sectionId": 278,
+        "name": "U16"
+      },
+      {
+        "sectionId": 279,
+        "name": "U17"
+      }
+    ]
+  },
+  {
+    "categoryId": 23,
+    "name": "MATTHEW HARDING LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 281,
+        "name": "L08"
+      },
+      {
+        "sectionId": 282,
+        "name": "L09"
+      },
+      {
+        "sectionId": 283,
+        "name": "L10"
+      },
+      {
+        "sectionId": 284,
+        "name": "L11"
+      },
+      {
+        "sectionId": 285,
+        "name": "L12"
+      },
+      {
+        "sectionId": 286,
+        "name": "L13"
+      },
+      {
+        "sectionId": 287,
+        "name": "L14"
+      },
+      {
+        "sectionId": 288,
+        "name": "L15"
+      },
+      {
+        "sectionId": 289,
+        "name": "L16"
+      }
+    ]
+  },
+  {
+    "categoryId": 25,
+    "name": "SHED END UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 290,
+        "name": "SU4"
+      },
+      {
+        "sectionId": 291,
+        "name": "SU5"
+      },
+      {
+        "sectionId": 292,
+        "name": "SU6"
+      },
+      {
+        "sectionId": 293,
+        "name": "SU7"
+      },
+      {
+        "sectionId": 3743,
+        "name": "SU8"
+      }
+    ]
+  },
+  {
+    "categoryId": 26,
+    "name": "SHED END LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 3744,
+        "name": "SL8"
+      },
+      {
+        "sectionId": 294,
+        "name": "SL4"
+      },
+      {
+        "sectionId": 295,
+        "name": "SL5"
+      },
+      {
+        "sectionId": 296,
+        "name": "SL6"
+      },
+      {
+        "sectionId": 297,
+        "name": "SL7"
+      }
+    ]
+  },
+  {
+    "categoryId": 28,
+    "name": "SHORTSIDE UPPER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 29,
+    "name": "SHORTSIDE LOWER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 31,
+    "name": "LONGSIDE UPPER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 32,
+    "name": "LONGSIDE LOWER",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 34,
+    "name": "WESTVIEW",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 298,
+        "name": "WU1"
+      },
+      {
+        "sectionId": 299,
+        "name": "WU2"
+      },
+      {
+        "sectionId": 300,
+        "name": "WU3"
+      },
+      {
+        "sectionId": 301,
+        "name": "WU4"
+      },
+      {
+        "sectionId": 302,
+        "name": "WU5"
+      },
+      {
+        "sectionId": 303,
+        "name": "WU6"
+      },
+      {
+        "sectionId": 304,
+        "name": "WU7"
+      },
+      {
+        "sectionId": 305,
+        "name": "WU8"
+      }
+    ]
+  },
+  {
+    "categoryId": 35,
+    "name": "WEST STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 306,
+        "name": "WL1"
+      },
+      {
+        "sectionId": 307,
+        "name": "WL2"
+      },
+      {
+        "sectionId": 308,
+        "name": "WL3"
+      },
+      {
+        "sectionId": 309,
+        "name": "WL4"
+      },
+      {
+        "sectionId": 310,
+        "name": "WL5"
+      },
+      {
+        "sectionId": 311,
+        "name": "WL6"
+      },
+      {
+        "sectionId": 312,
+        "name": "WL7"
+      },
+      {
+        "sectionId": 313,
+        "name": "WL8"
+      }
+    ]
+  },
+  {
+    "categoryId": 37,
+    "name": "EAST STAND UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 314,
+        "name": "EU1"
+      },
+      {
+        "sectionId": 315,
+        "name": "EU3"
+      },
+      {
+        "sectionId": 316,
+        "name": "EU5"
+      },
+      {
+        "sectionId": 317,
+        "name": "EU7"
+      }
+    ]
+  },
+  {
+    "categoryId": 38,
+    "name": "EAST STAND LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 321,
+        "name": "ELS4"
+      },
+      {
+        "sectionId": 322,
+        "name": "ELN6"
+      }
+    ]
+  },
+  {
+    "categoryId": 39,
+    "name": "AWAY SECTION",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 40,
+    "name": "AWAY SECTION UPPER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 324,
+        "name": "SU1"
+      },
+      {
+        "sectionId": 325,
+        "name": "SU2"
+      },
+      {
+        "sectionId": 326,
+        "name": "SU3"
+      }
+    ]
+  },
+  {
+    "categoryId": 41,
+    "name": "AWAY SECTION LOWER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 327,
+        "name": "SL1"
+      },
+      {
+        "sectionId": 328,
+        "name": "SL2"
+      },
+      {
+        "sectionId": 329,
+        "name": "SL3"
+      }
+    ]
+  },
+  {
+    "categoryId": 42,
+    "name": "LONGSIDE HOSPITALITY",
+    "sectionMandatory": false,
+    "sections": []
+  },
+  {
+    "categoryId": 43,
+    "name": "HOSPITALITY EAST STAND MIDDLE TIER",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 797,
+        "name": "CAPTAINS"
+      },
+      {
+        "sectionId": 798,
+        "name": "CANOVILLE"
+      },
+      {
+        "sectionId": 799,
+        "name": "CANALETTOS"
+      },
+      {
+        "sectionId": 800,
+        "name": "EXECUTIVE CLUB"
+      },
+      {
+        "sectionId": 801,
+        "name": "OSSIES"
+      },
+      {
+        "sectionId": 802,
+        "name": "CHAMPIONS"
+      },
+      {
+        "sectionId": 803,
+        "name": "MANAGER'S BAR"
+      }
+    ]
+  },
+  {
+    "categoryId": 44,
+    "name": "HOSPITALITY WEST STAND MIDDLE TIER",
+    "sectionMandatory": true,
+    "sections": [
+      {
+        "sectionId": 804,
+        "name": "TAMBLING"
+      },
+      {
+        "sectionId": 805,
+        "name": "CLARKE"
+      },
+      {
+        "sectionId": 806,
+        "name": "HARRIS"
+      },
+      {
+        "sectionId": 807,
+        "name": "DRAKES"
+      },
+      {
+        "sectionId": 808,
+        "name": "BONETTI"
+      },
+      {
+        "sectionId": 809,
+        "name": "HOLLINS"
+      },
+      {
+        "sectionId": 810,
+        "name": "MILLENIUM SUITES"
+      },
+      {
+        "sectionId": 6961,
+        "name": "UTB"
+      }
+    ]
+  },
+  {
+    "categoryId": 45,
+    "name": "HOSPITALITY WEST STAND UPPER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 4231,
+        "name": "VIP - WU3"
+      },
+      {
+        "sectionId": 791,
+        "name": "VIP - WU1"
+      },
+      {
+        "sectionId": 792,
+        "name": "VIP - WU2"
+      },
+      {
+        "sectionId": 793,
+        "name": "VIP - WU8"
+      }
+    ]
+  },
+  {
+    "categoryId": 46,
+    "name": "HOSPITALITY WEST STAND LOWER TIER",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 794,
+        "name": "VIP - WL1"
+      },
+      {
+        "sectionId": 795,
+        "name": "VIP - WL2"
+      },
+      {
+        "sectionId": 796,
+        "name": "VIP - WL8"
+      }
+    ]
+  },
+  {
+    "categoryId": 1160,
+    "name": "EAST STAND MIDDLE (SEAT ONLY)",
+    "sectionMandatory": false,
+    "sections": [
+      {
+        "sectionId": 5643,
+        "name": "CAPTAINS"
+      },
+      {
+        "sectionId": 5644,
+        "name": "CANOVILLE"
+      },
+      {
+        "sectionId": 5645,
+        "name": "CHAMPIONS"
+      },
+      {
+        "sectionId": 5646,
+        "name": "MANAGER'S BAR"
+      }
+    ]
+  },
+  {
+    "categoryId": 2754,
+    "name": "EAST STAND BOX",
+    "sectionMandatory": false,
+    "sections": []
+  }
+]

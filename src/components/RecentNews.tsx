@@ -44,75 +44,141 @@ const RecentTicket: React.FC<RecentTicketProps> = ({ date, name, match }) => {
 
 
 const RecentNews = () => {
+  // const newsItems = [
+  //   {
+  //     title: "Barcelona stuns Atletico Madrid with late comeback",
+  //     summary:
+  //       "Barcelona stuns Atlético Madrid with a dramatic 4-2 comeback, scoring twice in stoppage time to stay level with Real Madrid in the La Liga title race.",
+  //     date: "16/03/2025 23:02:56",
+  //     link: "/news/barcelona-atletico-madrid-comeback",
+  //   },
+  //   {
+  //     title: "Man United beats Leicester City 0-3",
+  //     summary:
+  //       "Manchester United secured an impressive away win against Leicester City with a commanding 3-0 victory at the King Power Stadium.",
+  //     date: "15/03/2025 18:45:30",
+  //     link: "/news/man-united-leicester-city",
+  //   },
+  //   {
+  //     title: "Barcelona stuns Atletico Madrid with late comeback",
+  //     summary:
+  //       "Barcelona stuns Atlético Madrid with a dramatic 4-2 comeback, scoring twice in stoppage time to stay level with Real Madrid in the La Liga title race.",
+  //     date: "16/03/2025 23:02:56",
+  //     link: "/news/barcelona-atletico-madrid-comeback",
+  //   },
+  //   {
+  //     title: "Man United beats Leicester City 0-3",
+  //     summary:
+  //       "Manchester United secured an impressive away win against Leicester City with a commanding 3-0 victory at the King Power Stadium.",
+  //     date: "15/03/2025 18:45:30",
+  //     link: "/news/man-united-leicester-city",
+  //   },
+
+  // ];
+
+  // const recentTickets = [
+  //   {
+  //     date: "25 Apr 2025",
+  //     name: "Christophe M obtained 2 tickets for",
+  //     match: "Liverpool vs Tottenham Hotspur.",
+  //   },
+  //   {
+  //     date: "25 Apr 2025",
+  //     name: "Simon M grabbed 1 ticket for",
+  //     match: "Arsenal vs Paris Saint-Germain.",
+  //   },
+  //   {
+  //     date: "25 Apr 2025",
+  //     name: "Michael M bought 3 tickets for",
+  //     match: "Fulham vs Everton.",
+  //   },
+  //   {
+  //     date: "25 Apr 2025",
+  //     name: "Precious A got 2 tickets for",
+  //     match: "Manchester United vs Wolverhampton.",
+  //   },
+  //   {
+  //     date: "25 Apr 2025",
+  //     name: "Michael M bought 3 tickets for",
+  //     match: "Fulham vs Everton.",
+  //   },
+  //   {
+  //     date: "25 Apr 2025",
+  //     name: "Precious A got 2 tickets for",
+  //     match: "Manchester United vs Wolverhampton.",
+  //   },
+  // ];
+
+
   const newsItems = [
     {
-      title: "Barcelona stuns Atletico Madrid with late comeback",
+      title: "Transfer rumors, news: Liverpool ready to offer player as part of Guéhi deal",
       summary:
-        "Barcelona stuns Atlético Madrid with a dramatic 4-2 comeback, scoring twice in stoppage time to stay level with Real Madrid in the La Liga title race.",
-      date: "16/03/2025 23:02:56",
-      link: "/news/barcelona-atletico-madrid-comeback",
+        "Liverpool's pursuit of Guéhi could see one of their promising young attackers go the other way. Transfer Talk has the latest news, gossip and rumors.",
+      date: "30/06/2025 10:15:00",
+      link: "/news/champions-league-final-2025",
     },
     {
-      title: "Man United beats Leicester City 0-3",
+      title: "Man United's Evans gets new club role",
       summary:
-        "Manchester United secured an impressive away win against Leicester City with a commanding 3-0 victory at the King Power Stadium.",
-      date: "15/03/2025 18:45:30",
-      link: "/news/man-united-leicester-city",
+        "Jonny Evans has been handed a new job at Manchester United after calling time on his 20-year playing career.",
+      date: "30/06/2025 10:00:00",
+      link: "/news/liverpool-top-four",
     },
     {
-      title: "Barcelona stuns Atletico Madrid with late comeback",
+      title: "Transfer window: What do Europe's big clubs still need?",
       summary:
-        "Barcelona stuns Atlético Madrid with a dramatic 4-2 comeback, scoring twice in stoppage time to stay level with Real Madrid in the La Liga title race.",
-      date: "16/03/2025 23:02:56",
-      link: "/news/barcelona-atletico-madrid-comeback",
+        "The transfer window is starting to fully kick into gear. Europe's top clubs have already been making some big moves, but what else are they planning?",
+      date: "30/06/2025 22:50:00",
+      link: "/news/arsenal-chelsea-var",
     },
     {
-      title: "Man United beats Leicester City 0-3",
+      title: "Stan Sport buys rights to air Premier League",
       summary:
-        "Manchester United secured an impressive away win against Leicester City with a commanding 3-0 victory at the King Power Stadium.",
-      date: "15/03/2025 18:45:30",
-      link: "/news/man-united-leicester-city",
+        "Nine has bought the media rights agreements to English Premier League and Emirates FA Cup games from Optus Sport, with the streaming service will shut down after a nine-year run.",
+      date: "29/06/2025 21:00:00",
+      link: "/news/man-united-manager-rumours",
     },
-
   ];
 
+  // --- UPDATED HARDCODED RECENT TICKETS ---
   const recentTickets = [
     {
-      date: "25 Apr 2025",
-      name: "Christophe M obtained 2 tickets for",
-      match: "Liverpool vs Tottenham Hotspur.",
+      date: "05 Jun 2025", // Today's date
+      name: "Sophia L obtained 2 tickets for",
+      match: "Man City vs Arsenal.",
     },
     {
-      date: "25 Apr 2025",
-      name: "Simon M grabbed 1 ticket for",
-      match: "Arsenal vs Paris Saint-Germain.",
+      date: "05 Jun 2025",
+      name: "Liam K grabbed 1 ticket for",
+      match: "Chelsea vs Tottenham Hotspur.",
     },
     {
-      date: "25 Apr 2025",
-      name: "Michael M bought 3 tickets for",
-      match: "Fulham vs Everton.",
+      date: "04 Jun 2025",
+      name: "Olivia M bought 3 tickets for",
+      match: "Liverpool vs Man United.",
     },
     {
-      date: "25 Apr 2025",
-      name: "Precious A got 2 tickets for",
-      match: "Manchester United vs Wolverhampton.",
+      date: "04 Jun 2025",
+      name: "Noah J got 2 tickets for",
+      match: "Everton vs Newcastle United.",
     },
     {
-      date: "25 Apr 2025",
-      name: "Michael M bought 3 tickets for",
-      match: "Fulham vs Everton.",
+      date: "03 Jun 2025",
+      name: "Emma D purchased 1 ticket for",
+      match: "West Ham vs Crystal Palace.",
     },
     {
-      date: "25 Apr 2025",
-      name: "Precious A got 2 tickets for",
-      match: "Manchester United vs Wolverhampton.",
+      date: "03 Jun 2025",
+      name: "Lucas P secured 2 tickets for",
+      match: "Aston Villa vs Brighton.",
     },
   ];
 
   return (
     <section className="py-12 bg-white">
       <div className="ticket-container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-10">
           <div>
             <h2 className="text-xl border-b py-2 font-midium mb-6">Latest Football News</h2>
             {newsItems.map((item, index) => (
@@ -126,7 +192,7 @@ const RecentNews = () => {
             ))}
           </div>
 
-          <div>
+          {/* <div>
             <h2 className="text-xl border-b py-2 font-midium mb-6">
               Latest Football fans who trusted us for their tickets
             </h2>
@@ -138,7 +204,7 @@ const RecentNews = () => {
                 match={ticket.match}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
