@@ -2,18 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 
-import Header from "@/components/layout/Header";
-import TrustPilotRow from "@/components/TrustpilotRow";
+import Header from "../../components/layout/Header";
+import TrustPilotRow from "../../components/TrustpilotRow";
 import TrackHero from "../../components/HeroTrack";
-import PopularTeams from "@/components/PopularTeams";
-import PopularMatchesList from "@/components/PopularMatchesList";
-import Testimonials from "@/components/Testimonials";
-import RecentNews from "@/components/RecentNews";
-import FootballTickets from "@/components/FootballTickets";
-import Footer from "@/components/layout/Footer";
+import PopularTeams from "../..//components/PopularTeams";
+import PopularMatchesList from "../..//components/PopularMatchesList";
+import Testimonials from "../..//components/Testimonials";
+import RecentNews from "../../components/RecentNews";
+import FootballTickets from "../..//components/FootballTickets";
+import Footer from "../../components/layout/Footer";
 import { useTranslation } from "react-i18next";
-import { getHomePageProps } from "@/lib/graphql/queries/getHomePageProps";
-import { HomePageProps } from "@/lib/graphql/queries/getHomePageProps";
+import { getHomePageProps } from "../../api/queries/getHomePageProps";
+import { HomePageProps } from "../../api/queries/getHomePageProps";
 
 
 export const getServerSideProps = getHomePageProps;

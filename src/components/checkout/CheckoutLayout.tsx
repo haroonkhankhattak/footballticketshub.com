@@ -5,7 +5,7 @@ import CheckoutForm from "./CheckoutForm";
 import { Listing } from "../../pages/tickets/listing";
 import { ArrowLeft, ShoppingBasket, ShoppingCartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { CLEAR_BASKET } from "../../lib/graphql/queries/ClearBasket";
+import { CLEAR_BASKET } from "../../api/queries/ClearBasket";
 import { useMutation } from "@apollo/client";
 import { AlertDialouge } from "../AlertDialouge";
 import FullScreenLoader from "../FullScreenLoader";

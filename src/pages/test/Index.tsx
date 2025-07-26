@@ -1,9 +1,9 @@
 "use client"; // <-- if you are using Next.js 13+ App Router
 
 import { useState } from "react";
-import { HomeService } from "../../lib/apiClient/services/HomeService";
-import { fetchSectionFromHtml } from "@/lib/apiClient/HtmlExtractor";
-import { extractUpcomingMatches } from "@/lib/apiClient/services/fetchUpcomingMatches";
+// import { HomeService } from "../../lib/apiClient/services/HomeService";
+// import { fetchSectionFromHtml } from "@/lib/apiClient/HtmlExtractor";
+// import { extractUpcomingMatches } from "@/lib/apiClient/services/fetchUpcomingMatches";
 
 export default function FetchButton() {
     const [data, setData] = useState(null);

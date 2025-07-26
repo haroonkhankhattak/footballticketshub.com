@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Calendar, MapPin, Search, Check, X, Clock } from "lucide-react";
-import TrustPilotRow from "../components/TrustpilotRow";
-import { Link, Navigate } from "react-router-dom";
-import { leagueRedirects, predefinedKeywords, teamRedirects } from "../lib/searchKeywords";
-import { GET_UPCOMING_POPULAR_MATCHES } from "../lib/graphql/queries/PopularUpcomingMatches";
+// import TrustPilotRow from "../components/TrustpilotRow";
+import { Link } from "react-router-dom";
+import {  predefinedKeywords } from "../lib/searchKeywords";
+import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatches";
 import { useQuery } from '@apollo/client';
 import { formatDate } from "../lib/utils";
-import { Match } from "../lib/graphql/queries/getHomePageProps";
-import { GET_SEARCH_RESULTS } from "../lib/graphql/queries/Search";
+// import { Match } from "../api/queries/getHomePageProps";
+import { GET_SEARCH_RESULTS } from "../api/queries/Search";
 import { debounce } from "lodash";
 import { useNavigate } from 'react-router-dom';
-import { log } from "console";
+// import { log } from "console";
 
 
 const DEBOUNCE_DELAY = 300;

@@ -15,7 +15,7 @@ import { toast, Toaster } from "sonner";
 import { AlertDialouge } from "./AlertDialouge";
 import e from "express";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { CLEAR_BASKET } from "../lib/graphql/queries/ClearBasket";
+import { CLEAR_BASKET } from "../api/queries/ClearBasket";
 
 interface TicketProps {
     ticket: Listing;

@@ -8,11 +8,11 @@ import { debounce } from "lodash";
 import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
 import { predefinedKeywords } from "../../lib/searchKeywords";
 import { useNavigate } from 'react-router-dom';
-import { GET_SEARCH_RESULTS } from "../../lib/graphql/queries/Search";
+import { GET_SEARCH_RESULTS } from "../../api/queries/Search";
 import BasketWithTimer from "../BasketWithTimer";
-import { GET_BASKET_BY_SESSION } from "../../lib/graphql/queries/GetBasket";
+import { GET_BASKET_BY_SESSION } from "../../api/queries/GetBasket";
 import { BasketProps } from "../../types/basket";
-import { CLEAR_BASKET } from "../../lib/graphql/queries/ClearBasket";
+import { CLEAR_BASKET } from "../../api/queries/ClearBasket";
 
 const DEBOUNCE_DELAY = 300;
 

@@ -1,16 +1,15 @@
 import { Link } from "react-router-dom";
 import { MapPin, Clock } from "lucide-react";
-import LeagueCard from "./LeagueCard";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { leagues } from "../lib/constants/leagues";
-import { EventProps, Props } from "../types/event";
-import { POPULAR_MATCHES_API } from "../lib/constants/apis";
+import { Props } from "../types/event";
+// import { POPULAR_MATCHES_API } from "../lib/constants/apis";
 import FilterButton from "./FilterButton";
-import { premier_league_2025_2026_events } from "../pages/league/matches";
-import { formatDate } from "../lib/utils";
+// import { premier_league_2025_2026_events } from "../pages/league/matches";
+// import { formatDate } from "../lib/utils";
 import { useQuery } from "@apollo/client/react/hooks/useQuery";
-import { GET_POPULAR_MATCHES } from "../lib/graphql/queries/PopularMatches";
-import { url } from "inspector";
+import { GET_POPULAR_MATCHES } from "../api/queries/PopularMatches";
+// import { url } from "inspector";
 import { Match } from "../types/match";
 
 

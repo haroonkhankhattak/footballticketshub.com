@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GET_UPCOMING_POPULAR_MATCHES } from "../lib/graphql/queries/PopularUpcomingMatches";
+import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatches";
 import { formatDate } from "../lib/utils";
 import { useQuery } from "@apollo/client/react/hooks";
 import { Link } from "react-router-dom";

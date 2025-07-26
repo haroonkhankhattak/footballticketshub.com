@@ -1,7 +1,7 @@
 // lib/graphql/queries/getHomePageProps.ts
 
-import { client } from "@/lib/graphql/apollo-client";
-import { GET_UPCOMING_POPULAR_MATCHES } from "@/lib/graphql/queries/PopularUpcomingMatches";
+import { client } from '../client'; 
+import { GET_UPCOMING_POPULAR_MATCHES } from "./PopularUpcomingMatches";
 import { GetServerSideProps } from "next";
 
 export type Match = {

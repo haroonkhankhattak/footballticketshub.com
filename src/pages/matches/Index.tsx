@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/layout/Header";
-import TrustPilotRow from "../../components/TrustpilotRow";
 import TeamMatchList from "../../components/TeamMatchList";
 import Testimonials from "../../components/Testimonials";
 import RecentNews from "../../components/RecentNews";
 import FootballTickets from "../../components/FootballTickets";
 import Footer from "../../components/layout/Footer";
-import { useParams, useSearchParams } from "react-router-dom";
-import { convertSlugToTeamName, convertTeamNameToSlug } from "../../lib/teamUtils";
-import { EventProps, Props } from "../../types/event";
-import { CLUB_MATCHES_API } from "../../lib/constants/apis";
-import { premier_league_2025_2026_events } from "../league/matches";
-import { formatDate } from "../../lib/utils";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client/react/hooks";
-import { GET_MATCHES_BY_TEAM } from "../../lib/graphql/queries/MatchesByTeam";
+import { GET_MATCHES_BY_TEAM } from "../../api/queries/MatchesByTeam";
 import { Match } from "../../types/match";
+
+// import TrustPilotRow from "../../components/TrustpilotRow";
+// import { convertSlugToTeamName, convertTeamNameToSlug } from "../../lib/teamUtils";
+// import { Props } from "../../types/event";
+// import { CLUB_MATCHES_API } from "../../lib/constants/apis";
+// import { premier_league_2025_2026_events } from "../league/matches";
+// import { formatDate } from "../../lib/utils";
 
 
 
@@ -44,7 +45,7 @@ const Matches = () => {
 
   // const [matches, setMatches] = useState<EventProps[]>([]);
 
-  const [filteredMatches, setFilteredMatches] = useState<EventProps[]>([]);
+  // const [filteredMatches, setFilteredMatches] = useState<EventProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

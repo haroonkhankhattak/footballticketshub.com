@@ -13,13 +13,12 @@ import CheckoutPage from "./pages/checkout/index";
 import Track from "./pages/track/Index";
 import { CurrencyLanguageProvider } from "./lib/CurrencyLanguageContext";
 import { ApolloProvider } from '@apollo/client';
-import { client } from './lib/graphql/apollo-client'; // make sure the path is correct
+import { client } from './api/client'; 
 import AboutUs from "./pages/about-us/Index";
 import FAQ from "./pages/faqs/Index";
 import TermsConditions from "./pages/terms-and-conditions/Index";
 import PrivacyPolicy from "./pages/privacy-policy/Index";
 import ContactUs from "./pages/contact-us/Index";
-
 
 
 
@@ -44,13 +43,11 @@ const App = () => (
               <Route path="/tickets/:match" element={<Tickets />} />
               <Route path="/track" element={<Track />} />
               <Route path="/checkout" element={<CheckoutPage />} />
-
               <Route path="/about" element={<AboutUs />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/terms" element={<TermsConditions />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/contact" element={<ContactUs />} />
-
               <Route path="*" element={<NotFound />} />
 
             </Routes>

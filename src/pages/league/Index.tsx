@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import Header from "../../components/layout/Header";
-import TrustPilotRow from "../../components/TrustpilotRow";
-import MatchLeague from "../../components/MatchLeague";
+// import TrustPilotRow from "../../components/TrustpilotRow";
+// import MatchLeague from "../../components/MatchLeague";
 import LeagueMatchList from "../../components/LeagueMatchList";
 import Testimonials from "../../components/Testimonials";
 import LeagueRecentNews from "../../components/LeagueRecentNews";
 import LeagueTickets from "../../components/LeagueTickets";
 import Footer from "../../components/layout/Footer";
-import { useParams, useSearchParams } from "react-router-dom";
-import { EventProps, Props } from "../../types/event";
-import { LEAGUE_MATCHES_API } from "../../lib/constants/apis";
-import { premier_league_2025_2026_events } from "./matches";
+import { useParams } from "react-router-dom";
+// import { Props } from "../../types/event";
+// import { LEAGUE_MATCHES_API } from "../../lib/constants/apis";
+// import { premier_league_2025_2026_events } from "./matches";
 import { useQuery } from "@apollo/client/react/hooks";
-import { GET_MATCHES_BY_LEAGUE } from "../../lib/graphql/queries/MatchesByLeague";
+import { GET_MATCHES_BY_LEAGUE } from "../../api/queries/MatchesByLeague";
 import { Match } from "../../types/match";
 
 

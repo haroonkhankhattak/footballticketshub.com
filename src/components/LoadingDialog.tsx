@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 import { Listing } from "../pages/tickets/listing";
-import { ADD_TO_BASKET } from "../lib/graphql/queries/AddToBasket";
+import { ADD_TO_BASKET } from "../api/queries/AddToBasket";
 import { useMutation } from "@apollo/client";
 
 interface LoadingDialogProps {

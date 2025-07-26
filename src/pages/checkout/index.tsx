@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CheckoutLayout from "@/components/checkout/CheckoutLayout";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import CheckoutLayout from "../../components/checkout/CheckoutLayout";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 import { useLocation, useParams } from "react-router-dom";
 import { Listing } from "../tickets/listing";
 import Timer from "../../components/checkout/Timer";

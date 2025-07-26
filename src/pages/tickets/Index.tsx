@@ -6,21 +6,21 @@ import TicketList from "../../components/TicketList";
 import StadiumSection from "../../components/tickets/StadiumSection";
 import HeroSection from "../../components/tickets/HeroSection";
 import { Filter } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../../components/ui/select";
 import { TicketsResponse } from "../../../server/types/tickets";
 
 import FullScreenLoader from "../../components/FullScreenLoader";
 import { PRIZE_RANGES } from "../../lib/constants";
 import { useQuery } from "@apollo/client/react/hooks";
-import { GET_TICKETS_BY_MATCH } from "../../lib/graphql/queries/TicketsByMatch";
+import { GET_TICKETS_BY_MATCH } from "../../api/queries/TicketsByMatch";
 import { Listing } from "./listing";
 
 

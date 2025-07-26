@@ -9,7 +9,7 @@ import { EventProps, Props } from "../types/event";
 import { leagues } from "../lib/constants/leagues";
 import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
 import { formatDate } from "../lib/utils";
-import { GET_MATCHES_BY_TEAM } from "../lib/graphql/queries/MatchesByTeam";
+import { GET_MATCHES_BY_TEAM } from "../api/queries/MatchesByTeam";
 import { useQuery } from "@apollo/client/react/hooks";
 import { Match } from "../types/match";
 import { convertSlugToTeamName } from "../lib/teamUtils";
