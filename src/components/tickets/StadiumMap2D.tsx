@@ -1,7 +1,7 @@
 
 import React, { useMemo, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { Card } from "../../components/ui/card";
+import { useToast } from "../../components/ui/use-toast";
 import { MANCHESTER_UNITED_GROUND } from "./grounds/Manchester-United";
 import { LIVERPOOL_GROUND } from "./grounds/Liverpool";
 import { TOTTENHAM_HOTSPUR_GROUND } from "./grounds/Tottenham-Hotspur";

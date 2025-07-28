@@ -1,13 +1,20 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
+
+'use client';
+
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+
+
 import { Search, Clock, MapPin, X, Menu, Ticket, ShoppingBagIcon, ShoppingBasketIcon, ShoppingCartIcon, List } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQuery } from '@apollo/client';
 import { debounce } from "lodash";
 
-import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
+// import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
 import { predefinedKeywords } from "../../lib/searchKeywords";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { GET_SEARCH_RESULTS } from "../../api/queries/Search";
 import BasketWithTimer from "../BasketWithTimer";
 import { GET_BASKET_BY_SESSION } from "../../api/queries/GetBasket";
@@ -24,26 +31,26 @@ const Header = ({
   fixed: boolean;
 }) => {
 
+const currencies = [
+  { id: "1", code: "gbp", symbol: "£", name: "British Pound" },
+  { id: "2", code: "eur", symbol: "€", name: "Euro" },
+  { id: "3", code: "usd", symbol: "$", name: "US Dollar" },
+  { id: "4", code: "chf", symbol: "Fr", name: "Swiss Franc" },
+  { id: "5", code: "sek", symbol: "kr", name: "Swedish Krona" },
+  { id: "6", code: "nok", symbol: "kr", name: "Norwegian Krone" },
+  { id: "7", code: "dkk", symbol: "kr", name: "Danish Krone" },
+];
 
-  const currencies = [
-    { id: "1", code: "gbp", symbol: "£", name: "British Pound" },
-    { id: "2", code: "eur", symbol: "€", name: "Euro" },
-    { id: "3", code: "usd", symbol: "$", name: "US Dollar" },
-    { id: "4", code: "chf", symbol: "Fr", name: "Swiss Franc" },
-    { id: "5", code: "sek", symbol: "kr", name: "Swedish Krona" },
-    { id: "6", code: "nok", symbol: "kr", name: "Norwegian Krone" },
-    { id: "7", code: "dkk", symbol: "kr", name: "Danish Krone" },
-  ];
+const languages = [
+  { id: "1", code: "en", icon: "/uploads/icons/en.png", name: "English" },
+  { id: "2", code: "fr", icon: "/uploads/icons/fr.png", name: "French" },
+  { id: "3", code: "de", icon: "/uploads/icons/de.svg", name: "German" },
+  { id: "4", code: "es", icon: "/uploads/icons/es.svg", name: "Spanish" },
+  { id: "5", code: "nl", icon: "/uploads/icons/nl.png", name: "Dutch" },
+];
 
-  const languages = [
-    { id: "1", code: "en", icon: "/uploads/icons/en.png", name: "English" },
-    { id: "2", code: "fr", icon: "/uploads/icons/fr.png", name: "French" },
-    { id: "3", code: "de", icon: "/uploads/icons/de.svg", name: "German" },
-    { id: "4", code: "es", icon: "/uploads/icons/es.svg", name: "Spanish" },
-    { id: "5", code: "nl", icon: "/uploads/icons/nl.png", name: "Dutch" },
-  ];
-
-  const navigate = useNavigate();
+  const router = useRouter();
+  const { t, i18n } = useTranslation();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
@@ -53,82 +60,58 @@ const Header = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(true);
-  const [basketItems, setBasketItems] = useState(basket?.listing.tickets.map(ticket => ticket.ticket_id) || []); // Initialize with empty array if no tickets
+  const [basketItems, setBasketItems] = useState<string[]>([]);
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
-  // const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
-
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
-  // const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-
-  const { selectedCurrency, setSelectedCurrency, selectedLanguage, setSelectedLanguage } = useCurrencyLanguage();
-
-  const { t, i18n } = useTranslation();
-
   const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // const { selectedCurrency, setSelectedCurrency, selectedLanguage, setSelectedLanguage } = useCurrencyLanguage();
 
   const filteredSuggestions = predefinedKeywords.filter((keyword) =>
     keyword.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery
   );
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  const [clearBasket, { loading, error }] = useMutation(CLEAR_BASKET, {
+  const [clearBasket] = useMutation(CLEAR_BASKET, {
     fetchPolicy: "network-only",
   });
 
-  const handleClearBasket = async () => {
-    try {
-      const { data } = await clearBasket();
-      if (data?.clearBasket?.success) {
-        console.log("Basket cleared:", data.clearBasket.message);
-      } else {
-        console.warn("Failed to clear basket");
-      }
-    } catch (err) {
-      console.error("Clear basket error:", err);
-    }
-  };
-
-
-
-  const { data } = useQuery(GET_BASKET_BY_SESSION, {
+  const { data: basketData } = useQuery(GET_BASKET_BY_SESSION, {
     fetchPolicy: "network-only",
   });
 
   useEffect(() => {
-    if (data && data.getBasketBySessionId) {
-      console.log("Basket Data getBasketBySessionId:", data.getBasketBySessionId);
-      setBasket(data.getBasketBySessionId);
+    if (basketData?.getBasketBySessionId) {
+      setBasket(basketData.getBasketBySessionId);
+      setBasketItems(
+        basketData.getBasketBySessionId?.listing?.tickets?.map((ticket) => ticket.ticket_id) || []
+      );
     }
-  }, [data]);
-
+  }, [basketData]);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    handleResize(); // run on mount
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const savedCurrency = localStorage.getItem("selectedCurrency");
-    setSelectedCurrency(savedCurrency ?? "GBP");
+  // useEffect(() => {
+  //   const savedCurrency = localStorage.getItem("selectedCurrency");
+  //   setSelectedCurrency(savedCurrency ?? "GBP");
 
-    const savedLanguage = localStorage.getItem("selectedLanguage");
-    setSelectedLanguage(savedLanguage ?? "en");
+  //   const savedLanguage = localStorage.getItem("selectedLanguage");
+  //   setSelectedLanguage(savedLanguage ?? "en");
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+  //   const handleScroll = () => setIsScrolled(window.scrollY > 10);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   const handleCurrencySelect = (currencyCode: string) => {
     setSelectedCurrency(currencyCode);
@@ -141,18 +124,10 @@ const Header = ({
     setShowLanguageSelector(false);
   };
 
+  // const selectedCurrencyData = currencies.find((c) => c.code === selectedCurrency);
+  // const selectedLanguageData = languages.find((l) => l.code === selectedLanguage);
 
-
-  const selectedCurrencyData = currencies.find(
-    (currency) => currency.code === selectedCurrency
-  );
-
-  const selectedLanguageData = languages.find(
-    (language) => language.code === selectedLanguage
-  );
-
-
-  const { data: searchData, loading: queryLoading, error: searchError } = useQuery(GET_SEARCH_RESULTS, {
+  const { data: searchData } = useQuery(GET_SEARCH_RESULTS, {
     variables: { searchTerm },
     fetchPolicy: "network-only",
     skip: !searchTerm.trim(),
@@ -160,74 +135,79 @@ const Header = ({
 
   useEffect(() => {
     if (searchData?.searchResult) {
-      console.log(searchData?.searchResult);
       setResults(searchData.searchResult);
       setSearchLoading(false);
     }
   }, [searchData]);
 
-  // Debounce function to update the searchTerm state (triggers query)
-  const debouncedSetSearchTerm = debounce((val) => {
+  const debouncedSetSearchTerm = debounce((val: string) => {
     setSearchTerm(val);
     setSearchLoading(true);
-  }, DEBOUNCE_DELAY);
+  }, 300);
 
-  // On input change: update input field and debounce update of searchTerm
-  const onInputChange = (e) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setSearchQuery(val);
     setShowSuggestions(true);
     debouncedSetSearchTerm(val);
-    if (val.trim() === '') {
-      setShowSuggestions(false);
-    }
+    if (!val.trim()) setShowSuggestions(false);
   };
 
-  const handleSelectSuggestion = (value) => {
-    // setSearchQuery(value);
-    // setSearchTerm(value);
-
-    if (value.type === "MatchResult") {
-
-      const newDate = new Date(Number(value.date));
-
-      const day = String(newDate.getUTCDate()).padStart(2, '0'); // "04"
-
-      const month = newDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(); // AUG
-      const year = newDate.getUTCFullYear(); // 2025
-      const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
-
-      navigate(`/tickets/${value.slug}`, {
-        state: {
-          homeTeam: value.home_team,
-          eventId: value.id,
-          eventCode: value.eventCode,
-          eventTypeCode: value.eventTypeCode,
-          pageNumber: 1,
-          eventName: value.title,
-          categoryName: value.league,
-          day: day,
-          month: month,
-          year: year,
-          time: time,
-          venue: value.venue,
-          city: value.city,
-          country: value.country,
-          minPrice: value.price,
-        },
-      });
-    } else {
-      console.log(value.slug);
-      navigate(`/matches/premier-league/${value.slug}`);
-    }
-
+  const handleSelectSuggestion = (value: any) => {
     setShowSuggestions(false);
     setSearchLoading(true);
+
+    if (value.type === "MatchResult") {
+      const newDate = new Date(Number(value.date));
+      const day = String(newDate.getUTCDate()).padStart(2, "0");
+      const month = newDate.toLocaleString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase();
+      const year = newDate.getUTCFullYear();
+      const time = newDate.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+        timeZone: "UTC",
+      });
+
+      const searchParams = new URLSearchParams({
+        homeTeam: value.home_team,
+        eventId: value.id,
+        eventCode: value.eventCode,
+        eventTypeCode: value.eventTypeCode,
+        pageNumber: "1",
+        eventName: value.title,
+        categoryName: value.league,
+        day,
+        month,
+        year: year.toString(),
+        time,
+        venue: value.venue,
+        city: value.city,
+        country: value.country,
+        minPrice: value.price,
+      });
+
+      router.push(`/tickets/${value.slug}?${searchParams.toString()}`);
+    } else {
+      router.push(`/premier-league/${value.slug}`);
+    }
   };
 
-
   const toggleSection = (section: string) => {
-    setOpenSection(prev => (prev === section ? null : section));
+    setOpenSection((prev) => (prev === section ? null : section));
+  };
+
+  const handleClearBasket = async () => {
+    try {
+      const { data } = await clearBasket();
+      if (data?.clearBasket?.success) {
+        console.log("Basket cleared:", data.clearBasket.message);
+      } else {
+        console.warn("Failed to clear basket");
+      }
+    } catch (err) {
+      console.error("Clear basket error:", err);
+    }
   };
 
 
@@ -250,7 +230,7 @@ const Header = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           {/* Logo */}
           <div className={`w-full md:w-auto ${searchQuery && isMobile ? 'hidden' : 'block'}`}>
-            <Link to="/" className="flex items-center">
+            <Link href="/" className="flex items-center">
               <div>
                 <span className="font-bold text-base sm:text-xl md:text-2xl block">
                   Foolball<span className="text-ticket-red">Tickets</span>Hub
@@ -528,7 +508,7 @@ const Header = ({
       >
         <div className="flex flex-col gap-2 px-4 text-white font-semibold">
 
-          <Link to="/" className="hover:text-ticket-red text-sm">HOME</Link>
+          <Link href="/" className="hover:text-ticket-red text-sm">HOME</Link>
 
 
           <div></div>
@@ -545,11 +525,11 @@ const Header = ({
             className={`pl-4 text-sm transition-all duration-300 ease-in-out overflow-hidden ${openSection === 'premier-league' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
               }`}
           >
-            <a href="/matches/premier-league/liverpool" className="block py-1  hover:text-ticket-red">Liverpool</a>
-            <a href="/matches/premier-league/arsenal" className="block py-1 hover:text-ticket-red">Arsenal</a>
-            <a href="/matches/premier-league/manchester-united" className="block py-1 hover:text-ticket-red">Manchester United</a>
-            <a href="/matches/premier-league/chelsea" className="block py-1 hover:text-ticket-red">Chelsea</a>
-            <a href="/league/premier-league" className="block py-1 font-thin hover:text-ticket-red">View All</a>
+            <a href="/premier-league/liverpool" className="block py-1  hover:text-ticket-red">Liverpool</a>
+            <a href="/premier-league/arsenal" className="block py-1 hover:text-ticket-red">Arsenal</a>
+            <a href="/premier-league/manchester-united" className="block py-1 hover:text-ticket-red">Manchester United</a>
+            <a href="/premier-league/chelsea" className="block py-1 hover:text-ticket-red">Chelsea</a>
+            <a href="/premier-league" className="block py-1 font-thin hover:text-ticket-red">View All</a>
           </div>
 
           {/* --- ENGLISH CUPS Section --- */}
@@ -563,10 +543,10 @@ const Header = ({
             className={`pl-4 text-sm transition-all duration-300 ease-in-out overflow-hidden ${openSection === 'english-cups' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
               }`}
           >
-            <a href="/league/fa-cup" className="block py-1 hover:text-ticket-red">FA Cup</a>
-            <a href="/league/efl-cup" className="block py-1 hover:text-ticket-red">EFL Cup</a>
-            <a href="/league/community-sheild" className="block py-1 hover:text-ticket-red">Community Sheild</a>
-            <a href="/league/championship-play-off-final" className="block py-1 hover:text-ticket-red">Championship Play Off Final</a>
+            <a href="/fa-cup" className="block py-1 hover:text-ticket-red">FA Cup</a>
+            <a href="/efl-cup" className="block py-1 hover:text-ticket-red">EFL Cup</a>
+            <a href="/community-sheild" className="block py-1 hover:text-ticket-red">Community Sheild</a>
+            <a href="/championship-play-off-final" className="block py-1 hover:text-ticket-red">Championship Play Off Final</a>
           </div>
 
 
@@ -581,13 +561,13 @@ const Header = ({
             className={`pl-4 text-sm transition-all duration-300 ease-in-out overflow-hidden ${openSection === 'european-cups' ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
               }`}
           >
-            <a href="/league/champions-league" className="block py-1 hover:text-ticket-red">Champions League</a>
-            <a href="/league/europa-league" className="block py-1 hover:text-ticket-red"> Europa League</a>
-            <a href="/league/super-cup" className="block py-1 hover:text-ticket-red">Super Cup</a>
-            <a href="/league/conference-league" className="block py-1 hover:text-ticket-red">Conference League</a>
+            <a href="/champions-league" className="block py-1 hover:text-ticket-red">Champions League</a>
+            <a href="/europa-league" className="block py-1 hover:text-ticket-red"> Europa League</a>
+            <a href="/super-cup" className="block py-1 hover:text-ticket-red">Super Cup</a>
+            <a href="/conference-league" className="block py-1 hover:text-ticket-red">Conference League</a>
           </div>
 
-          <Link to="/track" className="py-4 text-sm flex items-center gap-2 hover:text-ticket-red">
+          <Link href="/track" className="py-4 text-sm flex items-center gap-2 hover:text-ticket-red">
             <Ticket />
             <span>Track your tickets</span>
           </Link>
@@ -605,7 +585,7 @@ const Header = ({
             <div className="flex items-center space-x-4">
 
               <Link
-                to="/"
+                href="/"
                 className="navbar-link px-0 font-bold py-4 whitespace-nowrap hover:text-ticket-red"
               >
                 HOME
@@ -614,7 +594,7 @@ const Header = ({
               <div className="relative group">
                 {/* --- Trigger Link --- */}
                 <Link
-                  to="/league/premier-league"
+                  href="/premier-league"
                   className="navbar-link px-4 sm:px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap"
                 >
                   PREMIER LEAGUE
@@ -626,25 +606,25 @@ const Header = ({
                   <div className="max-w-screen-lg mx-auto px-6 flex flex-row space-x-6 sm:space-x-12 items-start flex-wrap">
                     <div className="max-w-screen-md px-4 sm:px-6 py-8 flex flex-col space-y-4 items-start">
                       <a
-                        href="/matches/premier-league/liverpool"
+                        href="/premier-league/liverpool"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Liverpool
                       </a>
                       <a
-                        href="/matches/premier-league/arsenal"
+                        href="/premier-league/arsenal"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Arsenal
                       </a>
                       <a
-                        href="/matches/premier-league/manchester-united"
+                        href="/premier-league/manchester-united"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Manchester United
                       </a>
                       <a
-                        href="/matches/premier-league/chelsea"
+                        href="/premier-league/chelsea"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Chelsea
@@ -653,25 +633,25 @@ const Header = ({
 
                     <div className="max-w-screen-md px-4 sm:px-6 py-8 flex flex-col space-y-4 items-start">
                       <a
-                        href="/matches/premier-league/nottingham-forest"
+                        href="/premier-league/nottingham-forest"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Nottingham Forest
                       </a>
                       <a
-                        href="/matches/premier-league/newcastle-united"
+                        href="/premier-league/newcastle-united"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Newcastle
                       </a>
                       <a
-                        href="/matches/premier-league/fulham"
+                        href="/premier-league/fulham"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Fulham
                       </a>
                       <a
-                        href="/matches/premier-league/wolves"
+                        href="/premier-league/wolves"
                         className="text-lg sm:text-base text-white hover:text-ticket-red transition-colors"
                       >
                         Wolves
@@ -680,7 +660,7 @@ const Header = ({
 
                     <div className="max-w-screen-md px-4 sm:px-6 py-8 flex flex-col items-start justify-end">
                       <a
-                        href="/league/premier-league"
+                        href="/premier-league"
                         className="text-sm text-ticket-backgroundcolor underline hover:text-ticket-red transition-colors ml-8 mb-4 sm:mb-10"
                       >
                         View All
@@ -694,7 +674,7 @@ const Header = ({
               <div className="relative group">
                 {/* --- Trigger Link --- */}
                 <Link
-                  to="/ENGLISH CUPS"
+                  href="/ENGLISH CUPS"
                   className="navbar-link px-4 sm:px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap"
                 >
                   ENGLISH CUPS
@@ -744,7 +724,7 @@ const Header = ({
               <div className="relative group">
                 {/* --- Trigger Link --- */}
                 <Link
-                  to="/european-cups"
+                  href="/european-cups"
                   className="navbar-link px-2 sm:px-4 md:px-8 font-bold py-4 flex items-center group-hover:text-ticket-red whitespace-nowrap"
                   style={{ minWidth: 0 }} // prevent flex overflow
                 >
@@ -757,7 +737,7 @@ const Header = ({
                   <div className="max-w-screen-md mx-auto px-4 sm:px-6 py-8 pl-6 sm:pl-20 flex flex-col space-y-4 items-start">
                     <div className="flex items-center">
                       <a
-                        href="/league/champions-league"
+                        href="/champions-league"
                         className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
                       >
                         Champions League
@@ -765,7 +745,7 @@ const Header = ({
                     </div>
                     <div className="flex items-center">
                       <a
-                        href="/league/europa-league"
+                        href="/europa-league"
                         className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
                       >
                         Europa League
@@ -773,7 +753,7 @@ const Header = ({
                     </div>
                     <div className="flex items-center">
                       <a
-                        href="/league/super-cup"
+                        href="/super-cup"
                         className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
                       >
                         Super Cup
@@ -781,7 +761,7 @@ const Header = ({
                     </div>
                     <div className="flex items-center">
                       <a
-                        href="/league/conference-league"
+                        href="/conference-league"
                         className="text-lg sm:text-base font-light text-white hover:text-ticket-red transition-colors"
                       >
                         Conference League
@@ -796,7 +776,7 @@ const Header = ({
 
             <div className="ml-auto">
               <Link
-                to="/track"
+                href="/track"
                 className="navbar-link px-4 py-4 flex items-center whitespace-nowrap"
               >
                 <Ticket />
@@ -811,5 +791,3 @@ const Header = ({
 };
 
 export default Header;
-
-

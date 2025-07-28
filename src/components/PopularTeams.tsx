@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import  Link  from "next/link";
 import { ChevronRight } from "lucide-react";
 
 interface TeamCardProps {
@@ -17,7 +17,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
 }) => {
   return (
     <Link
-      to={link}
+      href={link}
       className="relative group rounded-lg overflow-hidden transform transition-transform duration-500 ease-in-out hover:scale-105">
       <div className="aspect-[16/9] overflow-hidden">
         <img

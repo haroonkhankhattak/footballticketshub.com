@@ -5,7 +5,7 @@ export type Match = {
   date: string;
   commission: number;
   commission_amount: string;
-  price_starts_from: number;
+  price_starts_from: string;
   home_team_slug: string;
   away_team_slug: string;
   home_team: string;

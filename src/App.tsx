@@ -20,8 +20,6 @@ import TermsConditions from "./pages/terms-and-conditions/Index";
 import PrivacyPolicy from "./pages/privacy-policy/Index";
 import ContactUs from "./pages/contact-us/Index";
 
-
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -60,3 +58,4 @@ const App = () => (
 );
 
 export default App;
+

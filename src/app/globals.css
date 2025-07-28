@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 0 90% 45%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    /* Custom Colors for LiveFootballTickets */
+    --ticket-red: 0 100% 45%;
+    --ticket-blue: 220 40% 30%;
+    --ticket-gray: 0 0% 96%;
+    --ticket-darkgray: 220 10% 40%;
+    --ticket-lightgray: 220 10% 90%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom classes */
+  .ticket-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .transition-gpu {
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+
+  .hover-scale {
+    @apply transition-all duration-300 hover:scale-[1.03];
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/90 shadow-md;
+  }
+}
+
+@layer components {
+  .navbar-link {
+    @apply relative text-white font-medium transition-colors duration-200;
+  }
+
+  .navbar-dropdown {
+    @apply text-black/80 hover:bg-gray-100 hover:text-ticket-red transition-colors px-4 py-2;
+  }
+
+  .btn-primary {
+    @apply bg-[#66BB6A] text-white font-semibold py-2 px-4 rounded-md shadow-sm hover:shadow-md transition-all duration-300 hover:bg-opacity-90;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-ticket-red border border-ticket-lightgray font-semibold py-2 px-4 rounded-md shadow-sm hover:shadow-md transition-all duration-300 hover:bg-ticket-gray;
+  }
+
+  .card-ticket {
+    @apply bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md;
+  }
+}

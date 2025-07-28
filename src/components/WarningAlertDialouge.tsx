@@ -6,8 +6,8 @@ import {
     DialogTitle,
     DialogDescription,
     DialogFooter,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+} from "../components/ui/dialog"
+import { Button } from "../components/ui/button"
 import { Toaster } from "sonner"
 import { Listing } from "../pages/tickets/listing"
 import { restrictionsList } from "../lib/constants/restrictions"

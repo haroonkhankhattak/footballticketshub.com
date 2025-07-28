@@ -9,10 +9,7 @@ interface HeroSectionProps {
     homeTeam: string;
     eventName: string;
     categoryName: string;
-    day: number;
-    month: string;
-    year: number;
-    time: string;
+    date: string;
     venue: string;
     city: string;
     country: string;
@@ -23,10 +20,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     homeTeam,
     eventName,
     categoryName,
-    day,
-    month,
-    year,
-    time,
+    date,
     venue,
     city,
     country,
@@ -36,6 +30,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     console.log("home", homeTeam);
     const home_team_slug = convertTeamNameToSlug(homeTeam);
     const filename = CLUB_FANS[home_team_slug];
+
+      const newDate = new Date(Number(date));
+
+  const day = String(newDate.getUTCDate()).padStart(2, '0'); // "04"
+
+  const month = newDate.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }).toUpperCase(); // AUG
+  const year = newDate.getUTCFullYear(); // 2025
+  const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
+
 
     useEffect(() => {
     }, [minPrice]);

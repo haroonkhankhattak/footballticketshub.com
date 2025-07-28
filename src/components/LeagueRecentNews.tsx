@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link  from "next/link";
 
 interface NewsItemProps {
   title: string;
@@ -11,7 +11,7 @@ interface NewsItemProps {
 const NewsItem: React.FC<NewsItemProps> = ({ title, summary, date, link }) => {
   return (
     <article className="mb-6 pb-6 border-b border-gray-200 group hover:text-ticket-red transition-colors">
-      <Link to={link} className="block">
+      <Link href={link} className="block">
         <h3 className="text-sm font-bold mb-2 group-hover:text-ticket-red transition-colors">
           {title}
         </h3>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import  Link  from "next/link";
 import { PhoneCall, Mail, CreditCard, CheckCircle } from "lucide-react";
 import { FaTiktok, FaYoutube, FaXTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa6';
 
@@ -44,35 +44,35 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link
-                  to="/about"
+                  href="/about"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/faq"
+                  href="/faq"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/terms"
+                  href="/terms"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/privacy"
+                  href="/privacy"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/contact"
+                  href="/contact"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   Contact Us
                 </Link>
@@ -86,21 +86,21 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link
-                  to="/league/premier-league"
+                  href="/league/premier-league"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   Premier League Tickets
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/league/english-cups"
+                  href="/league/english-cups"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   English Cups
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/league/european-cups"
+                  href="/league/european-cups"
                   className="opacity-80 hover:opacity-100 hover:text-ticket-red transition-colors">
                   European Cups
                 </Link>

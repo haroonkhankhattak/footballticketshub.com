@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
     Dialog,
     DialogContent,
-} from "@/components/ui/dialog";
+} from "../components/ui/dialog";
 import { Loader2 } from "lucide-react";
 import { Listing } from "../pages/tickets/listing";
 import { ADD_TO_BASKET } from "../api/queries/AddToBasket";

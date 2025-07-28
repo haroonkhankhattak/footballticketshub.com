@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import  Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
 import LeagueCard from "./LeagueCard";
-import { useSearchParams } from "react-router-dom";
-import FilterButton from "@/components/FilterButton";
+import FilterButton from "../components/FilterButton";
 import { leagues } from "../lib/constants/leagues";
-import { EventProps, Props } from "../types/event";
-import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
+import {Props } from "../types/event";
+// import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
 import { Match } from "../types/match";
 import { convertSlugToTeamName } from "../lib/teamUtils";
-
 
 interface Team {
   name: string;
@@ -20,8 +18,6 @@ interface LeagueSectionProps {
   title: string;
   teams: Team[];
 }
-
-let HomeTeam: string;
 
 const LeagueSection: React.FC<LeagueSectionProps> = ({ title, teams }) => {
   return (
@@ -46,14 +42,9 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({ title, teams }) => {
 
 
 const MatchRow: React.FC<Match> = ({
-  id,
   date,
   league,
   title,
-  home_team,
-  away_team,
-  home_team_slug,
-  away_team_slug,
   slug,
   venue,
   city,
@@ -73,46 +64,28 @@ const MatchRow: React.FC<Match> = ({
   const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
 
 
-  const { selectedCurrency } = useCurrencyLanguage();
+  // const { selectedCurrency } = useCurrencyLanguage();
 
-  const currencySymbols: Record<string, string> = {
-    gbp: "£",
-    usd: "$",
-    eur: "€",
-    chf: "Fr",
-    sek: "kr",
-    nok: "kr",
-    dkk: "kr",
-  };
+  // const currencySymbols: Record<string, string> = {
+  //   gbp: "£",
+  //   usd: "$",
+  //   eur: "€",
+  //   chf: "Fr",
+  //   sek: "kr",
+  //   nok: "kr",
+  //   dkk: "kr",
+  // };
 
-  const currencyKey = selectedCurrency.toLowerCase();
-  const symbol = currencySymbols[selectedCurrency] || "";
+  // const currencyKey = selectedCurrency.toLowerCase();
+  // const symbol = currencySymbols[selectedCurrency] || "";
   // const price = minPrice[currencyKey] ?? "N/A";
 
   const price = price_starts_from;
 
-  const eventCode = ""; // your logic here
-  const eventTypeCode = ""; // your logic here
-
   return (
     <Link
-      to={`/tickets/${slug}`}
-      state={{
-        homeTeam: home_team,
-        eventId: id,
-        eventCode: eventCode,
-        eventTypeCode: eventTypeCode,
-        pageNumber: 1,
-        eventName: title,
-        categoryName: league,
-        day: day,
-        month: month,
-        year: year,
-        time: time,
-        venue: venue,
-        city: city,
-        country: country,
-        minPrice: price_starts_from,
+      href= {{
+      pathname : `/tickets/${slug}`,
       }}
     >
       <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
@@ -160,44 +133,26 @@ const MatchRow: React.FC<Match> = ({
 
         <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
           <Link
-            to={`/tickets/${slug}`}
-            state={{
-              homeTeam: home_team,
-              eventId: id,
-              eventCode: eventCode,
-              eventTypeCode: eventTypeCode,
-              pageNumber: 1,
-              eventName: title,
-              categoryName: league,
-              day: day,
-              month: month,
-              year: year,
-              time: time,
-              venue: venue,
-              city: city,
-              country: country,
-              minPrice: price,
-            }}
+            href ={{
+              pathname: `/tickets/${slug}`,}}
             className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </Link>
 
-          <span className="inline-block text-sm">From {symbol}{price}</span>
+          <span className="inline-block text-sm">From £{price}</span>
         </div>
       </div>
     </Link>
   );
 };
 
-const LeagueMatchList: React.FC<Props> = ({ matches, loading, error }) => {
-  const { league } = useParams();
+const LeagueMatchList: React.FC<Props> = ({league, matches, loading, error }) => {
 
   const leagueName = convertSlugToTeamName(league);
 
   const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
 
   // const team = searchParams.get("team");
-  HomeTeam = "team";
 
   // Function to be passed to FilterButton to update the date filter state
   const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
@@ -259,8 +214,6 @@ const LeagueMatchList: React.FC<Props> = ({ matches, loading, error }) => {
       return eventDate >= currentDate && eventDate <= endDate;
     });
   }
-
-
 
   // if (loading) return <div>Loading matches...</div>;
   // if (error) return <div>{error}</div>;

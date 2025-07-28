@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatches";
 import { formatDate } from "../lib/utils";
 import { useQuery } from "@apollo/client/react/hooks";
-import { Link } from "react-router-dom";
+import  Link  from "next/link";
 
 interface LeagueTicketsProps {
     league: string;
@@ -136,8 +136,9 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                                                     <td className="text-xs font-light border-b py-2">{match.awayTeam}</td>
                                                     <td className="text-xs font-light border-b py-2">
                                                         <Link
-                                                            to={`${match.link}`}
-                                                            state={{
+                                                            href={{
+                                                                pathname:`${match.link}`,
+                                                            query: {
                                                                 homeTeam: match.homeTeam,
                                                                 eventId: match.id,
                                                                 eventCode: match.eventCode,
@@ -153,7 +154,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                                                                 city: match.city,
                                                                 country: match.country,
                                                                 minPrice: match.minPrice,
-                                                            }}
+                                                            }}}
                                                             className="text-gray-500 underline hover:underline"
                                                         >
                                                             Find your tickets

@@ -2,7 +2,7 @@
 
 import { Armchair, Minus, Plus, ShoppingBasket } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from "framer-motion"
 import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
 import { Listing } from "../pages/tickets/listing";
@@ -16,6 +16,9 @@ import { AlertDialouge } from "./AlertDialouge";
 import e from "express";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { CLEAR_BASKET } from "../api/queries/ClearBasket";
+import { useCheckoutStore } from '../app/store/checkoutStore';
+
+
 
 interface TicketProps {
     ticket: Listing;
@@ -33,7 +36,9 @@ const TicketItem = ({
     areaNames,
 }: TicketProps) => {
 
-    const navigate = useNavigate()
+    const router = useRouter();
+    const setCheckoutData = useCheckoutStore((state) => state.setCheckoutData);
+
     const [showNotice, setShowNotice] = useState(false)
     const [message, setMessage] = useState("")
     const maxLimit = 10;
@@ -399,13 +404,13 @@ const TicketItem = ({
                         const now = new Date();
                         const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
 
-                        navigate("/checkout", {
-                            state: {
-                                ticket: pendingTicket,
-                                quantity: pendingQuantity,
-                                expiresAt: expiresAtUTC,
-                            },
+                        setCheckoutData({
+                            ticket: pendingTicket,
+                            quantity: pendingQuantity,
+                            expiresAt: expiresAtUTC.toString(),
                         });
+
+                        router.push('/checkout');
                     }}
                     onAlert={() => {
                         setshowLoading(false);
@@ -433,13 +438,13 @@ const TicketItem = ({
                         const now = new Date();
                         const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
 
-                        navigate("/checkout", {
-                            state: {
-                                ticket: pendingTicket,
-                                quantity: pendingQuantity,
-                                expiresAt: expiresAtUTC,
-                            },
+                        setCheckoutData({
+                            ticket: pendingTicket,
+                            quantity: pendingQuantity,
+                            expiresAt: expiresAtUTC.toString(),
                         });
+
+                        router.push('/checkout');
                     }}
                     title="Replace Cart Items?"
                     subtitle="Your basket already contains tickets."

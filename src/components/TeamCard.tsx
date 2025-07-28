@@ -12,6 +12,7 @@ const TeamCard: React.FC<LeagueCardProps> = ({ teamName }) => {
 
     const team = convertSlugToTeamName(teamName);
     const filename = CLUB_FANS[teamName];
+    console.log("team file name ",filename,teamName);
     const imagePath = `/uploads/teamfans/${filename}`;
 
     // if (teamName === "Brighton ") {

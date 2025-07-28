@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+'use client';
+
+import Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { leagues } from "../lib/constants/leagues";
@@ -91,23 +93,25 @@ const MatchRow: React.FC<Match> = ({
 
   return (
     <Link
-      to={`/tickets/${slug}`}
-      state={{
-        homeTeam: home_team,
-        eventId: id,
-        eventCode: eventCode,
-        eventTypeCode: eventTypeCode,
-        pageNumber: 1,
-        eventName: title,
-        categoryName: league,
-        day: day,
-        month: month,
-        year: year,
-        time: time,
-        venue: venue,
-        city: city,
-        country: country,
-        minPrice: price_starts_from,
+      href={{
+        pathname: `/tickets/${slug}`,
+        query: {
+          homeTeam: home_team,
+          eventId: id,
+          eventCode: eventCode,
+          eventTypeCode: eventTypeCode,
+          pageNumber: 1,
+          eventName: title,
+          categoryName: league,
+          day: day,
+          month: month,
+          year: year,
+          time: time,
+          venue: venue,
+          city: city,
+          country: country,
+          minPrice: price_starts_from,
+        },
       }}
     >
 
@@ -127,7 +131,6 @@ const MatchRow: React.FC<Match> = ({
             </div>
           </div>
         </div>
-
 
 
         {/* Info */}
@@ -160,23 +163,25 @@ const MatchRow: React.FC<Match> = ({
         {/* View Tickets button */}
         <div className="col-span-12 sm:col-span-3 px-4 text-right hidden sm:block">
           <Link
-            to={`/tickets/${slug}`}
-            state={{
-              homeTeam: home_team,
-              eventId: id,
-              eventCode: eventCode,
-              eventTypeCode: eventTypeCode,
-              pageNumber: 1,
-              eventName: title,
-              categoryName: league,
-              day: day,
-              month: month,
-              year: year,
-              time: time,
-              venue: venue,
-              city: city,
-              country: country,
-              minPrice: price_starts_from,
+            href={{
+              pathname: `/tickets/${slug}`,
+              query: {
+                homeTeam: home_team,
+                eventId: id,
+                eventCode: eventCode,
+                eventTypeCode: eventTypeCode,
+                pageNumber: 1,
+                eventName: title,
+                categoryName: league,
+                day: day,
+                month: month,
+                year: year,
+                time: time,
+                venue: venue,
+                city: city,
+                country: country,
+                minPrice: price_starts_from,
+              }
             }}
             className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full"
           >

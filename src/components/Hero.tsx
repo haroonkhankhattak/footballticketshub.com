@@ -1,22 +1,25 @@
-import  { useEffect, useState } from "react";
+'use client';
+
+import { useEffect, useState } from "react";
 import { Calendar, MapPin, Search, Check, X, Clock } from "lucide-react";
 // import TrustPilotRow from "../components/TrustpilotRow";
-import { Link } from "react-router-dom";
-import {  predefinedKeywords } from "../lib/searchKeywords";
+import Link from "next/link";
+import { predefinedKeywords } from "../lib/searchKeywords";
 import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatches";
 import { useQuery } from '@apollo/client';
 import { formatDate } from "../lib/utils";
 // import { Match } from "../api/queries/getHomePageProps";
 import { GET_SEARCH_RESULTS } from "../api/queries/Search";
 import { debounce } from "lodash";
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+
 // import { log } from "console";
 
 
 const DEBOUNCE_DELAY = 300;
 const Hero = () => {
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,27 +124,30 @@ const Hero = () => {
       const year = newDate.getUTCFullYear(); // 2025
       const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
 
-      navigate(`/tickets/${value.slug}`, {
-        state: {
+      router.push(
+        `/tickets/${value.slug}?` +
+        new URLSearchParams({
           homeTeam: value.home_team,
           eventId: value.id,
           eventCode: value.eventCode,
           eventTypeCode: value.eventTypeCode,
-          pageNumber: 1,
+          pageNumber: '1',
           eventName: value.title,
           categoryName: value.league,
-          day: day,
-          month: month,
-          year: year,
-          time: time,
+          day,
+          month,
+          year: String(year),
+          time,
           venue: value.venue,
           city: value.city,
           country: value.country,
-          minPrice: value.price,
-        },
-      });
+          minPrice: String(value.price),
+        }).toString()
+      );
     } else {
-      navigate(`/matches/premeri-league/${value.slug}`);
+      router.push(
+        `/matches/premeri-league/${value.slug}`
+      )
     }
 
     setShowSuggestions(false);
@@ -339,23 +345,24 @@ const Hero = () => {
                     return (
                       <Link
                         key={match.id}
-                        to={match.link}
-                        state={{
-                          homeTeam: match.homeTeam,
-                          eventId: match.id,
-                          eventCode: match.eventCode,
-                          eventTypeCode: match.eventTypeCode,
-                          pageNumber: 1,
-                          eventName: match.eventName,
-                          categoryName: match.categoryName,
-                          day: match.day,
-                          month: match.month,
-                          year: match.year,
-                          time: match.time,
-                          venue: match.venue,
-                          city: match.city,
-                          country: match.country,
-                          minPrice: match.minPrice.gbp
+                        href={{
+                          pathname: `/tickets/${match.id}`, // dynamic route
+                          query: {
+                            homeTeam: match.homeTeam,
+                            eventCode: match.eventCode,
+                            eventTypeCode: match.eventTypeCode,
+                            pageNumber: 1,
+                            eventName: match.eventName,
+                            categoryName: match.categoryName,
+                            day: match.day,
+                            month: match.month,
+                            year: match.year,
+                            time: match.time,
+                            venue: match.venue,
+                            city: match.city,
+                            country: match.country,
+                            minPrice: match.minPrice.gbp,
+                          },
                         }}
                         className="bg-white p-1 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group transition"
                       >

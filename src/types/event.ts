@@ -1,6 +1,8 @@
 import { Match } from "./match";
 
 export interface Props {
+  league: string
+  team?: string
   matches: Match[];
   loading: boolean;
   error: string | null;
