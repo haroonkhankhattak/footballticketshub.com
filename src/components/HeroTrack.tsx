@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { Calendar, MapPin, Search, Check, Ticket } from "lucide-react";
-import TrustPilotRow from "../components/TrustpilotRow";
-import { Link } from "react-router-dom";
-import { leagueRedirects, predefinedKeywords, teamRedirects } from "../lib/searchKeywords";
+
+import { Ticket } from "lucide-react";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 

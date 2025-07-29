@@ -3,7 +3,7 @@ import { Calendar, MapPin, CheckCircle } from "lucide-react";
 import { convertTeamNameToSlug } from "../../lib/teamUtils";
 import { CLUB_FANS } from "../../lib/constants";
 import MatchCard from "./MatchCard";
-import { Link } from "react-router-dom";
+import  Link  from "next/link";
 
 interface HeroSectionProps {
     homeTeam: string;
@@ -91,7 +91,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
 
 
-                                <Link to="/league/premier-league" className="flex items-center">
+                                <Link href="/league/premier-league" className="flex items-center">
                                     <p className="text-sky-500 text-xs sm:text-sm uppercase tracking-wide mt-1 sm:mt-2">
                                         {categoryName}
                                     </p>

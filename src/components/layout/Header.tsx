@@ -31,23 +31,23 @@ const Header = ({
   fixed: boolean;
 }) => {
 
-const currencies = [
-  { id: "1", code: "gbp", symbol: "£", name: "British Pound" },
-  { id: "2", code: "eur", symbol: "€", name: "Euro" },
-  { id: "3", code: "usd", symbol: "$", name: "US Dollar" },
-  { id: "4", code: "chf", symbol: "Fr", name: "Swiss Franc" },
-  { id: "5", code: "sek", symbol: "kr", name: "Swedish Krona" },
-  { id: "6", code: "nok", symbol: "kr", name: "Norwegian Krone" },
-  { id: "7", code: "dkk", symbol: "kr", name: "Danish Krone" },
-];
+  const currencies = [
+    { id: "1", code: "gbp", symbol: "£", name: "British Pound" },
+    { id: "2", code: "eur", symbol: "€", name: "Euro" },
+    { id: "3", code: "usd", symbol: "$", name: "US Dollar" },
+    { id: "4", code: "chf", symbol: "Fr", name: "Swiss Franc" },
+    { id: "5", code: "sek", symbol: "kr", name: "Swedish Krona" },
+    { id: "6", code: "nok", symbol: "kr", name: "Norwegian Krone" },
+    { id: "7", code: "dkk", symbol: "kr", name: "Danish Krone" },
+  ];
 
-const languages = [
-  { id: "1", code: "en", icon: "/uploads/icons/en.png", name: "English" },
-  { id: "2", code: "fr", icon: "/uploads/icons/fr.png", name: "French" },
-  { id: "3", code: "de", icon: "/uploads/icons/de.svg", name: "German" },
-  { id: "4", code: "es", icon: "/uploads/icons/es.svg", name: "Spanish" },
-  { id: "5", code: "nl", icon: "/uploads/icons/nl.png", name: "Dutch" },
-];
+  const languages = [
+    { id: "1", code: "en", icon: "/uploads/icons/en.png", name: "English" },
+    { id: "2", code: "fr", icon: "/uploads/icons/fr.png", name: "French" },
+    { id: "3", code: "de", icon: "/uploads/icons/de.svg", name: "German" },
+    { id: "4", code: "es", icon: "/uploads/icons/es.svg", name: "Spanish" },
+    { id: "5", code: "nl", icon: "/uploads/icons/nl.png", name: "Dutch" },
+  ];
 
   const router = useRouter();
   const { t, i18n } = useTranslation();
@@ -69,7 +69,7 @@ const languages = [
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // const { selectedCurrency, setSelectedCurrency, selectedLanguage, setSelectedLanguage } = useCurrencyLanguage();
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   const filteredSuggestions = predefinedKeywords.filter((keyword) =>
     keyword.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery
@@ -105,8 +105,8 @@ const languages = [
   //   const savedCurrency = localStorage.getItem("selectedCurrency");
   //   setSelectedCurrency(savedCurrency ?? "GBP");
 
-  //   const savedLanguage = localStorage.getItem("selectedLanguage");
-  //   setSelectedLanguage(savedLanguage ?? "en");
+  // const savedLanguage = localStorage.getItem("selectedLanguage");
+  // setSelectedLanguage("en");
 
   //   const handleScroll = () => setIsScrolled(window.scrollY > 10);
   //   window.addEventListener("scroll", handleScroll);
@@ -125,7 +125,7 @@ const languages = [
   };
 
   // const selectedCurrencyData = currencies.find((c) => c.code === selectedCurrency);
-  // const selectedLanguageData = languages.find((l) => l.code === selectedLanguage);
+  const selectedLanguageData = languages.find((l) => l.code === selectedLanguage);
 
   const { data: searchData } = useQuery(GET_SEARCH_RESULTS, {
     variables: { searchTerm },
@@ -220,7 +220,9 @@ const languages = [
       {!isScrolledPastHero && (
         <div className="w-full bg-white text-gray-700 py-2 text-xs sm:text-sm border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center truncate">{t("welcome")}</p>
+            {/* <p className="text-center truncate">{t("welcome")}</p> */}
+
+             <p className="text-center truncate">We connect fans through a safe resale platform. Prices are determined by sellers and may differ from the original price.</p>
           </div>
         </div>
       )}
@@ -230,16 +232,23 @@ const languages = [
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           {/* Logo */}
           <div className={`w-full md:w-auto ${searchQuery && isMobile ? 'hidden' : 'block'}`}>
-            <Link href="/" className="flex items-center">
-              <div>
-                <span className="font-bold text-base sm:text-xl md:text-2xl block">
+
+            {/* <span className="font-bold text-base sm:text-xl md:text-2xl block">
                   Foolball<span className="text-ticket-red">Tickets</span>Hub
-                </span>
-                <span className="text-[8px] sm:text-xs text-gray-600 block tracking-tight">
-                  RELIABLE. SECURE. ENJOY THE MATCH
+                </span> */}
+            <Link href="/" className="flex items-center">
+              <div className="flex flex-col items-start">
+                <img
+                  src="/uploads/icons/logo.png"
+                  alt="language icon"
+                  className="w-[200px] h-[40px] object-left"
+                />
+                <span className="text-[8px] sm:text-xs text-gray-600 tracking-tight mt-1">
+                  AUTHENTIC. GUARANTEED. HASSLE-FREE.
                 </span>
               </div>
             </Link>
+
           </div>
 
 
@@ -567,7 +576,7 @@ const languages = [
             <a href="/conference-league" className="block py-1 hover:text-ticket-red">Conference League</a>
           </div>
 
-          <Link href="/track" className="py-4 text-sm flex items-center gap-2 hover:text-ticket-red">
+          <Link href="/trackmyticket" className="py-4 text-sm flex items-center gap-2 hover:text-ticket-red">
             <Ticket />
             <span>Track your tickets</span>
           </Link>
@@ -776,7 +785,7 @@ const languages = [
 
             <div className="ml-auto">
               <Link
-                href="/track"
+                href="/trackmyticket"
                 className="navbar-link px-4 py-4 flex items-center whitespace-nowrap"
               >
                 <Ticket />

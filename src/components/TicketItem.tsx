@@ -81,20 +81,20 @@ const TicketItem = ({
         }
     };
 
-    const { selectedCurrency } = useCurrencyLanguage();
+    // const { selectedCurrency } = useCurrencyLanguage();
 
-    const currencySymbols: Record<string, string> = {
-        gbp: "£",
-        usd: "$",
-        eur: "€",
-        chf: "Fr",
-        sek: "kr",
-        nok: "kr",
-        dkk: "kr",
-    };
+    // const currencySymbols: Record<string, string> = {
+    //     gbp: "£",
+    //     usd: "$",
+    //     eur: "€",
+    //     chf: "Fr",
+    //     sek: "kr",
+    //     nok: "kr",
+    //     dkk: "kr",
+    // };
 
-    const currencyKey = selectedCurrency.toLowerCase();
-    const symbol = currencySymbols[selectedCurrency] || "";
+    // const currencyKey = selectedCurrency.toLowerCase();
+    // const symbol = currencySymbols[selectedCurrency] || "";
 
     const exchangeRates: Record<string, number> = {
         usd: 1.25,
@@ -352,8 +352,8 @@ const TicketItem = ({
 
                     <div className="flex items-center gap-2">
                         <div className="text-xs sm:text-base font-semibold text-black">
-                            {symbol}{" "}
-                            {(ticket.price * (exchangeRates[currencyKey] || 1)).toFixed(0)}
+                            £{""}
+                            {ticket.price}
                             <span className="font-thin text-xs sm:text-sm text-gray-500">
                                 / Ticket
                             </span>

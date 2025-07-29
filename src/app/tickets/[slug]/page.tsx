@@ -54,16 +54,18 @@ const Tickets = () => {
   const [availableTickets, setAvailableTickets] = useState<Listing[]>([]);
 
 
-  const { matchData, matchLoading } = useQuery(GET_MATCHE_BY_SLUG, {
-    variables: { slug: slug },
-    fetchPolicy: "network-only",
-  });
+  const { data: matchData,
+    loading: matchLoading,
+    error: matchError, } = useQuery(GET_MATCHE_BY_SLUG, {
+      variables: { slug: slug },
+      fetchPolicy: "network-only",
+    });
 
 
   useEffect(() => {
-    if (matchLoading) return;
-
     if (matchData?.matchBySlug) {
+      console.log("State event id :", matchData?.matchBySlug);
+
       setMatch(matchData.matchBySlug);
     }
   }, [matchData, slug, matchLoading]);
@@ -210,28 +212,26 @@ const Tickets = () => {
 
 
 
-  console.log("State event id :", match?.id);
-
-
-  const { data, loading } = useQuery(GET_TICKETS_BY_MATCH, {
+  const {  data: ticketData,
+  loading: ticketLoading } = useQuery(GET_TICKETS_BY_MATCH, {
     variables: { eventId: match?.id },
     fetchPolicy: "network-only",
   });
 
 
   useEffect(() => {
-    if (loading) return; // skip while loading
+    if (ticketLoading) return; // skip while loading
 
-    if (data?.getListingsByMatch.listings) {
-      setListings(data.getListingsByMatch.listings);
+    if (ticketData?.getListingsByMatch.listings) {
+      setListings(ticketData.getListingsByMatch.listings);
 
       const allStandNames = listings.map(listing => listing.section_stand_name);
       const distinctStandNames = Array.from(new Set(allStandNames));
       setAreaNames(["All", ...distinctStandNames]);
 
-      applyFilters(data.getListingsByMatch.listings);
+      applyFilters(ticketData.getListingsByMatch.listings);
     }
-  }, [filters, data, loading]);
+  }, [filters, ticketData, ticketLoading]);
 
   useEffect(() => {
     window.scrollTo({
@@ -247,349 +247,350 @@ const Tickets = () => {
       <main className="flex-grow">
         {/* <TrustPilotRow /> */}
 
-        {!matchLoading && (
-          <HeroSection
-            homeTeam={match.home_team}
-            eventName={match.title}
-            categoryName={match.league}
-            date={match.date}
-            venue={match.venue}
-            city={match.city}
-            country={match.country}
-            minPrice={match.price_starts_from}
-          />
-        )}
+        {match && (
+          <div>
+            <HeroSection
+              homeTeam={match.home_team}
+              eventName={match.title}
+              categoryName={match.league}
+              date={match.date}
+              venue={match.venue}
+              city={match.city}
+              country={match.country}
+              minPrice={match.price_starts_from}
+            />
 
+            {/* {loading && <FullScreenLoader />} */}
 
-        {/* {loading && <FullScreenLoader />} */}
+            {/* Main Content */}
+            <section className="py-8">
 
-        {/* Main Content */}
-        <section className="py-8">
+              <div className="ticket-container">
+                {/* <Breadcrumbs titles={titles} links={links} /> */}
 
-          <div className="ticket-container">
-            {/* <Breadcrumbs titles={titles} links={links} /> */}
+                {/* Mobile Ticket filters */}
+                <Card className="bg-white p-2 sm:p-0 rounded-sm block sm:hidden">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-8">
 
-            {/* Mobile Ticket filters */}
-            <Card className="bg-white p-2 sm:p-0 rounded-sm block sm:hidden">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-8">
+                    {/* Quantity + Toggle: inline only on mobile */}
+                    <div className="flex flex-col gap-0">
+                      <h3 className="text-sm sm:text-base font-semibold mb-2">How many tickets are you booking?</h3>
 
-                {/* Quantity + Toggle: inline only on mobile */}
-                <div className="flex flex-col gap-0">
-                  <h3 className="text-sm sm:text-base font-semibold mb-2">How many tickets are you booking?</h3>
+                      {/* Wrap both quantity buttons + toggle for mobile */}
+                      <div className="flex flex-wrap items-center gap-2">
 
-                  {/* Wrap both quantity buttons + toggle for mobile */}
-                  <div className="flex flex-wrap items-center gap-2">
+                        {/* Quantity buttons */}
+                        <div className="flex flex-wrap gap-1">
+                          {["ANY", 1, 2, 3, 4, 5].map((qty, i) => (
+                            <Button
+                              key={i}
+                              variant={
+                                qty === "ANY"
+                                  ? ticketQuantity === "ANY"
+                                    ? "default"
+                                    : "outline"
+                                  : Array.isArray(ticketQuantity) && ticketQuantity.includes(qty)
+                                    ? "default"
+                                    : "outline"
+                              }
+                              className="px-3 py-1 text-xs sm:text-sm"
+                              onClick={() => handleQuantityChange(qty === "ANY" ? "ANY" : [qty])}
+                            >
+                              {qty === 5 ? "5+" : qty}
+                            </Button>
+                          ))}
+                        </div>
 
-                    {/* Quantity buttons */}
-                    <div className="flex flex-wrap gap-1">
-                      {["ANY", 1, 2, 3, 4, 5].map((qty, i) => (
+                        {/* Toggle Switch next to buttons on mobile */}
+                        <div className="flex flex-col items-center gap-0">
+                          <label className="inline-flex items-center ms-2">
+                            <input
+                              type="checkbox"
+                              checked={seatedTogether}
+                              onChange={() => handleSeatedTogether(!seatedTogether)}
+                              className="sr-only peer"
+                            />
+                            <div className="relative w-9 h-5 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-ticket-red"></div>
+                            {/* <span className="ms-2 text-xs sm:text-sm font-medium text-gray-700">Stay together</span> */}
+                          </label>
+                          <span className="ms-2 text-xs sm:text-sm font-medium text-gray-700">Stay together</span>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* Price and Area: inline row only on mobile */}
+                    <div className="flex gap-2 flex-nowrap">
+
+                      {/* Area / Location - Right Side */}
+                      <div className="order-2 w-1/2 flex flex-col gap-0">
+                        <h3 className="text-xs font-medium mb-0">Area / Location</h3>
+                        <Select value={location} onValueChange={handleAreaChange}>
+                          <SelectTrigger className="w-full h-8 text-xs text-black">
+                            <SelectValue placeholder="Area" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {areaNames.map((name) => (
+                              <SelectItem key={name} value={name}>
+                                {name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Price - Left Side */}
+                      <div className="order-1 w-1/2 flex flex-col gap-0">
+                        <h3 className="text-xs font-medium mb-0">Price</h3>
+                        <Select value={priceRange} onValueChange={handlePriceRangeChange}>
+                          <SelectTrigger className="w-full h-8 text-xs">
+                            <SelectValue placeholder="Price range" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {PRIZE_RANGES.map((range) => (
+                              <SelectItem key={range.value} value={range.value}>
+                                {range.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {/* Preserve these empty divs to maintain 4-column layout on md+ */}
+                    <div className="hidden md:block" />
+                    <div className="hidden md:block" />
+                  </div>
+                </Card>
+
+                {/* Desktop Ticket filters */}
+                <Card className="bg-white p-2 rounded-sm hidden sm:block">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
+                    <div>
+                      <h3 className="text-base  font-semibold mb-3">
+                        How many tickets are you booking?
+                      </h3>
+                      <div className="flex">
                         <Button
-                          key={i}
-                          variant={
-                            qty === "ANY"
-                              ? ticketQuantity === "ANY"
-                                ? "default"
-                                : "outline"
-                              : Array.isArray(ticketQuantity) && ticketQuantity.includes(qty)
-                                ? "default"
-                                : "outline"
-                          }
-                          className="px-3 py-1 text-xs sm:text-sm"
-                          onClick={() => handleQuantityChange(qty === "ANY" ? "ANY" : [qty])}
-                        >
-                          {qty === 5 ? "5+" : qty}
+                          variant={ticketQuantity === "ANY" ? "default" : "outline"}
+                          className="rounded-l-md rounded-r-none border-r-0"
+                          onClick={() => handleQuantityChange("ANY")}>
+                          ANY
                         </Button>
-                      ))}
+                        <Button
+                          variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(1) ? "default" : "outline"}
+                          className="rounded-none border-r-0"
+                          onClick={() => handleQuantityChange([1])}
+                        >
+                          1
+                        </Button>
+                        <Button
+                          variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(2) ? "default" : "outline"}
+                          className="rounded-none border-r-0"
+                          onClick={() => handleQuantityChange([2])}
+                        >
+                          2
+                        </Button>
+                        <Button
+                          variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(3) ? "default" : "outline"}
+                          className="rounded-none border-r-0"
+                          onClick={() => handleQuantityChange([3])}
+                        >
+                          3
+                        </Button>
+                        <Button
+                          variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(4) ? "default" : "outline"}
+                          className="rounded-none border-r-0"
+                          onClick={() => handleQuantityChange([4])}
+                        >
+                          4
+                        </Button>
+                        <Button
+                          variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(5) ? "default" : "outline"}
+                          className="rounded-r-md rounded-l-none"
+                          onClick={() => handleQuantityChange([5])}>
+                          5+
+                        </Button>
+                      </div>
                     </div>
 
-                    {/* Toggle Switch next to buttons on mobile */}
-                    <div className="flex flex-col items-center gap-0">
-                      <label className="inline-flex items-center ms-2">
-                        <input
-                          type="checkbox"
-                          checked={seatedTogether}
-                          onChange={() => handleSeatedTogether(!seatedTogether)}
-                          className="sr-only peer"
+                    <div className="flex flex-col h-full">
+                      <div className="mt-auto">
+                        <label className="inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={seatedTogether}
+                            onChange={() => handleSeatedTogether(!seatedTogether)}
+                            className="sr-only peer"
+                          />
+                          <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ticket-red"></div>
+                          <span className="ms-3 text-sm font-medium text-gray-700">
+                            Stay together
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-medium mb-3">Price range</h3>
+
+                      <Select value={priceRange} onValueChange={handlePriceRangeChange}>
+                        <SelectTrigger className="w-full bg-white">
+                          <SelectValue placeholder="Select a price range" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {PRIZE_RANGES.map(range => (
+                            <SelectItem key={range.value} value={range.value}>
+                              {range.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+
+
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-medium mb-3">Area / Location</h3>
+                      <Select value={location} onValueChange={handleAreaChange}>
+                        <SelectTrigger className="w-full bg-white text-black">
+                          <SelectValue placeholder="Select a location" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {areaNames.map((name) => (
+                            <SelectItem key={name} value={name}>
+                              {name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                  </div>
+                </Card>
+
+                <div className="flex justify-between items-center mt-1">
+                  <div className="text-gray-600 text-xs mt-0 sm:text-sm">
+                    <span className="text-gray-800">
+                      <strong>{filteredListing.length} results</strong>
+                    </span>{" "}
+                    based on your search
+                  </div>
+                  <Button
+                    onClick={handleClearFilter}
+                    variant="outline"
+                    size="sm"
+                    className="text-gray-600 gap-1 text-sm">
+                    <Filter size={16} />
+                    Clear all filters
+                  </Button>
+                </div>
+
+                {/* Available tickets section */}
+                {filteredListing.length > 0 && (
+                  <div className="mt-4  pb-4">
+                    <h2 className="text-sm mt-0 sm:text-xl font-semibold">Available Tickets</h2>
+                    <p className="text-gray-600 text-xs mt-0 sm:text-sm">
+                      Tickets are listed by trusted partners competing to offer the best seats at the lowest prices. Select your seats, choose quantity, and click 'Buy Now' to continue.
+                    </p>
+                  </div>
+                )}
+
+                <hr className="mt-4 mb-4"></hr>
+
+
+                {/* Desktop view */}
+                <div className="hidden lg:block">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                    <div className="lg:col-span-5" >
+                      <div className="lg:col-span-5 max-h-[calc(130vh-100px)] overflow-y-auto pr-2 mt-1">
+                        {ticketLoading ? (
+                          <div className="w-full py-6 flex items-center justify-center bg-white/60">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
+                          </div>
+                        ) : filteredListing.length === 0 ? (
+                          <div className="text-center text-muted-foreground py-10">
+                            No tickets available for this match.
+                          </div>
+
+                        ) : (
+                          <TicketList
+                            listings={filteredListing}
+                            selectedSeat={selectedSeat}
+                            areaNames={areaNames}
+                            onTicketHover={(area, section) => handleTicketHover(area, section)}
+                            onTicketSelect={handleTicketSelect}
+                            selectedArea={selectedArea}
+                            selectedSection={selectedSection}
+                          />
+                        )}
+                      </div>
+                    </div>
+
+
+                    {/* Right Column - 2D Stadium View */}
+                    <div className="lg:col-span-7">
+                      <div className="sticky top-0">
+
+                        <StadiumSection
+                          venue={match?.venue}
+                          selectedArea={selectedSection}
+                          onAreaClick={handleSectionClick}
+                          availableListing={filteredListing}
                         />
-                        <div className="relative w-9 h-5 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-ticket-red"></div>
-                        {/* <span className="ms-2 text-xs sm:text-sm font-medium text-gray-700">Stay together</span> */}
-                      </label>
-                      <span className="ms-2 text-xs sm:text-sm font-medium text-gray-700">Stay together</span>
-
+                        {/* <MatchInfo /> */}
+                      </div>
                     </div>
 
                   </div>
                 </div>
 
-                {/* Price and Area: inline row only on mobile */}
-                <div className="flex gap-2 flex-nowrap">
 
-                  {/* Area / Location - Right Side */}
-                  <div className="order-2 w-1/2 flex flex-col gap-0">
-                    <h3 className="text-xs font-medium mb-0">Area / Location</h3>
-                    <Select value={location} onValueChange={handleAreaChange}>
-                      <SelectTrigger className="w-full h-8 text-xs text-black">
-                        <SelectValue placeholder="Area" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {areaNames.map((name) => (
-                          <SelectItem key={name} value={name}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Price - Left Side */}
-                  <div className="order-1 w-1/2 flex flex-col gap-0">
-                    <h3 className="text-xs font-medium mb-0">Price</h3>
-                    <Select value={priceRange} onValueChange={handlePriceRangeChange}>
-                      <SelectTrigger className="w-full h-8 text-xs">
-                        <SelectValue placeholder="Price range" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {PRIZE_RANGES.map((range) => (
-                          <SelectItem key={range.value} value={range.value}>
-                            {range.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* Preserve these empty divs to maintain 4-column layout on md+ */}
-                <div className="hidden md:block" />
-                <div className="hidden md:block" />
-              </div>
-            </Card>
-
-            {/* Desktop Ticket filters */}
-            <Card className="bg-white p-2 rounded-sm hidden sm:block">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
-                <div>
-                  <h3 className="text-base  font-semibold mb-3">
-                    How many tickets are you booking?
-                  </h3>
-                  <div className="flex">
-                    <Button
-                      variant={ticketQuantity === "ANY" ? "default" : "outline"}
-                      className="rounded-l-md rounded-r-none border-r-0"
-                      onClick={() => handleQuantityChange("ANY")}>
-                      ANY
-                    </Button>
-                    <Button
-                      variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(1) ? "default" : "outline"}
-                      className="rounded-none border-r-0"
-                      onClick={() => handleQuantityChange([1])}
-                    >
-                      1
-                    </Button>
-                    <Button
-                      variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(2) ? "default" : "outline"}
-                      className="rounded-none border-r-0"
-                      onClick={() => handleQuantityChange([2])}
-                    >
-                      2
-                    </Button>
-                    <Button
-                      variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(3) ? "default" : "outline"}
-                      className="rounded-none border-r-0"
-                      onClick={() => handleQuantityChange([3])}
-                    >
-                      3
-                    </Button>
-                    <Button
-                      variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(4) ? "default" : "outline"}
-                      className="rounded-none border-r-0"
-                      onClick={() => handleQuantityChange([4])}
-                    >
-                      4
-                    </Button>
-                    <Button
-                      variant={Array.isArray(ticketQuantity) && ticketQuantity.includes(5) ? "default" : "outline"}
-                      className="rounded-r-md rounded-l-none"
-                      onClick={() => handleQuantityChange([5])}>
-                      5+
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col h-full">
-                  <div className="mt-auto">
-                    <label className="inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={seatedTogether}
-                        onChange={() => handleSeatedTogether(!seatedTogether)}
-                        className="sr-only peer"
-                      />
-                      <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ticket-red"></div>
-                      <span className="ms-3 text-sm font-medium text-gray-700">
-                        Stay together
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-base font-medium mb-3">Price range</h3>
-
-                  <Select value={priceRange} onValueChange={handlePriceRangeChange}>
-                    <SelectTrigger className="w-full bg-white">
-                      <SelectValue placeholder="Select a price range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PRIZE_RANGES.map(range => (
-                        <SelectItem key={range.value} value={range.value}>
-                          {range.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
-
-                </div>
-
-                <div>
-                  <h3 className="text-base font-medium mb-3">Area / Location</h3>
-                  <Select value={location} onValueChange={handleAreaChange}>
-                    <SelectTrigger className="w-full bg-white text-black">
-                      <SelectValue placeholder="Select a location" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {areaNames.map((name) => (
-                        <SelectItem key={name} value={name}>
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-              </div>
-            </Card>
-
-            <div className="flex justify-between items-center mt-1">
-              <div className="text-gray-600 text-xs mt-0 sm:text-sm">
-                <span className="text-gray-800">
-                  <strong>{filteredListing.length} results</strong>
-                </span>{" "}
-                based on your search
-              </div>
-              <Button
-                onClick={handleClearFilter}
-                variant="outline"
-                size="sm"
-                className="text-gray-600 gap-1 text-sm">
-                <Filter size={16} />
-                Clear all filters
-              </Button>
-            </div>
-
-            {/* Available tickets section */}
-            {filteredListing.length > 0 && (
-              <div className="mt-4  pb-4">
-                <h2 className="text-sm mt-0 sm:text-xl font-semibold">Available Tickets</h2>
-                <p className="text-gray-600 text-xs mt-0 sm:text-sm">
-                  Tickets are listed by trusted partners competing to offer the best seats at the lowest prices. Select your seats, choose quantity, and click 'Buy Now' to continue.
-                </p>
-              </div>
-            )}
-
-            <hr className="mt-4 mb-4"></hr>
-
-
-            {/* Desktop view */}
-            <div className="hidden lg:block">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                <div className="lg:col-span-5" >
-                  <div className="lg:col-span-5 max-h-[calc(130vh-100px)] overflow-y-auto pr-2 mt-1">
-                    {loading ? (
-                      <div className="w-full py-6 flex items-center justify-center bg-white/60">
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
+                {/* Mobile view */}
+                <div className="block lg:hidden">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    {/* Stadium section (always on top on mobile) */}
+                    <div className="lg:col-span-7 order-1 lg:order-none">
+                      <div className="sticky top-0">
+                        <StadiumSection
+                          venue={match?.venue}
+                          selectedArea={selectedSection}
+                          onAreaClick={handleSectionClick}
+                          availableListing={filteredListing}
+                        />
                       </div>
-                    ) : filteredListing.length === 0 ? (
-                      <div className="text-center text-muted-foreground py-10">
-                        No tickets available for this match.
+                    </div>
+
+                    {/* Ticket list (moved below on mobile) */}
+                    <div className="lg:col-span-5 order-2 lg:order-none">
+                      <div className="max-h-[calc(145vh-100px)] overflow-y-auto pr-2 mt-8">
+                        {ticketLoading ? (
+                          <div className="text-center py-10">Loading tickets...</div>
+                        ) : filteredListing.length === 0 ? (
+                          <div className="text-center text-muted-foreground py-10">
+                            No tickets available for this match.
+                          </div>
+                        ) : (
+                          <TicketList
+                            listings={filteredListing}
+                            selectedSeat={selectedSeat}
+                            areaNames={areaNames}
+                            onTicketHover={(area, section) => handleTicketHover(area, section)}
+                            onTicketSelect={handleTicketSelect}
+                            selectedArea={selectedArea}
+                            selectedSection={selectedSection}
+                          />
+                        )}
                       </div>
-
-                    ) : (
-                      <TicketList
-                        listings={filteredListing}
-                        selectedSeat={selectedSeat}
-                        areaNames={areaNames}
-                        onTicketHover={(area, section) => handleTicketHover(area, section)}
-                        onTicketSelect={handleTicketSelect}
-                        selectedArea={selectedArea}
-                        selectedSection={selectedSection}
-                      />
-                    )}
-                  </div>
-                </div>
-
-
-                {/* Right Column - 2D Stadium View */}
-                <div className="lg:col-span-7">
-                  <div className="sticky top-0">
-
-                    <StadiumSection
-                      venue={match?.venue}
-                      selectedArea={selectedSection}
-                      onAreaClick={handleSectionClick}
-                      availableListing={filteredListing}
-                    />
-                    {/* <MatchInfo /> */}
+                    </div>
                   </div>
                 </div>
 
               </div>
-            </div>
-
-
-            {/* Mobile view */}
-            <div className="block lg:hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                {/* Stadium section (always on top on mobile) */}
-                <div className="lg:col-span-7 order-1 lg:order-none">
-                  <div className="sticky top-0">
-                    <StadiumSection
-                      venue={match?.venue}
-                      selectedArea={selectedSection}
-                      onAreaClick={handleSectionClick}
-                      availableListing={filteredListing}
-                    />
-                  </div>
-                </div>
-
-                {/* Ticket list (moved below on mobile) */}
-                <div className="lg:col-span-5 order-2 lg:order-none">
-                  <div className="max-h-[calc(145vh-100px)] overflow-y-auto pr-2 mt-8">
-                    {loading ? (
-                      <div className="text-center py-10">Loading tickets...</div>
-                    ) : filteredListing.length === 0 ? (
-                      <div className="text-center text-muted-foreground py-10">
-                        No tickets available for this match.
-                      </div>
-                    ) : (
-                      <TicketList
-                        listings={filteredListing}
-                        selectedSeat={selectedSeat}
-                        areaNames={areaNames}
-                        onTicketHover={(area, section) => handleTicketHover(area, section)}
-                        onTicketSelect={handleTicketSelect}
-                        selectedArea={selectedArea}
-                        selectedSection={selectedSection}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            </section>
           </div>
-        </section>
+        )}
       </main>
       <Footer />
     </div>

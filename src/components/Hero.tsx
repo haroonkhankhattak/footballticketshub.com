@@ -59,6 +59,7 @@ const Hero = () => {
           league: match.league,
           urlToEvent: match.slug,
           tba: false,
+          slug: match.slug,
           minPrice: {
             gbp: 95,
             usd: 120,
@@ -125,72 +126,17 @@ const Hero = () => {
       const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
 
       router.push(
-        `/tickets/${value.slug}?` +
-        new URLSearchParams({
-          homeTeam: value.home_team,
-          eventId: value.id,
-          eventCode: value.eventCode,
-          eventTypeCode: value.eventTypeCode,
-          pageNumber: '1',
-          eventName: value.title,
-          categoryName: value.league,
-          day,
-          month,
-          year: String(year),
-          time,
-          venue: value.venue,
-          city: value.city,
-          country: value.country,
-          minPrice: String(value.price),
-        }).toString()
+        `/tickets/${value.slug}?`
       );
     } else {
       router.push(
-        `/matches/premeri-league/${value.slug}`
+        `/premeri-league/${value.slug}`
       )
     }
 
     setShowSuggestions(false);
     setSearchLoading(true);
   };
-
-
-  // const handleSelectSuggestion = (keyword: string) => {
-
-  //   const team = teamRedirects[keyword];
-  //   if (team) {
-  //     window.location.href = `/matches?team=${encodeURIComponent(team)}&league=Premier League`;
-  //     return;
-  //   }
-  //   switch (keyword) {
-  //     case "Premier League":
-  //       window.location.href = "/league/premier-league";
-  //       return;
-  //     case "Champions League":
-  //       window.location.href = "/champions league";
-  //       return;
-  //     case "Europa League":
-  //       window.location.href = "/europa-league";
-  //       return;
-  //     case "FA Cup":
-  //       window.location.href = "/fa-cup";
-  //       return;
-  //     case "EFL Cup":
-  //       window.location.href = "/efl-cup";
-  //       return;
-  //     case "Community Shield":
-  //       window.location.href = "/community-shield";
-  //       return;
-  //     case "Championship":
-  //       window.location.href = "/championship";
-  //       return;
-  //     default:
-  //       setSearchQuery(keyword);
-  //       setShowSuggestions(false);
-  //   }
-  //   setSearchQuery(keyword);
-  //   setShowSuggestions(false);
-  // };
 
 
 
@@ -346,23 +292,8 @@ const Hero = () => {
                       <Link
                         key={match.id}
                         href={{
-                          pathname: `/tickets/${match.id}`, // dynamic route
-                          query: {
-                            homeTeam: match.homeTeam,
-                            eventCode: match.eventCode,
-                            eventTypeCode: match.eventTypeCode,
-                            pageNumber: 1,
-                            eventName: match.eventName,
-                            categoryName: match.categoryName,
-                            day: match.day,
-                            month: match.month,
-                            year: match.year,
-                            time: match.time,
-                            venue: match.venue,
-                            city: match.city,
-                            country: match.country,
-                            minPrice: match.minPrice.gbp,
-                          },
+                          pathname: `/tickets/${match.slug}`,
+                         
                         }}
                         className="bg-white p-1 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group transition"
                       >
