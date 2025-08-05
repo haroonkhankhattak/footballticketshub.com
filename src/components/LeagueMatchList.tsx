@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import  Link from "next/link";
+import Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
 import LeagueCard from "./LeagueCard";
 import FilterButton from "../components/FilterButton";
 import { leagues } from "../lib/constants/leagues";
-import {Props } from "../types/event";
+import { Props } from "../types/event";
 // import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
 import { Match } from "../types/match";
 import { convertSlugToTeamName } from "../lib/teamUtils";
@@ -84,8 +84,8 @@ const MatchRow: React.FC<Match> = ({
 
   return (
     <Link
-      href= {{
-      pathname : `/tickets/${slug}`,
+      href={{
+        pathname: `/tickets/${slug}`,
       }}
     >
       <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
@@ -131,22 +131,29 @@ const MatchRow: React.FC<Match> = ({
         </div>
 
 
-        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
+        {/* <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
           <Link
-            href ={{
-              pathname: `/tickets/${slug}`,}}
+            href ={`/tickets/${slug}`}
             className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </Link>
 
           <span className="inline-block text-sm">From £{price}</span>
+        </div> */}
+
+        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
+          <div className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+            View Tickets
+          </div>
+             <span className="inline-block text-sm">From £{price}</span>
         </div>
+
       </div>
     </Link>
   );
 };
 
-const LeagueMatchList: React.FC<Props> = ({league, matches, loading, error }) => {
+const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) => {
 
   const leagueName = convertSlugToTeamName(league);
 
@@ -168,7 +175,6 @@ const LeagueMatchList: React.FC<Props> = ({league, matches, loading, error }) =>
 
 
   function getFilteredMatches(events, dateFilter) {
-    console.log("Filtering matches with date filter:", dateFilter);
     if (dateFilter === "all") {
       return events;
     }

@@ -15,4 +15,5 @@ export type Match = {
   city: string;
   country: string;
   stadium_id: string;
+  category: string;
 };

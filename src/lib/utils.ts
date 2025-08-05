@@ -10,8 +10,8 @@ export function formatDate(date: string | number | Date): string {
     typeof date === "string"
       ? parseInt(date)
       : typeof date === "number"
-      ? date
-      : date.getTime();
+        ? date
+        : date.getTime();
 
   const formattedDate = new Date(timestamp);
   const options: Intl.DateTimeFormatOptions = {
@@ -21,3 +21,26 @@ export function formatDate(date: string | number | Date): string {
   };
   return formattedDate.toLocaleDateString("en-US", options);
 }
+
+export function formatDateTime(date: string | number | Date) {
+
+  const timestamp =
+    typeof date === "string"
+      ? parseInt(date)
+      : typeof date === "number"
+        ? date
+        : date.getTime();
+
+  const formattedDate = new Date(timestamp);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  };
+  return formattedDate.toLocaleDateString("en-US", options);
+
+}
+

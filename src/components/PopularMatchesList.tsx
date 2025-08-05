@@ -13,6 +13,8 @@ import { useQuery } from "@apollo/client/react/hooks/useQuery";
 import { GET_POPULAR_MATCHES } from "../api/queries/PopularMatches";
 // import { url } from "inspector";
 import { Match } from "../types/match";
+import RecentNews from "./RecentNews";
+import RecentTicketBuyers from "./RecentTicketBuyers";
 
 
 interface Team {
@@ -62,19 +64,13 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({
 
 
 const MatchRow: React.FC<Match> = ({
-  id,
   date,
   league,
   title,
-  home_team,
-  away_team,
-  home_team_slug,
-  away_team_slug,
   slug,
   venue,
   city,
   country,
-  price_starts_from,
 }) => {
 
   // const match = urlToEvent.match(/\/fixtures\/(.*?)-tickets-(.*)\.html/);
@@ -93,32 +89,13 @@ const MatchRow: React.FC<Match> = ({
 
   return (
     <Link
-      href={{
-        pathname: `/tickets/${slug}`,
-        query: {
-          homeTeam: home_team,
-          eventId: id,
-          eventCode: eventCode,
-          eventTypeCode: eventTypeCode,
-          pageNumber: 1,
-          eventName: title,
-          categoryName: league,
-          day: day,
-          month: month,
-          year: year,
-          time: time,
-          venue: venue,
-          city: city,
-          country: country,
-          minPrice: price_starts_from,
-        },
-      }}
+      href={`/tickets/${slug}`}
     >
 
       <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
 
         {/* Date */}
-        <div className="col-span-3 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
+        <div className="col-span-2 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
           <div className="py-5">
             <div className="uppercase text-[10px] sm:text-xs text-gray-800">{month}</div>
             <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
@@ -132,9 +109,8 @@ const MatchRow: React.FC<Match> = ({
           </div>
         </div>
 
-
         {/* Info */}
-        <div className="col-span-9 sm:col-span-8 pl-4">
+        <div className="col-span-8 sm:col-span-8 pl-4 ">
           <div className="text-[10px] sm:text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
             {league}
           </div>
@@ -161,32 +137,10 @@ const MatchRow: React.FC<Match> = ({
 
 
         {/* View Tickets button */}
-        <div className="col-span-12 sm:col-span-3 px-4 text-right hidden sm:block">
-          <Link
-            href={{
-              pathname: `/tickets/${slug}`,
-              query: {
-                homeTeam: home_team,
-                eventId: id,
-                eventCode: eventCode,
-                eventTypeCode: eventTypeCode,
-                pageNumber: 1,
-                eventName: title,
-                categoryName: league,
-                day: day,
-                month: month,
-                year: year,
-                time: time,
-                venue: venue,
-                city: city,
-                country: country,
-                minPrice: price_starts_from,
-              }
-            }}
-            className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full"
-          >
+        <div className="sm:col-span-3 px-0 text-right hidden sm:block">
+          <div className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
-          </Link>
+          </div>
         </div>
       </div>
     </Link>
@@ -199,126 +153,93 @@ const PopularMatchesList: React.FC<Props> = () => {
   // if (error) return <div>{error}</div>;
 
   // const [matches, setMatches] = useState<EventProps[]>([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
+  const [currentCategoryFilter, setCurrentCategoryFilter] = useState<"Best Selling" | "Trending Matches" | "Fan Favorites" | "High Demand">("Best Selling");
   const [featuredMatches, setFeaturedMatches] = useState([]);
   const [matches, setMatches] = useState<Match[]>([]);
-  // const { data } = useQuery(GET_POPULAR_MATCHES);
 
-  // useEffect(() => {
-  //   if (data?.popularMatches) {
-  //     const formattedMatches = data.popularMatches.map((match: any, index: number) => {
-  //       const matchDate = new Date(Number(match.date)); // ensure it's a number
-
-  //       return {
-  //         id: index,
-  //         homeTeam: match.home_team,
-  //         categoryName: match.league,
-  //         year: matchDate.getFullYear(),
-  //         month: matchDate.toLocaleString("en-US", { month: "short" }).toUpperCase(),
-  //         day: matchDate.getDate(),
-  //         time: matchDate.toLocaleTimeString("en-US", {
-  //           hour: "2-digit",
-  //           minute: "2-digit",
-  //           hour12: true,
-  //         }),
-  //         venue: match.venue,
-  //         city: match.city,
-  //         country: match.country,
-  //         eventName: match.title,
-  //         date: formatDate(match.date),
-  //         league: match.league,
-  //         urlToEvent: match.slug,
-  //         tba: false,
-  //         minPrice: {
-  //           gbp: 95,
-  //           usd: 120,
-  //           eur: 110,
-  //           aud: 170,
-  //           cad: 160,
-  //           chf: 105,
-  //         },
-  //         link: `/tickets/${match.slug}`,
-  //       };
-  //     });
-
-  //     setMatches(formattedMatches);
-  //   }
-  // }, [data]);
-
-
-
-  // Function to be passed to FilterButton to update the date filter state
-
-  // Apply both filters using the local state for date and search param for team
   const filteredMatches = getFilteredMatches(
     matches,
-    currentDateFilter
+    currentCategoryFilter
   );
 
-  const { data } = useQuery(GET_POPULAR_MATCHES, {
+  const { data, loading } = useQuery(GET_POPULAR_MATCHES, {
     fetchPolicy: "network-only",
+    variables: { category: currentCategoryFilter, limit: 100 }
   });
 
   useEffect(() => {
     if (data?.popularMatches) {
       setMatches(data.popularMatches);
-      setLoading(false);
     }
   }, [data, filteredMatches]);
 
-  const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
-    setCurrentDateFilter(filterType);
+  const handleCategoryFilterChange = (filterType: "Best Selling" | "Trending Matches" | "Fan Favorites" | "High Demand") => {
+    setCurrentCategoryFilter(filterType);
   };
 
-  function getFilteredMatches(events, dateFilter) {
-    console.log("Filtering matches with date filter:", dateFilter);
-    if (dateFilter === "all") {
-      return events;
+  function getFilteredMatches(events, categoryFilter) {
+    switch (categoryFilter) {
+      case "Trending Matches":
+        return events.filter(e => e.category == "Trending Matches");
+      case "Fan Favorites":
+        return events.filter(e => e.category == "Fan Favorites");
+      case "High Demand":
+        return events.filter(e => e.category == "High Demand");
+      case "Best Selling":
+      default:
+        return events;
     }
-
-    // Reference current date based on the provided context (June 5, 2025).
-    // Set to midnight local time for consistent date comparison.
-    const currentDate = new Date(2025, 5, 5); // Month is 0-indexed (June is 5)
-    currentDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
-
-    let filterDays;
-    if (dateFilter === "30 days") {
-      filterDays = 30;
-    } else if (dateFilter === "7 days") {
-      filterDays = 7;
-    } else if (dateFilter === "3 days") {
-      filterDays = 3;
-    } else {
-      // If an invalid filter is provided, return all events or handle as an error.
-      // For this case, we'll default to returning all events.
-      console.warn(`Invalid date filter: ${dateFilter}. Returning all matches.`);
-      return events;
-    }
-
-    // Calculate the end date for the filter period
-    const endDate = new Date(currentDate);
-    endDate.setDate(currentDate.getDate() + filterDays);
-    endDate.setHours(23, 59, 59, 999); // Set to end of the day to include matches on the last day
-
-    // Helper map for month names to 0-indexed numbers
-    const monthNameToNumber = {
-      "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
-      "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
-    };
-
-    return events.filter(event => {
-      // Construct the event date from its properties (year, month, day)
-      // Set to midnight local time for consistent date comparison
-      const eventDate = new Date(event.year, monthNameToNumber[event.month], event.day);
-      eventDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
-
-      // Filter criteria: event must be on or after the current date,
-      // and on or before the calculated end date.
-      return eventDate >= currentDate && eventDate <= endDate;
-    });
   }
+
+  // function getFilteredMatches(events, dateFilter) {
+  //   console.log("Filtering matches with date filter:", dateFilter);
+  //   if (dateFilter === "Best Selling") {
+  //     return events;
+  //   }
+
+  //   // Reference current date based on the provided context (June 5, 2025).
+  //   // Set to midnight local time for consistent date comparison.
+  //   const currentDate = new Date(2025, 5, 5); // Month is 0-indexed (June is 5)
+  //   currentDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+
+  //   let filterDays;
+  //   if (dateFilter === "Trending Matches") {
+  //     filterDays = 30;
+  //   } else if (dateFilter === "Fan Favorites") {
+  //     filterDays = 7;
+  //   } else if (dateFilter === "High Demand") {
+  //     filterDays = 3;
+  //   } else {
+  //     // If an invalid filter is provided, return all events or handle as an error.
+  //     // For this case, we'll default to returning all events.
+  //     console.warn(`Invalid date filter: ${dateFilter}. Returning all matches.`);
+  //     return events;
+  //   }
+
+  //   // Calculate the end date for the filter period
+  //   const endDate = new Date(currentDate);
+  //   endDate.setDate(currentDate.getDate() + filterDays);
+  //   endDate.setHours(23, 59, 59, 999); // Set to end of the day to include matches on the last day
+
+  //   // Helper map for month names to 0-indexed numbers
+  //   const monthNameToNumber = {
+  //     "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
+  //     "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
+  //   };
+
+  //   return events.filter(event => {
+  //     // Construct the event date from its properties (year, month, day)
+  //     // Set to midnight local time for consistent date comparison
+  //     const eventDate = new Date(event.year, monthNameToNumber[event.month], event.day);
+  //     eventDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+
+  //     // Filter criteria: event must be on or after the current date,
+  //     // and on or before the calculated end date.
+  //     return eventDate >= currentDate && eventDate <= endDate;
+  //   });
+  // }
 
 
   // useEffect(() => {
@@ -350,20 +271,20 @@ const PopularMatchesList: React.FC<Props> = () => {
   return (
     <section className="py-8 bg-white">
       <div className="ticket-container">
-        <div className="grid lg:grid-cols-12 gap-8 px-0">
+        <div className="grid lg:grid-cols-12 gap-2 px-0">
           {/* div left */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-7">
             <div className="text-xl font-medium py-4 sticky top-0 bg-white z-10">
-              Most Popular Football Tickets
+              Hot Picks for Football Fans
             </div>
             {/* <div className="text-sm text-black py-2 ">
               {filteredMatches.length} results found.
             </div> */}
             <FilterButton
-              onFilterChange={handleDateFilterChange}
-              selectedFilter={currentDateFilter}
+              onFilterChange={handleCategoryFilterChange}
+              selectedFilter={currentCategoryFilter}
             />
-            <div className="max-h-[2500px] overflow-y-auto space-y-2">
+            <div className="h-[700px] overflow-y-auto space-y-2 p-2 thin-scrollbar">
               {loading ? (
                 <div className="w-full py-6 flex items-center justify-center bg-white/60">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
@@ -378,13 +299,42 @@ const PopularMatchesList: React.FC<Props> = () => {
             </div>
           </div>
 
+
           {/* div right */}
-          <div className="lg:col-span-4 space-y-16">
-            <div className="space-y-4 border-b py-4">
-              <div className="text-xl font-medium py-4 border-b">
+          <div className="lg:col-span-5 space-y-16">
+
+            <div className="space-y-4 py-4 mt-20">
+
+              <RecentNews />
+
+              {/* <div className="text-xl font-medium py-4 border-b">
                 Book With Confidence
-              </div>
-              <div className="flex items-start">
+              </div> */}
+
+              {/* <div className="flex items-start"> */}
+              {/* <div className="flex-shrink-0 mt-1">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="18"
+                    height="18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-sky-700">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div> */}
+              {/* <div className="ml-0">
+                  <h3 className="font-semibold text-sm text-black">
+                    Every seller on our platform brings over 20 years of expertise in the football ticketing market, ensuring you receive not only authentic tickets but also the highest level of service, reliability, and insider knowledge that comes from decades of industry experience.
+                  </h3>
+                </div> */}
+              {/* </div> */}
+
+              {/* <div className="flex items-start">
                 <div className="flex-shrink-0 mt-1">
                   <svg
                     viewBox="0 0 24 24"
@@ -474,9 +424,9 @@ const PopularMatchesList: React.FC<Props> = () => {
                     150% Money Back Guarantee
                   </h3>
                 </div>
-              </div>
+              </div> */}
             </div>
-            <div>
+            {/* <div>
               {leagues.map((league, index) => (
                 <LeagueSection
                   key={index}
@@ -485,7 +435,7 @@ const PopularMatchesList: React.FC<Props> = () => {
                   viewAllLink={league.viewAllLink}
                 />
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

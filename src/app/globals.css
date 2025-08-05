@@ -87,6 +87,26 @@
   .glass-effect {
     @apply backdrop-blur-sm bg-white/90 shadow-md;
   }
+
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.5);
+    border-radius: 3px;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
 }
 
 @layer components {
@@ -109,4 +129,5 @@
   .card-ticket {
     @apply bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md;
   }
+  
 }

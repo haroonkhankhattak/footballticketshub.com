@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { Timer as TimerIcon } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useNavigate } from "react-router-dom";
+import { Alert, AlertDescription } from "../../components/ui/alert";
 
+import { useRouter } from 'next/navigation';
 
 interface TimerProps {
   initialMinutes: number;
@@ -13,8 +12,7 @@ interface TimerProps {
 const Timer: React.FC<TimerProps> = ({ initialMinutes, initialSeconds }) => {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(initialSeconds);
-  const navigate = useNavigate();
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,13 +23,12 @@ const Timer: React.FC<TimerProps> = ({ initialMinutes, initialSeconds }) => {
         setSeconds(59);
       } else {
         clearInterval(timer);
-        // router.back(); // Go to previous page
-        navigate(-1);
+        router.back(); 
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [minutes, seconds, navigate]);
+  }, [minutes, seconds, router]);
 
   return (
     <Alert className="max-w-7xl mx-auto bg-white shadow-lg">

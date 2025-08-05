@@ -1,14 +1,14 @@
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Form } from "../../components/ui/form";
+import { Button } from "../../components/ui/button";
+import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { CheckoutFormData, CheckoutStep } from "@/types/checkout";
+import { CheckoutFormData, CheckoutStep } from "../../types/checkout";
 import PersonalDetailsStep from "./steps/PersonalDetailsStep";
 import VisitorDetailsStep from "./steps/VisitorDetailsStep";
 import PaymentDetailsStep from "./steps/PaymentDetailsStep";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 interface CheckoutFormProps {
     ticketCount: number;

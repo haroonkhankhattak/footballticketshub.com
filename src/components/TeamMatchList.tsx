@@ -196,26 +196,7 @@ const MatchRow: React.FC<Match> = ({
 
 
     <Link
-      href={{
-        pathname: `/tickets/${slug}`,
-        query: {
-          homeTeam: home_team,
-          eventId: id,
-          eventCode: eventCode,
-          eventTypeCode: eventTypeCode,
-          pageNumber: 1,
-          eventName: title,
-          categoryName: league,
-          day: day,
-          month: month,
-          year: year,
-          time: time,
-          venue: venue,
-          city: city,
-          country: country,
-          minPrice: price_starts_from,
-        }
-      }}
+      href={`/tickets/${slug}`}
     >
       <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
         {/* Date */}
@@ -260,33 +241,21 @@ const MatchRow: React.FC<Match> = ({
         </div>
 
 
-        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
+        {/* <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
           <Link
-            href={{
-              pathname: `/tickets/${slug}`,
-              query: {
-                homeTeam: home_team,
-                eventId: id,
-                eventCode: eventCode,
-                eventTypeCode: eventTypeCode,
-                pageNumber: 1,
-                eventName: title,
-                categoryName: league,
-                day: day,
-                month: month,
-                year: year,
-                time: time,
-                venue: venue,
-                city: city,
-                country: country,
-                minPrice: price,
-              }
-            }
+            href={ `/tickets/${slug}`
             }
             className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </Link>
 
+          <span className="inline-block text-sm">From £{price}</span>
+        </div> */}
+
+        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
+          <div className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+            View Tickets
+          </div>
           <span className="inline-block text-sm">From £{price}</span>
         </div>
       </div>
@@ -303,7 +272,6 @@ const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error 
   const teamName = convertSlugToTeamName(team);
   const leagueName = convertSlugToTeamName(league);
   HomeTeam = team;
-  console.log(league, team)
   const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
 
   // const team = searchParams.get("team");
@@ -311,7 +279,6 @@ const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error 
 
   // Function to be passed to FilterButton to update the date filter state
   const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
-    console.log("Filter changed to:", filterType);
     setCurrentDateFilter(filterType);
   };
 
@@ -322,7 +289,6 @@ const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error 
   );
 
   function getFilteredMatches(events, dateFilter) {
-    console.log("Filtering matches with date filter:", dateFilter);
     if (dateFilter === "all") {
       return events;
     }

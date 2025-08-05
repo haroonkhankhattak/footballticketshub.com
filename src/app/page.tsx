@@ -1,6 +1,6 @@
 'use client';
 
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 // import { GetServerSideProps } from "next";
 
@@ -13,6 +13,8 @@ import Testimonials from "../components/Testimonials";
 import RecentNews from "../components/RecentNews";
 import FootballTickets from "../components/FootballTickets";
 import Footer from "../components/layout/Footer";
+import RecentTicketBuyers from "../components/RecentTicketBuyers";
+import SupportButton from "../components/SupportButton";
 // import { useTranslation } from "react-i18next";
 // import { getHomePageProps } from "../api/queries/getHomePageProps";
 
@@ -23,7 +25,7 @@ import Footer from "../components/layout/Footer";
 const Index = () => {
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
   const heroRef = useRef<HTMLDivElement | null>(null);
-//   const { t } = useTranslation();
+  //   const { t } = useTranslation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -59,9 +61,13 @@ const Index = () => {
           </div>
           <PopularTeams />
           <PopularMatchesList matches={[]} loading={false} error={""} />
-          <Testimonials />
-          <RecentNews />
+
+          {/* <RecentNews /> */}
+        
           <FootballTickets />
+          <RecentTicketBuyers />
+          <Testimonials />
+          <SupportButton/>
         </main>
         <Footer />
       </div>

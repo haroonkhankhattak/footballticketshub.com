@@ -2,7 +2,7 @@ import React from "react";
 
 const FootballTickets: React.FC = () => {
     return (
-        <section className="py-8 bg-white">
+        <section className="py-0 bg-white">
             <div className="ticket-container">
                 <div>
                     <h1 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">

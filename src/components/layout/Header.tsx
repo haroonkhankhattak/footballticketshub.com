@@ -239,13 +239,13 @@ const Header = ({
             <Link href="/" className="flex items-center">
               <div className="flex flex-col items-start">
                 <img
-                  src="/uploads/icons/logo.png"
+                  src="/uploads/icons/logo_2.png"
                   alt="language icon"
-                  className="w-[200px] h-[40px] object-left"
+                  className="w-[224px] h-full object-left"
                 />
-                <span className="text-[8px] sm:text-xs text-gray-600 tracking-tight mt-1">
+                {/* <span className="text-[8px] sm:text-xs text-gray-600 tracking-tight mt-1">
                   AUTHENTIC. GUARANTEED. HASSLE-FREE.
-                </span>
+                </span> */}
               </div>
             </Link>
 
@@ -490,7 +490,7 @@ const Header = ({
               expiresAt={basket.expires}
               listing={basket.listing}
               onExpire={() => {
-                setBasketItems([]);
+                // setBasketItems([]);
                 // handleClearBasket();
               }}
             />

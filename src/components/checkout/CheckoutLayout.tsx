@@ -1,27 +1,25 @@
 import React, { useState } from "react";
-import Timer from "./Timer";
 import OrderSummary from "./OrderSummary";
 import CheckoutForm from "./CheckoutForm";
 import { Listing } from "../../pages/tickets/listing";
 import { ArrowLeft, ShoppingBasket, ShoppingCartIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { CLEAR_BASKET } from "../../api/queries/ClearBasket";
 import { useMutation } from "@apollo/client";
 import { AlertDialouge } from "../AlertDialouge";
 import FullScreenLoader from "../FullScreenLoader";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
+import { useRouter } from 'next/navigation';
 
 interface CheckoutLayoutProps {
     ticket: Listing,
     quantity: number,
-
 }
 
 const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
     ticket: ticket,
     quantity: quantity,
 }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const [showCartAlert, setShowCartAlert] = useState(false);
     const [showLoading, setshowLoading] = useState(false);
 
@@ -39,7 +37,7 @@ const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
                 toast.success(data?.clearBasket?.message, {
                     description: "",
                 });
-                navigate(-1)
+                router.back();
                 console.log("Basket cleared:", data.clearBasket.message);
 
             } else {
@@ -66,7 +64,7 @@ const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
                 {/* Back Button (Left) */}
                 <div
                     className="flex items-center gap-2 hover:text-red-600 cursor-pointer w-fit"
-                    onClick={() => navigate(-1)}
+                    onClick={() => router.back()}
                 >
                     <ArrowLeft size={20} />
                     <span>Back</span>

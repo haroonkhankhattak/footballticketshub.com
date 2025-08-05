@@ -6,10 +6,10 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { CheckoutFormData } from "@/types/checkout";
+} from "../../../components/ui/form";
+import { Input } from "../../../components/ui/input";
+import { Card } from "../../../components/ui/card";
+import { CheckoutFormData } from "../../../types/checkout";
 import { CreditCard, Lock } from "lucide-react";
 import Image from "next/image";
 

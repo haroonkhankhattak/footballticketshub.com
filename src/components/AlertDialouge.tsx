@@ -61,7 +61,7 @@ export const AlertDialouge: React.FC<AlertInfoProps> = ({
 
                             <div className="mt-4 text-start">
                                 {sentences.map((sentence, idx) => (
-                                    <h4
+                                    <span
                                         key={idx}
                                         className="font-light mt-2 text-black"
                                         dangerouslySetInnerHTML={{ __html: highlightPhrases(sentence.trim()) }}

@@ -6,18 +6,18 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+} from "../../../components/ui/form";
+import { Input } from "../../../components/ui/input";
+import { Checkbox } from "../../../components/ui/checkbox";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { CheckoutFormData } from "@/types/checkout";
-import { COUNTRY_CODES, COUNTRY_NAMES } from "@/lib/constants";
+} from "../../../components/ui/select";
+import { CheckoutFormData } from "../../../types/checkout";
+import { COUNTRY_CODES, COUNTRY_NAMES } from "../../../lib/constants";
 
 interface PersonalDetailsStepProps {
   control: Control<CheckoutFormData>;
@@ -52,10 +52,11 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = ({
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600 text-sm font-medium mt-1" />
               </FormItem>
             )}
           />
+
 
           <FormField
             control={control}

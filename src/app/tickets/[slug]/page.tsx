@@ -17,12 +17,14 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import { PRIZE_RANGES } from "../../../lib/constants";
-import { useQuery } from "@apollo/client/react/hooks";
+import { useLazyQuery, useQuery } from "@apollo/client/react/hooks";
 import { GET_TICKETS_BY_MATCH } from "../../../api/queries/TicketsByMatch";
 import { Listing } from "../../../types/listing";
 import { useParams } from "next/navigation";
 import { GET_MATCHE_BY_SLUG } from "../../../api/queries/MatcheBySlug";
 import { Match } from "../../../types/match";
+import { GET_STAND_NAMES_BY_VENUE } from "../../../api/queries/GetStandNames";
+import { Stand } from "../../../types/Stands";
 
 const Tickets = () => {
 
@@ -31,9 +33,9 @@ const Tickets = () => {
   const [selectedSeat, setSelectedSeat] = useState<string | null>(null);
   const [listings, setListings] = useState<Listing[]>([]);
   const [match, setMatch] = useState<Match>(null);
+  const [stands, setStands] = useState<Stand[]>([{ stand_name: "All" }]);
   const [filteredListing, setFilteredListing] = useState<Listing[]>([]);
   const { slug } = useParams();
-
 
 
   const [ticketQuantity, setTicketQuantity] = useState<"ANY" | number[]>("ANY");
@@ -53,28 +55,47 @@ const Tickets = () => {
   const [priceRange, setPriceRange] = useState(PRIZE_RANGES[0]?.value ?? "");
   const [availableTickets, setAvailableTickets] = useState<Listing[]>([]);
 
+// 1. Load the match data by slug
+const { data: matchData, loading: matchLoading } = useQuery(GET_MATCHE_BY_SLUG, {
+  variables: { slug },
+  fetchPolicy: "network-only",
+});
 
-  const { data: matchData,
-    loading: matchLoading,
-    error: matchError, } = useQuery(GET_MATCHE_BY_SLUG, {
-      variables: { slug: slug },
-      fetchPolicy: "network-only",
-    });
+// 2. Prepare lazy query for stand names
+const [getStands, { data: standsData }] = useLazyQuery(GET_STAND_NAMES_BY_VENUE, {
+  fetchPolicy: "network-only",
+});
 
+// 3. Once matchData is available, trigger the second query
+useEffect(() => {
+  if (matchData?.matchBySlug) {
+    const match = matchData.matchBySlug;
+    setMatch(match);
 
-  useEffect(() => {
-    if (matchData?.matchBySlug) {
-      console.log("State event id :", matchData?.matchBySlug);
-
-      setMatch(matchData.matchBySlug);
+    // Fetch stands using the stadium_id
+    if (match.stadium_id) {
+      getStands({ variables: { venue: match.stadium_id } });
     }
-  }, [matchData, slug, matchLoading]);
+  }
+}, [matchData]);
+
+// 4. When stand data is available, update state
+useEffect(() => {
+  if (standsData?.standNamesByVenue) {
+    setStands([{ stand_name: "All" }, ...standsData.standNamesByVenue]);
+  }
+}, [standsData]);
+
 
   const applyFilters = (listings: Listing[]) => {
     const filtered = listings.filter(ticket => {
       const inPriceRange = ticket.price >= filters.minPrice && ticket.price <= filters.maxPrice;
-      const inSelectedAreas = filters.areas.length === 0 || filters.areas.includes(ticket.section_stand_name);
-      const hasEnoughTickets = ticket.tickets.length >= filters.minTickets;
+      const areaFilterIsActive = filters.areas.length > 0 && !filters.areas.includes("All");
+
+      const inSelectedAreas =
+        !areaFilterIsActive || filters.areas.some(area =>
+          area.toLowerCase() === ticket.section_stand_name.toLowerCase()
+        ); const hasEnoughTickets = ticket.tickets.length >= filters.minTickets;
 
       // quantity filtering logic
       let matchesQuantity = true;
@@ -212,22 +233,28 @@ const Tickets = () => {
 
 
 
-  const {  data: ticketData,
-  loading: ticketLoading } = useQuery(GET_TICKETS_BY_MATCH, {
-    variables: { eventId: match?.id },
-    fetchPolicy: "network-only",
-  });
+  const { data: ticketData,
+    loading: ticketLoading } = useQuery(GET_TICKETS_BY_MATCH, {
+      variables: { eventId: match?.id },
+      fetchPolicy: "network-only",
+    });
 
 
   useEffect(() => {
-    if (ticketLoading) return; // skip while loading
+    if (ticketLoading) return;
 
     if (ticketData?.getListingsByMatch.listings) {
       setListings(ticketData.getListingsByMatch.listings);
-
       const allStandNames = listings.map(listing => listing.section_stand_name);
       const distinctStandNames = Array.from(new Set(allStandNames));
       setAreaNames(["All", ...distinctStandNames]);
+
+
+      // const newListings = ticketData.getListingsByMatch.listings;
+      // setListings(newListings);
+      // const distinctStandNames = [...new Set(newListings.map(l => l.section_stand_name))];
+      // setAreaNames(["All", ...distinctStandNames]);
+
 
       applyFilters(ticketData.getListingsByMatch.listings);
     }
@@ -331,9 +358,9 @@ const Tickets = () => {
                             <SelectValue placeholder="Area" />
                           </SelectTrigger>
                           <SelectContent>
-                            {areaNames.map((name) => (
-                              <SelectItem key={name} value={name}>
-                                {name}
+                            {stands.map((item, index) => (
+                              <SelectItem key={index} value={item['stand_name']}>
+                                {item['stand_name']}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -341,7 +368,7 @@ const Tickets = () => {
                       </div>
 
                       {/* Price - Left Side */}
-                      <div className="order-1 w-1/2 flex flex-col gap-0">
+                      {/* <div className="order-1 w-1/2 flex flex-col gap-0">
                         <h3 className="text-xs font-medium mb-0">Price</h3>
                         <Select value={priceRange} onValueChange={handlePriceRangeChange}>
                           <SelectTrigger className="w-full h-8 text-xs">
@@ -355,7 +382,7 @@ const Tickets = () => {
                             ))}
                           </SelectContent>
                         </Select>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Preserve these empty divs to maintain 4-column layout on md+ */}
@@ -366,7 +393,7 @@ const Tickets = () => {
 
                 {/* Desktop Ticket filters */}
                 <Card className="bg-white p-2 rounded-sm hidden sm:block">
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
                     <div>
                       <h3 className="text-base  font-semibold mb-3">
                         How many tickets are you booking?
@@ -426,13 +453,13 @@ const Tickets = () => {
                           />
                           <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ticket-red"></div>
                           <span className="ms-3 text-sm font-medium text-gray-700">
-                            Stay together
+                            Seat together
                           </span>
                         </label>
                       </div>
                     </div>
 
-                    <div>
+                    {/* <div>
                       <h3 className="text-base font-medium mb-3">Price range</h3>
 
                       <Select value={priceRange} onValueChange={handlePriceRangeChange}>
@@ -449,18 +476,19 @@ const Tickets = () => {
                       </Select>
 
 
-                    </div>
+                    </div> */}
 
                     <div>
-                      <h3 className="text-base font-medium mb-3">Area / Location</h3>
+                      <h3 className="text-base font-medium mb-3">Stand / Block</h3>
                       <Select value={location} onValueChange={handleAreaChange}>
                         <SelectTrigger className="w-full bg-white text-black">
-                          <SelectValue placeholder="Select a location" />
+                          <SelectValue placeholder="All" />
+
                         </SelectTrigger>
                         <SelectContent>
-                          {areaNames.map((name) => (
-                            <SelectItem key={name} value={name}>
-                              {name}
+                          {stands.map((item, index) => (
+                            <SelectItem key={index} value={item['stand_name']}>
+                              {item['stand_name']}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -488,6 +516,7 @@ const Tickets = () => {
                 </div>
 
                 {/* Available tickets section */}
+
                 {filteredListing.length > 0 && (
                   <div className="mt-4  pb-4">
                     <h2 className="text-sm mt-0 sm:text-xl font-semibold">Available Tickets</h2>
@@ -504,7 +533,7 @@ const Tickets = () => {
                 <div className="hidden lg:block">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                     <div className="lg:col-span-5" >
-                      <div className="lg:col-span-5 max-h-[calc(130vh-100px)] overflow-y-auto pr-2 mt-1">
+                      <div className="lg:col-span-5 max-h-[calc(130vh-100px)] overflow-y-auto pr-2 mt-1 thin-scrollbar">
                         {ticketLoading ? (
                           <div className="w-full py-6 flex items-center justify-center bg-white/60">
                             <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
@@ -564,11 +593,11 @@ const Tickets = () => {
 
                     {/* Ticket list (moved below on mobile) */}
                     <div className="lg:col-span-5 order-2 lg:order-none">
-                      <div className="max-h-[calc(145vh-100px)] overflow-y-auto pr-2 mt-8">
+                      <div className="max-h-[calc(145vh-100px)] overflow-y-auto pr-2 mt-0">
                         {ticketLoading ? (
                           <div className="text-center py-10">Loading tickets...</div>
                         ) : filteredListing.length === 0 ? (
-                          <div className="text-center text-muted-foreground py-10">
+                          <div className="text-center text-muted-foreground py-0">
                             No tickets available for this match.
                           </div>
                         ) : (

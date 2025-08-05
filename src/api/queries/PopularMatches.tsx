@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_POPULAR_MATCHES = gql`
-  query {
-    popularMatches {
+query Matches($category: String!, $limit: Int) {
+  popularMatches(category: $category, limit: $limit) {
       id
       title
       date
@@ -26,6 +26,7 @@ export const GET_POPULAR_MATCHES = gql`
       venue
       city
       country
+      category
     }
   }
 `;

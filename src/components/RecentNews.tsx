@@ -1,210 +1,145 @@
-import React from "react";
-import  Link  from "next/link";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useQuery } from "@apollo/client";
+import { GET_BLOGS } from "../api/queries/GetBlogs";
+import { Blog } from "../types/blog";
+import { formatDateTime } from "../lib/utils";
+import { Clock } from "lucide-react";
 
 interface NewsItemProps {
   title: string;
   summary: string;
   date: string;
-  link: string;
+  source: string;
+  reference: string;
+  imageUrl: string;
 }
 
-const NewsItem: React.FC<NewsItemProps> = ({ title, summary, date, link }) => {
+const NewsItem: React.FC<NewsItemProps> = ({ title, summary, date, imageUrl, reference, source }) => {
   return (
-    <article className="mb-6 pb-6 border-b border-gray-200 group hover:text-ticket-red transition-colors">
-      <Link href={link} className="block">
-        <h3 className="text-sm font-bold mb-2 group-hover:text-ticket-red transition-colors">
+<article className="flex flex-col gap-4 mt-2 p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white group max-w-4xl">
+  {/* Top row: image left and title right */}
+  <div className="flex gap-4">
+    <div className="flex-shrink-0 w-1/4 h-15 overflow-hidden rounded-lg">
+      <img
+        src={imageUrl || "uploads/icons/placeholder.png"}
+        alt={title}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        onError={(e) => {
+          e.currentTarget.src = "/images/placeholder.jpg";
+        }}
+      />
+    </div>
+
+    <div className="w-2/3 flex items-center">
+      <Link href={reference} className="block hover:no-underline">
+        <h3 className="text-lg font-semibold text-gray-800 group-hover:text-ticket-red transition-colors">
           {title}
         </h3>
-        <p className="text-sm font-light text-gray-600 mb-2">{summary}</p>
-        <div className="text-sm font-light text-gray-400">Posted on {date}</div>
       </Link>
-    </article>
-  );
-};
-
-
-interface RecentTicketProps {
-  date: string;
-  name: string;
-  match: string;
-}
-
-const RecentTicket: React.FC<RecentTicketProps> = ({ date, name, match }) => {
-  return (
-    <div className="mb-3">
-      <div className="font-medium border-b pb-4">
-        <span className="text-sm font-bold mb-2 group-hover:text-ticket-red transition-colors">{date}</span>
-        <span className="text-sm font-light text-gray-600 mb-2"> {name}</span>
-        <span className="text-sm font-light text-gray-600 mb-2"> {match}</span>
-      </div>
     </div>
+  </div>
+
+  {/* Summary below image and title */}
+  <p
+    className="text-sm text-gray-600 line-clamp-3"
+    dangerouslySetInnerHTML={{ __html: summary }}
+  />
+
+  {/* Source and date below */}
+  <div className="flex justify-between items-center text-xs text-gray-400">
+    <span className="font-semibold">{source}</span>
+    <span className="flex gap-2 items-center"> <Clock className="w-4 h-4"/> {formatDateTime(date)}</span>
+  </div>
+</article>
+
+
   );
 };
-
-
 
 const RecentNews = () => {
-  // const newsItems = [
-  //   {
-  //     title: "Barcelona stuns Atletico Madrid with late comeback",
-  //     summary:
-  //       "Barcelona stuns Atlético Madrid with a dramatic 4-2 comeback, scoring twice in stoppage time to stay level with Real Madrid in the La Liga title race.",
-  //     date: "16/03/2025 23:02:56",
-  //     link: "/news/barcelona-atletico-madrid-comeback",
-  //   },
-  //   {
-  //     title: "Man United beats Leicester City 0-3",
-  //     summary:
-  //       "Manchester United secured an impressive away win against Leicester City with a commanding 3-0 victory at the King Power Stadium.",
-  //     date: "15/03/2025 18:45:30",
-  //     link: "/news/man-united-leicester-city",
-  //   },
-  //   {
-  //     title: "Barcelona stuns Atletico Madrid with late comeback",
-  //     summary:
-  //       "Barcelona stuns Atlético Madrid with a dramatic 4-2 comeback, scoring twice in stoppage time to stay level with Real Madrid in the La Liga title race.",
-  //     date: "16/03/2025 23:02:56",
-  //     link: "/news/barcelona-atletico-madrid-comeback",
-  //   },
-  //   {
-  //     title: "Man United beats Leicester City 0-3",
-  //     summary:
-  //       "Manchester United secured an impressive away win against Leicester City with a commanding 3-0 victory at the King Power Stadium.",
-  //     date: "15/03/2025 18:45:30",
-  //     link: "/news/man-united-leicester-city",
-  //   },
+  const [page, setPage] = useState(2);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const limit = 5;
 
-  // ];
+  const { data, loading, fetchMore } = useQuery(GET_BLOGS, {
+    fetchPolicy: "network-only",
+    variables: { slug: "premier-league", page: page, limit: limit },
+    notifyOnNetworkStatusChange: true,
+  });
 
-  // const recentTickets = [
-  //   {
-  //     date: "25 Apr 2025",
-  //     name: "Christophe M obtained 2 tickets for",
-  //     match: "Liverpool vs Tottenham Hotspur.",
-  //   },
-  //   {
-  //     date: "25 Apr 2025",
-  //     name: "Simon M grabbed 1 ticket for",
-  //     match: "Arsenal vs Paris Saint-Germain.",
-  //   },
-  //   {
-  //     date: "25 Apr 2025",
-  //     name: "Michael M bought 3 tickets for",
-  //     match: "Fulham vs Everton.",
-  //   },
-  //   {
-  //     date: "25 Apr 2025",
-  //     name: "Precious A got 2 tickets for",
-  //     match: "Manchester United vs Wolverhampton.",
-  //   },
-  //   {
-  //     date: "25 Apr 2025",
-  //     name: "Michael M bought 3 tickets for",
-  //     match: "Fulham vs Everton.",
-  //   },
-  //   {
-  //     date: "25 Apr 2025",
-  //     name: "Precious A got 2 tickets for",
-  //     match: "Manchester United vs Wolverhampton.",
-  //   },
-  // ];
+  useEffect(() => {
+    if (data?.getBlog) {
+      if (data.getBlog.length < limit) setHasMore(false);
+      setBlogs(prev => [...prev, ...data.getBlog]);
+    }
+  }, [data]);
 
 
-  const newsItems = [
-    {
-      title: "Transfer rumors, news: Liverpool ready to offer player as part of Guéhi deal",
-      summary:
-        "Liverpool's pursuit of Guéhi could see one of their promising young attackers go the other way. Transfer Talk has the latest news, gossip and rumors.",
-      date: "30/06/2025 10:15:00",
-      link: "/news/champions-league-final-2025",
-    },
-    {
-      title: "Man United's Evans gets new club role",
-      summary:
-        "Jonny Evans has been handed a new job at Manchester United after calling time on his 20-year playing career.",
-      date: "30/06/2025 10:00:00",
-      link: "/news/liverpool-top-four",
-    },
-    {
-      title: "Transfer window: What do Europe's big clubs still need?",
-      summary:
-        "The transfer window is starting to fully kick into gear. Europe's top clubs have already been making some big moves, but what else are they planning?",
-      date: "30/06/2025 22:50:00",
-      link: "/news/arsenal-chelsea-var",
-    },
-    {
-      title: "Stan Sport buys rights to air Premier League",
-      summary:
-        "Nine has bought the media rights agreements to English Premier League and Emirates FA Cup games from Optus Sport, with the streaming service will shut down after a nine-year run.",
-      date: "29/06/2025 21:00:00",
-      link: "/news/man-united-manager-rumours",
-    },
-  ];
+  const handlePrev = () => {
+    if (page > 1) setPage(prev => prev - 1);
+  };
 
-  // --- UPDATED HARDCODED RECENT TICKETS ---
-  const recentTickets = [
-    {
-      date: "05 Jun 2025", // Today's date
-      name: "Sophia L obtained 2 tickets for",
-      match: "Man City vs Arsenal.",
-    },
-    {
-      date: "05 Jun 2025",
-      name: "Liam K grabbed 1 ticket for",
-      match: "Chelsea vs Tottenham Hotspur.",
-    },
-    {
-      date: "04 Jun 2025",
-      name: "Olivia M bought 3 tickets for",
-      match: "Liverpool vs Man United.",
-    },
-    {
-      date: "04 Jun 2025",
-      name: "Noah J got 2 tickets for",
-      match: "Everton vs Newcastle United.",
-    },
-    {
-      date: "03 Jun 2025",
-      name: "Emma D purchased 1 ticket for",
-      match: "West Ham vs Crystal Palace.",
-    },
-    {
-      date: "03 Jun 2025",
-      name: "Lucas P secured 2 tickets for",
-      match: "Aston Villa vs Brighton.",
-    },
-  ];
+  const handleNext = () => {
+    if (blogs.length === limit) setPage(prev => prev + 1);
+  };
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-0 bg-white">
       <div className="ticket-container">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-10">
           <div>
-            <h2 className="text-xl border-b py-2 font-midium mb-6">Latest Football News</h2>
-            {newsItems.map((item, index) => (
-              <NewsItem
-                key={index}
-                title={item.title}
-                summary={item.summary}
-                date={item.date}
-                link={item.link}
-              />
-            ))}
-          </div>
-
-          {/* <div>
-            <h2 className="text-xl border-b py-2 font-midium mb-6">
-              Latest Football fans who trusted us for their tickets
+            <h2 className="text-xl text-black border-b py-2 font-medium mb-6">
+              Latest Football News
             </h2>
-            {recentTickets.map((ticket, index) => (
-              <RecentTicket
-                key={index}
-                date={ticket.date}
-                name={ticket.name}
-                match={ticket.match}
-              />
-            ))}
-          </div> */}
+
+            {loading ? (
+              <div className="w-full py-6 flex items-center justify-center bg-white/60">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
+              </div>
+            ) : blogs.length === 0 ? (
+              <div className="text-center text-gray-500 py-8">No blogs found.</div>
+            ) : (
+              <>
+
+
+                <div className="h-[600px] overflow-y-auto pr-2 p-2 thin-scrollbar">
+                  {blogs.map((item, index) => (
+                    <NewsItem
+                      key={index}
+                      title={item.title}
+                      summary={item.summary}
+                      date={item.created_at}
+                      source={item.source}
+                      reference={item.reference}
+                      imageUrl={item.image_url}
+                    />
+                  ))}
+                </div>
+
+                {/* Pagination Controls */}
+                {hasMore && (
+                  <div className="flex justify-center mt-6">
+                    <button
+                      onClick={async () => {
+                        const nextPage = page + 1;
+                        const { data: moreData } = await fetchMore({
+                          variables: { page: nextPage, limit },
+                        });
+
+                        if (moreData?.getBlogs?.length < limit) setHasMore(false);
+                        setPage(nextPage);
+                      }}
+                      className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                    >
+                      Load More
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </section>

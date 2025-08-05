@@ -291,22 +291,19 @@ const Hero = () => {
                     return (
                       <Link
                         key={match.id}
-                        href={{
-                          pathname: `/tickets/${match.slug}`,
-                         
-                        }}
+                        href={`/tickets/${match.slug}`}
                         className="bg-white p-1 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group transition"
                       >
                         <div className="font-medium overflow-hidden text-center">
                           <div className="transition-transform duration-500">
                             <div className="leading-tight">
-                              <div className="text-xs sm:text-sm">{teams[0]}</div>
-                              <div className="text-ticket-red font-semibold text-sm sm:text-base my-0">vs</div>
-                              <div className="text-xs sm:text-sm">{teams[1]}</div>
+                              <div className="text-xs sm:text-sm font-bold">{teams[0]}</div>
+                              <div className="text-ticket-red font-bold text-sm sm:text-base my-0">vs</div>
+                              <div className="text-xs sm:text-sm font-bold">{teams[1]}</div>
                             </div>
                           </div>
                         </div>
-                        <div className="text-xs sm:text-sm text-gray-500 flex items-center justify-center group-hover:text-ticket-darkcolor mt-1">
+                        <div className="text-xs sm:text-sm text-black flex items-center justify-center group-hover:text-ticket-darkcolor mt-1">
                           <Calendar size={12} className="mr-1" />
                           <span className="text-[0.65rem] sm:text-xs">{match.date}</span>
                         </div>

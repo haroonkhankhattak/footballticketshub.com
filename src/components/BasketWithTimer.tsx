@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ShoppingCartIcon } from "lucide-react";
 import { Listing } from "../pages/tickets/listing";
+import { useRouter } from "next/navigation";
+import { useCheckoutStore } from "../app/store/checkoutStore";
+
 
 interface BasketWithTimerProps {
     listing: Listing
@@ -11,6 +14,19 @@ interface BasketWithTimerProps {
 
 const BasketWithTimer: React.FC<BasketWithTimerProps> = ({ listing, expiresAt, onExpire }) => {
 
+    const router = useRouter();
+    const setCheckoutData = useCheckoutStore((state) => state.setCheckoutData);
+
+    const handleClick = () => {
+        setCheckoutData({
+            ticket: listing,
+            quantity: listing.tickets.length,
+            expiresAt: expiresAt.toString(),
+        });
+
+        router.push("/checkout");
+    };
+
     const calculateRemainingSeconds = () => {
         const now = Date.now();
         const expires = Number(expiresAt);
@@ -19,12 +35,13 @@ const BasketWithTimer: React.FC<BasketWithTimerProps> = ({ listing, expiresAt, o
     };
 
     const [timeLeft, setTimeLeft] = useState(calculateRemainingSeconds);
+    const serializedListing = encodeURIComponent(JSON.stringify(listing));
 
     useEffect(() => {
         if (listing.tickets.length === 0) return;
 
         if (timeLeft === 0) {
-            onExpire();
+            // onExpire();
             return;
         }
 
@@ -53,13 +70,8 @@ const BasketWithTimer: React.FC<BasketWithTimerProps> = ({ listing, expiresAt, o
 
     return (
         <div className="flex items-center space-x-2">
-            <Link
-                to="/checkout"
-                state={{
-                    ticket: listing,
-                    quantity: listing.tickets.length,
-                    expiresAt: expiresAt,
-                }}
+            <button
+                onClick={handleClick}
                 className="text-primary navbar-link px-0 py-4 flex items-center whitespace-nowrap"
             >
                 <div className="relative mr-1">
@@ -71,19 +83,21 @@ const BasketWithTimer: React.FC<BasketWithTimerProps> = ({ listing, expiresAt, o
                     )}
                 </div>
                 <div>Basket</div>
-            </Link>
+            </button>
 
             {/* Timer to the right */}
-            {listing.tickets.length > 0 && (
-                <div className="text-xs text-muted-foreground whitespace-nowrap">
-                    Expires in {" "}
-                    <span className="font-medium inline-block w-[60px] text-left">
-                        {formatTime(timeLeft)}
-                    </span>
-                </div>
+            {
+                listing.tickets.length > 0 && (
+                    <div className="text-xs text-muted-foreground whitespace-nowrap">
+                        Expires in {" "}
+                        <span className="font-medium inline-block w-[60px] text-left">
+                            {formatTime(timeLeft)}
+                        </span>
+                    </div>
 
-            )}
-        </div>
+                )
+            }
+        </div >
 
     );
 };

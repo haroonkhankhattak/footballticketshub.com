@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "../../components/ui/card";
 import {
     BadgeCheck,
     MapPin,
@@ -11,11 +11,11 @@ import {
     X
 } from "lucide-react";
 
-import { Apple, Armchair, Baby, BadgeMinus, Ban, EyeOff, FileWarning, User, UserMinus, Users } from "lucide-react";
-import { QrCode, Smartphone, Handshake, Tag, ShieldCheck, Eye, UserCheck, ParkingCircle } from "lucide-react"
+import { Armchair } from "lucide-react";
+import { ShieldCheck } from "lucide-react"
 
 import { CLUB_FANS } from "../../lib/constants";
-import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
+// import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
 import { convertTeamNameToSlug } from "../../lib/teamUtils";
 import { Listing } from "../../pages/tickets/listing";
 import { useState } from "react";
@@ -24,7 +24,6 @@ import { attributesList } from "../../lib/constants/attributes";
 import { seatingArrgOptions } from "../../lib/constants/seatingArrgOptions";
 import { HintBubble } from "../HintBubble";
 import { AlertDialouge } from "../AlertDialouge";
-import { AiOutlineWarning } from "react-icons/ai";
 
 
 interface CheckoutLayoutProps {
@@ -38,57 +37,52 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
     quantity: quantity,
 }) => {
 
-    const { selectedCurrency } = useCurrencyLanguage();
+    // const { selectedCurrency } = useCurrencyLanguage();
     const [alertOpen, setAlertOpen] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const currencySymbols: Record<string, string> = {
-        gbp: "£",
-        usd: "$",
-        eur: "€",
-        chf: "Fr",
-        sek: "kr",
-        nok: "kr",
-        dkk: "kr",
-    };
+    // const currencySymbols: Record<string, string> = {
+    //     gbp: "£",
+    //     usd: "$",
+    //     eur: "€",
+    //     chf: "Fr",
+    //     sek: "kr",
+    //     nok: "kr",
+    //     dkk: "kr",
+    // };
 
-    const currencyKey = selectedCurrency.toLowerCase();
-    const symbol = currencySymbols[selectedCurrency] || "";
+    // const currencyKey = selectedCurrency.toLowerCase();
+    // const symbol = currencySymbols[selectedCurrency] || "";
 
-    const exchangeRates: Record<string, number> = {
-        usd: 1.25,
-        eur: 1.15,
-        chf: 1.10,
-        sek: 13.00,
-        nok: 13.50,
-        dkk: 8.50,
-        gbp: 1,
-    };
+    // const exchangeRates: Record<string, number> = {
+    //     usd: 1.25,
+    //     eur: 1.15,
+    //     chf: 1.10,
+    //     sek: 13.00,
+    //     nok: 13.50,
+    //     dkk: 8.50,
+    //     gbp: 1,
+    // };
 
-    const ticketPrice = Number((ticket.price * (exchangeRates[currencyKey] || 1)).toFixed(0));
+    // const ticketPrice = Number((ticket.price * (exchangeRates[currencyKey] || 1)).toFixed(0));
 
+    const ticketPrice =  Number((ticket.price).toFixed(0));
 
-
-    // console.log("--------------->", eventName, categoryName, date, time, venue, ticketArea, ticketSection, ticketprice, quantity, seatedTogather);
 
     function getFirstTeam(eventName) {
-        const teams = eventName.split(' vs '); // Split the string by ' vs '
-        return teams[0]; // Return the first team
+        const teams = eventName.split(' vs ');
+        return teams[0]; 
     }
 
     const homeTeam = getFirstTeam(ticket.match_title);
     const homeTeamSlug = convertTeamNameToSlug(homeTeam);
-    console.log(homeTeamSlug);
     const filename = CLUB_FANS[homeTeamSlug];
-    console.log(filename);
     const markupPercentage = 0.3;
     const markupAmount = ticketPrice * markupPercentage; // 30
     const totalPrice = ticketPrice + markupAmount;       // 130
 
     const totalMarkup = (markupAmount * quantity).toFixed(0);
     const grandTotal = (totalPrice * quantity).toFixed(0);
-
-
     const matchDate = new Date(Number(ticket.match_date));
 
     const formattedDate = matchDate.toLocaleDateString("en-GB", {
@@ -99,9 +93,6 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
     });
 
     return (
-
-
-
 
         <Card className="border-none shadow-lg">
             <div className="relative h-40 w-full">
@@ -127,22 +118,22 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
 
                 <div className="space-y-3">
                     <div className="flex items-center gap-2 text-gray-500">
-                        <CalendarDays className="h-4 w-4 text-gray-500" />
-                        <span className="text-sm font-thin">
+                        <CalendarDays className="h-4 w-4 text-black" />
+                        <span className="text-sm text-black font-thin">
                             {formattedDate}
                         </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-500">
-                        <MapPin className="h-4 w-4 text-gray-500" />
-                        <span className="text-sm font-thin">
+                        <MapPin className="h-4 w-4 text-black" />
+                        <span className="text-sm text-black font-thin">
                             {ticket.match_venue}
                         </span>
                     </div>
                 </div>
 
                 <div className="space-y-3 bg-green-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 text-emerald-600">
+                    {/* <div className="flex items-center gap-2 text-emerald-600">
                         <BadgeCheck className="h-4 w-4" />
                         <span className="text-sm font-medium">
                             150% Money Back Guarantee
@@ -152,13 +143,13 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                             <HelpCircle className="h-4 w-4 text-emerald-600" />
                         </div>
 
-                    </div>
+                    </div> */}
 
                     <div className="flex items-center gap-2 text-emerald-600">
                         <ShieldCheck className="h-4 w-4" />
                         <span className="text-sm">Easy and secure payments</span>
                     </div>
-                    <div className="flex items-center gap-4 text-gray-700 text-2xl">
+                    <div className="flex items-center gap-4 text-black text-2xl">
                         <img
                             src="/uploads/icons/visa-pay.svg"
                             className="object-cover rounded-t-lg text-black"
@@ -190,7 +181,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
 
                 <div className="space-y-1">
                     <div className="flex items-start gap-2 text-gray-500">
-                        <Ticket className="h-4 w-4 text-gray-500 mt-1" />
+                        {/* <Ticket className="h-4 w-4 text-black mt-1" /> */}
 
 
                         {/* <div className="flex flex-col">
@@ -229,21 +220,21 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                     </div>
 
                     <div className="flex items-start gap-2 text-gray-500">
-                        <Flag className="h-4 w-4 text-gray-500 mt-1" />
+                        <Flag className="h-4 w-4 text-black mt-1" />
 
                         <div className="flex flex-col">
-                            <span className="text-xs sm:text-sm font-semibold">Area / Section</span>
-                            <span className="text-xs sm:text-sm font-light">{ticket.section_stand_name}, {ticket.section_name}</span>
+                            <span className="text-xs sm:text-sm text-black font-semibold">Area / Section</span>
+                            <span className="text-xs sm:text-sm text-black font-light">{ticket.section_stand_name}, {ticket.section_name}</span>
                         </div>
                     </div>
 
                     <div className="flex items-start gap-2 text-gray-500">
-                        <Armchair className="h-4 w-4 text-gray-500 mt-1" />
+                        <Armchair className="h-4 w-4 text-black mt-1" />
 
                         <div className="flex flex-col">
-                            <span className="text-xs sm:text-sm font-semibold">Seats: {seatingArrgOptions[Number(ticket.togather_upto) - 1].name}</span>
+                            <span className="text-xs sm:text-sm text-black font-semibold">Seats: {seatingArrgOptions[Number(ticket.togather_upto) - 1].name}</span>
 
-                            <span className="text-xs sm:text-sm font-light">
+                            <span className="text-xs sm:text-sm text-black font-light">
                                 {seatingArrgOptions[Number(ticket.togather_upto) - 1].description}
                             </span>
 
@@ -342,26 +333,26 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                 <hr className="border-t-1 border-dashed border-gray-400" />
 
                 <div className="space-y-1">
-                    <div className="flex font-light text-sm sm:text-lg justify-between text-gray-500">
+                    <div className="flex font-semibold text-sm sm:text-lg justify-between text-black">
                         <span>Price per ticket</span>
-                        <span className="font-semibold">{symbol} {ticketPrice}</span>
+                        <span className="font-semibold">£ {ticketPrice}</span>
                     </div>
 
-                    <div className="flex font-light text-sm sm:text-lg justify-between text-gray-500">
+                    <div className="flex font-semibold text-sm sm:text-lg justify-between text-black">
                         <span>Quantity</span>
                         <span className="font-semibold">{quantity}x</span>
                     </div>
 
-                    <div className="flex font-light text-sm sm:text-lg justify-between text-gray-500">
+                    <div className="flex font-semibold text-sm sm:text-lg justify-between text-black">
                         <span>Service Fee + Tax</span>
-                        <span className="font-semibold">{symbol} {totalMarkup}</span>
+                        <span className="font-semibold">£ {totalMarkup}</span>
                     </div>
 
                     <hr className="border-t-1 border-dashed border-gray-400" />
 
                     <div className="flex justify-between text-sm sm:text-lg font-bold">
                         <span>Total</span>
-                        <span>{symbol} {grandTotal}</span>
+                        <span>£ {grandTotal}</span>
                     </div>
                 </div>
 

@@ -220,7 +220,6 @@ const TicketItem = ({
         try {
             const { data } = await clearBasket();
             if (data?.clearBasket?.success) {
-                console.log("Basket cleared:", data.clearBasket.message);
                 setshowLoading(true);
             } else {
                 console.warn("Failed to clear basket");
@@ -237,8 +236,10 @@ const TicketItem = ({
             {/* <Toaster position="top-center" richColors /> */}
             <div
                 key={ticket.listing_id}
-                className={`relative bg-white rounded-lg p-4 group ticket-red shadow border cursor-pointer transition-colors ${selectedSeat === ticket.section_name ? "bg-green-500" : ""
-                    }`}
+                className={`relative bg-white rounded-lg p-2 group border cursor-pointer transition-all 
+                ${selectedSeat === ticket.section_name ? "bg-green-500 shadow-lg" : "shadow-md"}
+                `}
+
                 onMouseEnter={() =>
                     onTicketHover(ticket.section_stand_name, ticket.section_name)
                 }
@@ -254,10 +255,10 @@ const TicketItem = ({
                             }}
                             className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-colors p-2 rounded-full"
                         >
-                            <Minus className="w-3 h-3" />
+                            <Minus className="w-2 h-2 md:w-3 md:h-3" />
                         </button>
                         <div className="flex flex-col items-center px-1">
-                            <span className="text-lg font-medium text-center min-w-[1.5rem]">
+                            <span className="text-sm md:text-lg font-medium text-center min-w-[1.5rem]">
                                 {ticketCount[ticket.listing_id] || 1}{" "}
                                 <span className="text-xs font-light text-center">
                                     Ticket{(ticketCount[ticket.listing_id] || 1) > 1 ? "s" : ""}
@@ -271,7 +272,7 @@ const TicketItem = ({
                             }}
                             className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-colors p-2 rounded-full"
                         >
-                            <Plus className="w-3 h-3" />
+                            <Plus className="w-2 h-2 md:w-3 md:h-3" />
                         </button>
                     </div>
                 </div>
@@ -280,7 +281,7 @@ const TicketItem = ({
                 <header>
                     <h3 className="text-gray-800 mb-2 text-xs sm:text-sm font-semibold group-hover:text-ticket-red ">
                         <span>{areaNames[ticket.section_stand_name]}</span>
-                        <span className="block text-xs sm:text-sm text-gray-500 ml-1 group-hover:text-black">
+                        <span className="block text-xs sm:text-sm text-black ml-1 group-hover:text-black">
                             {ticket.section_stand_name} {ticket.section_name}
                         </span>
                     </h3>
@@ -290,7 +291,7 @@ const TicketItem = ({
                 <div className="flex items-start flex-wrap gap-2 mb-2 mt-4">
                     <ul className="flex flex-wrap gap-1 text-xs">
                         <li>
-                            <span className="bg-gray-100 border border-gray-300 text-gray-600 rounded-md px-2 py-1 inline-flex items-center gap-1">
+                            <span className="text-black px-2 py-0 inline-flex items-center gap-1">
                                 <Armchair className="w-3 h-3" />
                                 {{
                                     "1": "Single Seat",
@@ -313,7 +314,7 @@ const TicketItem = ({
                         return (
                             <span
                                 key={i}
-                                className={`rounded-md px-2 py-1 inline-flex items-center gap-1 text-[8px] sm:text-xs border ${found?.color || "bg-gray-100 text-gray-700"
+                                className={`rounded-md px-2 py-1 inline-flex items-center gap-1 text-xs border ${found?.color || "bg-gray-100 text-gray-700"
                                     }`}
                             >
                                 {Icon && <Icon className="w-3 h-3" />}
@@ -325,14 +326,14 @@ const TicketItem = ({
                 </div>
 
                 {/* Restrictions */}
-                <div className="flex flex-wrap gap-1 mb-2">
+                <div className="flex flex-wrap gap-0 mb-2">
                     {ticket.restrictions?.map((attr: string, i: number) => {
                         const found = restrictionsList.find((item) => item.label === attr);
                         const Icon = found?.icon;
                         return (
                             <span
                                 key={i}
-                                className={`rounded-md px-2 py-1 inline-flex items-center gap-1 text-[8px] sm:text-xs border ${found?.color || "bg-gray-100 text-gray-700"
+                                className={`rounded-md px-2 py-1 inline-flex items-center gap-1 text-xs border ${found?.color || "bg-gray-100 text-gray-700"
                                     }`}
                             >
                                 {Icon && <Icon className="w-3 h-3" />}
@@ -345,7 +346,7 @@ const TicketItem = ({
 
                 {/* Footer: Price and Buy Now */}
                 <div className="flex justify-between items-center">
-                    <div className="text-xs sm:text-sm text-gray-500">
+                    <div className="text-xs sm:text-sm text-black">
                         {ticket.tickets.length} ticket
                         {ticket.tickets.length > 1 ? "s" : ""} available
                     </div>
@@ -354,7 +355,7 @@ const TicketItem = ({
                         <div className="text-xs sm:text-base font-semibold text-black">
                             £{""}
                             {ticket.price}
-                            <span className="font-thin text-xs sm:text-sm text-gray-500">
+                            <span className="font-thin text-xs sm:text-sm text-black">
                                 / Ticket
                             </span>
                         </div>
@@ -402,7 +403,7 @@ const TicketItem = ({
                     onAdded={() => {
                         setshowLoading(false);
                         const now = new Date();
-                        const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
+                        const expiresAtUTC = now.getTime() + 10 * 60 * 1000;
 
                         setCheckoutData({
                             ticket: pendingTicket,
@@ -435,16 +436,16 @@ const TicketItem = ({
                     }}
                     cancelAction={() => {
                         setShowCartAlert(false);
-                        const now = new Date();
-                        const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
+                        // const now = new Date();
+                        // const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
 
-                        setCheckoutData({
-                            ticket: pendingTicket,
-                            quantity: pendingQuantity,
-                            expiresAt: expiresAtUTC.toString(),
-                        });
+                        // setCheckoutData({
+                        //     ticket: pendingTicket,
+                        //     quantity: pendingQuantity,
+                        //     expiresAt: expiresAtUTC.toString(),
+                        // });
 
-                        router.push('/checkout');
+                        // router.push('/checkout');
                     }}
                     title="Replace Cart Items?"
                     subtitle="Your basket already contains tickets."

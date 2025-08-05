@@ -22,7 +22,6 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({
 
   const handleSectionClick = (sectionId: string) => {
     setSelectedSection(sectionId);
-    console.log(`Selected section: ${sectionId}`);
     onAreaClick(sectionId);
   };
 
