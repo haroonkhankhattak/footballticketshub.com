@@ -17,10 +17,10 @@ interface RecentTicketProps {
 const RecentTicket: React.FC<RecentTicketProps> = ({ date, name, match }) => {
   return (
     <div className="mb-3">
-      <div className="font-medium border-b pb-4">
+      <div className="border-b pb-4">
         <span className="text-sm font-bold mb-2 group-hover:text-ticket-red transition-colors">{formatDate(date)}</span>
-        <span className="text-sm font-light text-gray-600 mb-2"> {name}</span>
-        <span className="text-sm font-light text-gray-600 mb-2"> {match}</span>
+        <span className="text-sm font-base text-gray-600 mb-2"> {name}</span>
+        <span className="text-sm font-base text-gray-600 mb-2"> {match}</span>
       </div>
     </div>
   );
@@ -83,7 +83,7 @@ const RecentTicketBuyers = () => {
       <div className="ticket-container">
         <div className="grid grid-cols-1 md:grid-cols-1 gap-10">
           <div>
-            <h2 className="text-xl border-b py-2 font-midium mb-6">Latest Football fans who trusted us for their tickets</h2>
+            <h2 className="text-xl border-b py-2 font-medium text-ticket-blue mb-6">Latest Football fans who trusted us for their tickets</h2>
             {loading ? (
               <div className="w-full py-6 flex items-center justify-center bg-white/60">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>

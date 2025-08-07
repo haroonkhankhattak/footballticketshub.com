@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CLUB_FANS } from "../lib/constants";
-import { getDescriptionByTeamName } from "../pages/matches/clubs";
+import { getDescriptionByTeamName } from "../lib/constants/clubs";
 import { convertSlugToTeamName } from "../lib/teamUtils";
 
 interface LeagueCardProps {

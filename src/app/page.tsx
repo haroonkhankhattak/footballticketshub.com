@@ -60,7 +60,7 @@ const Index = () => {
             <Hero />
           </div>
           <PopularTeams />
-          <PopularMatchesList matches={[]} loading={false} error={""} />
+          <PopularMatchesList loading={false} error={""} />
 
           {/* <RecentNews /> */}
         

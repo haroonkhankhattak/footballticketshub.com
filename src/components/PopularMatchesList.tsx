@@ -97,12 +97,12 @@ const MatchRow: React.FC<Match> = ({
         {/* Date */}
         <div className="col-span-2 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
           <div className="py-5">
-            <div className="uppercase text-[10px] sm:text-xs text-gray-800">{month}</div>
-            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
-            <div className="text-xs sm:text-sm text-gray-400">{year}</div>
+            <div className="uppercase text-[10px] sm:text-xs font-semibold">{month}</div>
+            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red text-ticket-blue">{day}</div>
+            <div className="text-xs sm:text-sm text-gray-400 font-semibold">{year}</div>
 
             {/* Show time below year only on mobile */}
-            <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
+            <div className="mt-1 text-[10px] font-semibold flex items-center justify-center gap-1 sm:hidden">
               <Clock size={12} />
               <span>{time}</span>
             </div>
@@ -111,16 +111,16 @@ const MatchRow: React.FC<Match> = ({
 
         {/* Info */}
         <div className="col-span-8 sm:col-span-8 pl-4 ">
-          <div className="text-[10px] sm:text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
+          <div className="text-[10px] sm:text-xs font-semibold text-gray-600 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
             {league}
           </div>
 
-          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
+          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-ticket-blue transition">
             {title}
           </div>
 
           {/* Desktop view: time + location */}
-          <div className="hidden sm:flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800 transition">
+          <div className="hidden sm:flex items-center font-semibold text-sm text-gray-500 group-hover:text-gray-800 transition">
             <Clock size={14} className="mr-1" />
             {time}
             <span className="mx-2">•</span>
@@ -129,7 +129,7 @@ const MatchRow: React.FC<Match> = ({
           </div>
 
           {/* Mobile view: show only location */}
-          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-1">
+          <div className="flex sm:hidden items-center font-semibold text-[10px] text-gray-500  group-hover:text-gray-800 transition mt-1">
             <MapPin size={12} className="mr-1" />
             {venue}, {city}, {country}
           </div>
@@ -305,7 +305,7 @@ const PopularMatchesList: React.FC<Props> = () => {
 
             <div className="space-y-4 py-4 mt-20">
 
-              <RecentNews />
+             <RecentNews slug={'premier-league'} height={700} />
 
               {/* <div className="text-xl font-medium py-4 border-b">
                 Book With Confidence

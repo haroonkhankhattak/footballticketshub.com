@@ -52,7 +52,7 @@ useEffect(() => {
             <TrackHero />
           </div>
           <Testimonials />
-          <RecentNews />
+          {/* <RecentNews slug={team} height={1200} /> */}
         </main>
         <Footer />
       </div>

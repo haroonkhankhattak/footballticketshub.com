@@ -4,8 +4,7 @@ import { Armchair, Minus, Plus, ShoppingBasket } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from "framer-motion"
-import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
-import { Listing } from "../pages/tickets/listing";
+import { Listing } from "../types/listing";
 import { restrictionsList } from "../lib/constants/restrictions";
 import { attributesList } from "../lib/constants/attributes";
 import { HintBubble } from "./HintBubble";
@@ -450,7 +449,7 @@ const TicketItem = ({
                     title="Replace Cart Items?"
                     subtitle="Your basket already contains tickets."
                     description="Adding these tickets will remove the ones already in your cart. Do you want to proceed and clear your current basket?"
-                    boldPhrases={["replace", "remove", "clear"]}
+                    boldText={["replace", "remove", "clear"]}
                     confirmText="Okay, Replace"
                     cancelText="Cancel"
                     showCancel={true}

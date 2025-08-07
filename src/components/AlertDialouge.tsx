@@ -9,9 +9,6 @@ import {
 } from "../components/ui/dialog"
 import { Button } from "../components/ui/button"
 import { Toaster } from "sonner"
-import { Listing } from "../pages/tickets/listing"
-import { restrictionsList } from "../lib/constants/restrictions"
-import { AlertTriangle } from "lucide-react"
 import { AlertInfoProps } from "../lib/types/types"
 
 
@@ -22,17 +19,16 @@ export const AlertDialouge: React.FC<AlertInfoProps> = ({
     title,
     subtitle,
     description,
-    boldPhrases,
+    boldText,
     confirmText,
     icon,
     showCancel = false,
-    showConfirm = true,
     cancelText = "Cancel",
 }) => {
 
     const highlightPhrases = (text: string) => {
         let result = text;
-        boldPhrases.forEach((phrase) => {
+        boldText.forEach((phrase) => {
             const regex = new RegExp(`(${phrase})`, "g");
             result = result.replace(regex, "<strong>$1</strong>");
         });

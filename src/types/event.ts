@@ -1,9 +1,9 @@
 import { Match } from "./match";
 
 export interface Props {
-  league: string
+  league?: string
   team?: string
-  matches: Match[];
+  matches?: Match[];
   loading: boolean;
   error: string | null;
 }

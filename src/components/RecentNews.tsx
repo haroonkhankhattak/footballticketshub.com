@@ -6,83 +6,82 @@ import { Blog } from "../types/blog";
 import { formatDateTime } from "../lib/utils";
 import { Clock } from "lucide-react";
 
-interface NewsItemProps {
+const NewsItem: React.FC<{
   title: string;
   summary: string;
   date: string;
   source: string;
   reference: string;
   imageUrl: string;
-}
-
-const NewsItem: React.FC<NewsItemProps> = ({ title, summary, date, imageUrl, reference, source }) => {
+}> = ({ title, summary, date, imageUrl, reference, source }) => {
   return (
-<article className="flex flex-col gap-4 mt-2 p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white group max-w-4xl">
-  {/* Top row: image left and title right */}
-  <div className="flex gap-4">
-    <div className="flex-shrink-0 w-1/4 h-15 overflow-hidden rounded-lg">
-      <img
-        src={imageUrl || "uploads/icons/placeholder.png"}
-        alt={title}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        onError={(e) => {
-          e.currentTarget.src = "/images/placeholder.jpg";
-        }}
-      />
-    </div>
+    <article className="flex flex-col gap-4 mt-2 p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white group max-w-4xl">
+      <div className="flex gap-4">
+        <div className="flex-shrink-0 w-1/4 h-15 overflow-hidden rounded-lg">
+          {/* <img
+            src={imageUrl || "uploads/icons/placeholder.png"}
+            alt={title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              if (!e.currentTarget.src.includes("placeholder.png")) {
+                e.currentTarget.src = "uploads/icons/placeholder.png";
+              }
+            }}
+          /> */}
+        </div>
 
-    <div className="w-2/3 flex items-center">
-      <Link href={reference} className="block hover:no-underline">
-        <h3 className="text-lg font-semibold text-gray-800 group-hover:text-ticket-red transition-colors">
-          {title}
-        </h3>
-      </Link>
-    </div>
-  </div>
+        <div className="w-2/3 flex items-center">
+          <Link href={reference} className="block hover:no-underline">
+            <h3 className="text-lg font-semibold text-gray-800 group-hover:text-ticket-red transition-colors">
+              {title}
+            </h3>
+          </Link>
+        </div>
+      </div>
 
-  {/* Summary below image and title */}
-  <p
-    className="text-sm text-gray-600 line-clamp-3"
-    dangerouslySetInnerHTML={{ __html: summary }}
-  />
-
-  {/* Source and date below */}
-  <div className="flex justify-between items-center text-xs text-gray-400">
-    <span className="font-semibold">{source}</span>
-    <span className="flex gap-2 items-center"> <Clock className="w-4 h-4"/> {formatDateTime(date)}</span>
-  </div>
-</article>
-
-
+      <p className="text-sm text-gray-600 line-clamp-3" dangerouslySetInnerHTML={{ __html: summary }} />
+      <div className="flex justify-between items-center text-xs text-gray-400">
+        <span className="font-semibold">{source}</span>
+        <span className="flex gap-2 items-center">
+          <Clock className="w-4 h-4" /> {formatDateTime(date)}
+        </span>
+      </div>
+    </article>
   );
 };
 
-const RecentNews = () => {
-  const [page, setPage] = useState(2);
+const RecentNews: React.FC<{ slug: string; height: number }> = ({ slug, height }) => {
+  
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const limit = 5;
+  const limit = 10;
 
   const { data, loading, fetchMore } = useQuery(GET_BLOGS, {
+    variables: { slug, page: 1, limit },
     fetchPolicy: "network-only",
-    variables: { slug: "premier-league", page: page, limit: limit },
     notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      if (data?.getBlog) {
+        setBlogs(data.getBlog);
+        if (data.getBlog.length < limit) setHasMore(false);
+      }
+    },
   });
 
-  useEffect(() => {
-    if (data?.getBlog) {
-      if (data.getBlog.length < limit) setHasMore(false);
-      setBlogs(prev => [...prev, ...data.getBlog]);
+  const loadMore = async () => {
+    const nextPage = page + 1;
+    const { data: moreData } = await fetchMore({
+      variables: { page: nextPage, limit, slug },
+    });
+
+    if (moreData?.getBlog?.length) {
+      setBlogs((prev) => [...prev, ...moreData.getBlog]);
+      setPage(nextPage);
+      if (moreData.getBlog.length < limit) setHasMore(false);
+    } else {
+      setHasMore(false);
     }
-  }, [data]);
-
-
-  const handlePrev = () => {
-    if (page > 1) setPage(prev => prev - 1);
-  };
-
-  const handleNext = () => {
-    if (blogs.length === limit) setPage(prev => prev + 1);
   };
 
   return (
@@ -94,7 +93,7 @@ const RecentNews = () => {
               Latest Football News
             </h2>
 
-            {loading ? (
+            {loading && blogs.length === 0 ? (
               <div className="w-full py-6 flex items-center justify-center bg-white/60">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
               </div>
@@ -102,12 +101,10 @@ const RecentNews = () => {
               <div className="text-center text-gray-500 py-8">No blogs found.</div>
             ) : (
               <>
-
-
-                <div className="h-[600px] overflow-y-auto pr-2 p-2 thin-scrollbar">
+                <div style={{ height: `${height}px` }} className="overflow-y-auto pr-2 p-2 thin-scrollbar">
                   {blogs.map((item, index) => (
                     <NewsItem
-                      key={index}
+                      key={item.id || index}
                       title={item.title}
                       summary={item.summary}
                       date={item.created_at}
@@ -118,19 +115,10 @@ const RecentNews = () => {
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
                 {hasMore && (
                   <div className="flex justify-center mt-6">
                     <button
-                      onClick={async () => {
-                        const nextPage = page + 1;
-                        const { data: moreData } = await fetchMore({
-                          variables: { page: nextPage, limit },
-                        });
-
-                        if (moreData?.getBlogs?.length < limit) setHasMore(false);
-                        setPage(nextPage);
-                      }}
+                      onClick={loadMore}
                       className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
                     >
                       Load More

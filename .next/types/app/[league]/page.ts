@@ -1,4 +1,4 @@
-// File: /Users/shijomon/Documents/Haroon/ticketshop/footballticketshub/src/app/[league]/page.tsx
+// File: D:\Haroon\footballticketshub.com\src\app\[league]\page.tsx
 import * as entry from '../../../../src/app/[league]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

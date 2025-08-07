@@ -8,6 +8,7 @@ import { Props } from "../types/event";
 // import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
 import { Match } from "../types/match";
 import { convertSlugToTeamName } from "../lib/teamUtils";
+import RecentNews from "./RecentNews";
 
 interface Team {
   name: string;
@@ -44,7 +45,11 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({ title, teams }) => {
 const MatchRow: React.FC<Match> = ({
   date,
   league,
-  title,
+  league_slug,
+  home_team_slug,
+  away_team_slug,
+  home_team,
+  away_team,
   slug,
   venue,
   city,
@@ -88,64 +93,81 @@ const MatchRow: React.FC<Match> = ({
         pathname: `/tickets/${slug}`,
       }}
     >
-      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
-        {/* Date */}
-        <div className="col-span-3 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
-          <div className="py-5">
-            <div className="uppercase text-[10px] sm:text-xs text-gray-800">{month}</div>
-            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
-            <div className="text-xs sm:text-sm text-gray-400">{year}</div>
+      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
 
-            {/* Show time below year only on mobile */}
-            <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
-              <Clock size={12} />
-              <span>{time}</span>
-            </div>
+        {/* Date */}
+        <div className="col-span-3 sm:col-span-1 flex flex-col items-center justify-center bg-gray-100 group-hover:bg-gray-200 transition rounded-md py-4">
+          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 px-2 rounded-full mb-1">{month}</div>
+          <div className="text-3xl font-extrabold text-ticket-blue group-hover:text-ticket-red leading-none">{day}</div>
+          <div className="text-xs font-medium text-gray-400">{year}</div>
+
+          <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
+            <Clock size={12} />
+            <span>{time}</span>
           </div>
         </div>
+
 
 
         <div className="col-span-9 sm:col-span-8 pl-4">
-          <div className="text-[10px] sm:text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
-            {league}
+
+          <div className="col-span-9 sm:col-span-8 flex flex-col justify-center pl-6">
+            <div className="flex justify-center items-center space-x-8 mt-0 mb-1">
+              {/* Home Team */}
+              <div className="flex flex-col items-center group">
+                <img
+                  src={`uploads/teamlogo/${home_team_slug}.svg`}
+                  alt={home_team}
+                  className="w-10 h-10 object-contain  group-hover:border-ticket-red transition"
+                />
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{home_team}</span>
+              </div>
+
+              {/* VS text */}
+              <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
+
+              {/* Away Team */}
+              <div className="flex flex-col items-center group">
+                <img
+                  src={`uploads/teamlogo/${away_team_slug}.svg`}
+                  alt={away_team}
+                  className="w-10 h-10 object-contain  group-hover:border-ticket-red transition"
+                />
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{away_team}</span>
+              </div>
+            </div>
+
+            {/* Desktop view: time + location */}
+            {/* Desktop view: time + location */}
+            <div className="hidden sm:flex items-center justify-center border-t border-dashed border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap gap-2">
+              <div className="flex items-center">
+                <Clock size={14} className="mr-1 text-gray-400" />
+                {time}
+              </div>
+              <span className="mx-2">•</span>
+              <div className="flex items-center">
+                <MapPin size={14} className="mr-1 text-gray-400" />
+                {venue}, {city}, {country}
+              </div>
+            </div>
+
           </div>
 
-          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
-            {title}
-          </div>
 
-          {/* Desktop view: time + location */}
-          <div className="hidden sm:flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800 transition">
-            <Clock size={14} className="mr-1" />
-            {time}
-            <span className="mx-2">•</span>
-            <MapPin size={14} className="mr-1" />
-            {venue}, {city}, {country}
-          </div>
 
           {/* Mobile view: show only location */}
-          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-1">
-            <MapPin size={12} className="mr-1" />
-            {venue}, {city}, {country}
+          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-2 space-x-1">
+            <MapPin size={12} />
+            <span>{venue}, {city}, {country}</span>
           </div>
+
         </div>
 
-
-        {/* <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
-          <Link
-            href ={`/tickets/${slug}`}
-            className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
-            View Tickets
-          </Link>
-
-          <span className="inline-block text-sm">From £{price}</span>
-        </div> */}
-
-        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
+        <div className="col-span-12 sm:col-span-3 px-0 text-center hidden sm:block">
           <div className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </div>
-             <span className="inline-block text-sm">From £{price}</span>
+          <span className="inline-block font-medium text-sm">From £{price}</span>
         </div>
 
       </div>
@@ -259,7 +281,7 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
             <LeagueCard leagueName={leagueName} />
 
             <div className="lg:col-span-7 py-6">
-              <div className="text-xl font-medium  py-2 ">
+              <div className="text-xl font-medium text-ticket-blue py-2 ">
                 Upcoming English Premier League Fixtures
               </div>
               <div className="text-sm text-black py-2 ">
@@ -285,8 +307,14 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
               </div>
             </div>
           </div>
+          <div className="lg:col-span-5 space-y-16">
 
-          <div className="lg:col-span-4 space-y-16">
+            <div className="space-y-4 py-4 mt-0">
+
+              {/* <RecentNews slug={league} height={1200} /> */}
+            </div>
+          </div>
+          {/* <div className="lg:col-span-4 space-y-16">
             <div className="space-y-4 border-b py-4">
               <div className="text-xl font-medium py-4 border-b">
                 Book With Confidence
@@ -393,7 +421,7 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
                 />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

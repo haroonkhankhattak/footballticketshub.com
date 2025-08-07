@@ -104,7 +104,6 @@ useEffect(() => {
         matchesQuantity = ticket.tickets.length >= minSelected;
       }
 
-      console.log("Tickets togather upto :", ticket.togather_upto);
       const meetsTogatherRequirement = filters.minTogatherSeats == null || (Number(ticket.togather_upto)) >= Number(filters.minTogatherSeats);
 
       return (

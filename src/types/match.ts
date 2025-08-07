@@ -1,6 +1,7 @@
 export type Match = {
   id: string;
   slug: string;
+  league_slug: string;
   title: string;
   date: string;
   commission: number;

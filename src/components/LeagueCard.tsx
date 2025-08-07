@@ -28,11 +28,11 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ leagueName }) => {
                     />
                 </div>
                 <div className="w-full">
-                    <div className="p-4 text-center lg:p-6">
+                    <div className="p-4 text-center lg:p-6 text-ticket-blue">
                         <h1 className="font-dosis text-ltg-black text-2xl font-medium capitalize lg:text-[28px] lg:leading-[36px] pb-4">
                             {capitalizeWords(leagueName)} Tickets
                         </h1>
-                        <div className="font-light max-lg:text-center text-justify text-gray-500">
+                        <div className="max-lg:text-center text-justify ">
                             {description}
                         </div>
                     </div>

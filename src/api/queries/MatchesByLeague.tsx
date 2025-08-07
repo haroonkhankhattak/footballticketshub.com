@@ -15,6 +15,7 @@ query MatchesByLeague($league: String!) {
     home_team
     away_team
     league
+    league_slug
     venue
     city
     country

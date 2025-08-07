@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatches";
-import { formatDate } from "../lib/utils";
 import { useQuery } from "@apollo/client/react/hooks";
-import  Link  from "next/link";
+import Link from "next/link";
+import { Match } from "../types/match";
 
 interface LeagueTicketsProps {
     league: string;
@@ -10,8 +10,7 @@ interface LeagueTicketsProps {
 
 const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
 
-
-    const [featuredMatches, setFeaturedMatches] = useState([]);
+    const [featuredMatches, setFeaturedMatches] = useState<Match[]>([]);
 
     const { data: upcomingData,
         loading: upcomingLoading,
@@ -23,41 +22,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
 
     useEffect(() => {
         if (upcomingData?.popularUpcomingMatches) {
-            const formattedMatches = upcomingData.popularUpcomingMatches.map((match: any, index: number) => {
-                const matchDate = new Date(Number(match.date));
-                return {
-                    id: index,
-                    homeTeam: match.home_team,
-                    awayTeam: match.away_team,
-                    categoryName: match.league,
-                    year: matchDate.getFullYear(),
-                    month: matchDate.toLocaleString("en-US", { month: "short" }).toUpperCase(),
-                    day: matchDate.getDate(),
-                    time: matchDate.toLocaleTimeString("en-US", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: true,
-                    }),
-                    venue: match.venue,
-                    city: match.city,
-                    country: match.country,
-                    eventName: match.title,
-                    date: formatDate(match.date),
-                    league: match.league,
-                    urlToEvent: match.slug,
-                    tba: false,
-                    minPrice: {
-                        gbp: 95,
-                        usd: 120,
-                        eur: 110,
-                        aud: 170,
-                        cad: 160,
-                        chf: 105,
-                    },
-                    link: `/tickets/${match.slug}`,
-                };
-            });
-            setFeaturedMatches(formattedMatches);
+            setFeaturedMatches(upcomingData.popularUpcomingMatches);
         }
     }, [upcomingData]);
 
@@ -66,18 +31,18 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
         <section className="py-8 bg-white">
             <div className="ticket-container">
                 <div>
-                    <h1 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                    <h1 className="font-dosis text-ltg-black capitalize text-xl font-medium text-ticket-blue lg:text-xl">
                         ⚽ Buy 2025-2026 {league} tickets securely online
                     </h1>
                     <hr className="my-4" />
-                    <div className="text-sm font-light text-black mb-2 text-justify">
+                    <div className="text-sm text-black mb-2 text-justify">
                         <p>
                             Since the inception of the FA Premiership, the Premier League has been largely dominated by three clubs—Manchester United, Arsenal, and Chelsea. In recent years, Manchester City has also emerged as a major force. Manchester United holds the record for the most Premier League titles. Other teams that have claimed the Barclays Premier League title during United’s reign include Blackburn Rovers, Arsenal, Liverpool, and Chelsea.
                         </p>
 
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium text-ticket-blue lg:text-xl">
 
                                 How to buy {league} tickets?</h2>
                             <div className="py-2">
@@ -102,7 +67,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                         </div>
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ticket-blue text-ltg-black capitalize text-xl font-medium lg:text-xl">
                                 {league} Tickets</h2>
                             <div className="py-2">
                                 <p>
@@ -113,7 +78,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
 
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium text-ticket-blue lg:text-xl">
                                 2025-2026 important {league} fixtures
                             </h2>
 
@@ -121,7 +86,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                                 <table className="w-full min-w-[600px] text-left border-b">
                                     <thead>
                                         <tr>
-                                            <th className="text-xs font-semibold border-b py-2">Date</th>
+                                            <th className="text-xs font-bold border-b py-2">Date</th>
                                             <th className="text-xs font-semibold border-b py-2">Home Team</th>
                                             <th className="text-xs font-semibold border-b py-2">Away Team</th>
                                             <th className="text-xs font-semibold border-b py-2">Tickets</th>
@@ -131,31 +96,15 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                                         {!upcomingLoading && featuredMatches.length > 0 ? (
                                             featuredMatches.map((match, index) => (
                                                 <tr key={index}>
-                                                    <td className="text-xs font-light border-b py-2">{match.date}</td>
-                                                    <td className="text-xs font-light border-b py-2">{match.homeTeam}</td>
-                                                    <td className="text-xs font-light border-b py-2">{match.awayTeam}</td>
-                                                    <td className="text-xs font-light border-b py-2">
+                                                    <td className="text-xs  border-b py-2">{match.date}</td>
+                                                    <td className="text-xs  border-b py-2">{match.home_team}</td>
+                                                    <td className="text-xs  border-b py-2">{match.away_team}</td>
+                                                    <td className="text-xs  border-b py-2">
                                                         <Link
                                                             href={{
-                                                                pathname:`${match.link}`,
-                                                            query: {
-                                                                homeTeam: match.homeTeam,
-                                                                eventId: match.id,
-                                                                eventCode: match.eventCode,
-                                                                eventTypeCode: match.eventTypeCode,
-                                                                pageNumber: 1,
-                                                                eventName: match.eventName,
-                                                                categoryName: match.categoryName,
-                                                                day: match.day,
-                                                                month: match.month,
-                                                                year: match.year,
-                                                                time: match.time,
-                                                                venue: match.venue,
-                                                                city: match.city,
-                                                                country: match.country,
-                                                                minPrice: match.minPrice,
-                                                            }}}
-                                                            className="text-gray-500 underline hover:underline"
+                                                                pathname: `${match.slug}`,
+                                                            }}
+                                                            className="text-gray-500 font-medium underline hover:underline"
                                                         >
                                                             Find your tickets
                                                         </Link>
@@ -176,7 +125,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
 
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium text-ticket-blue lg:text-xl">
                                 {league} wins and trophies</h2>
                             <div className="py-2">
                                 <p>
@@ -186,9 +135,9 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                                 <table className="border-b w-full text-left">
                                     <thead>
                                         <tr>
-                                            <th className="text-xs font-semibold border-b py-2">Team</th>
-                                            <th className="text-xs font-semibold border-b py-2">No. Titles</th>
-                                            <th className="text-xs font-semibold border-b py-2">Year(s) of Title</th>
+                                            <th className="text-xs font-bold border-b py-2">Team</th>
+                                            <th className="text-xs font-bold border-b py-2">No. Titles</th>
+                                            <th className="text-xs font-bold border-b py-2">Year(s) of Title</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -203,9 +152,9 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
 
                                         ].map((team, index) => (
                                             <tr key={index}>
-                                                <td className="text-xs font-light border-b py-2">{team.team}</td>
-                                                <td className="text-xs font-light border-b py-2">{team.titles}</td>
-                                                <td className="text-xs font-light border-b py-2">{team.years}</td>
+                                                <td className="text-xs  border-b py-2">{team.team}</td>
+                                                <td className="text-xs  border-b py-2">{team.titles}</td>
+                                                <td className="text-xs  border-b py-2">{team.years}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -214,7 +163,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                         </div>
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ltg-black text-ticket-blue capitalize text-xl font-medium lg:text-xl">
                                 Biggest tournaments in 2025-26 season</h2>
                             <div className="py-2">
                                 <p>

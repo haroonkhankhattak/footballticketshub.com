@@ -1,19 +1,28 @@
 // app/layout.tsx
+'use client'; // 👈 add this
+
 import './globals.css';
 import { ReactNode } from 'react';
 import { ApolloWrapper } from '../api/apollo-provider';
+import { Toaster } from '../components/ui/toaster';
+import { Toaster as Sonner } from '../components/ui/sonner';
+import { TooltipProvider } from '../components/ui/tooltip';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export const metadata = {
-  title: 'Football Tickets Hub',
-  description: 'Buy tickets for major football matches in Europe.',
-};
+const queryClient = new QueryClient();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
         <ApolloWrapper>
-          {children}
+          <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              {children}
+            </TooltipProvider>
+          </QueryClientProvider>
         </ApolloWrapper>
       </body>
     </html>

@@ -31,16 +31,12 @@ export interface MatchProps {
 const Team = () => {
 
   const { league, team } = useParams();
-  console.log("league:",league, "taem:",team)
+  console.log("league:",league, "team:",team)
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-
-
   const [matches, setMatches] = useState<Match[]>([]);
-
-
 
   const { data } = useQuery(GET_MATCHES_BY_TEAM, {
     variables: { team: team, },
@@ -71,7 +67,7 @@ const Team = () => {
         {/* <TrustPilotRow /> */}
         <TeamMatchList league={league.toString()} team={team.toString()} matches={matches} loading={loading} error={error} />
         <Testimonials />
-        <RecentNews />
+        {/* <RecentNews slug={team} height={1200} /> */}
         <FootballTickets />
       </main>
       <Footer />

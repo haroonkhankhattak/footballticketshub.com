@@ -5,13 +5,13 @@ const FootballTickets: React.FC = () => {
         <section className="py-0 bg-white">
             <div className="ticket-container">
                 <div>
-                    <h1 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                    <h1 className="font-dosis text-ticket-blue capitalize text-xl font-medium lg:text-xl">
                         Football Tickets
                     </h1>
                     <hr className="my-4" />
-                    <div className="text-sm font-light text-black mb-2 text-justify">
+                    <div className="text-sm mb-2 text-justify">
                         <p>
-                            Many people ask us where they can buy the best <span className="font-semibold" >Football Tickets</span> online.
+                            Many people ask us where they can buy the best <span className="font-medium" >Football Tickets</span> online.
                             Football Tickets hub is a marketplace with a wide collection of football tickets for sale in the UK.
                             You can book them securely online, even in your own languages such as
                             <a href="https://www.footballticketshub.com/"> German</a>,
@@ -37,10 +37,10 @@ const FootballTickets: React.FC = () => {
                             Use our search bar when you’re looking for a specific match.
                         </p>
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ticket-blue capitalize text-xl font-medium lg:text-xl">
 
                                 How to book football tickets?</h2>
-                            <div className="py-2">
+                            <div className="py-2 ">
                                 <p>
                                     You decided you want to attend a UK football match and now you want to buy football tickets.
                                     Browse through our website to search for upcoming match-day seats at all prices in various sections
@@ -59,7 +59,7 @@ const FootballTickets: React.FC = () => {
                         </div>
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis font-medium text-ticket-blue capitalize text-xl lg:text-xl">
                                 Which football tickets are available?</h2>
                             <div className="py-2">
                                 <p>
@@ -76,7 +76,7 @@ const FootballTickets: React.FC = () => {
 
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ticket-blue capitalize text-xl font-medium lg:text-xl">
                                 How much are football tickets?</h2>
                             <div className="py-2">
                                 <p>
@@ -89,33 +89,33 @@ const FootballTickets: React.FC = () => {
                             <table className="border-b">
                                 <thead>
                                     <tr>
-                                        <th className="px-10 border-b py-2">League</th>
-                                        <th className="px-10 border-b py-2">Low</th>
-                                        <th className="px-10 border-b py-2">High</th>
-                                        <th className="px-10 border-b py-2">Average</th>
+                                        <th className="px-10 border-b py-2 text-ticket-blue">League</th>
+                                        <th className="px-10 border-b py-2 text-ticket-blue">Low</th>
+                                        <th className="px-10 border-b py-2 text-ticket-blue">High</th>
+                                        <th className="px-10 border-b py-2 text-ticket-blue">Average</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className="px-10 border-b py-2">English Premier League</td>
+                                        <td className="px-10 border-b py-2 text-ticket-blue">English Premier League</td>
                                         <td className="px-10 border-b py-2">£40</td>
                                         <td className="px-10 border-b py-2">£1000</td>
                                         <td className="px-10 border-b py-2">£150</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-10 border-b py-2">German Bundesliga</td>
+                                        <td className="px-10 border-b py-2 text-ticket-blue">German Bundesliga</td>
                                         <td className="px-10 border-b py-2">£15</td>
                                         <td className="px-10 border-b py-2">£400</td>
                                         <td className="px-10 border-b py-2">£100</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-10 border-b py-2">Italian Serie A</td>
+                                        <td className="px-10 border-b py-2 text-ticket-blue">Italian Serie A</td>
                                         <td className="px-10 border-b py-2">£15</td>
                                         <td className="px-10 border-b py-2">£400</td>
                                         <td className="px-10 border-b py-2">£95</td>
                                     </tr>
                                     <tr>
-                                        <td className="px-10 border-b py-2">Spanish La Liga</td>
+                                        <td className="px-10 border-b py-2 text-ticket-blue">Spanish La Liga</td>
                                         <td className="px-10 border-b py-2">£35</td>
                                         <td className="px-10 border-b py-2">£4000</td>
                                         <td className="px-10 border-b py-2">£200</td>
@@ -125,7 +125,7 @@ const FootballTickets: React.FC = () => {
                         </div>
 
                         <div className="py-4 pb-4">
-                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium lg:text-xl">
+                            <h2 className="font-dosis text-ltg-black capitalize text-xl font-medium text-ticket-blue lg:text-xl">
                                 Biggest tournaments in 2025-2026 season</h2>
                             <div className="py-2">
                                 <p>
