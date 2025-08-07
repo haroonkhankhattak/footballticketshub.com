@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Control } from "react-hook-form";
 import {
   FormField,
@@ -11,16 +11,73 @@ import { Input } from "../../../components/ui/input";
 import { Card } from "../../../components/ui/card";
 import { CheckoutFormData } from "../../../types/checkout";
 import { CreditCard, Lock } from "lucide-react";
-import Image from "next/image";
+import {
+  CardElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import ApplePayIcon from '/public/uploads/icons/apple-pay.svg';
+
+
 
 interface PaymentDetailsStepProps {
   control: Control<CheckoutFormData>;
 }
 
 const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [clientSecret, setClientSecret] = useState('');
+
   const [selectedMethod, setSelectedMethod] = useState<
     "card" | "apple" | "google"
   >("card");
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  useEffect(() => {
+
+    fetch("/api/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: 1000, currency: "usd" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data:::", data);
+        setClientSecret(data.clientSecret);
+      });
+  }, []);
+
+
+  const handleCardPayment = async () => {
+    if (!stripe || !elements) return;
+
+    setLoading(true);
+
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement)!,
+        billing_details: {
+          name: "name",
+        },
+      },
+    });
+
+    if (result.error) {
+      setMessage(result.error.message || "Payment failed");
+    } else if (result.paymentIntent?.status === "succeeded") {
+      setMessage("Payment successful!");
+    }
+    setLoading(false);
+  };
+
+
+
 
   return (
     <div className="space-y-6">
@@ -38,8 +95,24 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
       {/* Payment method selection */}
       <div className="flex gap-2 sm:gap-4">
         <button
-          // onClick={() => setSelectedMethod("apple")}
-          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod === "google" ? "border-primary" : "border-gray-300"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSelectedMethod("card")
+          }}
+          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod !== "card" ? "border-gray-300" : "border-ticket-red"
+            }`}>
+          <CreditCard className="h-5 w-5 text-gray-600" />
+          <span className="text-sm">Credit Card</span>
+        </button>
+
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSelectedMethod("apple")
+          }}
+          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod !== "apple" ? "border-gray-300" : "border-ticket-red"
             }`}>
           <img
             src="/uploads/icons/apple-pay.svg"
@@ -51,8 +124,12 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
         </button>
 
         <button
-          // onClick={() => setSelectedMethod("google")}
-          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod === "google" ? "border-primary" : "border-gray-300"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSelectedMethod("google")
+          }}
+          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod !== "google" ? "border-gray-300" : "border-ticket-red"
             }`}
         >
           <img
@@ -65,17 +142,9 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
           <span className="text-sm">Google Pay</span>
         </button>
 
-
-        <button
-          // onClick={() => setSelectedMethod("card")}
-          className={`border p-3 rounded-md flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-center ${selectedMethod === "google" ? "border-primary" : "border-gray-300"
-            }`}>
-          <CreditCard className="h-5 w-5 text-gray-600" />
-          <span className="text-sm">Credit Card</span>
-        </button>
       </div>
 
-      {/* Credit Card Fields */}
+
       {selectedMethod === "card" && (
         <Card className="p-6 space-y-4">
           <FormField
@@ -161,8 +230,49 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
               </FormItem>
             )}
           />
+          <button
+            onClick={handleCardPayment}
+            className="flex items-center justify-center w-full gap-3 px-6 py-3 text-white bg-black rounded-lg hover:bg-gray-800 transition duration-200">
+            <CreditCard className="h-8 w-8 text-white" />
+            <span className="text-sm font-medium">Pay Now</span>
+          </button>
+          <p className="text-xs text-center text-gray-600">
+            Secure checkout using your credit cards.
+          </p>
+
         </Card>
+
+
       )}
+
+      {selectedMethod === "google" && (
+        <div className="flex flex-col items-center gap-4 p-4 rounded-xl bg-white shadow-md w-full max-w-xs mx-auto">
+          <button className="flex items-center justify-center w-full gap-3 px-6 py-3 text-white bg-black rounded-lg hover:bg-gray-800 transition duration-200">
+            <img
+              src="/uploads/icons/google-pay.svg"
+              alt="Google Logo"
+              className="w-10 h-10"
+            />
+            <span className="text-sm font-medium">Pay with Google</span>
+          </button>
+          <p className="text-xs text-center text-gray-600">
+            Secure checkout using your saved cards with Google Pay.
+          </p>
+        </div>
+      )}
+
+      {selectedMethod === "apple" && (
+        <div className="flex flex-col items-center gap-4 p-4 rounded-xl bg-white shadow-md w-full max-w-xs mx-auto">
+          <button className="flex items-center justify-center w-full gap-3 px-6 py-3 text-white bg-black rounded-lg hover:bg-gray-800 transition duration-200">
+            <div className="w-10 h-10 bg-white mask mask-image" style={{ WebkitMaskImage: "url(/uploads/icons/apple-pay.svg)", WebkitMaskRepeat: "no-repeat", WebkitMaskSize: "contain", backgroundColor: "white" }} />
+            <span className="text-sm font-medium">Pay with Apple</span>
+          </button>
+          <p className="text-xs text-center text-gray-600">
+            Secure checkout using your saved cards with Apple Pay.
+          </p>
+        </div>
+      )}
+
     </div>
   );
 };

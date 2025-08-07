@@ -1,5 +1,5 @@
 import React from "react";
-import  Link  from "next/link";
+import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 interface TeamCardProps {
@@ -53,25 +53,25 @@ const PopularTeams = () => {
       name: "Arsenal",
       imageUrl: "/uploads/teamfans/arsenal.avif",
       link: "/premier-league/arsenal",
-      logoUrl: "/uploads/teamlogo/Arsenal.webp",
+      logoUrl: "/uploads/teamlogo/arsenal.svg",
     },
     {
       name: "Chelsea",
       imageUrl: "/uploads/teamfans/chelsea.webp",
       link: "/premier-league/chelsea",
-      logoUrl: "/uploads/teamlogo/Chelsea.webp",
+      logoUrl: "/uploads/teamlogo/chelsea.svg",
     },
     {
       name: "Liverpool",
       imageUrl: "/uploads/teamfans/liverpool.webp",
       link: "/premier-league/liverpool",
-      logoUrl: "/uploads/teamlogo/Liverpool.webp",
+      logoUrl: "/uploads/teamlogo/liverpool.svg",
     },
     {
       name: "Manchester United",
       imageUrl: "/uploads/teamfans/manchester-united.jpg",
       link: "/premier-league/manchester-united",
-      logoUrl: "/uploads/teamlogo/manchester_united.webp",
+      logoUrl: "/uploads/teamlogo/manchester-united.svg",
     },
   ];
 
@@ -79,7 +79,7 @@ const PopularTeams = () => {
     <section className="py-4 bg-white">
       <div className="ticket-container">
         <h2 className="font-dosis text-xl font-medium text-black mb-6">
-          Best Sellers  
+          Best Sellers
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">

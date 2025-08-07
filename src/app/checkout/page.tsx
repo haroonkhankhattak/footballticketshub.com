@@ -15,14 +15,11 @@ const Checkout = () => {
     const router = useRouter();
 
     useEffect(() => {
-        console.log("ticket for checkout:", ticket);
-        console.log("quantity:", quantity);
-        console.log("expiresAt:", expiresAt);
         if (!ticket || !quantity || !expiresAt) {
             console.warn("No ticket found, redirect or show error");
             router.push("/");
         }
-    }, [ticket]);
+    }, [ticket, quantity, expiresAt]);
 
     const calculateRemainingSeconds = () => {
         const now = Date.now();

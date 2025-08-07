@@ -8,12 +8,10 @@ import { predefinedKeywords } from "../lib/searchKeywords";
 import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatches";
 import { useQuery } from '@apollo/client';
 import { formatDate } from "../lib/utils";
-// import { Match } from "../api/queries/getHomePageProps";
 import { GET_SEARCH_RESULTS } from "../api/queries/Search";
 import { debounce } from "lodash";
 import { useRouter } from 'next/navigation';
-
-// import { log } from "console";
+import { Match } from "../types/match";
 
 
 const DEBOUNCE_DELAY = 300;
@@ -23,9 +21,10 @@ const Hero = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [featuredMatches, setFeaturedMatches] = useState([]);
+  // const [featuredMatches, setFeaturedMatches] = useState([]);
   const [results, setResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(true);
+  const [featuredMatches, setFeaturedMatches] = useState<Match[]>([]);
 
   const { data: upcomingData,
     loading: upcomingLoading,
@@ -37,49 +36,50 @@ const Hero = () => {
 
   useEffect(() => {
     if (upcomingData?.popularUpcomingMatches) {
-      const formattedMatches = upcomingData.popularUpcomingMatches.map((match: any, index: number) => {
-        const matchDate = new Date(Number(match.date));
-        return {
-          id: index,
-          homeTeam: match.home_team,
-          categoryName: match.league,
-          year: matchDate.getFullYear(),
-          month: matchDate.toLocaleString("en-US", { month: "short" }).toUpperCase(),
-          day: matchDate.getDate(),
-          time: matchDate.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          }),
-          venue: match.venue,
-          city: match.city,
-          country: match.country,
-          eventName: match.title,
-          date: formatDate(match.date),
-          league: match.league,
-          urlToEvent: match.slug,
-          tba: false,
-          slug: match.slug,
-          minPrice: {
-            gbp: 95,
-            usd: 120,
-            eur: 110,
-            aud: 170,
-            cad: 160,
-            chf: 105,
-          },
-          link: `/tickets/${match.slug}`,
-        };
-      });
-      setFeaturedMatches(formattedMatches);
+      setFeaturedMatches(upcomingData?.popularUpcomingMatches);
+      // const formattedMatches = upcomingData.popularUpcomingMatches.map((match: any, index: number) => {
+      //   const matchDate = new Date(Number(match.date));
+      //   return {
+      //     id: index,
+      //     homeTeam: match.home_team,
+      //     categoryName: match.league,
+      //     year: matchDate.getFullYear(),
+      //     month: matchDate.toLocaleString("en-US", { month: "short" }).toUpperCase(),
+      //     day: matchDate.getDate(),
+      //     time: matchDate.toLocaleTimeString("en-US", {
+      //       hour: "2-digit",
+      //       minute: "2-digit",
+      //       hour12: true,
+      //     }),
+      //     venue: match.venue,
+      //     city: match.city,
+      //     country: match.country,
+      //     eventName: match.title,
+      //     date: formatDate(match.date),
+      //     league: match.league,
+      //     urlToEvent: match.slug,
+      //     tba: false,
+      //     slug: match.slug,
+      //     minPrice: {
+      //       gbp: 95,
+      //       usd: 120,
+      //       eur: 110,
+      //       aud: 170,
+      //       cad: 160,
+      //       chf: 105,
+      //     },
+      //     link: `/tickets/${match.slug}`,
+      //   };
+      // });
+      // setFeaturedMatches(formattedMatches);
     }
   }, [upcomingData]);
 
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const filteredSuggestions = predefinedKeywords.filter((keyword) =>
-    keyword.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery
-  );
+  // const filteredSuggestions = predefinedKeywords.filter((keyword) =>
+  //   keyword.toLowerCase().includes(searchQuery.toLowerCase()) && searchQuery
+  // );
 
   const { data: searchData, loading: queryLoading, error: searchError } = useQuery(GET_SEARCH_RESULTS, {
     variables: { searchTerm },
@@ -286,7 +286,7 @@ const Hero = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {featuredMatches.slice(0, 4).map((match) => {
                     // Split the eventName by " vs "
-                    const teams = match.eventName.split(" vs ");
+                    // const teams = match.title.split(" vs ");
 
                     return (
                       <Link
@@ -294,7 +294,7 @@ const Hero = () => {
                         href={`/tickets/${match.slug}`}
                         className="bg-white p-1 rounded-md hover:shadow-md text-sm text-ticket-primarycolor hover:text-ticket-red group transition"
                       >
-                        <div className="font-medium overflow-hidden text-center">
+                        {/* <div className="font-medium overflow-hidden text-center">
                           <div className="transition-transform duration-500">
                             <div className="leading-tight">
                               <div className="text-xs sm:text-sm font-bold">{teams[0]}</div>
@@ -302,10 +302,24 @@ const Hero = () => {
                               <div className="text-xs sm:text-sm font-bold">{teams[1]}</div>
                             </div>
                           </div>
+                        </div> */}
+
+                        <div className="flex items-center justify-center space-x-4 mt-1 mb-1">
+                          <img src={`uploads/teamlogo/${match.home_team_slug}.svg`} alt={match.home_team_slug} className="w-8 h-8 object-contain mt-1" />
+                          <div className="text-ticket-blue font-semibold text-sm sm:text-base my-0">vs</div>
+                          <img src={`uploads/teamlogo/${match.away_team_slug}.svg`} alt={match.away_team_slug} className="w-8 h-8 object-contain mt-1" />
                         </div>
+
                         <div className="text-xs sm:text-sm text-black flex items-center justify-center group-hover:text-ticket-darkcolor mt-1">
                           <Calendar size={12} className="mr-1" />
-                          <span className="text-[0.65rem] sm:text-xs">{match.date}</span>
+                          <span className="text-[0.65rem] sm:text-xs">
+                            {new Date(Number(match.date)).toLocaleDateString('en-US', {
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                            })}
+                          </span>
+
                         </div>
                       </Link>
                     );

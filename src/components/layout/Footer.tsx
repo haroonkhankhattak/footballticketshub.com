@@ -1,5 +1,5 @@
 import React from "react";
-import  Link  from "next/link";
+import Link from "next/link";
 import { PhoneCall, Mail, CreditCard, CheckCircle } from "lucide-react";
 import { FaTiktok, FaYoutube, FaXTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa6';
 
@@ -130,22 +130,31 @@ const Footer = () => {
             </ul>
             <div className="mt-6">
               <h5 className="font-medium mb-2">Secure Payments</h5>
-              <div className="flex space-x-2">
+              <div className="flex items-center gap-4 text-gray-700 text-2xl">
+                <img
+                  src="/uploads/icons/visa-pay.svg"
+                  className="object-cover rounded-t-lg text-black"
+                  width={32}
+                  height={32}
+                />
+                <img
+                  src="/uploads/icons/master-pay.svg"
+                  className="object-cover rounded-t-lg text-black"
+                  width={32}
+                  height={32}
+                />
                 <img
                   src="/uploads/icons/apple-pay.svg"
-                  alt="Apple Pay"
+                  className="object-cover rounded-t-lg text-black"
                   width={32}
                   height={32}
                 />
                 <img
-                  src="/../../uploads/icons/apple-pay.svg"
-                  alt="Apple Pay"
-                  className="text-white"
+                  src="/uploads/icons/google-pay.svg"
+                  className="object-cover rounded-t-lg text-black"
                   width={32}
                   height={32}
                 />
-                <CreditCard size={32} className="text-white" />
-                <CreditCard size={32} className="text-white" />
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Form } from "../../components/ui/form";
 import { Button } from "../../components/ui/button";
@@ -9,10 +9,18 @@ import PersonalDetailsStep from "./steps/PersonalDetailsStep";
 import VisitorDetailsStep from "./steps/VisitorDetailsStep";
 import PaymentDetailsStep from "./steps/PaymentDetailsStep";
 import { cn } from "../../lib/utils";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from '@stripe/stripe-js';
+
+
+
+
 
 interface CheckoutFormProps {
     ticketCount: number;
 }
+
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY!);
 
 const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
     const [currentStep, setCurrentStep] = React.useState<CheckoutStep>("details");
@@ -133,7 +141,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
                             <VisitorDetailsStep control={control} />
                         )}
                         {currentStep === "payment" && (
-                            <PaymentDetailsStep control={control} />
+                            <Elements stripe={stripePromise}>
+                                <PaymentDetailsStep control={control} />
+                            </Elements>
                         )}
 
                         <div className="flex justify-between pt-6">
@@ -147,7 +157,18 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
                                 Back
                             </Button>
 
-                            <Button
+                            {currentStep !== "payment" && (
+                                <Button
+                                    type="button"
+                                    onClick={handleNext}
+                                    className="h-11"
+                                >
+                                    Continue
+                                    <ChevronRight className="ml-2" />
+                                </Button>
+                            )}
+
+                            {/* <Button
                                 type="button"
                                 onClick={
                                     currentStep === "payment"
@@ -159,7 +180,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
                                 className="h-11">
                                 {currentStep === "payment" ? "Complete Purchase" : "Continue"}
                                 {currentStep !== "payment" && <ChevronRight className="ml-2" />}
-                            </Button>
+                            </Button> */}
                         </div>
                     </form>
                 </Form>
