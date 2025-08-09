@@ -1,5 +1,5 @@
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Card } from "../../components/ui/card";
 import { useToast } from "../../components/ui/use-toast";
 import { MANCHESTER_UNITED_GROUND } from "./grounds/Manchester-United";
@@ -86,6 +86,7 @@ interface StadiumMap2DProps {
     selectedArea?: string;
     selectedSection2?: string | undefined;
     onSectionClick?: (sectionId: string) => void;
+    hoverTicketSection?: string;
     availableListing?: Listing[];
 }
 
@@ -94,10 +95,16 @@ const StadiumMap2D: React.FC<StadiumMap2DProps> = ({
     selectedArea,
     selectedSection2,
     onSectionClick,
+    hoverTicketSection,
     availableListing = [] }) => {
 
     const [zoom, setZoom] = useState(1);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+    // Zoom helpers
+    const zoomIn = () => setZoom((z) => Math.min(z * 1.2, 5));  // max zoom limit
+    const zoomOut = () => setZoom((z) => Math.max(z / 1.2, 0.5)); // min zoom limit
+    const resetZoom = () => { setZoom(1); setOffset({ x: 0, y: 0 }); };
 
     const isDragging = useRef(false);
     const dragStart = useRef({ x: 0, y: 0 });
@@ -129,6 +136,10 @@ const StadiumMap2D: React.FC<StadiumMap2DProps> = ({
         "Elland Road": LEEDS_UNITED_GROUND,
         "Stadium of Light": SUNDERLAND_GROUND,
     };
+
+    useEffect(() => {
+        setSelectedSection(hoverTicketSection)
+    }, [hoverTicketSection]);
 
 
     const allSections: SeatSection[] = useMemo(() => {
@@ -208,6 +219,8 @@ const StadiumMap2D: React.FC<StadiumMap2DProps> = ({
     const handleMouseLeave = () => {
         isDragging.current = false;
     };
+
+
 
 
 
@@ -393,7 +406,40 @@ const StadiumMap2D: React.FC<StadiumMap2DProps> = ({
                             </g>
 
                         </svg>
+
+                         <div className="absolute top-4 right-4 flex flex-col gap-2 z-10">
+                        <button
+                            onClick={zoomIn}
+                            className="bg-white rounded-full shadow-lg w-6 h-6 sm:w-10 sm:h-10 flex items-center justify-center border border-gray-300 hover:bg-gray-100 active:scale-95 transition transform"
+                            title="Zoom In"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 sm:w-5 sm:h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={zoomOut}
+                            className="bg-white rounded-full shadow-lg  w-6 h-6 sm:w-10 sm:h-10 flex items-center justify-center border border-gray-300 hover:bg-gray-100 active:scale-95 transition transform"
+                            title="Zoom Out"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 sm:w-5 sm:h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={resetZoom}
+                            className="bg-white rounded-full shadow-lg  w-6 h-6 sm:w-10 sm:h-10 flex items-center justify-center border border-gray-300 hover:bg-gray-100 active:scale-95 transition transform"
+                            title="Reset View"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className=" w-3 h-3 sm:w-5 sm:h-5  text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v6h6M20 20v-6h-6" />
+                            </svg>
+                        </button>
                     </div>
+                    </div>
+                   
 
                     <div className="flex items-center flex-wrap gap-2 sm:gap-4 mt-2 sm:mt-4">
                         {/* Available Seats */}

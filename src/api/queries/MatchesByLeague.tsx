@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_MATCHES_BY_LEAGUE = gql`
-query MatchesByLeague($league: String!) {
-  matchesByLeague(league: $league) {
+query MatchesByLeague($league: String!, $category: String!) {
+  matchesByLeague(league: $league, category: $category) {
     id
     slug
     title

@@ -23,6 +23,7 @@ interface TicketProps {
     ticket: Listing;
     selectedSeat: string;
     onTicketHover: (stand: string, section?: string, section_id?: string) => void;
+    onTicketUnHover: () => void;
     selectedArea: string;
     areaNames: string[];
 }
@@ -31,6 +32,7 @@ const TicketItem = ({
     ticket,
     selectedSeat,
     onTicketHover,
+    onTicketUnHover,
     selectedArea,
     areaNames,
 }: TicketProps) => {
@@ -229,41 +231,45 @@ const TicketItem = ({
     };
 
 
+    console.log("ticket:", ticket)
+
 
     return (
         <>
             <div
                 key={ticket.listing_id}
-                className={`relative bg-white rounded-2xl p-4 border shadow-sm group transition-all duration-300 cursor-pointer 
-    hover:shadow-lg hover:border-ticket-red
-    ${selectedSeat === ticket.section_name ? "bg-green-50 border-green-500 shadow-lg" : ""}
-    `}
+                className={`   m-2
+     border-b border-gray-200 group bg-gray-50
+     duration-300  hover:-translate-y-0.5 
+    group hover:bg-red-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3
+    ${selectedSeat === ticket.section_name ? "" : ""}`}
+                style={{
+                    perspective: "1000px",
+                    transformStyle: "preserve-3d",
+                }}
                 onMouseEnter={() =>
                     onTicketHover(ticket.section_stand_name, ticket.section_name, ticket.section_id)
                 }
-                onMouseLeave={() => onTicketHover(selectedArea)}
+                onMouseLeave={() => onTicketUnHover()}
             >
                 {/* Quantity Counter */}
-                <div className="absolute top-3 right-3 z-10">
-                    <div className="flex items-center gap-1 px-2 py-1 bg-white rounded-full shadow-sm border">
+                <div className="absolute top-2 right-2 z-10">
+                    <div className="flex items-center gap-1 px-2 py-0.5 bg-white rounded-full 
+        shadow-[0_1px_3px_rgba(0,0,0,0.1)] border">
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                decrement(ticket);
-                            }}
-                            className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-all p-1 rounded-full shadow-sm"
+                            onClick={(e) => { e.stopPropagation(); decrement(ticket); }}
+                            className="bg-gray-100 hover:bg-ticket-red hover:text-white 
+                transition-all p-1 rounded-full shadow-sm"
                         >
                             <Minus className="w-3 h-3" />
                         </button>
-                        <div className="text-sm font-medium min-w-[2rem] text-center">
+                        <div className="text-sm font-medium min-w-[1.75rem] text-center">
                             {ticketCount[ticket.listing_id] || 1}
                         </div>
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                increment(ticket);
-                            }}
-                            className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-all p-1 rounded-full shadow-sm"
+                            onClick={(e) => { e.stopPropagation(); increment(ticket); }}
+                            className="bg-gray-100 hover:bg-ticket-red hover:text-white 
+                transition-all p-1 rounded-full shadow-sm"
                         >
                             <Plus className="w-3 h-3" />
                         </button>
@@ -271,18 +277,20 @@ const TicketItem = ({
                 </div>
 
                 {/* Header */}
-                <header className="mb-4">
-                    <h3 className="text-sm sm:text-base font-semibold text-gray-700 group-hover:text-ticket-red">
+                <header className="mb-1">
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-700 
+        group-hover:text-ticket-red transition-colors duration-300 leading-tight">
                         {areaNames[ticket.section_stand_name]}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                        {ticket.section_stand_name} <span className="font-medium">{ticket.section_name}</span>
+                    <p className="text-xs sm:text-sm text-gray-500">
+                        {ticket.section_stand_name}{" "}
+                        <span className="font-medium">{ticket.section_name}</span>
                     </p>
                 </header>
 
                 {/* Badges */}
-                <div className="mb-3">
-                    <div className="inline-flex items-center gap-1 text-xs text-white bg-ticket-blue rounded-full px-3 py-2">
+                <div className="mb-1">
+                    <div className="inline-flex items-center gap-1 text-xs text-white bg-ticket-blue rounded-full px-2.5 py-1 shadow-sm">
                         <Armchair className="w-3 h-3" />
                         {{
                             "1": "Single Seat",
@@ -297,14 +305,15 @@ const TicketItem = ({
 
                 {/* Attributes */}
                 {ticket.attributes?.length > 0 && (
-                    <div className="flex flex-wrap gap-2 border-b pb-3 mb-3">
+                    <div className="flex flex-wrap gap-1 border-b pb-2 mb-2">
                         {ticket.attributes.map((attr, i) => {
                             const found = attributesList.find((item) => item.label === attr);
                             const Icon = found?.icon;
                             return (
                                 <span
                                     key={i}
-                                    className={`px-2 py-1 text-xs rounded-full inline-flex items-center gap-1 border ${found?.color || "bg-gray-100 text-gray-700"}`}
+                                    className={`px-1.5 py-0.5 text-xs rounded-full inline-flex items-center gap-1 border 
+                        shadow-sm ${found?.color || "bg-gray-100 text-gray-700"}`}
                                 >
                                     {Icon && <Icon className="w-3 h-3" />}
                                     {attr}
@@ -317,14 +326,15 @@ const TicketItem = ({
 
                 {/* Restrictions */}
                 {ticket.restrictions?.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    <div className="flex flex-wrap gap-1 mb-2">
                         {ticket.restrictions.map((attr, i) => {
                             const found = restrictionsList.find((item) => item.label === attr);
                             const Icon = found?.icon;
                             return (
                                 <span
                                     key={i}
-                                    className={`px-2 py-1 text-xs rounded-full inline-flex items-center gap-1 border ${found?.color || "bg-gray-100 text-gray-700"}`}
+                                    className={`px-1.5 py-0.5 text-xs rounded-full inline-flex items-center gap-1 border 
+                        shadow-sm ${found?.color || "bg-gray-100 text-gray-700"}`}
                                 >
                                     {Icon && <Icon className="w-3 h-3" />}
                                     {attr}
@@ -335,105 +345,30 @@ const TicketItem = ({
                     </div>
                 )}
 
-                {/* Footer: Price and Buy Now */}
-                <div className="flex justify-between items-center pt-2">
+                {/* Footer */}
+                <div className="flex justify-between items-center pt-1">
                     <div className="text-xs sm:text-sm text-gray-600">
                         {ticket.tickets.length} ticket{ticket.tickets.length > 1 ? "s" : ""} available
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                         <div className="text-sm sm:text-base font-semibold text-gray-800">
                             £{ticket.price}
-                            <span className="font-light text-xs text-gray-500 ml-1">/ ticket</span>
+                            <span className="font-light text-xs text-gray-500 ml-0.5">/ ticket</span>
                         </div>
                         <button
                             onClick={() => handleBuyNow(ticket)}
-                            className="px-4 py-2 text-xs sm:text-sm bg-ticket-primarycolor hover:bg-ticket-red text-white rounded-full transition-all shadow-md"
+                            className="px-3 py-1.5 text-xs sm:text-sm bg-ticket-primarycolor hover:bg-ticket-red 
+                text-white rounded-full transition-all shadow-md hover:shadow-lg"
                         >
                             Buy Now
                         </button>
                     </div>
                 </div>
-
-
-                {/* Show notice */}
-                <AnimatePresence>
-                    {showNotice && (
-                        <motion.div
-                            initial={{ scaleY: 0, opacity: 0, transformOrigin: "top" }}
-                            animate={{ scaleY: 1, opacity: 1 }}
-                            exit={{ scaleY: 0, opacity: 0 }}
-                            transition={{ duration: 0.2, ease: "easeInOut" }}
-                            className="mt-1 font-light text-orange-700 text-xs sm:text-sm text-center px-4 rounded-b-lg overflow-hidden z-10 relative"
-                        >
-                            {message}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Alert Dialogue */}
-                <WarningAlertDialouge
-                    open={showDialog}
-                    onOpenChange={setShowDialog}
-                    listing={ticket}
-                    onConfirm={() => {
-                        setshowLoading(true);
-                    }}
-                />
-
-                {/* Loading Dialogue */}
-                <LoadingDialog
-                    open={showLoading}
-                    listing={ticket}
-                    quantity={pendingQuantity}
-                    onAdded={() => {
-                        setshowLoading(false);
-                        const now = new Date();
-                        const expiresAtUTC = now.getTime() + 10 * 60 * 1000;
-
-                        setCheckoutData({
-                            ticket: pendingTicket,
-                            quantity: pendingQuantity,
-                            expiresAt: expiresAtUTC.toString(),
-                        });
-
-                        router.push('/checkout');
-                    }}
-                    onAlert={() => {
-                        setshowLoading(false);
-                        setShowCartAlert(true)
-                    }}
-                    onError={(msg) => {
-                        setshowLoading(false);
-                        toast.error(msg, {
-                            description: "Please try again later.",
-                        });
-                    }}
-                />
-
-                <AlertDialouge
-                    open={showCartAlert}
-                    onOpenChange={setShowCartAlert}
-                    confirmAction={() => {
-                        setShowCartAlert(false);
-                        const now = new Date();
-                        const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
-                        handleClearBasket();
-                    }}
-                    cancelAction={() => {
-                        setShowCartAlert(false);
-                    }}
-                    title="Replace Cart Items?"
-                    subtitle="Your basket already contains tickets."
-                    description="Adding these tickets will remove the ones already in your cart. Do you want to proceed and clear your current basket?"
-                    boldPhrases={["replace", "remove", "clear"]}
-                    confirmText="Okay, Replace"
-                    cancelText="Cancel"
-                    showCancel={true}
-                    icon={<ShoppingBasket className="w-5 h-5" />}
-                />
-
             </div>
+
+
+
 
         </>
     );

@@ -25,6 +25,7 @@ import { GET_MATCHE_BY_SLUG } from "../../../api/queries/MatcheBySlug";
 import { Match } from "../../../types/match";
 import { GET_STAND_NAMES_BY_VENUE } from "../../../api/queries/GetStandNames";
 import { Stand } from "../../../types/Stands";
+import { hover } from "framer-motion";
 
 const Tickets = () => {
 
@@ -54,6 +55,8 @@ const Tickets = () => {
   const [areaNames, setAreaNames] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState(PRIZE_RANGES[0]?.value ?? "");
   const [availableTickets, setAvailableTickets] = useState<Listing[]>([]);
+
+  const [hoverTicketSection, setHoverTicketSection] = useState<string>();
 
   // 1. Load the match data by slug
   const { data: matchData, loading: matchLoading } = useQuery(GET_MATCHE_BY_SLUG, {
@@ -202,7 +205,6 @@ const Tickets = () => {
     setSelectedSeat(null);
   };
 
-
   const handleAreaClick = (area: string) => {
     setSelectedArea(area);
     setLocation(area);
@@ -214,11 +216,22 @@ const Tickets = () => {
     setSelectedSeat(null);
   };
 
-  const handleTicketHover = (ticketArea: string, ticketSection?: string) => {
+  const handleTicketHover = (ticketArea: string, ticketSection?: string, section_id?: string) => {
     setSelectedArea(ticketArea);
-    if (ticketSection) {
-      setSelectedSeat(ticketSection);
+    console.log("section_id", section_id)
+    console.log("ticketArea", ticketArea)
+    console.log("ticketSection", ticketSection)
+    if (section_id) {
+      setHoverTicketSection(section_id);
+    } else {
+      setHoverTicketSection("");
     }
+  };
+
+  const handleTicketUnHover = () => {
+    console.log("handleTicketUnHover")
+    setHoverTicketSection("");
+
   };
 
   const handleTicketSelect = (id: string) => {
@@ -229,8 +242,6 @@ const Tickets = () => {
       setSelectedSection(ticket.section_name);
     }
   };
-
-
 
   const { data: ticketData,
     loading: ticketLoading } = useQuery(GET_TICKETS_BY_MATCH, {
@@ -540,7 +551,8 @@ const Tickets = () => {
                             listings={filteredListing}
                             selectedSeat={selectedSeat}
                             areaNames={areaNames}
-                            onTicketHover={(area, section) => handleTicketHover(area, section)}
+                            onTicketHover={(area, section, section_id) => handleTicketHover(area, section, section_id)}
+                            onTicketUnHover={handleTicketUnHover}
                             onTicketSelect={handleTicketSelect}
                             selectedArea={selectedArea}
                             selectedSection={selectedSection}
@@ -557,6 +569,7 @@ const Tickets = () => {
                         <StadiumSection
                           venue={match?.venue}
                           selectedArea={selectedSection}
+                          hoverTicketSection={hoverTicketSection}
                           onAreaClick={handleSectionClick}
                           availableListing={filteredListing}
                         />
@@ -577,6 +590,8 @@ const Tickets = () => {
                         <StadiumSection
                           venue={match?.venue}
                           selectedArea={selectedSection}
+                          hoverTicketSection={hoverTicketSection}
+
                           onAreaClick={handleSectionClick}
                           availableListing={filteredListing}
                         />
@@ -597,7 +612,8 @@ const Tickets = () => {
                             listings={filteredListing}
                             selectedSeat={selectedSeat}
                             areaNames={areaNames}
-                            onTicketHover={(area, section) => handleTicketHover(area, section)}
+                            onTicketHover={(area, section, section_id) => handleTicketHover(area, section, section_id)}
+                            onTicketUnHover={handleTicketUnHover}
                             onTicketSelect={handleTicketSelect}
                             selectedArea={selectedArea}
                             selectedSection={selectedSection}

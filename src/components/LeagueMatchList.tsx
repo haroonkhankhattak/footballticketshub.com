@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
 import LeagueCard from "./LeagueCard";
@@ -9,6 +9,8 @@ import { Props } from "../types/event";
 import { Match } from "../types/match";
 import { convertSlugToTeamName } from "../lib/teamUtils";
 import RecentNews from "./RecentNews";
+import { useQuery } from "@apollo/client";
+import { GET_MATCHES_BY_LEAGUE } from "../api/queries/MatchesByLeague";
 
 interface Team {
   name: string;
@@ -87,18 +89,17 @@ const MatchRow: React.FC<Match> = ({
 
   const price = price_starts_from;
 
-  console.log("home_team_slug:", home_team_slug)
   return (
     <Link
       href={{
         pathname: `/tickets/${slug}`,
       }}
     >
-      <div className="grid grid-cols-12 items-center m-2 border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
+      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
 
         {/* Date */}
         <div className="col-span-3 sm:col-span-1 flex flex-col items-center justify-center bg-gray-100 group-hover:bg-gray-200 transition rounded-md py-4">
-          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 rounded-full mb-1">{month}</div>
+          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 px-2 rounded-full mb-1">{month}</div>
           <div className="text-3xl font-extrabold text-ticket-blue group-hover:text-ticket-red leading-none">{day}</div>
           <div className="text-xs font-medium text-gray-400">{year}</div>
 
@@ -108,51 +109,37 @@ const MatchRow: React.FC<Match> = ({
           </div>
         </div>
 
-
-
-        <div className="col-span-9 sm:col-span-9">
+        <div className="col-span-9 sm:col-span-8 pl-4">
 
           <div className="col-span-9 sm:col-span-8 flex flex-col justify-center pl-6">
-            <div className="flex justify-center items-center border-b border-dashed space-x-8 mt-0 mb-0 pb-1">
+            <div className="flex justify-center items-center space-x-8 mt-0 mb-1">
               {/* Home Team */}
-              <div className="flex-1 flex flex-col items-center group">
+              <div className="flex flex-col items-center group">
                 <img
-                  src={`/uploads/teamlogo/${home_team_slug}.svg`}
+                  src={`uploads/teamlogo/${home_team_slug}.svg`}
                   alt={home_team}
-                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
+                  className="w-10 h-10 object-contain  group-hover:border-ticket-red transition"
                 />
-                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">
-                  {home_team}
-                </span>
-              </div>
-              {/* VS with Icon */}
-              <div className="flex flex-col items-center justify-center space-y-1">
-                {/* Icon above */}
-                <img
-                  src={`/uploads/leaguelogo/${league_slug}.png`}
-                  alt="Icon"
-                  className="w-8 h-8 object-contain opacity-30"
-                />
-                {/* VS text */}
-                <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{home_team}</span>
               </div>
 
+              {/* VS text */}
+              <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
+
               {/* Away Team */}
-              <div className="flex-1 flex flex-col items-center group">
+              <div className="flex flex-col items-center group">
                 <img
-                  src={`/uploads/teamlogo/${away_team_slug}.svg`}
+                  src={`uploads/teamlogo/${away_team_slug}.svg`}
                   alt={away_team}
-                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
+                  className="w-10 h-10 object-contain  group-hover:border-ticket-red transition"
                 />
-                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">
-                  {away_team}
-                </span>
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{away_team}</span>
               </div>
             </div>
 
             {/* Desktop view: time + location */}
             {/* Desktop view: time + location */}
-            <div className="hidden sm:flex items-center  justify-center border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap">
+            <div className="hidden sm:flex items-center justify-center border-t border-dashed border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap gap-2">
               <div className="flex items-center">
                 <Clock size={14} className="mr-1 text-gray-400" />
                 {time}
@@ -176,8 +163,8 @@ const MatchRow: React.FC<Match> = ({
 
         </div>
 
-        <div className="col-span-12 sm:col-span-2 px-0 text-center hidden sm:block">
-          <div className="btn-primary inline-block text-xs  bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+        <div className="col-span-12 sm:col-span-3 px-0 text-center hidden sm:block">
+          <div className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </div>
           <span className="inline-block font-medium text-sm">From £{price}</span>
@@ -188,72 +175,52 @@ const MatchRow: React.FC<Match> = ({
   );
 };
 
-const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) => {
+const LeagueMatchList: React.FC<Props> = ({ league }) => {
 
   const leagueName = convertSlugToTeamName(league);
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [currentCategoryFilter, setCurrentCategoryFilter] = useState<"Best Selling" | "Trending Matches" | "Fan Favorites" | "High Demand">("Best Selling");
 
-  const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
+  const filteredMatches = getFilteredMatches(
+    matches,
+    currentCategoryFilter
+  );
+
+  const { data, loading, error } = useQuery(GET_MATCHES_BY_LEAGUE, {
+    variables: { category: currentCategoryFilter, league: league },
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (data?.matchesByLeague) {
+      setMatches(data.matchesByLeague);
+    }
+  }, [data, filteredMatches]);
 
   // const team = searchParams.get("team");
 
   // Function to be passed to FilterButton to update the date filter state
-  const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
-    console.log("Filter changed to:", filterType);
-    setCurrentDateFilter(filterType);
-  };
 
   // Apply both filters using the local state for date and search param for team
-  const filteredMatches = getFilteredMatches(
-    matches,
-    currentDateFilter
-  );
 
 
-  function getFilteredMatches(events, dateFilter) {
-    if (dateFilter === "all") {
-      return events;
+
+  const handleCategoryFilterChange = (filterType: "Best Selling" | "Trending Matches" | "Fan Favorites" | "High Demand") => {
+    setCurrentCategoryFilter(filterType);
+  };
+
+  function getFilteredMatches(events, categoryFilter) {
+    switch (categoryFilter) {
+      case "Trending Matches":
+        return events.filter(e => e.category == "Trending Matches");
+      case "Fan Favorites":
+        return events.filter(e => e.category == "Fan Favorites");
+      case "High Demand":
+        return events.filter(e => e.category == "High Demand");
+      case "Best Selling":
+      default:
+        return events;
     }
-
-    // Reference current date based on the provided context (June 5, 2025).
-    // Set to midnight local time for consistent date comparison.
-    const currentDate = new Date(2025, 5, 5); // Month is 0-indexed (June is 5)
-    currentDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
-
-    let filterDays;
-    if (dateFilter === "30 days") {
-      filterDays = 30;
-    } else if (dateFilter === "7 days") {
-      filterDays = 7;
-    } else if (dateFilter === "3 days") {
-      filterDays = 3;
-    } else {
-      // If an invalid filter is provided, return all events or handle as an error.
-      // For this case, we'll default to returning all events.
-      console.warn(`Invalid date filter: ${dateFilter}. Returning all matches.`);
-      return events;
-    }
-
-    // Calculate the end date for the filter period
-    const endDate = new Date(currentDate);
-    endDate.setDate(currentDate.getDate() + filterDays);
-    endDate.setHours(23, 59, 59, 999); // Set to end of the day to include matches on the last day
-
-    // Helper map for month names to 0-indexed numbers
-    const monthNameToNumber = {
-      "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
-      "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
-    };
-
-    return events.filter(event => {
-      // Construct the event date from its properties (year, month, day)
-      // Set to midnight local time for consistent date comparison
-      const eventDate = new Date(event.year, monthNameToNumber[event.month], event.day);
-      eventDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
-
-      // Filter criteria: event must be on or after the current date,
-      // and on or before the calculated end date.
-      return eventDate >= currentDate && eventDate <= endDate;
-    });
   }
 
   // if (loading) return <div>Loading matches...</div>;
@@ -289,7 +256,7 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-7 py-4">
             <LeagueCard leagueName={leagueName} />
 
@@ -297,15 +264,15 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
               <div className="text-xl font-medium text-ticket-blue py-2 ">
                 Upcoming English Premier League Fixtures
               </div>
-              <div className="text-sm text-black py-2 ">
+              {/* <div className="text-sm text-black py-2 ">
                 {filteredMatches.length} results found.
-              </div>
+              </div> */}
               <FilterButton
-                onFilterChange={handleDateFilterChange}
-                selectedFilter={currentDateFilter}
+                onFilterChange={handleCategoryFilterChange}
+                selectedFilter={currentCategoryFilter}
               />
 
-              <div className="max-h-[600px] overflow-y-auto space-y-2">
+              <div className="h-[700px] overflow-y-auto space-y-2 thin-scrollbar">
                 {loading ? (
                   <div className="w-full py-6 flex items-center justify-center bg-white/60">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
@@ -324,7 +291,7 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
 
             <div className="space-y-4 py-4 mt-0">
 
-              <RecentNews slug={league} height={1200} />
+              {/* <RecentNews slug={league} height={1200} /> */}
             </div>
           </div>
           {/* <div className="lg:col-span-4 space-y-16">

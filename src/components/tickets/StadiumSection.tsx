@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import StadiumMap2D from "./StadiumMap2D";
-import { Listing } from "../../pages/tickets/listing";
+import { Listing } from "../../types/listing";
 
 interface StadiumSectionProps {
   venue: string;
   selectedArea: string;
   onAreaClick: (area: string) => void;
+  hoverTicketSection: string;
   availableListing?: Listing[];
 }
 
@@ -13,6 +14,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({
   venue,
   selectedArea,
   onAreaClick,
+  hoverTicketSection,
   availableListing,
 }) => {
   const [selectedSection, setSelectedSection] = useState<string | undefined>(
@@ -34,6 +36,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({
         <StadiumMap2D venue={venue}
           selectedArea={selectedArea}
           selectedSection2={selectedSection}
+          hoverTicketSection={hoverTicketSection}
           onSectionClick={handleSectionClick}
           availableListing={availableListing}
         />

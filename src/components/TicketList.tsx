@@ -9,7 +9,8 @@ interface TicketListProps {
     listings: Listing[];
     selectedSeat: string | null;
     areaNames: string[];
-    onTicketHover: (area: string, section?: string) => void;
+    onTicketHover: (area: string, section?: string, section_id?: string) => void;
+    onTicketUnHover: () => void;
     onTicketSelect: (id: string) => void;
     selectedArea: string;
     selectedSection: string;
@@ -20,6 +21,7 @@ const TicketList: React.FC<TicketListProps> = ({
     selectedSeat,
     areaNames,
     onTicketHover,
+    onTicketUnHover,
     onTicketSelect,
     selectedArea,
     selectedSection,
@@ -46,6 +48,7 @@ const TicketList: React.FC<TicketListProps> = ({
                     ticket={ticket}
                     selectedSeat={selectedSeat}
                     onTicketHover={onTicketHover}
+                    onTicketUnHover={onTicketUnHover}
                     selectedArea={selectedArea}
                     areaNames={areaNames}
                 />
