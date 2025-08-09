@@ -22,6 +22,7 @@ query Matches($category: String!, $limit: Int) {
       away_team
       highlight
       league
+      league_slug
       is_popular
       venue
       city

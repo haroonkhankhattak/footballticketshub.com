@@ -17,6 +17,7 @@ query matchBySlug($slug: String!) {
     price_starts_from
     id
     slug
+    league_slug
     commission
     commission_amount
   }

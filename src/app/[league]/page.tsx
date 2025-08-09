@@ -14,7 +14,7 @@ import { GET_MATCHES_BY_LEAGUE } from "../../api/queries/MatchesByLeague";
 import { Match } from "../../types/match";
 
 export default function League() {
-  const { league } = useParams(); 
+  const { league } = useParams();
 
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ export default function League() {
       <main className="flex-grow">
         <LeagueMatchList league={league.toString()} matches={matches} loading={loading} error={error} />
         <Testimonials />
-        <LeagueRecentNews league={league.toString()} />
+        {/* <LeagueRecentNews league={league.toString()} /> */}
         <LeagueTickets league={league.toString()} />
       </main>
       <Footer />

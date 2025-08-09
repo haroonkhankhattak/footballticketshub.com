@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { MapPin, Clock } from "lucide-react";
-import TeamCard from "./TeamCard";
+import LeagueCard from "./LeagueCard";
 import FilterButton from "../components/FilterButton";
-import { Props } from "../types/event";
 import { leagues } from "../lib/constants/leagues";
+import { Props } from "../types/event";
 // import { useCurrencyLanguage } from "../lib/CurrencyLanguageContext";
 import { Match } from "../types/match";
 import { convertSlugToTeamName } from "../lib/teamUtils";
 import RecentNews from "./RecentNews";
+import TeamCard from "./TeamCard";
+import FilterButtonDate from "./FilterButtonDate";
 
 
 interface Team {
@@ -20,8 +22,6 @@ interface LeagueSectionProps {
   title: string;
   teams: Team[];
 }
-
-let HomeTeam: string;
 
 const LeagueSection: React.FC<LeagueSectionProps> = ({ title, teams }) => {
 
@@ -58,6 +58,7 @@ const MatchRow: React.FC<Match> = ({
   date,
   league,
   title,
+  league_slug,
   home_team,
   away_team,
   home_team_slug,
@@ -95,170 +96,102 @@ const MatchRow: React.FC<Match> = ({
   // const symbol = currencySymbols[selectedCurrency] || "";
   // const price = minPrice[currencyKey] ?? "N/A";
   const price = price_starts_from;
-  const eventCode = ""; // your logic here
-  const eventTypeCode = ""; // your logic here
+  console.log("home_team_slug:", home_team_slug)
 
   return (
-    // <Link
-    //   to={`/tickets/${slug}`}
-    //   state={{
-    //     homeTeam: home_team,
-    //     eventId: id,
-    //     eventCode: eventCode,
-    //     eventTypeCode: eventTypeCode,
-    //     pageNumber: 1,
-    //     eventName: title,
-    //     categoryName: league,
-    //     day: day,
-    //     month: month,
-    //     year: year,
-    //     time: time,
-    //     venue: venue,
-    //     city: city,
-    //     country: country,
-    //     minPrice: price_starts_from,
-    //   }}
-    // >
-
-    //   <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
-
-    //     {/* Date */}
-    //     <div className="col-span-3 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
-    //       <div className="py-5">
-    //         <div className="uppercase text-[10px] sm:text-xs text-gray-800">{month}</div>
-    //         <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
-    //         <div className="text-xs sm:text-sm text-gray-400">{year}</div>
-
-    //         {/* Show time below year only on mobile */}
-    //         <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
-    //           <Clock size={12} />
-    //           <span>{time}</span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-
-
-    //     {/* Info */}
-    //     <div className="col-span-9 sm:col-span-8 pl-4">
-    //       <div className="text-[10px] sm:text-xs text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
-    //         {league}
-    //       </div>
-
-    //       <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
-    //         {title}
-    //       </div>
-
-    //       {/* Desktop view: time + location */}
-    //       <div className="hidden sm:flex items-center font-light text-sm text-gray-600 group-hover:text-gray-800 transition">
-    //         <Clock size={14} className="mr-1" />
-    //         {time}
-    //         <span className="mx-2">•</span>
-    //         <MapPin size={14} className="mr-1" />
-    //         {venue}, {city}, {country}
-    //       </div>
-
-    //       {/* Mobile view: show only location */}
-    //       <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-1">
-    //         <MapPin size={12} className="mr-1" />
-    //         {venue}, {city}, {country}
-    //       </div>
-    //     </div>
-
-
-    //     {/* View Tickets button */}
-    //     <div className="col-span-12 sm:col-span-3 px-4 text-right hidden sm:block">
-    //       <Link
-    //         to={`/tickets/${slug}`}
-    //         state={{
-    //           homeTeam: home_team,
-    //           eventId: id,
-    //           eventCode: eventCode,
-    //           eventTypeCode: eventTypeCode,
-    //           pageNumber: 1,
-    //           eventName: title,
-    //           categoryName: league,
-    //           day: day,
-    //           month: month,
-    //           year: year,
-    //           time: time,
-    //           venue: venue,
-    //           city: city,
-    //           country: country,
-    //           minPrice: price_starts_from,
-    //         }}
-    //         className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full"
-    //       >
-    //         View Tickets
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </Link>
-
-
     <Link
-      href={`/tickets/${slug}`}
+      href={{
+        pathname: `/tickets/${slug}`,
+      }}
     >
-      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
-        {/* Date */}
-        <div className="col-span-3 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
-          <div className="py-5">
-            <div className="uppercase text-[10px] sm:text-xs font-medium text-gray-800">{month}</div>
-            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red">{day}</div>
-            <div className="text-xs sm:text-sm font-medium text-gray-400">{year}</div>
+      <div className="grid grid-cols-12 items-center m-2 border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
 
-            {/* Show time below year only on mobile */}
-            <div className="mt-1 text-[10px] font-medium text-gray-600 flex items-center justify-center gap-1 sm:hidden">
-              <Clock size={12} />
-              <span>{time}</span>
-            </div>
+        {/* Date */}
+        <div className="col-span-3 sm:col-span-1 flex flex-col items-center justify-center bg-gray-100 group-hover:bg-gray-200 transition rounded-md py-4">
+          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 rounded-full mb-1">{month}</div>
+          <div className="text-3xl font-extrabold text-ticket-blue group-hover:text-ticket-red leading-none">{day}</div>
+          <div className="text-xs font-medium text-gray-400">{year}</div>
+
+          <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
+            <Clock size={12} />
+            <span>{time}</span>
           </div>
         </div>
 
 
-        <div className="col-span-9 sm:col-span-8 pl-4">
-          <div className="text-[10px] sm:text-xs font-medium text-gray-500 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
-            {league}
+
+        <div className="col-span-9 sm:col-span-9">
+
+          <div className="col-span-9 sm:col-span-8 flex flex-col justify-center pl-6">
+            <div className="flex justify-center items-center border-b border-dashed space-x-8 mt-0 mb-0 pb-1">
+              {/* Home Team */}
+              <div className="flex-1 flex flex-col items-center group">
+                <img
+                  src={`/uploads/teamlogo/${home_team_slug}.svg`}
+                  alt={home_team}
+                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
+                />
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">
+                  {home_team}
+                </span>
+              </div>
+
+              {/* VS with Icon */}
+              <div className="flex flex-col items-center justify-center space-y-1">
+                {/* Icon above */}
+                <img
+                  src={`/uploads/leaguelogo/${league_slug}.png`}
+                  alt="Icon"
+                  className="w-8 h-8 object-contain opacity-30"
+                />
+                {/* VS text */}
+                <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
+              </div>
+
+              {/* Away Team */}
+              <div className="flex-1 flex flex-col items-center group">
+                <img
+                  src={`/uploads/teamlogo/${away_team_slug}.svg`}
+                  alt={away_team}
+                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
+                />
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">
+                  {away_team}
+                </span>
+              </div>
+            </div>
+
+            {/* Desktop view: time + location */}
+            <div className="hidden sm:flex items-center  justify-center border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap">
+              <div className="flex items-center">
+                <Clock size={14} className="mr-1 text-gray-400" />
+                {time}
+              </div>
+              <span className="mx-2">•</span>
+              <div className="flex items-center">
+                <MapPin size={14} className="mr-1 text-gray-400" />
+                {venue}, {city}, {country}
+              </div>
+            </div>
+
           </div>
 
-          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-black transition">
-            {title}
-          </div>
-
-          {/* Desktop view: time + location */}
-          <div className="hidden sm:flex items-center font-medium text-sm text-gray-600 group-hover:text-gray-800 transition">
-            <Clock size={14} className="mr-1" />
-            {time}
-            <span className="mx-2">•</span>
-            <MapPin size={14} className="mr-1" />
-            {venue}, {city}, {country}
-          </div>
 
           {/* Mobile view: show only location */}
-          <div className="flex sm:hidden items-center font-medium text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-1">
-            <MapPin size={12} className="mr-1" />
-            {venue}, {city}, {country}
+          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-2 space-x-1">
+            <MapPin size={12} />
+            <span>{venue}, {city}, {country}</span>
           </div>
+
         </div>
 
-
-        {/* <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
-          <Link
-            href={ `/tickets/${slug}`
-            }
-            className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
-            View Tickets
-          </Link>
-
-          <span className="inline-block text-sm">From £{price}</span>
-        </div> */}
-
-        <div className="col-span-12 sm:col-span-3 px-4 text-center hidden sm:block">
-          <div className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+        <div className="col-span-12 sm:col-span-2 px-0 text-center hidden sm:block">
+          <div className="btn-primary inline-block text-xs  bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </div>
-          <span className="inline-block text-sm">From £{price}</span>
+          <span className="inline-block font-medium text-sm">From £{price}</span>
         </div>
+
       </div>
     </Link>
   );
@@ -266,72 +199,69 @@ const MatchRow: React.FC<Match> = ({
 
 
 const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error }) => {
-  // const [searchParams] = useSearchParams();
-  // const league = searchParams.get("league");
-  // const slug = searchParams.get("team");
-  // const { league, team } = useParams();
+
   const teamName = convertSlugToTeamName(team);
   const leagueName = convertSlugToTeamName(league);
-  HomeTeam = team;
-  const [currentDateFilter, setCurrentDateFilter] = useState<"all" | "30 days" | "7 days" | "3 days">("all");
+  const [currentDateFilter, setCurrentDateFilter] = useState<"All" | "This Month" | "This Week" | "Upcoming 3 days">("All");
 
-  // const team = searchParams.get("team");
-  HomeTeam = "team";
 
-  // Function to be passed to FilterButton to update the date filter state
-  const handleDateFilterChange = (filterType: "all" | "30 days" | "7 days" | "3 days") => {
+  const handleDateFilterChange = (filterType: "All" | "This Month" | "This Week" | "Upcoming 3 days") => {
     setCurrentDateFilter(filterType);
   };
 
-  // Apply both filters using the local state for date and search param for team
   const filteredMatches = getFilteredMatches(
     matches,
     currentDateFilter
   );
 
   function getFilteredMatches(events, dateFilter) {
-    if (dateFilter === "all") {
+    console.log("event:", events[0])
+    if (dateFilter === "All") {
       return events;
     }
 
-    // Reference current date based on the provided context (June 5, 2025).
-    // Set to midnight local time for consistent date comparison.
-    const currentDate = new Date(2025, 5, 5); // Month is 0-indexed (June is 5)
-    currentDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (dateFilter === "This Month") {
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+
+      return events.filter(event => {
+        // const eventMonth = monthNameToNumber[event.month];
+        const date = new Date(Number(event.date));
+        const month = date.getMonth();
+        const year = date.getFullYear();
+        return (
+          year === currentYear &&
+          month === currentMonth
+        );
+      });
+    }
 
     let filterDays;
-    if (dateFilter === "30 days") {
-      filterDays = 30;
-    } else if (dateFilter === "7 days") {
+    if (dateFilter === "This Week") {
       filterDays = 7;
-    } else if (dateFilter === "3 days") {
+    } else if (dateFilter === "Upcoming 3 days") {
       filterDays = 3;
     } else {
-      // If an invalid filter is provided, return all events or handle as an error.
-      // For this case, we'll default to returning all events.
       console.warn(`Invalid date filter: ${dateFilter}. Returning all matches.`);
       return events;
     }
 
-    // Calculate the end date for the filter period
     const endDate = new Date(currentDate);
     endDate.setDate(currentDate.getDate() + filterDays);
-    endDate.setHours(23, 59, 59, 999); // Set to end of the day to include matches on the last day
-
-    // Helper map for month names to 0-indexed numbers
-    const monthNameToNumber = {
-      "January": 0, "February": 1, "March": 2, "April": 3, "May": 4, "June": 5,
-      "July": 6, "August": 7, "September": 8, "October": 9, "November": 10, "December": 11
-    };
+    endDate.setHours(23, 59, 59, 999);
 
     return events.filter(event => {
-      // Construct the event date from its properties (year, month, day)
-      // Set to midnight local time for consistent date comparison
-      const eventDate = new Date(event.year, monthNameToNumber[event.month], event.day);
-      eventDate.setHours(0, 0, 0, 0); // Set time to beginning of the day
 
-      // Filter criteria: event must be on or after the current date,
-      // and on or before the calculated end date.
+      const date = new Date(Number(event.date));
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      const day = date.getDay();
+
+      const eventDate = new Date(year, month, day);
+      eventDate.setHours(0, 0, 0, 0);
       return eventDate >= currentDate && eventDate <= endDate;
     });
   }
@@ -379,7 +309,7 @@ const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error 
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
           <div className="lg:col-span-7 py-4">
             {/* <LeagueCard leagueName={league} /> */}
 
@@ -392,11 +322,11 @@ const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error 
               <div className="text-sm text-black py-2 ">
                 {filteredMatches.length} results found.
               </div>
-              <FilterButton
+              <FilterButtonDate
                 onFilterChange={handleDateFilterChange}
                 selectedFilter={currentDateFilter}
               />
-              <div className="max-h-[600px] overflow-y-auto space-y-2">
+              <div className="max-h-[700px] overflow-y-auto space-y-2">
                 {loading ? (
                   <div className="w-full py-6 flex items-center justify-center bg-white/60">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
@@ -412,11 +342,11 @@ const TeamMatchList: React.FC<Props> = ({ league, team, matches, loading, error 
             </div>
           </div>
 
-           <div className="lg:col-span-5 space-y-16">
+          <div className="lg:col-span-5 space-y-16">
 
-            <div className="space-y-4 py-4 mt-0">
+            <div className="space-y-4 py-4">
 
-              {/* <RecentNews slug={team} height={1200} /> */}
+              <RecentNews slug={team} height={1200} />
             </div>
           </div>
 

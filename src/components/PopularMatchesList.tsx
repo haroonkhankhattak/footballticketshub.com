@@ -66,7 +66,11 @@ const LeagueSection: React.FC<LeagueSectionProps> = ({
 const MatchRow: React.FC<Match> = ({
   date,
   league,
-  title,
+  league_slug,
+  home_team,
+  away_team,
+  home_team_slug,
+  away_team_slug,
   slug,
   venue,
   city,
@@ -86,62 +90,98 @@ const MatchRow: React.FC<Match> = ({
   const year = newDate.getUTCFullYear(); // 2025
   const time = newDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' }); // 02:00 PM
 
+  console.log("league_slug", league_slug);
 
   return (
     <Link
-      href={`/tickets/${slug}`}
+      href={{
+        pathname: `/tickets/${slug}`,
+      }}
     >
-
-      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-100 cursor-pointer transition">
+      <div className="grid grid-cols-12 items-center m-3 border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
 
         {/* Date */}
-        <div className="col-span-2 sm:col-span-1 bg-gray-50 text-center group-hover:bg-gray-200 transition">
-          <div className="py-5">
-            <div className="uppercase text-[10px] sm:text-xs font-semibold">{month}</div>
-            <div className="text-2xl sm:text-3xl font-bold group-hover:text-ticket-red text-ticket-blue">{day}</div>
-            <div className="text-xs sm:text-sm text-gray-400 font-semibold">{year}</div>
-
-            {/* Show time below year only on mobile */}
-            <div className="mt-1 text-[10px] font-semibold flex items-center justify-center gap-1 sm:hidden">
-              <Clock size={12} />
-              <span>{time}</span>
-            </div>
+        <div className="col-span-3 sm:col-span-1 flex flex-col items-center justify-center bg-gray-100 group-hover:bg-gray-200 transition rounded-md py-4">
+          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 px-2 rounded-full mb-1">{month}</div>
+          <div className="text-3xl font-extrabold text-ticket-blue group-hover:text-ticket-red leading-none">{day}</div>
+          <div className="text-xs font-medium text-gray-400">{year}</div>
+          <div className="mt-1 text-[10px] text-gray-600 flex items-center justify-center gap-1 sm:hidden">
+            <Clock size={12} />
+            <span>{time}</span>
           </div>
         </div>
 
-        {/* Info */}
-        <div className="col-span-8 sm:col-span-8 pl-4 ">
-          <div className="text-[10px] sm:text-xs font-semibold text-gray-600 group-hover:text-black uppercase mb-1 group-hover:sky-700 transition">
-            {league}
+
+
+        <div className="col-span-9 sm:col-span-9">
+
+          <div className="col-span-9 sm:col-span-8 flex flex-col justify-center pl-3">
+            <div className="flex justify-center items-center border-b border-dashed space-x-8 mt-0 mb-0 pb-1">
+              {/* Home Team */}
+              <div className="flex flex-col items-center group flex-1">
+                <img
+                  src={`/uploads/teamlogo/${home_team_slug}.svg`}
+                  alt={home_team}
+                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition "
+                />
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{home_team}</span>
+              </div>
+
+              {/* VS with Icon */}
+              <div className="flex flex-col items-center justify-center space-y-1">
+                {/* Icon above */}
+                <img
+                  src={`/uploads/leaguelogo/${league_slug}.png`}
+                  alt="Icon"
+                  className="w-8 h-8 object-contain opacity-30"
+                />
+                {/* VS text */}
+                <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
+              </div>
+
+              {/* Away Team */}
+              <div className="flex flex-col items-center group flex-1">
+                <img
+                  src={`/uploads/teamlogo/${away_team_slug}.svg`}
+                  alt={away_team}
+                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
+                />
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{away_team}</span>
+              </div>
+            </div>
+
+            {/* Desktop view: time + location */}
+            {/* Desktop view: time + location */}
+            <div className="hidden sm:flex items-center justify-center border-t border-dashed border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap gap-2">
+              <div className="flex items-center">
+                <Clock size={14} className="mr-1 text-gray-400" />
+                {time}
+              </div>
+              <span className="mx-2">•</span>
+              <div className="flex items-center">
+                <MapPin size={14} className="mr-1 text-gray-400" />
+                {venue}, {city}, {country}
+              </div>
+            </div>
+
           </div>
 
-          <div className="text-sm md:text-lg font-medium mb-1 group-hover:text-ticket-red text-ticket-blue transition">
-            {title}
-          </div>
 
-          {/* Desktop view: time + location */}
-          <div className="hidden sm:flex items-center font-semibold text-sm text-gray-500 group-hover:text-gray-800 transition">
-            <Clock size={14} className="mr-1" />
-            {time}
-            <span className="mx-2">•</span>
-            <MapPin size={14} className="mr-1" />
-            {venue}, {city}, {country}
-          </div>
 
           {/* Mobile view: show only location */}
-          <div className="flex sm:hidden items-center font-semibold text-[10px] text-gray-500  group-hover:text-gray-800 transition mt-1">
-            <MapPin size={12} className="mr-1" />
-            {venue}, {city}, {country}
+          <div className="flex sm:hidden items-center font-light text-[10px] text-gray-600 group-hover:text-gray-800 transition mt-2 space-x-1">
+            <MapPin size={12} />
+            <span>{venue}, {city}, {country}</span>
           </div>
+
         </div>
 
-
-        {/* View Tickets button */}
-        <div className="sm:col-span-3 px-0 text-right hidden sm:block">
-          <div className="btn-primary inline-block text-sm px-8 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+        <div className="col-span-12 sm:col-span-2 px-0 text-center hidden sm:block">
+          <div className="btn-primary inline-block text-xs px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </div>
         </div>
+
       </div>
     </Link>
 
@@ -271,7 +311,7 @@ const PopularMatchesList: React.FC<Props> = () => {
   return (
     <section className="py-8 bg-white">
       <div className="ticket-container">
-        <div className="grid lg:grid-cols-12 gap-2 px-0">
+        <div className="grid lg:grid-cols-12 gap-0 px-0">
           {/* div left */}
           <div className="lg:col-span-7">
             <div className="text-xl font-medium py-4 sticky top-0 bg-white z-10">
@@ -284,7 +324,7 @@ const PopularMatchesList: React.FC<Props> = () => {
               onFilterChange={handleCategoryFilterChange}
               selectedFilter={currentCategoryFilter}
             />
-            <div className="h-[700px] overflow-y-auto space-y-2 p-2 thin-scrollbar">
+            <div className="h-[700px] overflow-y-auto space-y-2 thin-scrollbar">
               {loading ? (
                 <div className="w-full py-6 flex items-center justify-center bg-white/60">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-ticket-primarycolor border-gray-200"></div>
@@ -303,9 +343,9 @@ const PopularMatchesList: React.FC<Props> = () => {
           {/* div right */}
           <div className="lg:col-span-5 space-y-16">
 
-            <div className="space-y-4 py-4 mt-20">
+            <div className="space-y-4 py-4 mt-0">
 
-             <RecentNews slug={'premier-league'} height={700} />
+              <RecentNews slug={'premier-league'} height={700} />
 
               {/* <div className="text-xl font-medium py-4 border-b">
                 Book With Confidence

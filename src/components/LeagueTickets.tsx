@@ -3,6 +3,7 @@ import { GET_UPCOMING_POPULAR_MATCHES } from "../api/queries/PopularUpcomingMatc
 import { useQuery } from "@apollo/client/react/hooks";
 import Link from "next/link";
 import { Match } from "../types/match";
+import { formatDate, formatDateTime } from "../lib/utils";
 
 interface LeagueTicketsProps {
     league: string;
@@ -96,7 +97,7 @@ const LeagueTickets: React.FC<LeagueTicketsProps> = ({ league }) => {
                                         {!upcomingLoading && featuredMatches.length > 0 ? (
                                             featuredMatches.map((match, index) => (
                                                 <tr key={index}>
-                                                    <td className="text-xs  border-b py-2">{match.date}</td>
+                                                    <td className="text-xs  border-b py-2">{formatDate(match.date)}</td>
                                                     <td className="text-xs  border-b py-2">{match.home_team}</td>
                                                     <td className="text-xs  border-b py-2">{match.away_team}</td>
                                                     <td className="text-xs  border-b py-2">

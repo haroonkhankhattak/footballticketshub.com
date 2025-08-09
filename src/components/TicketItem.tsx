@@ -22,7 +22,7 @@ import { useCheckoutStore } from '../app/store/checkoutStore';
 interface TicketProps {
     ticket: Listing;
     selectedSeat: string;
-    onTicketHover: (stand: string, section?: string) => void;
+    onTicketHover: (stand: string, section?: string, section_id?: string) => void;
     selectedArea: string;
     areaNames: string[];
 }
@@ -232,141 +232,128 @@ const TicketItem = ({
 
     return (
         <>
-            {/* <Toaster position="top-center" richColors /> */}
             <div
                 key={ticket.listing_id}
-                className={`relative bg-white rounded-lg p-2 group border cursor-pointer transition-all 
-                ${selectedSeat === ticket.section_name ? "bg-green-500 shadow-lg" : "shadow-md"}
-                `}
-
+                className={`relative bg-white rounded-2xl p-4 border shadow-sm group transition-all duration-300 cursor-pointer 
+    hover:shadow-lg hover:border-ticket-red
+    ${selectedSeat === ticket.section_name ? "bg-green-50 border-green-500 shadow-lg" : ""}
+    `}
                 onMouseEnter={() =>
-                    onTicketHover(ticket.section_stand_name, ticket.section_name)
+                    onTicketHover(ticket.section_stand_name, ticket.section_name, ticket.section_id)
                 }
                 onMouseLeave={() => onTicketHover(selectedArea)}
             >
                 {/* Quantity Counter */}
-                <div className="absolute top-2 right-2 z-10">
-                    <div className="flex items-center p-1 gap-1 rounded-sm bg-white">
+                <div className="absolute top-3 right-3 z-10">
+                    <div className="flex items-center gap-1 px-2 py-1 bg-white rounded-full shadow-sm border">
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
                                 decrement(ticket);
                             }}
-                            className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-colors p-2 rounded-full"
+                            className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-all p-1 rounded-full shadow-sm"
                         >
-                            <Minus className="w-2 h-2 md:w-3 md:h-3" />
+                            <Minus className="w-3 h-3" />
                         </button>
-                        <div className="flex flex-col items-center px-1">
-                            <span className="text-sm md:text-lg font-medium text-center min-w-[1.5rem]">
-                                {ticketCount[ticket.listing_id] || 1}{" "}
-                                <span className="text-xs font-light text-center">
-                                    Ticket{(ticketCount[ticket.listing_id] || 1) > 1 ? "s" : ""}
-                                </span>
-                            </span>
+                        <div className="text-sm font-medium min-w-[2rem] text-center">
+                            {ticketCount[ticket.listing_id] || 1}
                         </div>
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
                                 increment(ticket);
                             }}
-                            className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-colors p-2 rounded-full"
+                            className="bg-gray-100 hover:bg-ticket-red hover:text-white transition-all p-1 rounded-full shadow-sm"
                         >
-                            <Plus className="w-2 h-2 md:w-3 md:h-3" />
+                            <Plus className="w-3 h-3" />
                         </button>
                     </div>
                 </div>
 
                 {/* Header */}
-                <header>
-                    <h3 className="text-gray-800 mb-2 text-xs sm:text-sm font-semibold group-hover:text-ticket-red ">
-                        <span>{areaNames[ticket.section_stand_name]}</span>
-                        <span className="block text-xs sm:text-sm text-black ml-1 group-hover:text-black">
-                            {ticket.section_stand_name} {ticket.section_name}
-                        </span>
+                <header className="mb-4">
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-700 group-hover:text-ticket-red">
+                        {areaNames[ticket.section_stand_name]}
                     </h3>
+                    <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                        {ticket.section_stand_name} <span className="font-medium">{ticket.section_name}</span>
+                    </p>
                 </header>
 
                 {/* Badges */}
-                <div className="flex items-start flex-wrap gap-2 mb-2 mt-4">
-                    <ul className="flex flex-wrap gap-1 text-xs">
-                        <li>
-                            <span className="text-black px-2 py-0 inline-flex items-center gap-1">
-                                <Armchair className="w-3 h-3" />
-                                {{
-                                    "1": "Single Seat",
-                                    "2": "Up to 2 Together",
-                                    "3": "Up to 3 Together",
-                                    "4": "Up to 4 Together",
-                                    "5": "Connecting Seats",
-                                    "6": "All Together",
-                                }[ticket.togather_upto] || ""}
-                            </span>
-                        </li>
-                    </ul>
+                <div className="mb-3">
+                    <div className="inline-flex items-center gap-1 text-xs text-white bg-ticket-blue rounded-full px-3 py-2">
+                        <Armchair className="w-3 h-3" />
+                        {{
+                            "1": "Single Seat",
+                            "2": "Up to 2 Together",
+                            "3": "Up to 3 Together",
+                            "4": "Up to 4 Together",
+                            "5": "Connecting Seats",
+                            "6": "All Together",
+                        }[ticket.togather_upto] || ""}
+                    </div>
                 </div>
 
                 {/* Attributes */}
-                <div className="flex flex-wrap gap-1 pb-2 border-b mb-2">
-                    {ticket.attributes?.map((attr: string, i: number) => {
-                        const found = attributesList.find((item) => item.label === attr);
-                        const Icon = found?.icon;
-                        return (
-                            <span
-                                key={i}
-                                className={`rounded-md px-2 py-1 inline-flex items-center gap-1 text-xs border ${found?.color || "bg-gray-100 text-gray-700"
-                                    }`}
-                            >
-                                {Icon && <Icon className="w-3 h-3" />}
-                                {attr}
-                                <HintBubble item={found} />
-                            </span>
-                        );
-                    })}
-                </div>
+                {ticket.attributes?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 border-b pb-3 mb-3">
+                        {ticket.attributes.map((attr, i) => {
+                            const found = attributesList.find((item) => item.label === attr);
+                            const Icon = found?.icon;
+                            return (
+                                <span
+                                    key={i}
+                                    className={`px-2 py-1 text-xs rounded-full inline-flex items-center gap-1 border ${found?.color || "bg-gray-100 text-gray-700"}`}
+                                >
+                                    {Icon && <Icon className="w-3 h-3" />}
+                                    {attr}
+                                    <HintBubble item={found} />
+                                </span>
+                            );
+                        })}
+                    </div>
+                )}
 
                 {/* Restrictions */}
-                <div className="flex flex-wrap gap-0 mb-2">
-                    {ticket.restrictions?.map((attr: string, i: number) => {
-                        const found = restrictionsList.find((item) => item.label === attr);
-                        const Icon = found?.icon;
-                        return (
-                            <span
-                                key={i}
-                                className={`rounded-md px-2 py-1 inline-flex items-center gap-1 text-xs border ${found?.color || "bg-gray-100 text-gray-700"
-                                    }`}
-                            >
-                                {Icon && <Icon className="w-3 h-3" />}
-                                {attr}
-                                <HintBubble item={found} />
-                            </span>
-                        );
-                    })}
-                </div>
+                {ticket.restrictions?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                        {ticket.restrictions.map((attr, i) => {
+                            const found = restrictionsList.find((item) => item.label === attr);
+                            const Icon = found?.icon;
+                            return (
+                                <span
+                                    key={i}
+                                    className={`px-2 py-1 text-xs rounded-full inline-flex items-center gap-1 border ${found?.color || "bg-gray-100 text-gray-700"}`}
+                                >
+                                    {Icon && <Icon className="w-3 h-3" />}
+                                    {attr}
+                                    <HintBubble item={found} />
+                                </span>
+                            );
+                        })}
+                    </div>
+                )}
 
                 {/* Footer: Price and Buy Now */}
-                <div className="flex justify-between items-center">
-                    <div className="text-xs sm:text-sm text-black">
-                        {ticket.tickets.length} ticket
-                        {ticket.tickets.length > 1 ? "s" : ""} available
+                <div className="flex justify-between items-center pt-2">
+                    <div className="text-xs sm:text-sm text-gray-600">
+                        {ticket.tickets.length} ticket{ticket.tickets.length > 1 ? "s" : ""} available
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        <div className="text-xs sm:text-base font-semibold text-black">
-                            £{""}
-                            {ticket.price}
-                            <span className="font-thin text-xs sm:text-sm text-black">
-                                / Ticket
-                            </span>
+                    <div className="flex items-center gap-3">
+                        <div className="text-sm sm:text-base font-semibold text-gray-800">
+                            £{ticket.price}
+                            <span className="font-light text-xs text-gray-500 ml-1">/ ticket</span>
                         </div>
                         <button
                             onClick={() => handleBuyNow(ticket)}
-                            className="px-4 py-2 bg-ticket-primarycolor text-white text-xs sm:text-sm rounded-full group-hover:bg-ticket-red transition-colors"
+                            className="px-4 py-2 text-xs sm:text-sm bg-ticket-primarycolor hover:bg-ticket-red text-white rounded-full transition-all shadow-md"
                         >
                             Buy Now
                         </button>
                     </div>
                 </div>
-
 
 
                 {/* Show notice */}
@@ -435,21 +422,11 @@ const TicketItem = ({
                     }}
                     cancelAction={() => {
                         setShowCartAlert(false);
-                        // const now = new Date();
-                        // const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
-
-                        // setCheckoutData({
-                        //     ticket: pendingTicket,
-                        //     quantity: pendingQuantity,
-                        //     expiresAt: expiresAtUTC.toString(),
-                        // });
-
-                        // router.push('/checkout');
                     }}
                     title="Replace Cart Items?"
                     subtitle="Your basket already contains tickets."
                     description="Adding these tickets will remove the ones already in your cart. Do you want to proceed and clear your current basket?"
-                    boldText={["replace", "remove", "clear"]}
+                    boldPhrases={["replace", "remove", "clear"]}
                     confirmText="Okay, Replace"
                     cancelText="Cancel"
                     showCancel={true}

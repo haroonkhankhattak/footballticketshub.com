@@ -55,36 +55,36 @@ const Tickets = () => {
   const [priceRange, setPriceRange] = useState(PRIZE_RANGES[0]?.value ?? "");
   const [availableTickets, setAvailableTickets] = useState<Listing[]>([]);
 
-// 1. Load the match data by slug
-const { data: matchData, loading: matchLoading } = useQuery(GET_MATCHE_BY_SLUG, {
-  variables: { slug },
-  fetchPolicy: "network-only",
-});
+  // 1. Load the match data by slug
+  const { data: matchData, loading: matchLoading } = useQuery(GET_MATCHE_BY_SLUG, {
+    variables: { slug },
+    fetchPolicy: "network-only",
+  });
 
-// 2. Prepare lazy query for stand names
-const [getStands, { data: standsData }] = useLazyQuery(GET_STAND_NAMES_BY_VENUE, {
-  fetchPolicy: "network-only",
-});
+  // 2. Prepare lazy query for stand names
+  const [getStands, { data: standsData }] = useLazyQuery(GET_STAND_NAMES_BY_VENUE, {
+    fetchPolicy: "network-only",
+  });
 
-// 3. Once matchData is available, trigger the second query
-useEffect(() => {
-  if (matchData?.matchBySlug) {
-    const match = matchData.matchBySlug;
-    setMatch(match);
+  // 3. Once matchData is available, trigger the second query
+  useEffect(() => {
+    if (matchData?.matchBySlug) {
+      const match = matchData.matchBySlug;
+      setMatch(match);
 
-    // Fetch stands using the stadium_id
-    if (match.stadium_id) {
-      getStands({ variables: { venue: match.stadium_id } });
+      // Fetch stands using the stadium_id
+      if (match.stadium_id) {
+        getStands({ variables: { venue: match.stadium_id } });
+      }
     }
-  }
-}, [matchData]);
+  }, [matchData]);
 
-// 4. When stand data is available, update state
-useEffect(() => {
-  if (standsData?.standNamesByVenue) {
-    setStands([{ stand_name: "All" }, ...standsData.standNamesByVenue]);
-  }
-}, [standsData]);
+  // 4. When stand data is available, update state
+  useEffect(() => {
+    if (standsData?.standNamesByVenue) {
+      setStands([{ stand_name: "All" }, ...standsData.standNamesByVenue]);
+    }
+  }, [standsData]);
 
 
   const applyFilters = (listings: Listing[]) => {
@@ -276,14 +276,7 @@ useEffect(() => {
         {match && (
           <div>
             <HeroSection
-              homeTeam={match.home_team}
-              eventName={match.title}
-              categoryName={match.league}
-              date={match.date}
-              venue={match.venue}
-              city={match.city}
-              country={match.country}
-              minPrice={match.price_starts_from}
+              match={match}
             />
 
             {/* {loading && <FullScreenLoader />} */}

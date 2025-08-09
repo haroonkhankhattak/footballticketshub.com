@@ -72,7 +72,8 @@ export const premierLeagueStadiums: StadiumInfo[] = [
         stadium: "Elland Road",
         description: "Back in the Premier League, Leeds bring high-energy football and a fervent fanbase. Elland Road's atmosphere is unmatched, especially during intense Yorkshire derbies.",
     },
-    {team: "Liverpool",
+    {
+        team: "Liverpool",
         slug: "liverpool",  // Added slug
         stadium: "Anfield",
         description: "Defending champions under Arne Slot, Liverpool combine tactical acumen with attacking prowess. Despite the departure of Trent Alexander-Arnold to Real Madrid, the Reds remain a formidable force at Anfield.",

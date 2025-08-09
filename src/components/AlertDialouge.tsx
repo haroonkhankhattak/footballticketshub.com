@@ -19,7 +19,7 @@ export const AlertDialouge: React.FC<AlertInfoProps> = ({
     title,
     subtitle,
     description,
-    boldText,
+    boldPhrases,
     confirmText,
     icon,
     showCancel = false,
@@ -28,7 +28,7 @@ export const AlertDialouge: React.FC<AlertInfoProps> = ({
 
     const highlightPhrases = (text: string) => {
         let result = text;
-        boldText.forEach((phrase) => {
+        boldPhrases.forEach((phrase) => {
             const regex = new RegExp(`(${phrase})`, "g");
             result = result.replace(regex, "<strong>$1</strong>");
         });
@@ -92,19 +92,6 @@ export const AlertDialouge: React.FC<AlertInfoProps> = ({
     )
 }
 
-
-const Info = ({
-    label,
-    value,
-}: {
-    label: string
-    value: React.ReactNode | string | number | null | undefined
-}) => (
-    <div>
-        <div className="text-xs font-medium text-muted-foreground">{label}</div>
-        <div className="text-sm text-gray-900 dark:text-white">{value || "N/A"}</div>
-    </div>
-)
 
 
 

@@ -18,7 +18,7 @@ const NewsItem: React.FC<{
     <article className="flex flex-col gap-4 mt-2 p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white group max-w-4xl">
       <div className="flex gap-4">
         <div className="flex-shrink-0 w-1/4 h-15 overflow-hidden rounded-lg">
-          {/* <img
+          <img
             src={imageUrl || "uploads/icons/placeholder.png"}
             alt={title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -27,7 +27,7 @@ const NewsItem: React.FC<{
                 e.currentTarget.src = "uploads/icons/placeholder.png";
               }
             }}
-          /> */}
+          />
         </div>
 
         <div className="w-2/3 flex items-center">
@@ -51,10 +51,11 @@ const NewsItem: React.FC<{
 };
 
 const RecentNews: React.FC<{ slug: string; height: number }> = ({ slug, height }) => {
-  
+
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const limit = 10;
 
   const { data, loading, fetchMore } = useQuery(GET_BLOGS, {
@@ -70,17 +71,25 @@ const RecentNews: React.FC<{ slug: string; height: number }> = ({ slug, height }
   });
 
   const loadMore = async () => {
+    setLoadingMore(true);
     const nextPage = page + 1;
-    const { data: moreData } = await fetchMore({
-      variables: { page: nextPage, limit, slug },
-    });
 
-    if (moreData?.getBlog?.length) {
-      setBlogs((prev) => [...prev, ...moreData.getBlog]);
-      setPage(nextPage);
-      if (moreData.getBlog.length < limit) setHasMore(false);
-    } else {
-      setHasMore(false);
+    try {
+      const { data: moreData } = await fetchMore({
+        variables: { page: nextPage, limit, slug },
+      });
+
+      if (moreData?.getBlog?.length) {
+        setBlogs((prev) => [...prev, ...moreData.getBlog]);
+        setPage(nextPage);
+        if (moreData.getBlog.length < limit) setHasMore(false);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      console.error("Error loading more:", err);
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -119,9 +128,20 @@ const RecentNews: React.FC<{ slug: string; height: number }> = ({ slug, height }
                   <div className="flex justify-center mt-6">
                     <button
                       onClick={loadMore}
-                      className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                      disabled={loadingMore}
+                      className={`px-4 py-2 text-sm rounded flex items-center justify-center gap-2 transition-colors ${loadingMore
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        }`}
                     >
-                      Load More
+                      {loadingMore ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-t-transparent border-gray-600 rounded-full animate-spin" />
+                          Loading...
+                        </>
+                      ) : (
+                        "Load More"
+                      )}
                     </button>
                   </div>
                 )}

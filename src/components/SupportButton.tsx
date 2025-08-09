@@ -61,7 +61,7 @@ const SupportChat = () => {
             {!open && (
                 <button
                     onClick={openChat}
-                    className="bg-ticket-red text-white rounded-full shadow-lg p-3 hover:bg-ticket-red transition-all flex items-center gap-2"
+                    className="bg-ticket-blue text-white rounded-full shadow-lg p-3 hover:bg-ticket-red transition-all flex items-center gap-2"
                     aria-label="Open Support"
                 >
                     <FiHelpCircle className="text-xl" />
@@ -72,7 +72,9 @@ const SupportChat = () => {
             {open && (
                 <div className="w-80 bg-white shadow-2xl rounded-lg overflow-hidden border border-gray-200">
                     <div className="bg-ticket-primarycolor text-white p-3 flex justify-between items-center">
-                        <h4 className="text-base font-semibold">LiveChat</h4>
+                        <FiHelpCircle className="text-xl" />
+
+                        <h4 className="text-base font-semibold">Support</h4>
                         <button onClick={closeChat} aria-label="Close">
                             <IoClose className="text-xl hover:text-gray-300" />
                         </button>

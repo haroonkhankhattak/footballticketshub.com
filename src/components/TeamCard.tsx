@@ -7,62 +7,43 @@ interface LeagueCardProps {
     teamName: string;
 }
 
-
 const TeamCard: React.FC<LeagueCardProps> = ({ teamName }) => {
-
     const team = convertSlugToTeamName(teamName);
     const filename = CLUB_FANS[teamName];
     const imagePath = `/uploads/teamfans/${filename}`;
-
-    // if (teamName === "Brighton ") {
-    //     imagePath = `/uploads/teamfans/brighton-hove-albion.jpg`;
-    // }
-
-
     const description = getDescriptionByTeamName(teamName);
 
-
-    const capitalizeWords = (str: string) => {
-        return str
-            .toLowerCase()
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    };
-
-
-
     return (
-        <div>
-            <div className="bg-ltg-white rounded-lg border border-solid border-[rgba(238,238,238,1)] shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)]">
-                <div className="relative h-32 w-full rounded-tl-lg rounded-tr-lg md:h-36">
+        <div className="relative group">
+            <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+                {/* Top Image */}
+                <div className="relative h-40 md:h-48 lg:h-52 w-full overflow-hidden">
                     <img
-                        src={`${imagePath}`}
-                        alt={teamName}
-                        className="w-full h-full rounded-tl-lg rounded-tr-lg object-cover"
+                        src={imagePath}
+                        alt={team}
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                     />
-                </div>
-                <div className="w-full">
-                    <div className="p-4 text-center lg:p-6">
-                        <h1 className="font-dosis text-ltg-black text-2xl font-medium capitalize lg:text-[28px] lg:leading-[36px] pb-4">
-                            {team} Tickets
-                        </h1>
-
-
-                        {teamName === "Liverpool" ? (
-                            <div className="font-light max-lg:text-center text-justify text-gray-500">
-                                {description}
-                            </div>
-                        ) : (
-                            <div className="font-light max-lg:text-center text-justify text-gray-500">
-                                {description}
-                                {/* The {capitalizeWords(teamName)} is one of the most exciting football leagues in the world.
-                                <strong>Tickets for the {capitalizeWords(teamName)}</strong>
-                                are very popular. We've got the best tickets available for the 2024-2025 season. Grab this opportunity to watch the best league in the world live in action. */}
-                            </div>
-                        )}
-
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60"></div>
+                    <div className="absolute top-4 left-4 bg-white p-1 rounded-full shadow-md">
+                        <img
+                            src={`/uploads/teamlogo/${teamName}.svg`}
+                            alt={`${teamName} logo`}
+                            className="h-12 w-12 object-contain"
+                        />
                     </div>
+                    <h2 className="absolute bottom-3 left-4 text-white font-bold text-xl drop-shadow-md">
+                        {team}
+                    </h2>
+                </div>
+
+                {/* Content */}
+                <div className="px-5 py-6">
+                    <h3 className="text-xl font-bold text-ticket-blue text-center mb-3">
+                        {team} Tickets
+                    </h3>
+                    <p className="text-gray-600 text-base leading-relaxed text-justify">
+                        {description}
+                    </p>
                 </div>
             </div>
         </div>

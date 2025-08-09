@@ -87,17 +87,18 @@ const MatchRow: React.FC<Match> = ({
 
   const price = price_starts_from;
 
+  console.log("home_team_slug:", home_team_slug)
   return (
     <Link
       href={{
         pathname: `/tickets/${slug}`,
       }}
     >
-      <div className="grid grid-cols-12 items-center border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
+      <div className="grid grid-cols-12 items-center m-2 border-b border-gray-200 group hover:bg-gray-50 cursor-pointer transition transform hover:scale-[1.02] hover:shadow-md rounded-md px-4 py-3">
 
         {/* Date */}
         <div className="col-span-3 sm:col-span-1 flex flex-col items-center justify-center bg-gray-100 group-hover:bg-gray-200 transition rounded-md py-4">
-          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 px-2 rounded-full mb-1">{month}</div>
+          <div className="uppercase text-[10px] sm:text-xs font-semibold text-gray-700 bg-gray-200 rounded-full mb-1">{month}</div>
           <div className="text-3xl font-extrabold text-ticket-blue group-hover:text-ticket-red leading-none">{day}</div>
           <div className="text-xs font-medium text-gray-400">{year}</div>
 
@@ -109,37 +110,49 @@ const MatchRow: React.FC<Match> = ({
 
 
 
-        <div className="col-span-9 sm:col-span-8 pl-4">
+        <div className="col-span-9 sm:col-span-9">
 
           <div className="col-span-9 sm:col-span-8 flex flex-col justify-center pl-6">
-            <div className="flex justify-center items-center space-x-8 mt-0 mb-1">
+            <div className="flex justify-center items-center border-b border-dashed space-x-8 mt-0 mb-0 pb-1">
               {/* Home Team */}
-              <div className="flex flex-col items-center group">
+              <div className="flex-1 flex flex-col items-center group">
                 <img
-                  src={`uploads/teamlogo/${home_team_slug}.svg`}
+                  src={`/uploads/teamlogo/${home_team_slug}.svg`}
                   alt={home_team}
-                  className="w-10 h-10 object-contain  group-hover:border-ticket-red transition"
+                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
                 />
-                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{home_team}</span>
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">
+                  {home_team}
+                </span>
+              </div>
+              {/* VS with Icon */}
+              <div className="flex flex-col items-center justify-center space-y-1">
+                {/* Icon above */}
+                <img
+                  src={`/uploads/leaguelogo/${league_slug}.png`}
+                  alt="Icon"
+                  className="w-8 h-8 object-contain opacity-30"
+                />
+                {/* VS text */}
+                <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
               </div>
 
-              {/* VS text */}
-              <div className="text-ticket-blue font-semibold text-sm sm:text-base select-none">vs</div>
-
               {/* Away Team */}
-              <div className="flex flex-col items-center group">
+              <div className="flex-1 flex flex-col items-center group">
                 <img
-                  src={`uploads/teamlogo/${away_team_slug}.svg`}
+                  src={`/uploads/teamlogo/${away_team_slug}.svg`}
                   alt={away_team}
-                  className="w-10 h-10 object-contain  group-hover:border-ticket-red transition"
+                  className="w-10 h-10 object-contain group-hover:border-ticket-red transition"
                 />
-                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">{away_team}</span>
+                <span className="text-xs sm:text-sm font-semibold mt-2 text-ticket-blue uppercase">
+                  {away_team}
+                </span>
               </div>
             </div>
 
             {/* Desktop view: time + location */}
             {/* Desktop view: time + location */}
-            <div className="hidden sm:flex items-center justify-center border-t border-dashed border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap gap-2">
+            <div className="hidden sm:flex items-center  justify-center border-gray-300 text-sm text-gray-500 group-hover:text-gray-800 transition py-2 flex-wrap">
               <div className="flex items-center">
                 <Clock size={14} className="mr-1 text-gray-400" />
                 {time}
@@ -163,8 +176,8 @@ const MatchRow: React.FC<Match> = ({
 
         </div>
 
-        <div className="col-span-12 sm:col-span-3 px-0 text-center hidden sm:block">
-          <div className="btn-primary inline-block text-sm px-4 bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
+        <div className="col-span-12 sm:col-span-2 px-0 text-center hidden sm:block">
+          <div className="btn-primary inline-block text-xs  bg-ticket-primarycolor group-hover:bg-ticket-red transition rounded-full">
             View Tickets
           </div>
           <span className="inline-block font-medium text-sm">From £{price}</span>
@@ -276,7 +289,7 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
           </ul>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
           <div className="lg:col-span-7 py-4">
             <LeagueCard leagueName={leagueName} />
 
@@ -311,7 +324,7 @@ const LeagueMatchList: React.FC<Props> = ({ league, matches, loading, error }) =
 
             <div className="space-y-4 py-4 mt-0">
 
-              {/* <RecentNews slug={league} height={1200} /> */}
+              <RecentNews slug={league} height={1200} />
             </div>
           </div>
           {/* <div className="lg:col-span-4 space-y-16">

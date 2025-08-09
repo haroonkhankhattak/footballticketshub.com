@@ -1,4 +1,6 @@
 import Image from "next/image";
+import slugify from 'slugify';
+
 
 interface LeagueCardProps {
     leagueName: string;
@@ -6,38 +8,42 @@ interface LeagueCardProps {
 
 const description = `The Premier League is widely regarded as the most exciting football league in the world, known for its fast-paced, high-intensity matches and the incredible atmosphere in its stadiums. Every game is unpredictable, with even smaller clubs capable of defeating the biggest teams, ensuring that every fixture is thrilling. The league is home to many of the world’s best players and managers, attracting fans from all over the globe. While fans worldwide tune in to watch, being in the stadium offers a unique and unforgettable experience—the loud chants, passionate supporters, and thrilling moments create an electric atmosphere. From famous grounds like Old Trafford, Anfield, and the Emirates, the Premier League delivers unforgettable live football every week.`;
 
-
 const LeagueCard: React.FC<LeagueCardProps> = ({ leagueName }) => {
-    // Function to capitalize each word
-    const capitalizeWords = (str: string) => {
-        return str
+
+    const slug = slugify(leagueName, { lower: true });
+    console.log(leagueName);
+    const capitalizeWords = (str: string) =>
+        str
             .toLowerCase()
             .split(" ")
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ");
-    };
 
     return (
-        <div>
-            <div className="bg-ltg-white rounded-lg border border-solid border-[rgba(238,238,238,1)] shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)]">
-                <div className="relative h-32 w-full rounded-tl-lg rounded-tr-lg md:h-36">
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transition-transform hover:shadow-xl hover:-translate-y-1 animate-fadeIn">
+            <div className="relative group h-40 md:h-52 overflow-hidden">
+                <img
+                    src={`/uploads/leaguefans/${slug}.jpg`}
+                    alt={slug}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute top-4 left-4 bg-white p-1 rounded-full shadow-md">
                     <img
-                        src={`/uploads/leaguefans/premier-league.jpg`}
-                        alt={leagueName}
-                        className="w-full h-full rounded-tl-lg rounded-tr-lg object-cover"
+                        src={`/uploads/leaguelogo/${slug}.png`}
+                        alt={`${slug} logo`}
+                        className="h-12 w-12 object-contain"
                     />
                 </div>
-                <div className="w-full">
-                    <div className="p-4 text-center lg:p-6 text-ticket-blue">
-                        <h1 className="font-dosis text-ltg-black text-2xl font-medium capitalize lg:text-[28px] lg:leading-[36px] pb-4">
-                            {capitalizeWords(leagueName)} Tickets
-                        </h1>
-                        <div className="max-lg:text-center text-justify ">
-                            {description}
-                        </div>
-                    </div>
+            </div>
 
-                </div>
+            <div className="p-5 md:p-6 text-gray-800">
+                <h2 className="text-2xl font-bold text-ticket-blue text-center capitalize">
+                    {capitalizeWords(leagueName)} Tickets
+                </h2>
+                <p className="mt-4 text-sm md:text-base text-gray-700 text-justify leading-relaxed">
+                    {description}
+                </p>
             </div>
         </div>
     );

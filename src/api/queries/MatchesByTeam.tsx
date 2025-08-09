@@ -12,6 +12,7 @@ export const GET_MATCHES_BY_TEAM = gql`
     price_starts_from
     home_team_slug
     away_team_slug
+    league_slug
     home_team
     away_team
     league
