@@ -138,15 +138,18 @@ const TicketItem = ({
     }, [ticket]);
 
     const handleBuyNow = (ticket) => {
+
         const quantity = ticketCount[ticket.listing_id] || 0
         const allowedQuantities = getAllowedQuantities(ticket)
 
         if (allowedQuantities.includes(quantity) && ticket.restrictions?.length !== 0) {
+              console.log("ticket", "quantity needs to set")
             setPendingTicket(ticket);
             setPendingQuantity(quantity);
             setShowDialog(true);
             return;
         } else if (allowedQuantities.includes(quantity)) {
+              console.log("ticket", "quantity set correctly")
             setPendingTicket(ticket);
             setPendingQuantity(quantity);
             setshowLoading(true);
@@ -171,6 +174,7 @@ const TicketItem = ({
                 sellAsMessage = "Ticket group type not specified"
         }
 
+          console.log("ticket", "show warning message")
         setMessage(sellAsMessage)
         setShowNotice(true)
         setTimeout(() => setShowNotice(false), 4000)
@@ -230,10 +234,6 @@ const TicketItem = ({
         }
     };
 
-
-    console.log("ticket:", ticket)
-
-
     return (
         <>
             <div
@@ -282,7 +282,7 @@ const TicketItem = ({
         group-hover:text-ticket-red transition-colors duration-300 leading-tight">
                         {areaNames[ticket.section_stand_name]}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-500">
+                    <p className="text-xs sm:text-sm text-black">
                         {ticket.section_stand_name}{" "}
                         <span className="font-medium">{ticket.section_name}</span>
                     </p>
@@ -367,7 +367,92 @@ const TicketItem = ({
                 </div>
             </div>
 
+                {/* Show notice */}
+                <AnimatePresence>
+                    {showNotice && (
+                        <motion.div
+                            initial={{ scaleY: 0, opacity: 0, transformOrigin: "top" }}
+                            animate={{ scaleY: 1, opacity: 1 }}
+                            exit={{ scaleY: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            className="mt-1 font-light text-orange-700 text-xs sm:text-sm text-center px-4 rounded-b-lg overflow-hidden z-10 relative"
+                        >
+                            {message}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
+                {/* Alert Dialogue */}
+                <WarningAlertDialouge
+                    open={showDialog}
+                    onOpenChange={setShowDialog}
+                    listing={ticket}
+                    onConfirm={() => {
+                        setshowLoading(true);
+                    }}
+                />
+
+                {/* Loading Dialogue */}
+                <LoadingDialog
+                    open={showLoading}
+                    listing={ticket}
+                    quantity={pendingQuantity}
+                    onAdded={() => {
+                        setshowLoading(false);
+                        const now = new Date();
+                        const expiresAtUTC = now.getTime() + 10 * 60 * 1000;
+
+                        setCheckoutData({
+                            ticket: pendingTicket,
+                            quantity: pendingQuantity,
+                            expiresAt: expiresAtUTC.toString(),
+                        });
+
+                        router.push('/checkout');
+                    }}
+                    onAlert={() => {
+                        setshowLoading(false);
+                        setShowCartAlert(true)
+                    }}
+                    onError={(msg) => {
+                        setshowLoading(false);
+                        toast.error(msg, {
+                            description: "Please try again later.",
+                        });
+                    }}
+                />
+
+                <AlertDialouge
+                    open={showCartAlert}
+                    onOpenChange={setShowCartAlert}
+                    confirmAction={() => {
+                        setShowCartAlert(false);
+                        const now = new Date();
+                        const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
+                        handleClearBasket();
+                    }}
+                    cancelAction={() => {
+                        setShowCartAlert(false);
+                        // const now = new Date();
+                        // const expiresAtUTC = new Date(now.getTime() + 10 * 60 * 1000);
+
+                        // setCheckoutData({
+                        //     ticket: pendingTicket,
+                        //     quantity: pendingQuantity,
+                        //     expiresAt: expiresAtUTC.toString(),
+                        // });
+
+                        // router.push('/checkout');
+                    }}
+                    title="Replace Cart Items?"
+                    subtitle="Your basket already contains tickets."
+                    description="Adding these tickets will remove the ones already in your cart. Do you want to proceed and clear your current basket?"
+                    boldText={["replace", "remove", "clear"]}
+                    confirmText="Okay, Replace"
+                    cancelText="Cancel"
+                    showCancel={true}
+                    icon={<ShoppingBasket className="w-5 h-5" />}
+                />
 
 
         </>

@@ -268,7 +268,7 @@ const PersonalDetailsStep: React.FC<PersonalDetailsStepProps> = ({
                   onValueChange={field.onChange}
                   defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="h-11 text-xs text-gray-500 sm:text-lg">
+                    <SelectTrigger className="h-11 text-xs text-black sm:text-sm">
                       <SelectValue placeholder="Select your country" />
                     </SelectTrigger>
                   </FormControl>

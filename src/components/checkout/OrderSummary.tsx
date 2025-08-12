@@ -17,13 +17,13 @@ import { ShieldCheck } from "lucide-react"
 import { CLUB_FANS } from "../../lib/constants";
 // import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
 import { convertTeamNameToSlug } from "../../lib/teamUtils";
-import { Listing } from "../../pages/tickets/listing";
 import { useState } from "react";
 import { restrictionsList } from "../../lib/constants/restrictions";
 import { attributesList } from "../../lib/constants/attributes";
 import { seatingArrgOptions } from "../../lib/constants/seatingArrgOptions";
 import { HintBubble } from "../HintBubble";
 import { AlertDialouge } from "../AlertDialouge";
+import { Listing } from "../../types/listing";
 
 
 interface CheckoutLayoutProps {
@@ -379,7 +379,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                     description="Our 150% Money Back Guarantee
 With over 1,000 reviews and an excellent Trustpilot rating, we’re committed to delivering the highest quality experience. We work exclusively with trusted, approved ticket specialists to ensure reliability and peace of mind.
 99+% of customers receive their tickets on time — but if something goes wrong, we’ll refund 100% of your payment and give you a 50% credit toward your next match. That’s our 150% Money Back Guarantee."
-                    boldPhrases={
+                    boldText={
                         ["150% Money Back Guarantee",
                             "over 1,000 reviews",
                             "excellent Trustpilot rating",

@@ -111,8 +111,6 @@ const MatchRow: React.FC<Match> = ({
           </div>
         </div>
 
-
-
         <div className="col-span-9 sm:col-span-9">
 
           <div className="col-span-9 sm:col-span-8 flex flex-col justify-center pl-3">

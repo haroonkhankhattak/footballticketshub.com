@@ -25,7 +25,7 @@ import { BURNLEY_GROUND } from "./grounds/Burnley";
 import { LEEDS_UNITED_GROUND } from "./grounds/Leeds-United";
 import { SUNDERLAND_GROUND } from "./grounds/Sunderland";
 import { StadiumDescription } from "./StadiumDescription";
-import { Listing } from "../../pages/tickets/listing";
+import { Listing } from "../../types/listing";
 
 // import { StadiumDescription } from "./StadiumDescription"
 

@@ -203,8 +203,6 @@ const LeagueMatchList: React.FC<Props> = ({ league }) => {
 
   // Apply both filters using the local state for date and search param for team
 
-
-
   const handleCategoryFilterChange = (filterType: "Best Selling" | "Trending Matches" | "Fan Favorites" | "High Demand") => {
     setCurrentCategoryFilter(filterType);
   };

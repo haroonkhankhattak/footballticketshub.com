@@ -218,9 +218,9 @@ const Tickets = () => {
 
   const handleTicketHover = (ticketArea: string, ticketSection?: string, section_id?: string) => {
     setSelectedArea(ticketArea);
-    console.log("section_id", section_id)
-    console.log("ticketArea", ticketArea)
-    console.log("ticketSection", ticketSection)
+    // console.log("section_id", section_id)
+    // console.log("ticketArea", ticketArea)
+    // console.log("ticketSection", ticketSection)
     if (section_id) {
       setHoverTicketSection(section_id);
     } else {
@@ -229,7 +229,7 @@ const Tickets = () => {
   };
 
   const handleTicketUnHover = () => {
-    console.log("handleTicketUnHover")
+    // console.log("handleTicketUnHover")
     setHoverTicketSection("");
 
   };
@@ -591,7 +591,6 @@ const Tickets = () => {
                           venue={match?.venue}
                           selectedArea={selectedSection}
                           hoverTicketSection={hoverTicketSection}
-
                           onAreaClick={handleSectionClick}
                           availableListing={filteredListing}
                         />

@@ -14,7 +14,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     match
 }) => {
 
-    console.log("home", match.home_team);
     const home_team_slug = convertTeamNameToSlug(match.home_team);
     const filename = CLUB_FANS[home_team_slug];
 
