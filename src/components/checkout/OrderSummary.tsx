@@ -15,7 +15,6 @@ import { Armchair } from "lucide-react";
 import { ShieldCheck } from "lucide-react"
 
 import { CLUB_FANS } from "../../lib/constants";
-// import { useCurrencyLanguage } from "../../lib/CurrencyLanguageContext";
 import { convertTeamNameToSlug } from "../../lib/teamUtils";
 import { useState } from "react";
 import { restrictionsList } from "../../lib/constants/restrictions";
@@ -23,74 +22,30 @@ import { attributesList } from "../../lib/constants/attributes";
 import { seatingArrgOptions } from "../../lib/constants/seatingArrgOptions";
 import { HintBubble } from "../HintBubble";
 import { AlertDialouge } from "../AlertDialouge";
-import { Listing } from "../../types/listing";
+import { OrderDetails } from "../../types/orderDetails";
 
 
 interface CheckoutLayoutProps {
-    ticket: Listing,
-    quantity: number,
+    orderDetails: OrderDetails
 }
 
 
 const OrderSummary: React.FC<CheckoutLayoutProps> = ({
-    ticket: ticket,
-    quantity: quantity,
+    orderDetails
 }) => {
 
-    // const { selectedCurrency } = useCurrencyLanguage();
     const [alertOpen, setAlertOpen] = useState(false);
     const [open, setOpen] = useState(false);
 
-    // const currencySymbols: Record<string, string> = {
-    //     gbp: "£",
-    //     usd: "$",
-    //     eur: "€",
-    //     chf: "Fr",
-    //     sek: "kr",
-    //     nok: "kr",
-    //     dkk: "kr",
-    // };
-
-    // const currencyKey = selectedCurrency.toLowerCase();
-    // const symbol = currencySymbols[selectedCurrency] || "";
-
-    // const exchangeRates: Record<string, number> = {
-    //     usd: 1.25,
-    //     eur: 1.15,
-    //     chf: 1.10,
-    //     sek: 13.00,
-    //     nok: 13.50,
-    //     dkk: 8.50,
-    //     gbp: 1,
-    // };
-
-    // const ticketPrice = Number((ticket.price * (exchangeRates[currencyKey] || 1)).toFixed(0));
-
-    const ticketPrice =  Number((ticket.price).toFixed(0));
-
-
     function getFirstTeam(eventName) {
         const teams = eventName.split(' vs ');
-        return teams[0]; 
+        return teams[0];
     }
 
-    const homeTeam = getFirstTeam(ticket.match_title);
+    const homeTeam = getFirstTeam(orderDetails.ticket.match_title);
     const homeTeamSlug = convertTeamNameToSlug(homeTeam);
     const filename = CLUB_FANS[homeTeamSlug];
-    const markupPercentage = 0.3;
-    const markupAmount = ticketPrice * markupPercentage; // 30
-    const totalPrice = ticketPrice + markupAmount;       // 130
 
-    const totalMarkup = (markupAmount * quantity).toFixed(0);
-    const grandTotal = (totalPrice * quantity).toFixed(0);
-    const matchDate = new Date(Number(ticket.match_date));
-
-    const formattedDate = matchDate.toLocaleDateString("en-GB", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    });
 
     return (
 
@@ -108,11 +63,11 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                 <div>
                     <div className="flex items-center gap-2">
                         <span className="px-2 py-1 bg-sky-500/10 text-sky-500 text-xs font-medium rounded">
-                            {ticket.match_league}
+                            {orderDetails.ticket.match_league}
                         </span>
                     </div>
                     <h2 className="text-lg sm:text-xl font-semibold mt-2">
-                        {ticket.match_title}
+                        {orderDetails.ticket.match_title}
                     </h2>
                 </div>
 
@@ -120,20 +75,20 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                     <div className="flex items-center gap-2 text-gray-500">
                         <CalendarDays className="h-4 w-4 text-black" />
                         <span className="text-sm text-black font-thin">
-                            {formattedDate}
+                            {orderDetails.formatted_date}
                         </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-500">
                         <MapPin className="h-4 w-4 text-black" />
                         <span className="text-sm text-black font-thin">
-                            {ticket.match_venue}
+                            {orderDetails.ticket.match_venue}
                         </span>
                     </div>
                 </div>
 
                 <div className="space-y-3 bg-green-50 p-4 rounded-lg">
-                    {/* <div className="flex items-center gap-2 text-emerald-600">
+                    <div className="flex items-center gap-2 text-emerald-600">
                         <BadgeCheck className="h-4 w-4" />
                         <span className="text-sm font-medium">
                             150% Money Back Guarantee
@@ -143,7 +98,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                             <HelpCircle className="h-4 w-4 text-emerald-600" />
                         </div>
 
-                    </div> */}
+                    </div>
 
                     <div className="flex items-center gap-2 text-emerald-600">
                         <ShieldCheck className="h-4 w-4" />
@@ -224,7 +179,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
 
                         <div className="flex flex-col">
                             <span className="text-xs sm:text-sm text-black font-semibold">Area / Section</span>
-                            <span className="text-xs sm:text-sm text-black font-light">{ticket.section_stand_name}, {ticket.section_name}</span>
+                            <span className="text-xs sm:text-sm text-black font-light">{orderDetails.ticket.section_stand_name}, {orderDetails.ticket.section_name}</span>
                         </div>
                     </div>
 
@@ -232,10 +187,10 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                         <Armchair className="h-4 w-4 text-black mt-1" />
 
                         <div className="flex flex-col">
-                            <span className="text-xs sm:text-sm text-black font-semibold">Seats: {seatingArrgOptions[Number(ticket.togather_upto) - 1].name}</span>
+                            <span className="text-xs sm:text-sm text-black font-semibold">Seats: {seatingArrgOptions[Number(orderDetails.ticket.togather_upto) - 1].name}</span>
 
                             <span className="text-xs sm:text-sm text-black font-light">
-                                {seatingArrgOptions[Number(ticket.togather_upto) - 1].description}
+                                {seatingArrgOptions[Number(orderDetails.ticket.togather_upto) - 1].description}
                             </span>
 
                         </div>
@@ -246,7 +201,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
 
                         {/* Attributes */}
                         <div className="flex flex-wrap gap-1 pb-2 border-b mb-2 mt-2">
-                            {ticket.attributes?.map((attr: string, i: number) => {
+                            {orderDetails.ticket.attributes?.map((attr: string, i: number) => {
                                 const found = attributesList.find((item) => item.label === attr);
                                 const Icon = found?.icon;
                                 return (
@@ -258,14 +213,11 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                                         {Icon && <Icon className="w-3 h-3" />}
                                         {attr}
                                         <div className="relative inline-block">
-                                            {/* Help Icon */}
                                             <HintBubble item={found} />
-
-                                            {/* Popup Modal */}
                                             {open && (
                                                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                                                     <div className="bg-white rounded-xl shadow-lg w-80 p-6 relative">
-                                                        {/* Close Button */}
+                                                        Close Button
                                                         <button
                                                             onClick={() => setOpen(false)}
                                                             className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"
@@ -273,14 +225,12 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                                                             <X className="h-5 w-5" />
                                                         </button>
 
-                                                        {/* Content */}
                                                         <h2 className="text-lg font-bold mb-1">Need Help?</h2>
                                                         <h3 className="text-sm text-gray-700 mb-2">Understanding This Feature</h3>
                                                         <p className="text-sm text-gray-600 mb-4">
                                                             This icon explains the feature in more detail. Click OK to continue or close to dismiss.
                                                         </p>
 
-                                                        {/* Buttons */}
                                                         <div className="flex justify-end space-x-2">
                                                             <button
                                                                 onClick={() => setOpen(false)}
@@ -309,7 +259,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
 
                         {/* Restrictions */}
                         <div className="flex flex-wrap gap-1 mb-2">
-                            {ticket.restrictions?.map((attr: string, i: number) => {
+                            {orderDetails.ticket.restrictions?.map((attr: string, i: number) => {
                                 const found = restrictionsList.find((item) => item.label === attr);
                                 const Icon = found?.icon;
                                 return (
@@ -320,7 +270,7 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                                     >
                                         {Icon && <Icon className="w-3 h-3" />}
                                         {attr}
-                                        {/* Help Icon */}
+                                        Help Icon
                                         <HintBubble item={found} />
                                     </span>
                                 );
@@ -335,24 +285,24 @@ const OrderSummary: React.FC<CheckoutLayoutProps> = ({
                 <div className="space-y-1">
                     <div className="flex font-semibold text-sm sm:text-lg justify-between text-black">
                         <span>Price per ticket</span>
-                        <span className="font-semibold">£ {ticketPrice}</span>
+                        <span className="font-semibold">£ {orderDetails.ticket.price}</span>
                     </div>
 
                     <div className="flex font-semibold text-sm sm:text-lg justify-between text-black">
                         <span>Quantity</span>
-                        <span className="font-semibold">{quantity}x</span>
+                        <span className="font-semibold">{orderDetails.quantity}x</span>
                     </div>
 
                     <div className="flex font-semibold text-sm sm:text-lg justify-between text-black">
                         <span>Service Fee + Tax</span>
-                        <span className="font-semibold">£ {totalMarkup}</span>
+                        <span className="font-semibold">£ {orderDetails.commission_amount}</span>
                     </div>
 
                     <hr className="border-t-1 border-dashed border-gray-400" />
 
                     <div className="flex justify-between text-sm sm:text-lg font-bold">
                         <span>Total</span>
-                        <span>£ {grandTotal}</span>
+                        <span>£ {orderDetails.total_amount}</span>
                     </div>
                 </div>
 
@@ -395,6 +345,7 @@ With over 1,000 reviews and an excellent Trustpilot rating, we’re committed to
             </CardContent>
         </Card>
     );
+    
 };
 
 export default OrderSummary;

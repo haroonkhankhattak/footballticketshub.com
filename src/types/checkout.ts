@@ -1,3 +1,8 @@
+export interface Visitor {
+  firstName: string;
+  lastName: string;
+}
+
 export interface CheckoutFormData {
   // Step 1: Your Details
   email: string;
@@ -14,17 +19,18 @@ export interface CheckoutFormData {
   acceptUpdates: boolean;
 
   // Step 2: Visitor Details
-  visitor1FirstName: string;
-  visitor1LastName: string;
-
-  visitor2FirstName: string;
-  visitor2LastName: string;
+  visitors: Visitor[];
 
   // Step 3: Payment Details
   cardNumber: string;
   expiryDate: string;
   cvv: string;
   cardHolderName: string;
+  totalAmount: number;
+  perTicketPrice: number;
+  ticketsQuantity: number;
+  commissionAmount: number;
 }
+
 
 export type CheckoutStep = "details" | "visitor" | "payment";

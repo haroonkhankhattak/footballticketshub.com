@@ -23,6 +23,7 @@ query GetListingsByMatch($eventId: ID!, $page: Int, $limit: Int) {
       match_slug
       match_league
       match_league_slug
+      match_commission
       section_name
       section_stand_name
       section_tier

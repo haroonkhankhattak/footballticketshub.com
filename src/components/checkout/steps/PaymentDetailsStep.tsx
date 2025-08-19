@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Control } from "react-hook-form";
+import { Control, useFormContext } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -19,39 +19,103 @@ import {
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import ApplePayIcon from '/public/uploads/icons/apple-pay.svg';
-
+import { useCheckoutStore } from "../../../app/store/checkoutStore";
+import { CREATE_ORDER } from "../../../api/queries/CreateOrder";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { totalmem } from "os";
+import { OrderDetails } from "../../../types/orderDetails";
 
 
 interface PaymentDetailsStepProps {
   control: Control<CheckoutFormData>;
+  orderDetails: OrderDetails;
 }
 
-const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
+const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control, orderDetails }) => {
 
+  // const { ticket, quantity, expiresAt } = useCheckoutStore();
+
+  const [clientSecret, setClientSecret] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [clientSecret, setClientSecret] = useState('');
 
   const [selectedMethod, setSelectedMethod] = useState<
     "card" | "apple" | "google"
   >("card");
 
+
   const stripe = useStripe();
   const elements = useElements();
 
-  useEffect(() => {
 
-    fetch("/api/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: 1000, currency: "usd" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data:::", data);
-        setClientSecret(data.clientSecret);
-      });
-  }, []);
+  const { getValues } = useFormContext<CheckoutFormData>();
+  const person = getValues();
+
+  console.log("person details", person)
+  console.log("order details", orderDetails)
+
+  const orderInput = {
+    address: person.address ?? "",
+    broker_id: orderDetails.ticket?.broker_id ?? "",
+    city: person.city ?? "",
+    country: person.country ?? "",
+    email: person.email ?? "",
+    first_name: person.firstName ?? "",
+    last_name: person.lastName ?? "",
+    match: orderDetails.ticket?.match_title ?? "",
+    payment_method: selectedMethod,
+    phone: person.phone ?? "",
+    postal_code: person.postcode ?? "",
+    stripe_payment_id: "",
+    total_amount: orderDetails.total_amount ?? 0,
+    commission: orderDetails.commission ?? 0,
+    commission_amount: orderDetails.commission_amount ?? 0,
+    price_per_ticket: orderDetails.ticket.price ?? 0,
+    quantity: orderDetails.quantity ?? 0,
+    send_promotion: person.acceptUpdates ?? false,
+  };
+
+
+
+
+  // const [createOrder, { data, loading: orderLoading, error }] = useLazyQuery(CREATE_ORDER, {
+  //   fetchPolicy: "network-only",
+  // });
+
+
+  const [createOrder] = useMutation(CREATE_ORDER);
+
+
+
+  // useEffect(() => {
+  //   if (data?.matchesByTeam) {
+  //     console.log(data.matchesByTeam)
+  //   }
+  // }, [data]);
+
+
+  // useEffect(() => {
+  //   console.log("ticket for checkout expiresAt:", expiresAt);
+  //   if (!ticket || !quantity || !expiresAt) {
+  //     console.warn("No ticket found, redirect or show error");
+  //     console.log();
+  //   }
+  // }, [ticket]);
+
+
+  // useEffect(() => {
+
+  //   fetch("/api/create-payment-intent", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ amount: 1000, currency: "usd" }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("data:::", data);
+  //       setClientSecret(data.clientSecret);
+  //     });
+  // }, []);
 
 
   const handleCardPayment = async () => {
@@ -59,24 +123,64 @@ const PaymentDetailsStep: React.FC<PaymentDetailsStepProps> = ({ control }) => {
 
     setLoading(true);
 
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement)!,
-        billing_details: {
-          name: "name",
-        },
+    createOrder({
+      variables: {
+        input: orderInput,
       },
-    });
+    })
+      .then(response => {
+        const result = response?.data?.addToBasket;
 
-    if (result.error) {
-      setMessage(result.error.message || "Payment failed");
-    } else if (result.paymentIntent?.status === "succeeded") {
-      setMessage("Payment successful!");
-    }
-    setLoading(false);
+        if (!result?.success) {
+          console.log("Order Error:", result.message);
+          return;
+        }
+
+        console.log("Success:", result);
+        // onAdded();
+      })
+      .catch(err => {
+        console.error("GraphQL Error:", err);
+
+        const graphQLError = err?.graphQLErrors?.[0];
+
+        const code = graphQLError?.extensions?.code || "UNKNOWN_ERROR";
+        const message = graphQLError?.message || err?.message || "An unexpected error occurred.";
+
+        console.log("GraphQL Error Code:", code);
+        // onError(`${message} (Code: ${code})`);
+      });
+
+
+    // const { data: orderData } = await createOrder({
+    //   variables: { input: orderInput },
+    // });
+
+    // if (!orderData) {
+    //    setMessage("Failed to create order");
+    //    setLoading(false);
+    //   return;
+    // }
+
+    // console.log("Order created:", orderData);
+
+
+    // const result = await stripe.confirmCardPayment(clientSecret, {
+    //   payment_method: {
+    //     card: elements.getElement(CardElement)!,
+    //     billing_details: {
+    //       name: "name",
+    //     },
+    //   },
+    // });
+
+    // if (result.error) {
+    // setMessage(result.error.message || "Payment failed");
+    // } else if (result.paymentIntent?.status === "succeeded") {
+    // setMessage("Payment successful!");
+    // }
+    // setLoading(false);
   };
-
-
 
 
   return (

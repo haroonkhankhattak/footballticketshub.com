@@ -11,23 +11,23 @@ import PaymentDetailsStep from "./steps/PaymentDetailsStep";
 import { cn } from "../../lib/utils";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from '@stripe/stripe-js';
-
+import { OrderDetails } from "../../types/orderDetails";
 
 
 
 
 interface CheckoutFormProps {
-    ticketCount: number;
+    orderDetails: OrderDetails
 }
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY!);
 
-const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
+const CheckoutForm: React.FC<CheckoutFormProps> = ({ orderDetails }) => {
     const [currentStep, setCurrentStep] = React.useState<CheckoutStep>("details");
 
     const form = useForm<CheckoutFormData>({
         defaultValues: {
-            visitors: Array(ticketCount).fill({ firstName: "", lastName: "" }),
+            visitors: Array(orderDetails.quantity).fill({ firstName: "", lastName: "" }),
         },
     });
 
@@ -76,9 +76,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
                     "acceptTerms",
                 ];
             case "visitor":
-                return Array.from({ length: ticketCount }).flatMap((_, i) => [
-                    `visitors.${i}.firstName`,
-                    `visitors.${i}.lastName`,
+                return Array.from({ length: orderDetails.quantity }).flatMap((_, i) => [
+                    `visitors.${i}.firstName` as const,
+                    `visitors.${i}.lastName` as const,
                 ]);
             case "payment":
                 return ["cardNumber", "expiryDate", "cvv", "cardHolderName"];
@@ -142,7 +142,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ ticketCount }) => {
                         )}
                         {currentStep === "payment" && (
                             <Elements stripe={stripePromise}>
-                                <PaymentDetailsStep control={control} />
+                                <PaymentDetailsStep control={control} orderDetails={orderDetails} />
                             </Elements>
                         )}
 

@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import OrderSummary from "./OrderSummary";
+import React, { useEffect, useState } from "react";
 import CheckoutForm from "./CheckoutForm";
-import { Listing } from "../../pages/tickets/listing";
 import { ArrowLeft, ShoppingBasket, ShoppingCartIcon } from "lucide-react";
 import { CLEAR_BASKET } from "../../api/queries/ClearBasket";
 import { useMutation } from "@apollo/client";
@@ -9,19 +7,87 @@ import { AlertDialouge } from "../AlertDialouge";
 import FullScreenLoader from "../FullScreenLoader";
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
+import { Listing } from "../../types/listing";
+import { convertTeamNameToSlug } from "../../lib/teamUtils";
+import { CLUB_FANS } from "../../lib/constants";
+import { OrderDetails } from "../../types/orderDetails";
+import OrderSummary from "./OrderSummary";
+
 
 interface CheckoutLayoutProps {
     ticket: Listing,
-    quantity: number,
+    quantity: number
 }
 
 const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
     ticket: ticket,
-    quantity: quantity,
+    quantity: quantity
 }) => {
     const router = useRouter();
     const [showCartAlert, setShowCartAlert] = useState(false);
     const [showLoading, setshowLoading] = useState(false);
+
+
+    const initialOrderSummary: OrderDetails = {
+        ticket: ticket,
+        formatted_date: "",
+        total_amount: 0,
+        quantity: 0,
+        commission: 0,
+        commission_amount: 0
+    };
+
+    const [orderDetails, setOrderDetails] = useState<OrderDetails>(initialOrderSummary);
+
+    const ticketPrice = Number((ticket.price).toFixed(0));
+
+    function getFirstTeam(eventName) {
+        const teams = eventName.split(' vs ');
+        return teams[0];
+    }
+
+    const homeTeam = getFirstTeam(ticket.match_title);
+    const homeTeamSlug = convertTeamNameToSlug(homeTeam);
+    const filename = CLUB_FANS[homeTeamSlug];
+    const markupPercentage = ticket.match_commission;
+    const markupAmount = ticketPrice * markupPercentage;
+    const totalPrice = ticketPrice + markupAmount;
+    const totalMarkup = (markupAmount * quantity).toFixed(0);
+    const matchDate = new Date(Number(ticket.match_date));
+    const formattedDate = matchDate.toLocaleDateString("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
+
+
+    useEffect(() => {
+    if (!ticket) return;
+
+    const ticketPrice = Number(ticket.price.toFixed(0));
+    const commissionRate = ticket.match_commission / 100;
+    const markupAmount = ticketPrice * commissionRate;
+    const totalPrice = ticketPrice + markupAmount;
+    const totalMarkup = (markupAmount * quantity).toFixed(0);
+
+    const matchDate = new Date(Number(ticket.match_date));
+    const formattedDate = matchDate.toLocaleDateString("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
+
+    setOrderDetails({
+        ticket: ticket,
+        formatted_date: formattedDate,
+        commission: ticket.match_commission,
+        quantity: quantity,
+        commission_amount: Number(totalMarkup),
+        total_amount: Number((totalPrice * quantity).toFixed(0)),
+    });
+}, [ticket, quantity]);
 
 
     const [clearBasket, { data, loading, error }] = useMutation(CLEAR_BASKET, {
@@ -86,14 +152,13 @@ const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
             <div className=" hidden sm:block">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
                     <div className="lg:col-span-8">
-                        <CheckoutForm ticketCount={quantity} />
+                        <CheckoutForm orderDetails={orderDetails} />
                     </div>
 
                     <div className="lg:col-span-4">
                         <OrderSummary
                             {...{
-                                ticket: ticket,
-                                quantity: quantity,
+                                orderDetails: orderDetails
                             }}
                         />
                     </div>
@@ -108,14 +173,13 @@ const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
                     <div className="lg:col-span-4">
                         <OrderSummary
                             {...{
-                                ticket: ticket,
-                                quantity: quantity,
+                                orderDetails: orderDetails
                             }}
                         />
                     </div>
 
                     <div className="lg:col-span-8 mt-2">
-                        <CheckoutForm ticketCount={quantity} />
+                        <CheckoutForm orderDetails={orderDetails} />
                     </div>
 
                 </div>
@@ -138,7 +202,6 @@ const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({
             />
 
             {showLoading && <FullScreenLoader />}
-
 
         </div>
     );

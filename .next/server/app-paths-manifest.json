@@ -1,3 +1,5 @@
 {
-  "/tickets/[slug]/page": "app/tickets/[slug]/page.js"
+  "/[league]/[team]/page": "app/[league]/[team]/page.js",
+  "/[league]/page": "app/[league]/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

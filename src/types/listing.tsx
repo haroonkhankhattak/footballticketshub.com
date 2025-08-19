@@ -12,8 +12,8 @@ export type Listing = {
     togather_upto: string;
     status: string;
     sold_to: string | null;
-    sold_date_at: string | null; // ISO date string
-    sold_time_at: string | null; // ISO time string
+    sold_date_at: string | null; 
+    sold_time_at: string | null; 
     created_at: string;
     updated_at: string;
     stadium_id: string;
@@ -23,13 +23,14 @@ export type Listing = {
     shipping_type: string;
     sell_as: string;
 
-    // Match details
+
     match_title: string;
-    match_date: string; // ISO date string
+    match_date: string; 
     match_venue: string;
     match_slug: string;
     match_league: string;
     match_league_slug: string;
+    match_commission: number;
 
     // Section details
     section_name: string;
